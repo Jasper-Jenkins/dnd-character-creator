@@ -51,10 +51,10 @@ class Races extends Component {
         if (races.results === undefined) {
             return (<div><p>...Loading race API</p></div>)
         } else {
-            return (<div>
-                <RaceInfo raceSelected={raceSelected} />
-                <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} />
-            </div>)
+            return (<div className="creation">
+                        <RaceInfo raceSelected={raceSelected} />
+                        <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} />
+                    </div>)
         }
     }
 } 
