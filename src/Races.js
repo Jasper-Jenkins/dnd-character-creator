@@ -49,14 +49,22 @@ class Races extends Component {
         const { raceSelected } = this.state
 
         if (races.results === undefined) {
-            return (<div><p>...Loading race API</p></div>)
+            return (<div className="row">
+                        <div className="col">
+                            <p>...Loading race API</p>
+                        </div>
+                    </div>);
         } else {
-            return (<div className="creation">
-                        <RaceInfo raceSelected={raceSelected} />
-                        <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} />
-                    </div>)
-        }
+            return (<div className="row">
+                        <div className="col creation">
+                            <RaceInfo raceSelected={raceSelected} />
+                            <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} />
+                        </div>
+                    </div>);
+            }
     }
 } 
+
+
 
 export default Races

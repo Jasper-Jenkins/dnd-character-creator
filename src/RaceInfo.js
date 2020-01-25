@@ -4,16 +4,19 @@ const RaceInfo = (props) => {
     console.log("RACE INFO PROPS", props)
     if (props.raceSelected.name === undefined) {
         return (
-            <div id="raceInfo">
-                <p>...Choose your race</p>
-            </div>)
+            <div className="row">
+                <div className="col raceInfo">
+                    <p>...Choose your race</p>
+                </div>
+            </div>);
     } else {
-        return (
-            <div id="raceInfo">
+        return (<div className="row">
+            <div className="col raceInfo">
                 <p>{props.raceSelected.name}</p>
                 <p>{props.raceSelected.speed}</p>
                 <p>{props.raceSelected.alignment}</p>
-            </div>)    
+            </div>
+        </div>);    
         }
         
     }
