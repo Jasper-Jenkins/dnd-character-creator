@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RaceInfo = (props) => {
+const Info = (props) => {
     switch (props.category) {
         case 'races':
             if (props.isRaceSelected) {
@@ -42,4 +42,4 @@ const RaceInfo = (props) => {
         }
     }
     
-export default RaceInfo
+export default Info

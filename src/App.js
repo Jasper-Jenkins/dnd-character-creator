@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Selection from './Selection'
-import RaceInfo from './RaceInfo'
-import ClassInfo from './ClassInfo'
+import Info from './Info'
 import Navigation from './Navigation'
 
 class App extends Component {
@@ -10,10 +9,10 @@ class App extends Component {
         const url = 'http://www.dnd5eapi.co/api/'
         fetch(url + 'races')
             .then(result => result.json())
-            .then(result => { this.setState({ races: result, }, this.getRaceInfo(result)) });
+            .then(result => { this.setState({ races: result, }, this.getInfo(result, 'races')) });
         fetch(url + 'classes')
             .then(result => result.json())
-            .then(result => { this.setState({ classes: result, }, this.getClassInfo(result)) });
+            .then(result => { this.setState({ classes: result, }, this.getInfo(result, 'classes')) });
     }
 
     state = {
@@ -49,29 +48,28 @@ class App extends Component {
         this.setState({ navigation: category })
     }
 
-
-    getRaceInfo(data) {
+    getInfo(data, category) {
         let info = []
         const url = 'http://www.dnd5eapi.co'
-        for (var i = 0; i < data.results.length; i++) {
-            fetch(url + data.results[i].url)
-                .then(result => result.json())
-                .then(result => info.push(result))
-
+        switch(category) {
+            case 'races':
+                for (var i = 0; i < data.results.length; i++) {
+                    fetch(url + data.results[i].url)
+                        .then(result => result.json())
+                        .then(result => info.push(result))
+                }
+                this.setState({ racesInfo: info, })
+            break;
+            case 'classes':
+                for (var j = 0; j < data.results.length; j++) {
+                    fetch(url + data.results[j].url)
+                        .then(result => result.json())
+                        .then(result => info.push(result))
+                }
+                this.setState({ classesInfo: info, })
+            break;
+            default:
         }
-        this.setState({ racesInfo: info, })
-    }
-
-    getClassInfo(data) {
-        let info = []
-        const url = 'http://www.dnd5eapi.co'
-        for (var i = 0; i < data.results.length; i++) {
-            fetch(url + data.results[i].url)
-                .then(result => result.json())
-                .then(result => info.push(result))
-
-        }
-        this.setState({ classesInfo: info, })
     }
 
     displayRaceInfo = index => {
@@ -95,6 +93,9 @@ class App extends Component {
             }
         }
     }
+
+
+    displayInfo
 
 
 
@@ -126,7 +127,7 @@ class App extends Component {
                 case 'characterRace':
                     return (<div className="row">
                         <div className="col creation">
-                            <RaceInfo raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' />
+                            <Info raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' />
                             <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} category='races' />
                             <Navigation categories={navigationCategories} navigate={this.navigate} />
                         </div>
@@ -134,7 +135,7 @@ class App extends Component {
                 case 'characterClass':
                     return (<div className="row">
                         <div className="col creation">
-                            <RaceInfo classSelected={classSelected} isClassSelected={isClassSelected} category='classes' />
+                            <Info classSelected={classSelected} isClassSelected={isClassSelected} category='classes' />
                             <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} category='classes' />
                             <Navigation categories={navigationCategories} navigate={this.navigate} />
                         </div>
