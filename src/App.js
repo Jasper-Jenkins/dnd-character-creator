@@ -3,6 +3,10 @@ import Selection from './Selection'
 import Info from './Info'
 import Navigation from './Navigation'
 
+
+const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Professions']
+
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +17,10 @@ class App extends Component {
         fetch(url + 'classes')
             .then(result => result.json())
             .then(result => { this.setState({ classes: result, }, this.getInfo(result, 'classes')) });
+        fetch(url + 'ability-scores')
+            .then(result => result.json())
+            .then(result => { this.setState({ abilityScores: result, }, this.getInfo(result, 'classes')) });
+
     }
 
     state = {
@@ -29,10 +37,18 @@ class App extends Component {
         classSelected: {},
         classChosen: {}, 
         ///////
+        abilityScores: {},
+        abilityScoresInfo: [],
+        abilityScoresSelected: {},
+        abilityScoresChosen: {},
+
+        ///////
         isRaceSelected: false,
         isClassSelected: false,
         isRaceChosen: false,
         isClassChosen: false,
+        isAbilityScoresSelected: false,
+        isAbilityScoresChosen: false,
     }
 
     componentDidMount() {
@@ -40,8 +56,8 @@ class App extends Component {
     }
 
     navigation() {
-        this.setState({ navigation: 'characterRace' }) // default to race 
-        this.setState({ navigationCategories: ['characterRace','characterClass']})
+        this.setState({ navigation: characterCategories[0] }) // default to race 
+        this.setState({ navigationCategories: [characterCategories[0], characterCategories[1]]})
     }
 
     navigate = (category) => {
@@ -67,7 +83,15 @@ class App extends Component {
                         .then(result => info.push(result))
                 }
                 this.setState({ classesInfo: info, })
-            break;
+                break;
+            case 'ability-scores':
+                for (var k = 0; k < data.results.length; k++) {
+                    fetch(url + data.results[k].url)
+                        .then(result => result.json())
+                        .then(result => info.push(result))
+                }
+                this.setState({ abilityScoresInfo: info, })
+                break;
             default:
         }
     }
@@ -95,7 +119,9 @@ class App extends Component {
     }
 
 
-    displayInfo
+
+
+
 
 
 
@@ -126,7 +152,7 @@ class App extends Component {
                     </div>);
         } else {
             switch (navigation) {
-                case 'characterRace':
+                case characterCategories[0]:
                     return (<div className="container-fluid">
                                 <div className="row creation">
                                     <div className="col-12">
@@ -142,7 +168,7 @@ class App extends Component {
                                     </div>
                                 </div>
                             </div>);
-                case 'characterClass':
+                case characterCategories[1]:
                     return (<div className="container-fluid">
                                 <div className="row creation">
                                     <div className="col-12">

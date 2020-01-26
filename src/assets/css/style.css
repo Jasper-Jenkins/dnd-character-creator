@@ -1,22 +1,23 @@
 
 .creation {
-    background-color: orangered;    
-    height: 100vh; 
- 
+    background-color: orangered;
+    height: 100vh;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .info{
     background-color:green;
     margin:0px;
-    padding:0px;
-    height:auto;
+    padding:10px;
+    height:400px;
 }
 
 .selection {
     background-color: aqua;
     padding: 0px;
     margin:0px;
- 
+    
 }
 
 .navigation {
