@@ -6,8 +6,8 @@ const Navigation = (props) => {
     let navbuttons = props.categories.map((category, index) => {
         return <button onClick={() => props.navigate(category)} className='btn btn-primary' key={index}>{category}</button>
     })
-    return (<div className="row">
-                <div className="col text-center">{navbuttons}</div>
-            </div>);
+    return (
+                <div className="col text-center navigation">{navbuttons}</div>
+            );
 }
 export default Navigation

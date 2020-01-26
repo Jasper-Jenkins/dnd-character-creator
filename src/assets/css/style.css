@@ -1,14 +1,26 @@
-.selection {
-    background-color: aliceblue;
- }
 
 .creation {
-    background-color: teal;    
+    background-color: orangered;    
+    height: 100vh; 
+ 
 }
 
-.raceInfo{
+.info{
     background-color:green;
-    margin: 0px 10px;
-    height: 500px;
+    margin:0px;
+    padding:0px;
+    height:auto;
 }
+
+.selection {
+    background-color: aqua;
+    padding: 0px;
+    margin:0px;
+ 
+}
+
+.navigation {
+    height: 10vh;
+}
+
 

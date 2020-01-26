@@ -4,41 +4,28 @@ const Info = (props) => {
     switch (props.category) {
         case 'races':
             if (props.isRaceSelected) {
-                return (<div className="row">
-                    <div className="col raceInfo">
-                        <p>{props.raceSelected.name}</p>
-                        <p>{props.raceSelected.speed}</p>
-                        <p>{props.raceSelected.alignment}</p>
-                    </div>
-                </div>);
+                return (<div className="col-12 info">
+                            <p>{props.raceSelected.name}</p>
+                            <p>{props.raceSelected.speed}</p>
+                            <p>{props.raceSelected.alignment}</p>
+                        </div>);
             } else {
-                return (
-                    <div className="row">
-                        <div className="col raceInfo">
+                return (<div className="col-12 info">
                             <p>...Choose your race</p>
-                        </div>
-                    </div>);
+                        </div>);
             }
         case "classes":
             if (props.isClassSelected) {
-                return (<div className="row">
-                    <div className="col classInfo">
-                        <p>{props.classSelected.name}</p>
-                    </div>
-                </div>);
+                return (<div className="col-12 info">
+                            <p>{props.classSelected.name}</p>
+                        </div>);
             } else {
-                return (
-                    <div className="row">
-                        <div className="col classInfo">
+                return (<div className="col-12 info">
                             <p>...Choose your class</p>
-                        </div>
-                    </div>);
-            }
-
-            
+                        </div>);
+            }            
         default:
             
-
         }
     }
     

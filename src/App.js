@@ -40,7 +40,7 @@ class App extends Component {
     }
 
     navigation() {
-        this.setState({ navigation: 'characterRace' })
+        this.setState({ navigation: 'characterRace' }) // default to race 
         this.setState({ navigationCategories: ['characterRace','characterClass']})
     }
 
@@ -115,31 +115,49 @@ class App extends Component {
         const { navigation } = this.state
         const { navigationCategories} = this.state
 
-        
-        if (races.results === undefined) {
-            return (<div className="row">
-                <div className="col">
-                    <p>...Loading race API</p>
-                </div>
-            </div>);
+
+        if (races.results === undefined && classes.results === undefined) {
+            return (<div className="container-fluid">
+                        <div className="row">
+                             <div className="col0-12">
+                                  <p>...Loading API</p>
+                             </div>
+                        </div>
+                    </div>);
         } else {
             switch (navigation) {
                 case 'characterRace':
-                    return (<div className="row">
-                        <div className="col creation">
-                            <Info raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' />
-                            <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} category='races' />
-                            <Navigation categories={navigationCategories} navigate={this.navigate} />
-                        </div>
-                    </div>);
+                    return (<div className="container-fluid">
+                                <div className="row creation">
+                                    <div className="col-12">
+                                        <div className="row">
+                                            <Info raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' />
+                                        </div>
+                                        <div className="row">
+                                            <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} category='races' />
+                                        </div>
+                                        <div className="row">
+                                            <Navigation categories={navigationCategories} navigate={this.navigate} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>);
                 case 'characterClass':
-                    return (<div className="row">
-                        <div className="col creation">
-                            <Info classSelected={classSelected} isClassSelected={isClassSelected} category='classes' />
-                            <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} category='classes' />
-                            <Navigation categories={navigationCategories} navigate={this.navigate} />
-                        </div>
-                    </div>);
+                    return (<div className="container-fluid">
+                                <div className="row creation">
+                                    <div className="col-12">
+                                        <div className="row">
+                                            <Info classSelected={classSelected} isClassSelected={isClassSelected} category='classes' />
+                                        </div>
+                                        <div className="row">
+                                            <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} category='classes' />
+                                        </div>
+                                        <div className="row">
+                                            <Navigation categories={navigationCategories} navigate={this.navigate} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>);
                default:
 
             }
