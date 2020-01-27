@@ -98,9 +98,10 @@ class App extends Component {
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
         for (var i = 0; i < abilityScores.count; i++) {
-            if (abilityScores.results[i].name === ability) {
-                scores[ability] = this.randomDSix
+            if (abilityScores.results[i].index === ability) {
+                scores[ability] = this.randomDSix()
                 this.setState({abilityScoresSelected: scores})
+                console.log(scores[ability])
                 break;
             }
         }
@@ -171,17 +172,17 @@ class App extends Component {
         const { isClassSelected } = this.state      
 
         const { abilityScores } = this.state
-        const { abilityScoresInfo } = this.state
+       // const { abilityScoresInfo } = this.state
         const { abilityScoresSelected } = this.state
 
         const { navigation } = this.state
         const { navigationCategories} = this.state
 
 
-        if (races.results === undefined && classes.results === undefined) {
+        if (races.results === undefined && classes.results === undefined && abilityScores.results === undefined) {
             return (<div className="container-fluid">
                         <div className="row">
-                             <div className="col0-12">
+                             <div className="col-12">
                                   <p>...Loading API</p>
                              </div>
                         </div>

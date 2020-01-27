@@ -25,4 +25,7 @@
     height: 15vh; 
 }
 
-
+.abilityScores {
+    background-color: cornflowerblue;
+    border:solid black 1px;
+}

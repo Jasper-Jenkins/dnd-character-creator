@@ -25,10 +25,15 @@ const Info = (props) => {
                         </div>);
             }
         case 'ability-scores':
-            console.log(props.abilityScoresSelected)
-            //for (var i = 0; i < props.abilityScores.)
+           
+            var abilities = Object.keys(props.abilityScoresSelected); 
+            let abilityScoresDisplay = abilities.map((ability, index) => {
+                return (<div className='col-2 text-center abilityScores' key={index}>{props.abilityScoresSelected[ability]}</div>);
+            });
             return (<div className="col-12 info">
-                        <p>Ability Scores is on its way </p>
+                        <div className="row" >
+                            {abilityScoresDisplay}  
+                        </div>
                     </div>);
          default:
             
