@@ -6,22 +6,23 @@
     margin: 0 auto;
 }
 
-.info{
-    background-color:green;
-    margin:0px;
-    padding:10px;
-    height:400px;
+.info {
+    background-color: green;
+    margin: 0px;
+    padding: 10px;
+    height: 400px;
+    height: 55vh;
 }
-
 .selection {
     background-color: aqua;
     padding: 0px;
     margin:0px;
-    
+    height: 30vh;
 }
 
 .navigation {
-    height: 10vh;
+    background-color: black;
+    height: 15vh; 
 }
 
 

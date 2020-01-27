@@ -19,7 +19,7 @@ class App extends Component {
             .then(result => { this.setState({ classes: result, }, this.getInfo(result, 'classes')) });
         fetch(url + 'ability-scores')
             .then(result => result.json())
-            .then(result => { this.setState({ abilityScores: result, }, this.getInfo(result, 'classes')) });
+            .then(result => { this.setState({ abilityScores: result, }, this.getInfo(result, 'ability-scores')) });
 
     }
 
@@ -40,7 +40,7 @@ class App extends Component {
         abilityScores: {},
         abilityScoresInfo: [],
         abilityScoresSelected: {},
-        abilityScoresChosen: {},
+        abilityScoresChosen: [],
 
         ///////
         isRaceSelected: false,
@@ -55,9 +55,10 @@ class App extends Component {
         this.navigation();
     }
 
+    
     navigation() {
         this.setState({ navigation: characterCategories[0] }) // default to race 
-        this.setState({ navigationCategories: [characterCategories[0], characterCategories[1]]})
+        this.setState({ navigationCategories: [characterCategories[0], characterCategories[1], characterCategories[2],] })
     }
 
     navigate = (category) => {
@@ -67,35 +68,67 @@ class App extends Component {
     getInfo(data, category) {
         let info = []
         const url = 'http://www.dnd5eapi.co'
+        for (var i = 0; i < data.results.length; i++) {
+            fetch(url + data.results[i].url)
+                .then(result => result.json())
+                .then(result => info.push(result))
+        }
         switch(category) {
             case 'races':
-                for (var i = 0; i < data.results.length; i++) {
-                    fetch(url + data.results[i].url)
-                        .then(result => result.json())
-                        .then(result => info.push(result))
-                }
                 this.setState({ racesInfo: info, })
             break;
             case 'classes':
-                for (var j = 0; j < data.results.length; j++) {
-                    fetch(url + data.results[j].url)
-                        .then(result => result.json())
-                        .then(result => info.push(result))
-                }
                 this.setState({ classesInfo: info, })
                 break;
             case 'ability-scores':
-                for (var k = 0; k < data.results.length; k++) {
-                    fetch(url + data.results[k].url)
-                        .then(result => result.json())
-                        .then(result => info.push(result))
-                }
                 this.setState({ abilityScoresInfo: info, })
+                let abilityScoresSetup = {}    
+                for (var j = 0; j < data.count; j++) {
+                    let ability = data.results[j].index;
+                    abilityScoresSetup[ability] = 0;
+                }
+                this.setState({ abilityScoresSelected: abilityScoresSetup });
                 break;
             default:
         }
     }
 
+    getScore = ability => {
+        const { abilityScores } = this.state
+        const { abilityScoresSelected } = this.state
+        let scores = abilityScoresSelected
+        for (var i = 0; i < abilityScores.count; i++) {
+            if (abilityScores.results[i].name === ability) {
+                scores[ability] = this.randomDSix
+                this.setState({abilityScoresSelected: scores})
+                break;
+            }
+        }
+
+    }
+
+    randomDSix() {
+        let totalDiceRolls = 5;
+        let totalRollsToKeep = 3;
+
+        let abilityPoint = 0
+        let abilityPoints = 0
+        let abilityPointsArray = []
+
+        for (var i = 0; i < totalDiceRolls; i++) {
+            abilityPoint = Math.floor((Math.random() * 6) + 1)
+            abilityPointsArray.push(abilityPoint)
+        }
+        abilityPointsArray.sort()
+        abilityPointsArray.splice(0, totalDiceRolls - totalRollsToKeep)
+
+        for (var j = 0; j < abilityPointsArray.length; j++) {
+            abilityPoints += abilityPointsArray[j]
+        }
+
+        return abilityPoints
+    }
+          
     displayRaceInfo = index => {
         const { racesInfo } = this.state
         for (let i = 0; i < racesInfo.length; i++) {
@@ -137,6 +170,9 @@ class App extends Component {
         const { classSelected } = this.state
         const { isClassSelected } = this.state      
 
+        const { abilityScores } = this.state
+        const { abilityScoresInfo } = this.state
+        const { abilityScoresSelected } = this.state
 
         const { navigation } = this.state
         const { navigationCategories} = this.state
@@ -177,6 +213,22 @@ class App extends Component {
                                         </div>
                                         <div className="row">
                                             <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} category='classes' />
+                                        </div>
+                                        <div className="row">
+                                            <Navigation categories={navigationCategories} navigate={this.navigate} />
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>);
+                case characterCategories[2]:
+                    return (<div className="container-fluid">
+                                <div className="row creation">
+                                    <div className="col-12">
+                                <div className="row">
+                                    <Info abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' />
+                                        </div>
+                                <div className="row">
+                                    <Selection abilityScores={abilityScores} getScore={this.getScore} category='ability-scores' />
                                         </div>
                                         <div className="row">
                                             <Navigation categories={navigationCategories} navigate={this.navigate} />

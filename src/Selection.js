@@ -12,7 +12,12 @@ const Selection = (props) => {
             let Cselection = props.classes.results.map((cClass, index) => {
                 return ( <button onClick={() => props.displayClassInfo(cClass.index)} className='btn btn-primary col-4' key={index}>{cClass.name}</button>)
             });
-            return (<div className="col-12 text-center selection">{Cselection}</div>);
+            return (<div className='col-12 text-center selection'>{Cselection}</div>);
+        case 'ability-scores':
+            let Aselection = props.abilityScores.results.map((abilityScore, index) => {
+                return (<button onClick={() => props.getScore(abilityScore.index)} className='btn btn-primary col-2' key={index}>{abilityScore.name}</button>)
+            });
+            return (<div className='col-12 text-center selection'>{Aselection}</div>)
         default:             
     }         
 }

@@ -14,7 +14,7 @@ const Info = (props) => {
                             <p>...Choose your race</p>
                         </div>);
             }
-        case "classes":
+        case 'classes':
             if (props.isClassSelected) {
                 return (<div className="col-12 info">
                             <p>{props.classSelected.name}</p>
@@ -23,8 +23,14 @@ const Info = (props) => {
                 return (<div className="col-12 info">
                             <p>...Choose your class</p>
                         </div>);
-            }            
-        default:
+            }
+        case 'ability-scores':
+            console.log(props.abilityScoresSelected)
+            //for (var i = 0; i < props.abilityScores.)
+            return (<div className="col-12 info">
+                        <p>Ability Scores is on its way </p>
+                    </div>);
+         default:
             
         }
     }
