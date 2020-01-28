@@ -36,6 +36,7 @@ class App extends Component {
         classesInfo: [],
         classSelected: {},
         classChosen: {}, 
+        classProficiencies:[],
         ///////
         abilityScores: {},
         abilityScoresInfo: [],
@@ -129,6 +130,16 @@ class App extends Component {
 
         return abilityPoints
     }
+
+    selectProficiencies() {
+        const { classSelected } = this.state
+        //  const { classProficiencies } = this.state
+       // console.log("Class selected", classSelected)
+        for (var i = 0; i < classSelected.proficiencies.length; i++) {
+            console.log(classSelected.proficiencies[i])
+        }
+    }
+
           
     displayRaceInfo = index => {
         const { racesInfo } = this.state
@@ -146,7 +157,7 @@ class App extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const ClassSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name })
-                this.setState({ classSelected: ClassSelected[0], isClassSelected: true })
+                this.setState({ classSelected: ClassSelected[0], isClassSelected: true }, this.selectProficiencies)
                 break;
             }
         }
@@ -197,7 +208,7 @@ class App extends Component {
                                             <Info raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' />
                                         </div>
                                         <div className="row">
-                                            <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} category='races' />
+                                    <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} selectProficiencies={this.selectProficiencies} category='races' />
                                         </div>
                                         <div className="row">
                                             <Navigation categories={navigationCategories} navigate={this.navigate} />

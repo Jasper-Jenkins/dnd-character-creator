@@ -1,4 +1,6 @@
 import React from 'react'
+import CharacterClass from './CharacterClass'
+
 
 const Info = (props) => {
     switch (props.category) {
@@ -16,16 +18,13 @@ const Info = (props) => {
             }
         case 'classes':
             if (props.isClassSelected) {
-                return (<div className="col-12 info">
-                            <p>{props.classSelected.name}</p>
-                        </div>);
+                return (<CharacterClass classProps={props} />);
             } else {
                 return (<div className="col-12 info">
                             <p>...Choose your class</p>
                         </div>);
             }
         case 'ability-scores':
-           
             var abilities = Object.keys(props.abilityScoresSelected); 
             let abilityScoresDisplay = abilities.map((ability, index) => {
                 return (<div className='col-2 text-center abilityScores' key={index}>{props.abilityScoresSelected[ability]}</div>);
