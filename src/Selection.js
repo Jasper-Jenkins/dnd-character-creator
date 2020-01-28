@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Selection = (props) => {
+    console.log("Selected Props: ", props)
     switch (props.category) {
         case 'races':
             let selection = props.races.results.map((race, index) => {

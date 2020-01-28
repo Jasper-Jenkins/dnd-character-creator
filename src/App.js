@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Selection from './Selection'
 import Info from './Info'
 import Navigation from './Navigation'
-
+import Create from './Create'
 
 const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Professions']
 
@@ -20,7 +20,7 @@ class App extends Component {
         fetch(url + 'ability-scores')
             .then(result => result.json())
             .then(result => { this.setState({ abilityScores: result, }, this.getInfo(result, 'ability-scores')) });
-
+     
     }
 
     state = {
@@ -36,7 +36,8 @@ class App extends Component {
         classesInfo: [],
         classSelected: {},
         classChosen: {}, 
-        classProficiencies:[],
+        proficiencies: [],
+        proficienciesChoices: [],
         ///////
         abilityScores: {},
         abilityScoresInfo: [],
@@ -131,10 +132,22 @@ class App extends Component {
         return abilityPoints
     }
 
-    selectProficiencies() {
+    setStartingProficiencies() {
+        const { classSelected } = this.state
+        let proficiencies = classSelected.proficiencies.map((proficiency) => {
+            return proficiency;
+        });
+        let proficiencyChoices = classSelected.proficiency_choices.map((choice) => {
+            return choice;
+        });
+        this.setState({ classProficiencies: proficiencies })
+        this.setState({ classProficienciesChoices: proficiencyChoices })
+    }
+    
+    addProficiencies = index => {
         const { classSelected } = this.state
         //  const { classProficiencies } = this.state
-       // console.log("Class selected", classSelected)
+        console.log("Class selected", classSelected)
         for (var i = 0; i < classSelected.proficiencies.length; i++) {
             console.log(classSelected.proficiencies[i])
         }
@@ -157,7 +170,7 @@ class App extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const ClassSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name })
-                this.setState({ classSelected: ClassSelected[0], isClassSelected: true }, this.selectProficiencies)
+                this.setState({ classSelected: ClassSelected[0], isClassSelected: true }, this.setStartingProficiencies)
                 break;
             }
         }
@@ -180,7 +193,10 @@ class App extends Component {
         const { classes } = this.state
         const { classesInfo } = this.state
         const { classSelected } = this.state
-        const { isClassSelected } = this.state      
+        const { isClassSelected } = this.state
+        const { proficiencies } = this.state
+        const { proficienciesChoices } = this.state
+
 
         const { abilityScores } = this.state
        // const { abilityScoresInfo } = this.state
@@ -200,56 +216,13 @@ class App extends Component {
                     </div>);
         } else {
             switch (navigation) {
-                case characterCategories[0]:
-                    return (<div className="container-fluid">
-                                <div className="row creation">
-                                    <div className="col-12">
-                                        <div className="row">
-                                            <Info raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' />
-                                        </div>
-                                        <div className="row">
-                                    <Selection races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} selectProficiencies={this.selectProficiencies} category='races' />
-                                        </div>
-                                        <div className="row">
-                                            <Navigation categories={navigationCategories} navigate={this.navigate} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>);
-                case characterCategories[1]:
-                    return (<div className="container-fluid">
-                                <div className="row creation">
-                                    <div className="col-12">
-                                        <div className="row">
-                                            <Info classSelected={classSelected} isClassSelected={isClassSelected} category='classes' />
-                                        </div>
-                                        <div className="row">
-                                            <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} category='classes' />
-                                        </div>
-                                        <div className="row">
-                                            <Navigation categories={navigationCategories} navigate={this.navigate} />
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>);
-                case characterCategories[2]:
-                    return (<div className="container-fluid">
-                                <div className="row creation">
-                                    <div className="col-12">
-                                <div className="row">
-                                    <Info abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' />
-                                        </div>
-                                <div className="row">
-                                    <Selection abilityScores={abilityScores} getScore={this.getScore} category='ability-scores' />
-                                        </div>
-                                        <div className="row">
-                                            <Navigation categories={navigationCategories} navigate={this.navigate} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>);
+                case characterCategories[0]: //Race
+                    return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
+                case characterCategories[1]: //Class
+                    return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' proficiencies={proficiencies} proficieniesChoices={proficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation}/>);
+                case characterCategories[2]: //Ability-Scores
+                    return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
                default:
-
             }
         }
     }
