@@ -9,14 +9,13 @@ const ClassProficiencies = props => {
         return (<button key={index}>{proficiency.name}</button>)
     })
 
-    let choicesChoices=[];
+    let proficienciesToChooseFrom =[];
     for (var i = 0; i < proficienciesChoices.length; i++) {
         let aIndex = i;
-        let chooseProficiencies = proficienciesChoices[i].from.map((proficiency, index) => {
+        let chooseProficiencies = proficienciesChoices[i].from.map((proficiency) => {
             return (<button onClick={() => addProficiency(proficiency.name, aIndex)} key={proficiency.name}>{proficiency.name}</button>)
     })
-         
-        choicesChoices.push(<div className='col-4 chooseProficiency' key={i}>{chooseProficiencies}</div>)
+         proficienciesToChooseFrom.push(<div className='col-4 chooseProficiency' key={i}>{chooseProficiencies}</div>)
     }    
     
     return (<div className='row'>
@@ -27,7 +26,7 @@ const ClassProficiencies = props => {
                          </div>
                     </div>
                     <div className='row'>
-                            {choicesChoices}
+                            {proficienciesToChooseFrom}
                     </div>
                 </div>
             </div>);

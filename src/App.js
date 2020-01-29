@@ -134,12 +134,13 @@ class App extends Component {
         this.setState({ proficiencies: classSelected.proficiencies })
         this.setState({ proficienciesChoices: classSelected.proficiency_choices })
     }
-    //Will need to add better filtering for which proficiency choices gets altered
-    addProficiency = (pIndex, aIndex) => { //pIndex is proficiencies index and aIndex is arrayIndex
+
+    addProficiency = (pIndex, aIndex) => { //pIndex is the chosen proficiency name, aIndex is the array index of the proficiency choices  
         const { proficiencies } = this.state
         const { proficienciesChoices } = this.state
         let found = false;
- 
+
+        console.log(pIndex)
         let newProficiencies = proficiencies.map((proficiency) => {
             return proficiency;
         });
@@ -147,9 +148,8 @@ class App extends Component {
         for (var i = 0; i < proficienciesChoices.length; i++) {
             for (var j = 0; j < proficienciesChoices[i].from.length; j++) {                
                 if (proficienciesChoices[i].from[j].name === pIndex) {
-                    const filterProf = proficienciesChoices[i].from.filter(function (proficiency) { return proficiency.name === pIndex })
-                    console.log('filterssss', filterProf)
-                    newProficiencies.push(filterProf[0])
+                    const anotherProficiency = proficienciesChoices[i].from.filter(function (proficiency) { return proficiency.name === pIndex })
+                    newProficiencies.push(anotherProficiency[0])
                     found = true;
                     break;
                 }
@@ -159,23 +159,16 @@ class App extends Component {
             }
         }
       
-
-        console.log(newProficiencies)
-
         let newChoices = proficienciesChoices.map((choices) => {
             return choices
         })
-         
-
+       
         let choices = proficienciesChoices[aIndex].from.filter(function (proficiency) { return proficiency.name !== pIndex })
-
-
         newChoices[aIndex].from = choices;
 
-        console.log(proficienciesChoices)
+        
 
-
-        this.setState({ proficienciesChoices: newChoices })
+        this.setState({ proficienciesChoices: newChoices }) // if i comment out this one the UI still updates the way I want and it seems as though the state does as well.
         this.setState({ proficiencies: newProficiencies })
 
     }
