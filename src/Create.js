@@ -7,9 +7,10 @@ import Selection from './Selection'
 const Create = props => { 
     const { navigationCategories } = props
     const { navigation } = props
-    const { category } = props
-    const { navigate } = props
+    const { navigate } = props // function
 
+    const { category } = props // races, classes, ability-scores
+    
     if (navigation === navigationCategories[0]) {
         const { races } = props
         const { raceSelected } = props
@@ -35,6 +36,7 @@ const Create = props => {
 
     } else if (navigation === navigationCategories[1]) {
 
+        console.log(props)
         const { classes } = props
         const { classSelected } = props
         const { isClassSelected } = props
@@ -42,15 +44,16 @@ const Create = props => {
         const { displayClassInfo } = props
         const { proficiencies } = props
         const { proficienciesChoices } = props
+        const { addProficiency } = props
         
         return (<div className="container-fluid">
                     <div className="row creation">
                         <div className="col-12">
-                            <div className="row">
-                                <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} proficiencies={proficiencies} proficiencyChoices={proficienciesChoices} />
+                    <div className="row">
+                        <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} proficiencies={proficiencies} proficienciesChoices={proficienciesChoices} addProficiency={addProficiency} />
                             </div>
-                            <div className="row">
-                                <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={displayClassInfo} category={category} />
+                    <div className="row">
+                        <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={displayClassInfo} category={category} />
                             </div>
                             <div className="row">
                                 <Navigation navigationCategories={navigationCategories} navigate={navigate} />

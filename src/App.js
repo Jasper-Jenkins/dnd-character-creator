@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import Selection from './Selection'
-import Info from './Info'
-import Navigation from './Navigation'
 import Create from './Create'
 
 const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Professions']
@@ -20,7 +17,6 @@ class App extends Component {
         fetch(url + 'ability-scores')
             .then(result => result.json())
             .then(result => { this.setState({ abilityScores: result, }, this.getInfo(result, 'ability-scores')) });
-     
     }
 
     state = {
@@ -54,11 +50,11 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.navigation();
+        this.setNavigation();
     }
 
     
-    navigation() {
+    setNavigation() {
         this.setState({ navigation: characterCategories[0] }) // default to race 
         this.setState({ navigationCategories: [characterCategories[0], characterCategories[1], characterCategories[2],] })
     }
@@ -134,23 +130,54 @@ class App extends Component {
 
     setStartingProficiencies() {
         const { classSelected } = this.state
-        let proficiencies = classSelected.proficiencies.map((proficiency) => {
+               
+        this.setState({ proficiencies: classSelected.proficiencies })
+        this.setState({ proficienciesChoices: classSelected.proficiency_choices })
+    }
+    //Will need to add better filtering for which proficiency choices gets altered
+    addProficiency = (pIndex, aIndex) => { //pIndex is proficiencies index and aIndex is arrayIndex
+        const { proficiencies } = this.state
+        const { proficienciesChoices } = this.state
+        let found = false;
+ 
+        let newProficiencies = proficiencies.map((proficiency) => {
             return proficiency;
         });
-        let proficiencyChoices = classSelected.proficiency_choices.map((choice) => {
-            return choice;
-        });
-        this.setState({ classProficiencies: proficiencies })
-        this.setState({ classProficienciesChoices: proficiencyChoices })
-    }
-    
-    addProficiencies = index => {
-        const { classSelected } = this.state
-        //  const { classProficiencies } = this.state
-        console.log("Class selected", classSelected)
-        for (var i = 0; i < classSelected.proficiencies.length; i++) {
-            console.log(classSelected.proficiencies[i])
+                              
+        for (var i = 0; i < proficienciesChoices.length; i++) {
+            for (var j = 0; j < proficienciesChoices[i].from.length; j++) {                
+                if (proficienciesChoices[i].from[j].name === pIndex) {
+                    const filterProf = proficienciesChoices[i].from.filter(function (proficiency) { return proficiency.name === pIndex })
+                    console.log('filterssss', filterProf)
+                    newProficiencies.push(filterProf[0])
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {               
+                break;
+            }
         }
+      
+
+        console.log(newProficiencies)
+
+        let newChoices = proficienciesChoices.map((choices) => {
+            return choices
+        })
+         
+
+        let choices = proficienciesChoices[aIndex].from.filter(function (proficiency) { return proficiency.name !== pIndex })
+
+
+        newChoices[aIndex].from = choices;
+
+        console.log(proficienciesChoices)
+
+
+        this.setState({ proficienciesChoices: newChoices })
+        this.setState({ proficiencies: newProficiencies })
+
     }
 
           
@@ -175,14 +202,7 @@ class App extends Component {
             }
         }
     }
-
-
-
-
-
-
-
-
+          
     render() {
         const { races } = this.state
         const { racesInfo } = this.state
@@ -196,10 +216,8 @@ class App extends Component {
         const { isClassSelected } = this.state
         const { proficiencies } = this.state
         const { proficienciesChoices } = this.state
-
-
+        
         const { abilityScores } = this.state
-       // const { abilityScoresInfo } = this.state
         const { abilityScoresSelected } = this.state
 
         const { navigation } = this.state
@@ -219,7 +237,7 @@ class App extends Component {
                 case characterCategories[0]: //Race
                     return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
                 case characterCategories[1]: //Class
-                    return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' proficiencies={proficiencies} proficieniesChoices={proficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation}/>);
+                    return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' proficiencies={proficiencies} proficienciesChoices={proficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} />);
                 case characterCategories[2]: //Ability-Scores
                     return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
                default:

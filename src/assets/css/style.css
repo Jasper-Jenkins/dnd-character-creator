@@ -12,6 +12,8 @@
     padding: 10px;
     height: 400px;
     height: 55vh;
+    overflow-y:auto;
+    overflow-x:hidden;
 }
 .selection {
     background-color: aqua;
@@ -28,4 +30,9 @@
 .abilityScores {
     background-color: cornflowerblue;
     border:solid black 1px;
+}
+
+.chooseProficiency {
+    margin: 10px 0px;
+
 }
