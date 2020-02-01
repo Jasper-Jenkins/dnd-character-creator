@@ -3,6 +3,8 @@ import CharacterClass from './CharacterClass'
 
 
 const Info = (props) => {
+    console.log('info props', props)
+
     switch (props.category) {
         case 'races':
             if (props.isRaceSelected) {
@@ -18,6 +20,7 @@ const Info = (props) => {
             }
         case 'classes':
             if (props.isClassSelected) {
+           //     console.log('info proficiency', props.classSelected)
                 return (<CharacterClass classProps={props} />);
             } else {
                 return (<div className="col-12 info">

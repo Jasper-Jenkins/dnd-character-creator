@@ -1,32 +1,33 @@
 import React from 'react'
 
 const ClassProficiencies = props => {
-    const { proficiencies } = props
-    const { proficienciesChoices } = props
+    const { classProficiencies } = props
+    const { classProficienciesChoices } = props
     const { addProficiency } = props   
-
-    let startingProficiencies = proficiencies.map((proficiency, index) => {
-        return (<button key={index}>{proficiency.name}</button>)
-    })
-
-    let proficienciesToChooseFrom =[];
-    for (var i = 0; i < proficienciesChoices.length; i++) {
-        let aIndex = i;
-        let chooseProficiencies = proficienciesChoices[i].from.map((proficiency) => {
-            return (<button onClick={() => addProficiency(proficiency.name, aIndex)} key={proficiency.name}>{proficiency.name}</button>)
-    })
-         proficienciesToChooseFrom.push(<div className='col-4 chooseProficiency' key={i}>{chooseProficiencies}</div>)
-    }    
     
+    let currentProficiencies = classProficiencies.map((proficiency) => {
+        return (<button key={proficiency.name}>{proficiency.name}</button>)
+    })
+    
+    let proficienciesToChooseFrom = [];
+
+    for (var i = 0; i < classProficienciesChoices.length; i++) {
+        let choiceArrayIndex = i;
+        const chooseProficiencies = classProficienciesChoices[i].from.map((proficiency) => {
+            return (<button onClick={() => addProficiency(proficiency.name, choiceArrayIndex)} key={proficiency.name}>{proficiency.name}</button>);
+    })
+        proficienciesToChooseFrom.push(<div className='col-4 chooseProficiency' key={i}>{chooseProficiencies}</div>)
+    }    
+       
     return (<div className='row'>
                 <div className='col-12'>
                     <div className='row'>
-                         <div className='col-12'>
-                            {startingProficiencies}
+                        <div className='col-12'>
+                            {currentProficiencies}
                          </div>
                     </div>
                     <div className='row'>
-                            {proficienciesToChooseFrom}
+                        {proficienciesToChooseFrom}
                     </div>
                 </div>
             </div>);

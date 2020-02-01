@@ -36,21 +36,20 @@ const Create = props => {
 
     } else if (navigation === navigationCategories[1]) {
 
-        console.log(props)
         const { classes } = props
         const { classSelected } = props
         const { isClassSelected } = props
         const { classesInfo } = props
         const { displayClassInfo } = props
-        const { proficiencies } = props
-        const { proficienciesChoices } = props
+        const { classProficiencies } = props
+        const { classProficienciesChoices } = props
         const { addProficiency } = props
         
         return (<div className="container-fluid">
                     <div className="row creation">
                         <div className="col-12">
                     <div className="row">
-                        <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} proficiencies={proficiencies} proficienciesChoices={proficienciesChoices} addProficiency={addProficiency} />
+                        <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} />
                             </div>
                     <div className="row">
                         <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={displayClassInfo} category={category} />

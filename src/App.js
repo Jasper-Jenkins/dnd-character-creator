@@ -5,19 +5,6 @@ const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Professions']
 
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        const url = 'http://www.dnd5eapi.co/api/'
-        fetch(url + 'races')
-            .then(result => result.json())
-            .then(result => { this.setState({ races: result, }, this.getInfo(result, 'races')) });
-        fetch(url + 'classes')
-            .then(result => result.json())
-            .then(result => { this.setState({ classes: result, }, this.getInfo(result, 'classes')) });
-        fetch(url + 'ability-scores')
-            .then(result => result.json())
-            .then(result => { this.setState({ abilityScores: result, }, this.getInfo(result, 'ability-scores')) });
-    }
 
     state = {
         navigation: '',
@@ -32,8 +19,9 @@ class App extends Component {
         classesInfo: [],
         classSelected: {},
         classChosen: {}, 
-        proficiencies: [],
-        proficienciesChoices: [],
+        classProficiencies: [],
+        classProficienciesChoices: [],
+       
         ///////
         abilityScores: {},
         abilityScoresInfo: [],
@@ -50,6 +38,16 @@ class App extends Component {
     }
 
     componentDidMount() {
+        const url = 'http://www.dnd5eapi.co/api/'
+        fetch(url + 'races')
+            .then(result => result.json())
+            .then(result => { this.setState({ races: result }, this.getInfo(result, 'races')) });
+        fetch(url + 'classes')
+            .then(result => result.json())
+            .then(result => { this.setState({ classes: result }, this.getInfo(result, 'classes')) });
+        fetch(url + 'ability-scores')
+            .then(result => result.json())
+            .then(result => { this.setState({ abilityScores: result }, this.getInfo(result, 'ability-scores')) });
         this.setNavigation();
     }
 
@@ -128,69 +126,76 @@ class App extends Component {
         return abilityPoints
     }
 
-    setStartingProficiencies() {
+    setStartingProficiencies(chosenClass) {
+
+        const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))
+        let proficienciesChoices = []
+        let choicesAvailable = []
+
+
+
+        for (var i = 0; i < chosenClass.proficiency_choices.length; i++) {
+            proficienciesChoices[i] = JSON.parse(JSON.stringify(chosenClass.proficiency_choices[i]))
+            choicesAvailable.push(true)
+        }
+                    
+        this.setState({ classProficiencies: proficiencies, classProficienciesChoices: proficienciesChoices, });
+        
+    } 
+
+
+    addProficiency = (proficiencyName, choiceArrayIndex) => {
+        const { classProficienciesChoices } = this.state
         const { classSelected } = this.state
-               
-        this.setState({ proficiencies: classSelected.proficiencies })
-        this.setState({ proficienciesChoices: classSelected.proficiency_choices })
-    }
 
-    addProficiency = (pIndex, aIndex) => { //pIndex is the chosen proficiency name, aIndex is the array index of the proficiency choices  
-        const { proficiencies } = this.state
-        const { proficienciesChoices } = this.state
-        let found = false;
+        const choiceArray = [...classProficienciesChoices]
 
-        console.log(pIndex)
-        let newProficiencies = proficiencies.map((proficiency) => {
-            return proficiency;
-        });
-                              
-        for (var i = 0; i < proficienciesChoices.length; i++) {
-            for (var j = 0; j < proficienciesChoices[i].from.length; j++) {                
-                if (proficienciesChoices[i].from[j].name === pIndex) {
-                    const anotherProficiency = proficienciesChoices[i].from.filter(function (proficiency) { return proficiency.name === pIndex })
-                    newProficiencies.push(anotherProficiency[0])
-                    found = true;
+        for (var i = 0; i < choiceArray[choiceArrayIndex].from.length; i++) {
+            if (choiceArray[choiceArrayIndex].from.length === (classSelected.proficiency_choices[choiceArrayIndex].from.length - choiceArray[choiceArrayIndex].choose)) {
+                alert('no more available!')
+                break;
+            } else {
+                if (choiceArray[choiceArrayIndex].from[i].name === proficiencyName) {
+
+                    const newChoices = choiceArray[choiceArrayIndex].from.filter(function (proficiency) { return proficiency.name !== proficiencyName })
+                    const newProficiency = choiceArray[choiceArrayIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
+
+                    choiceArray[choiceArrayIndex].from = [...newChoices]
+
+                    this.setState(state => ({
+                        classProficiencies: [...state.classProficiencies, newProficiency[0]],
+                        classProficienicesChoices: choiceArray,
+                    }))
                     break;
                 }
             }
-            if (found) {               
-                break;
-            }
         }
-      
-        let newChoices = proficienciesChoices.map((choices) => {
-            return choices
-        })
-       
-        let choices = proficienciesChoices[aIndex].from.filter(function (proficiency) { return proficiency.name !== pIndex })
-        newChoices[aIndex].from = choices;
-
-        
-
-        this.setState({ proficienciesChoices: newChoices }) // if i comment out this one the UI still updates the way I want and it seems as though the state does as well.
-        this.setState({ proficiencies: newProficiencies })
-
     }
-
-          
+      
     displayRaceInfo = index => {
         const { racesInfo } = this.state
         for (let i = 0; i < racesInfo.length; i++) {
             if (racesInfo[i].index === index) {
-                const RaceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name })
-                this.setState({ raceSelected: RaceSelected[0], isRaceSelected: true })
+                const RaceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
+                this.setState({ raceSelected: RaceSelected[0], isRaceSelected: true });
                 break;
             }
         }
     }
 
     displayClassInfo = index => {
+
+        //const url = 'http://www.dnd5eapi.co/api/'
+        //fetch(url + 'classes')
+        //    .then(result => result.json())
+        //    .then(result => { this.setState({ classes: result, }, this.getInfo(result, 'classes')) });
+
+
         const { classesInfo } = this.state
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
-                const ClassSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name })
-                this.setState({ classSelected: ClassSelected[0], isClassSelected: true }, this.setStartingProficiencies)
+                const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name })
+                this.setState({ classSelected: selectedClass[0], isClassSelected: true }, this.setStartingProficiencies(selectedClass[0]),)
                 break;
             }
         }
@@ -201,14 +206,13 @@ class App extends Component {
         const { racesInfo } = this.state
         const { raceSelected } = this.state
         const { isRaceSelected } = this.state
-
-
+        
         const { classes } = this.state
         const { classesInfo } = this.state
         const { classSelected } = this.state
         const { isClassSelected } = this.state
-        const { proficiencies } = this.state
-        const { proficienciesChoices } = this.state
+        const { classProficiencies } = this.state
+        const { classProficienciesChoices } = this.state
         
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
@@ -216,8 +220,7 @@ class App extends Component {
         const { navigation } = this.state
         const { navigationCategories} = this.state
 
-
-        if (races.results === undefined && classes.results === undefined && abilityScores.results === undefined) {
+        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined) {
             return (<div className="container-fluid">
                         <div className="row">
                              <div className="col-12">
@@ -230,7 +233,7 @@ class App extends Component {
                 case characterCategories[0]: //Race
                     return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
                 case characterCategories[1]: //Class
-                    return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' proficiencies={proficiencies} proficienciesChoices={proficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} />);
+                    return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} />);
                 case characterCategories[2]: //Ability-Scores
                     return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
                default:
