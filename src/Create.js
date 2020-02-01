@@ -44,12 +44,13 @@ const Create = props => {
         const { classProficiencies } = props
         const { classProficienciesChoices } = props
         const { addProficiency } = props
+        const { removeProficiency } = props
         
         return (<div className="container-fluid">
                     <div className="row creation">
                         <div className="col-12">
                     <div className="row">
-                        <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} />
+                        <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
                             </div>
                     <div className="row">
                         <Selection classes={classes} classesInfo={classesInfo} displayClassInfo={displayClassInfo} category={category} />

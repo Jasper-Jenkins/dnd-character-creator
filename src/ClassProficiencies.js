@@ -3,10 +3,15 @@ import React from 'react'
 const ClassProficiencies = props => {
     const { classProficiencies } = props
     const { classProficienciesChoices } = props
-    const { addProficiency } = props   
+    const { addProficiency } = props
+    const { removeProficiency } = props
     
     let currentProficiencies = classProficiencies.map((proficiency) => {
-        return (<button key={proficiency.name}>{proficiency.name}</button>)
+        if (proficiency.index === undefined) {
+            return (<button key={proficiency.name}>{proficiency.name}</button>);
+        } else {
+            return (<button onClick={() => removeProficiency(proficiency.name, proficiency.index)} key={proficiency.name}>{proficiency.name}</button>);
+        }
     })
     
     let proficienciesToChooseFrom = [];
