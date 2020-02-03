@@ -36,3 +36,12 @@
     margin: 10px 0px;
 
 }
+
+.proficiencies {
+    margin: 5px;
+    padding: 5px;
+} 
+
+.chosenProficiency {
+    color:blueviolet;
+}

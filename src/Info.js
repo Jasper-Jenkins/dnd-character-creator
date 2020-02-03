@@ -1,7 +1,6 @@
 import React from 'react'
 import CharacterClass from './CharacterClass'
 
-
 const Info = (props) => {
     console.log('info props', props)
 

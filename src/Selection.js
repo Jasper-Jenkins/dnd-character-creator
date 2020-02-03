@@ -1,4 +1,5 @@
 import React from 'react'
+import AbilityScoresForm from './AbilityScoresForm'
 
 const Selection = (props) => {
     if (props.category === 'races') {
@@ -16,7 +17,20 @@ const Selection = (props) => {
         let abilityScores = props.abilityScores.results.map((abilityScore, index) => {
             return (<button onClick={() => props.getScore(abilityScore.index)} className='btn btn-primary col-2' key={index}>{abilityScore.name}</button>)
         });
-        return (<div className='col-12 text-center selection'>{abilityScores}</div>)
+        return (
+            <div className='col-12 text-center selection'>
+                <div className='row'>
+                    <div className='col-12'>
+                        {abilityScores}
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-12'>
+                        <AbilityScoresForm handleSubmit={props.handleSubmit} />
+                    </div>
+                </div>
+                
+            </div>)
     } else {
         return ((<div className='col-12 text-center selection'><p>broke something</p></div>))
     }

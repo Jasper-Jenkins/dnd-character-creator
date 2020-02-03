@@ -90,9 +90,11 @@ class App extends Component {
     }
 
     getScore = ability => {
+
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
+
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
                 scores[ability] = this.randomDSix()
@@ -101,10 +103,40 @@ class App extends Component {
                 break;
             }
         }
-
     }
 
+    setScore = (key, abilities) => {
+        const { abilityScores } = this.state
+        const { abilityScoresSelected } = this.state
+        let scores = abilityScoresSelected
+        //if reused for leveling up character need to add a level check so it can go above 18
+        if (abilities[key] < 3 || abilities[key] > 18) {
+            console.log('Not a proper value')
+
+        } else {
+            for (var i = 0; i < abilityScores.count; i++) {
+                if (abilityScores.results[i].index === key) {
+                    scores[key] = parseInt(abilities[key], 10)
+                    this.setState({ abilityScoresSelected: scores })
+                    console.log(scores[key])
+                    break;
+                }
+            }
+        }
+        
+    }
+
+
+    handleSubmit = (abilities) => {
+        let abilityKeys = Object.keys(abilities);        
+        for (var i = 0; i < abilityKeys.length; i++) {
+            this.setScore(abilityKeys[i], abilities)
+        }
+    }
+    
+
     randomDSix() {
+
         let totalDiceRolls = 5;
         let totalRollsToKeep = 3;
 
@@ -127,24 +159,15 @@ class App extends Component {
     }
 
     setStartingProficiencies(chosenClass) {
-
         const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))
-        let proficienciesChoices = []
-        let choicesAvailable = []
-
-
-
-        for (var i = 0; i < chosenClass.proficiency_choices.length; i++) {
-            proficienciesChoices[i] = JSON.parse(JSON.stringify(chosenClass.proficiency_choices[i]))
-            choicesAvailable.push(true)
-        }
-                    
+        const proficienciesChoices = JSON.parse(JSON.stringify(chosenClass.proficiency_choices))
+                          
         this.setState({ classProficiencies: proficiencies, classProficienciesChoices: proficienciesChoices, });
-        
-    } 
+        } 
 
 
     addProficiency = (proficiencyName, choiceArrayIndex) => {
+
         const { classProficienciesChoices } = this.state
         const { classSelected } = this.state
 
@@ -160,7 +183,7 @@ class App extends Component {
                     const newChoices = choiceArray[choiceArrayIndex].from.filter(function (proficiency) { return proficiency.name !== proficiencyName })
                     let newProficiency = choiceArray[choiceArrayIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
 
-                    newProficiency[0]['index'] = choiceArrayIndex;
+                    newProficiency[0]['index'] = choiceArrayIndex; //added for a check in the classProficiencies component for the removeProficiency() 
 
                     choiceArray[choiceArrayIndex].from = [...newChoices]
 
@@ -175,6 +198,7 @@ class App extends Component {
     }
 
     removeProficiency = (proficiencyName, choicesIndex) => {
+
         const { classProficiencies } = this.state
         const { classProficienciesChoices } = this.state
         const { classSelected } = this.state
@@ -197,13 +221,10 @@ class App extends Component {
                     classProficienicesChoices: proficienciesChoices,
                 });
                 break;
-
             }
         }
     }
-
-
-      
+             
     displayRaceInfo = index => {
         const { racesInfo } = this.state
         for (let i = 0; i < racesInfo.length; i++) {
@@ -216,13 +237,6 @@ class App extends Component {
     }
 
     displayClassInfo = index => {
-
-        //const url = 'http://www.dnd5eapi.co/api/'
-        //fetch(url + 'classes')
-        //    .then(result => result.json())
-        //    .then(result => { this.setState({ classes: result, }, this.getInfo(result, 'classes')) });
-
-
         const { classesInfo } = this.state
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
@@ -267,7 +281,7 @@ class App extends Component {
                 case characterCategories[1]: //Class
                     return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} />);
                 case characterCategories[2]: //Ability-Scores
-                    return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
+                    return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} handleSubmit={this.handleSubmit}/>);
                default:
             }
         }

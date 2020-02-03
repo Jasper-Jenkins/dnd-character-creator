@@ -62,10 +62,12 @@ const Create = props => {
                     </div>
                 </div>);
     } else if (navigation === navigationCategories[2]) {
+        console.log(props)
         const { abilityScores } = props
         const { abilityScoresSelected } = props
         const { category } = props
         const { getScore } = props
+        const { handleSubmit } = props
 
         return (<div className="container-fluid">
                     <div className="row creation">
@@ -74,7 +76,7 @@ const Create = props => {
                         <Info abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category={category} />
                             </div>
                             <div className="row">
-                         <Selection abilityScores={abilityScores} getScore={getScore} category={category} />
+                        <Selection abilityScores={abilityScores} getScore={getScore} category={category} handleSubmit={handleSubmit}/>
                             </div>
                             <div className="row">
                                 <Navigation navigationCategories={navigationCategories} navigate={navigate} />
