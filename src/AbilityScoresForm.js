@@ -29,14 +29,24 @@ class AbilityScoresForm extends Component {
     handleChange = event => {
         const { name, value } = event.target
         const { scores } = this.state
-        const newScores = scores.map((score) => {
-            return score
-        })
+
+        const newScores = JSON.parse(JSON.stringify(scores))
+
+        //const newScores = scores.map((score) => {
+        //    return score
+        //})
 
         for (var i = 0; i < newScores.length; i++) {
             if (newScores[i].name === name) {
-                newScores[i].value = parseInt(value, 10);
-                break;
+                console.log("NEW SCORES", newScores[i].value)
+                if (isNaN(newScores[i].value)) {
+                    newScores[i].value = 0
+                    console.log("NAN found")
+                  //  break;
+                } else {
+                    newScores[i].value = parseInt(value, 10);
+                 //   break;
+                }
             }
         }
         
@@ -61,7 +71,7 @@ class AbilityScoresForm extends Component {
                             type='number'
                             name='cha'
                             id='charismaScore'
-                            value={scores[0].value}
+                            
                             onChange={this.handleChange} />
 
                     </div>

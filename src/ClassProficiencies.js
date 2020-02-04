@@ -8,7 +8,7 @@ const ClassProficiencies = props => {
     
     let currentProficiencies = classProficiencies.map((proficiency) => {
         if (proficiency.index === undefined) {
-            return (<p className='proficiencies' key={proficiency.name}>{proficiency.name}</p>);
+            return (<span className='proficiencies' key={proficiency.name}>{proficiency.name}</span>);
         } else {
             return (<button className='chosenProficiency btn btn-secondary' onClick={() => removeProficiency(proficiency.name, proficiency.index)} key={proficiency.name}>{proficiency.name}</button>);
         }
@@ -27,9 +27,7 @@ const ClassProficiencies = props => {
     return (<div className='row'>
                 <div className='col-12'>
                     <div className='row'>
-                        <div className='col-12'>
-                            {currentProficiencies}
-                         </div>
+                        <div className='col-12'>{currentProficiencies}</div>
                     </div>
                     <div className='row'>
                         {proficienciesToChooseFrom}

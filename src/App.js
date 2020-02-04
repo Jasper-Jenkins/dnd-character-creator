@@ -107,19 +107,15 @@ class App extends Component {
     }
     
     handleSubmit = (abilities) => {
-        const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
         let noZeroes = []
         for (var i = 0; i < abilities.length; i++) {
-            if (abilities[i].value < 3 || abilities[i].value > 18) {
+            if (abilities[i].value < 3 || abilities[i].value > 18 ) {
                 noZeroes.push(abilities[i].name);
             } else {
-                for (var j = 0; j < abilityScores.count; j++) {
-                        scores[abilities[j].name] = parseInt(abilities[j].value, 10)
-                        this.setState({ abilityScoresSelected: scores })
-                        console.log(scores[abilities[j].name])                                            
-                }
+                scores[abilities[i].name] = parseInt(abilities[i].value, 10)
+                this.setState({ abilityScoresSelected: scores })
             }
         }
         if (noZeroes.length > 0) {
@@ -130,7 +126,6 @@ class App extends Component {
                 } else {
                     zeroesAlert += noZeroes[k];
                 }
-                
             }
             zeroesAlert += "."
             alert(zeroesAlert)
@@ -300,16 +295,6 @@ class App extends Component {
                 </div>
             </div>);
         } else {
-            //if (navigation === characterCategories[0]) { //Race
-            //    return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
-            //} else if (navigation === characterCategories[1]) { //Class
-            //    return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} />);
-            //} else if (navigation === characterCategories[2]) { //Ability-Scores
-            //    return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} handleSubmit={this.handleSubmit} />);
-            //} else if (navigation === characterCategories[3]) { //Proficiencies
-            //    // eslint-disable-next-line
-            //    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} category='classes' classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} navigate={this.navigate} navigation={navigation} />);
-           // }
             switch (navigation) {
                 case characterCategories[0]: //Race
                     return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);

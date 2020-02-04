@@ -32,14 +32,18 @@
     border:solid black 1px;
 }
 
+.chosenName {
+    padding: 0px;
+    margin: 0px;
+}
 .chooseProficiency {
     margin: 10px 0px;
 
 }
 
 .proficiencies {
-    margin: 5px;
-    padding: 5px;
+    margin: 0px 5px 0px 0px;
+    padding: 0px;
 } 
 
 .chosenProficiency {
@@ -53,8 +57,7 @@
 input[type=number] {
     width:100%;
     padding: 5px 5px;
-    margin: 0px;
+    margin: 0px auto;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
 }
