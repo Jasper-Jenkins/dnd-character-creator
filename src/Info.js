@@ -35,7 +35,16 @@ const Info = (props) => {
                         <div className="row" >
                             {abilityScoresDisplay}  
                         </div>
-                    </div>);
+            </div>);
+        case 'proficiencies':
+            if (props.isClassSelected) {
+                //     console.log('info proficiency', props.classSelected)
+                return (<CharacterClass classProps={props} />);
+            } else {
+                return (<div className="col-12 info">
+                    <p>...Choose your class to select proficiencies </p>
+                </div>);
+            }
          default:
             
         }

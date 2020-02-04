@@ -32,7 +32,7 @@ const Selection = (props) => {
                 
             </div>)
     } else {
-        return ((<div className='col-12 text-center selection'><p>broke something</p></div>))
+        return ((<div className='col-12 text-center selection'><p>broke something, or proficiencies is currently under construction</p></div>))
     }
 
 

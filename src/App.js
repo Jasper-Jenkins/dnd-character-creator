@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Create from './Create'
+//import CharacterClass from './CharacterClass'
 
-const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Professions']
+const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Proficiencies']
 
 
 class App extends Component {
@@ -54,7 +55,7 @@ class App extends Component {
     
     setNavigation() {
         this.setState({ navigation: characterCategories[0] }) // default to race 
-        this.setState({ navigationCategories: [characterCategories[0], characterCategories[1], characterCategories[2],] })
+        this.setState({ navigationCategories: characterCategories })
     }
 
     navigate = (category) => {
@@ -99,41 +100,65 @@ class App extends Component {
             if (abilityScores.results[i].index === ability) {
                 scores[ability] = this.randomDSix()
                 this.setState({abilityScoresSelected: scores})
-                console.log(scores[ability])
+          //      console.log(scores[ability])
                 break;
             }
         }
     }
-
-    setScore = (key, abilities) => {
+    
+    handleSubmit = (abilities) => {
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
-        //if reused for leveling up character need to add a level check so it can go above 18
-        if (abilities[key] < 3 || abilities[key] > 18) {
-            console.log('Not a proper value')
-
-        } else {
-            for (var i = 0; i < abilityScores.count; i++) {
-                if (abilityScores.results[i].index === key) {
-                    scores[key] = parseInt(abilities[key], 10)
-                    this.setState({ abilityScoresSelected: scores })
-                    console.log(scores[key])
-                    break;
+        let noZeroes = []
+        for (var i = 0; i < abilities.length; i++) {
+            if (abilities[i].value < 3 || abilities[i].value > 18) {
+                noZeroes.push(abilities[i].name);
+            } else {
+                for (var j = 0; j < abilityScores.count; j++) {
+                        scores[abilities[j].name] = parseInt(abilities[j].value, 10)
+                        this.setState({ abilityScoresSelected: scores })
+                        console.log(scores[abilities[j].name])                                            
                 }
             }
         }
-        
-    }
-
-
-    handleSubmit = (abilities) => {
-        let abilityKeys = Object.keys(abilities);        
-        for (var i = 0; i < abilityKeys.length; i++) {
-            this.setScore(abilityKeys[i], abilities)
+        if (noZeroes.length > 0) {
+            let zeroesAlert = "Ability Scores must not be 0, you currently have 0 in: ";
+            for (var k = 0; k < noZeroes.length; k++) {
+                if (k < noZeroes.length-1) {
+                    zeroesAlert += noZeroes[k] + ", ";
+                } else {
+                    zeroesAlert += noZeroes[k];
+                }
+                
+            }
+            zeroesAlert += "."
+            alert(zeroesAlert)
         }
     }
-    
+
+    //setScore = (key, abilities) => {
+    //    const { abilityScores } = this.state
+    //    const { abilityScoresSelected } = this.state
+    //    let scores = abilityScoresSelected
+       
+    //    //if reused for leveling up character need to add a level check so it can go above 18
+
+    //   // console.log('no Zeroes', noZeroes.length)
+    //    if (abilities[key] < 3 || abilities[key] > 18) {
+    //        //console.log('Not a proper value')
+    //        noZeroes.push(key);
+    //    } else {
+    //        for (var i = 0; i < abilityScores.count; i++) {
+    //            if (abilityScores.results[i].index === key) {
+    //                scores[key] = parseInt(abilities[key], 10)
+    //                this.setState({ abilityScoresSelected: scores })
+    //                console.log(scores[key])
+    //                break;
+    //            }
+    //        }
+    //    }       
+    //}
 
     randomDSix() {
 
@@ -268,13 +293,23 @@ class App extends Component {
 
         if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined) {
             return (<div className="container-fluid">
-                        <div className="row">
-                             <div className="col-12">
-                                  <p>...Loading API</p>
-                             </div>
-                        </div>
-                    </div>);
+                <div className="row">
+                    <div className="col-12">
+                        <p>...Loading API</p>
+                    </div>
+                </div>
+            </div>);
         } else {
+            //if (navigation === characterCategories[0]) { //Race
+            //    return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
+            //} else if (navigation === characterCategories[1]) { //Class
+            //    return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} />);
+            //} else if (navigation === characterCategories[2]) { //Ability-Scores
+            //    return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} handleSubmit={this.handleSubmit} />);
+            //} else if (navigation === characterCategories[3]) { //Proficiencies
+            //    // eslint-disable-next-line
+            //    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} category='classes' classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} navigate={this.navigate} navigation={navigation} />);
+           // }
             switch (navigation) {
                 case characterCategories[0]: //Race
                     return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
@@ -282,7 +317,11 @@ class App extends Component {
                     return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} />);
                 case characterCategories[2]: //Ability-Scores
                     return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} handleSubmit={this.handleSubmit}/>);
-               default:
+                case characterCategories[3]: //Proficiencies
+                    //   eslint-disable-next-line
+                    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency}  navigate={this.navigate} navigation={navigation} />);
+
+                default:
             }
         }
     }

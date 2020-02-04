@@ -84,6 +84,32 @@ const Create = props => {
                         </div>
                     </div>
                 </div>);
+    } else if (navigation === navigationCategories[3]) {
+        console.log(props)
+
+        const { classSelected } = props
+        const { isClassSelected } = props
+        const { classProficiencies } = props
+        const { classProficienciesChoices } = props
+        const { addProficiency } = props
+        const { removeProficiency } = props
+
+        
+        return (<div className="container-fluid">
+            <div className="row creation">
+                <div className="col-12">
+                    <div className="row">
+                        <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
+                    </div>
+                    <div className="row">
+                        <Selection />
+                    </div>
+                    <div className="row">
+                        <Navigation navigationCategories={navigationCategories} navigate={navigate} />
+                    </div>
+                </div>
+            </div>
+        </div>);
     } else {
         return (<div>Broke something</div>)
     }

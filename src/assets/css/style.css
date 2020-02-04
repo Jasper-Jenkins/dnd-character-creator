@@ -45,3 +45,16 @@
 .chosenProficiency {
     color:blueviolet;
 }
+
+.abilityScoresForm {
+
+}
+
+input[type=number] {
+    width:100%;
+    padding: 5px 5px;
+    margin: 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
