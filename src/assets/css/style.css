@@ -15,6 +15,7 @@
     overflow-y:auto;
     overflow-x:hidden;
 }
+
 .selection {
     background-color: aqua;
     padding: 0px;
@@ -26,6 +27,8 @@
     background-color: black;
     height: 15vh; 
 }
+
+
 
 .abilityScores {
     background-color: cornflowerblue;
@@ -41,10 +44,20 @@
 
 }
 
+.proficiencyInfo {
+    background-color: green;
+    margin: 0px;
+    padding: 10px;
+    height: 400px;
+    height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .proficiencies {
     margin: 0px 5px 0px 0px;
     padding: 0px;
-} 
+}
 
 .chosenProficiency {
     color:blueviolet;

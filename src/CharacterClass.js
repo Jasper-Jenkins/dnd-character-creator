@@ -19,9 +19,10 @@ const CharacterClass = props => {
                 </p>
             </div>);
         case 'proficiencies':
-            return (<div className='col-12 info'>
-                <ClassProficiencies classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
-            </div>);
+            return (<div className='col-12 proficiencyInfo'>
+                            <h1 className='text-center'>{classSelected.name}</h1>
+                            <ClassProficiencies classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
+                    </div>);
         default:
     }     
 }

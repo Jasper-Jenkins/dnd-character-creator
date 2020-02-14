@@ -111,7 +111,7 @@ class App extends Component {
         let scores = abilityScoresSelected
         let noZeroes = []
         for (var i = 0; i < abilities.length; i++) {
-            if (abilities[i].value < 3 || abilities[i].value > 18 ) {
+            if (abilities[i].value < 3 || abilities[i].value > 18 ) { //needs better validation
                 noZeroes.push(abilities[i].name);
             } else {
                 scores[abilities[i].name] = parseInt(abilities[i].value, 10)
@@ -131,30 +131,7 @@ class App extends Component {
             alert(zeroesAlert)
         }
     }
-
-    //setScore = (key, abilities) => {
-    //    const { abilityScores } = this.state
-    //    const { abilityScoresSelected } = this.state
-    //    let scores = abilityScoresSelected
-       
-    //    //if reused for leveling up character need to add a level check so it can go above 18
-
-    //   // console.log('no Zeroes', noZeroes.length)
-    //    if (abilities[key] < 3 || abilities[key] > 18) {
-    //        //console.log('Not a proper value')
-    //        noZeroes.push(key);
-    //    } else {
-    //        for (var i = 0; i < abilityScores.count; i++) {
-    //            if (abilityScores.results[i].index === key) {
-    //                scores[key] = parseInt(abilities[key], 10)
-    //                this.setState({ abilityScoresSelected: scores })
-    //                console.log(scores[key])
-    //                break;
-    //            }
-    //        }
-    //    }       
-    //}
-
+        
     randomDSix() {
 
         let totalDiceRolls = 5;
@@ -186,26 +163,26 @@ class App extends Component {
         } 
 
 
-    addProficiency = (proficiencyName, choiceArrayIndex) => {
+    addProficiency = (proficiencyName, choicesIndex) => {
 
         const { classProficienciesChoices } = this.state
         const { classSelected } = this.state
 
         const choiceArray = [...classProficienciesChoices]
 
-        for (var i = 0; i < choiceArray[choiceArrayIndex].from.length; i++) {
-            if (choiceArray[choiceArrayIndex].from.length === (classSelected.proficiency_choices[choiceArrayIndex].from.length - choiceArray[choiceArrayIndex].choose)) {
+        for (var i = 0; i < choiceArray[choicesIndex].from.length; i++) {
+            if (choiceArray[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choiceArray[choicesIndex].choose)) {
                 alert('no more available!')
                 break;
             } else {
-                if (choiceArray[choiceArrayIndex].from[i].name === proficiencyName) {
+                if (choiceArray[choicesIndex].from[i].name === proficiencyName) {
 
-                    const newChoices = choiceArray[choiceArrayIndex].from.filter(function (proficiency) { return proficiency.name !== proficiencyName })
-                    let newProficiency = choiceArray[choiceArrayIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
+                    const newChoices = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name !== proficiencyName })
+                    let newProficiency = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
 
-                    newProficiency[0]['index'] = choiceArrayIndex; //added for a check in the classProficiencies component for the removeProficiency() 
+                    newProficiency[0]['index'] = choicesIndex; //added for a check in the classProficiencies component for the removeProficiency() 
 
-                    choiceArray[choiceArrayIndex].from = [...newChoices]
+                    choiceArray[choicesIndex].from = [...newChoices]
 
                     this.setState(state => ({
                         classProficiencies: [...state.classProficiencies, newProficiency[0]],
@@ -232,7 +209,7 @@ class App extends Component {
                 let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName })
                 let newChoice = choices[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
 
-                console.log(newChoice)
+               // console.log(newChoice)
 
                 proficienciesChoices[choicesIndex].from = [...proficienciesChoices[choicesIndex].from, newChoice[0]]
 

@@ -9,7 +9,7 @@ const Create = props => {
     const { navigation } = props
     const { navigate } = props // function
 
-    const { category } = props // races, classes, ability-scores
+    const { category } = props // races, classes, ability-scores, proficiencies
     
     if (navigation === navigationCategories[0]) {
         const { races } = props
@@ -101,9 +101,7 @@ const Create = props => {
                     <div className="row">
                         <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
                     </div>
-                    <div className="row">
-                        <Selection />
-                    </div>
+                   
                     <div className="row">
                         <Navigation navigationCategories={navigationCategories} navigate={navigate} />
                     </div>

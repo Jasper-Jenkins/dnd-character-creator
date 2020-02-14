@@ -7,7 +7,7 @@ const Info = (props) => {
         case 'races':
             if (props.isRaceSelected) {
                 return (<div className="col-12 info">
-                            <p>{props.raceSelected.name}</p>
+                            <h1 className='text-center'>{props.raceSelected.name}</h1>
                             <p>{props.raceSelected.speed}</p>
                             <p>{props.raceSelected.alignment}</p>
                         </div>);
@@ -38,7 +38,7 @@ const Info = (props) => {
             if (props.isClassSelected) {
                 return (<CharacterClass classProps={props} />);
             } else {
-                return (<div className="col-12 info">
+                return (<div className="col-12 proficiencyInfo">
                             <p>...Choose your class to select proficiencies </p>
                         </div>);
             }

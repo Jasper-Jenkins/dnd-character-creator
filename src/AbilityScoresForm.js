@@ -3,15 +3,7 @@ import React, { Component} from 'react'
 class AbilityScoresForm extends Component {
     constructor(props) {
         super(props);
-        //this.initialState = {
-        //    cha: 0,
-        //    con: 0,
-        //    dex: 0,
-        //    int: 0,
-        //    str: 0,
-        //    wis: 0,
-        //}
-
+      
         this.initialState = {
             scores: [
                 { name: 'cha', value: 0, },
@@ -21,108 +13,116 @@ class AbilityScoresForm extends Component {
                 { name: 'str', value: 0, },
                 { name: 'wis', value: 0, },
             ],
+            event: null,
             }
 
         this.state = this.initialState
     }
 
+    handleFocus = (event) => event.target.select();
+
     handleChange = event => {
+
         const { name, value } = event.target
         const { scores } = this.state
 
         const newScores = JSON.parse(JSON.stringify(scores))
-
-        //const newScores = scores.map((score) => {
-        //    return score
-        //})
-
+        
         for (var i = 0; i < newScores.length; i++) {
             if (newScores[i].name === name) {
-                console.log("NEW SCORES", newScores[i].value)
-                if (isNaN(newScores[i].value)) {
+                  console.log("SET SCORES", value)
+                if (value === '') {
                     newScores[i].value = 0
                     console.log("NAN found")
-                  //  break;
+                //  //  break;
                 } else {
                     newScores[i].value = parseInt(value, 10);
-                 //   break;
+                  //  break;
                 }
             }
         }
         
-        this.setState({ scores: newScores})
+        this.setState({ scores: newScores })
+
     } 
 
     submitForm = () => {
         this.props.handleSubmit(this.state.scores)
-        this.setState(this.initialState)
+     //   this.setState(this.initialState)
     }
 
     render() {
 
         const { scores } = this.state;
-
+      
         return (
             <form>
                 <div className="row">
                     <div className="col-4">
-                        <label htmlFor="charismaScore">Charisma</label>
+                        <label htmlFor="cha">Charisma</label>
                         <input
                             type='number'
                             name='cha'
-                            id='charismaScore'
-                            
-                            onChange={this.handleChange} />
+                            id='cha'
+                            value={scores[0].value}
+                            onChange={this.handleChange}
+                            onFocus={this.handleFocus} />
+                        
 
                     </div>
                     <div className="col-4">
-                        <label htmlFor="constitutionScore">Constitution</label>
+                        <label htmlFor="con">Constitution</label>
                         <input
                             type='number'
                             name='con'
-                            id='constitutionScore'
+                            id='con'
                             value={scores[1].value}
-                            onChange={this.handleChange} />
+                            onChange={this.handleChange}
+                            onFocus={this.handleFocus} />
 
                     </div>
                     <div className="col-4">
-                        <label htmlFor="dexterityScore">Dexterity</label>
+                        <label htmlFor="dex">Dexterity</label>
                         <input
                             type='number'
                             name='dex'
-                            id='dexterityScore'
+                            id='dex'
                             value={scores[2].value}
-                            onChange={this.handleChange} />
+                            onChange={this.handleChange}
+                            onFocus={this.handleFocus} />
 
                     </div>
                     <div className="col-4">
-                        <label htmlFor="intelligenceScore">Intelligence</label>
+                        <label htmlFor="int">Intelligence</label>
                         <input
                             type='number'
                             name='int'
-                            id='intelligenceScore'
+                            id='int'
                             value={scores[3].value}
-                            onChange={this.handleChange} />
+                            onChange={this.handleChange}
+                            onFocus={this.handleFocus} />
 
                     </div>
                     <div className="col-4">
-                        <label htmlFor="strengthScore">Strength</label>
+                        <label htmlFor='str'>Strength</label>
                         <input
                             type='number'
                             name='str'
-                            id='strengthScore'
+                            id='str'
                             value={scores[4].value}
-                            onChange={this.handleChange} />
+                            onChange={this.handleChange}
+                            onFocus={this.handleFocus} />
 
                     </div>
                     <div className="col-4">
-                        <label htmlFor="wisdomScore">Wisdom</label>
+                        <label htmlFor="wis">Wisdom</label>
                         <input
                             type='number'
                             name='wis'
-                            id='wisdomScore'
+                            id='wis'
                             value={scores[5].value}
-                            onChange={this.handleChange} />
+                            onChange={this.handleChange}
+                            onFocus={this.handleFocus} />
 
                     </div>
                     <div className="col-12">
