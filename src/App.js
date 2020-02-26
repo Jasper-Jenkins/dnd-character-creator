@@ -176,64 +176,64 @@ class App extends Component {
         } 
 
 
-    addProficiency = (proficiencyName, choicesIndex) => {
+    //addProficiency = (proficiencyName, choicesIndex) => {
 
-        const { classProficienciesChoices } = this.state
-        const { classSelected } = this.state
+    //    const { classProficienciesChoices } = this.state
+    //    const { classSelected } = this.state
 
-        const choiceArray = [...classProficienciesChoices]
+    //    const choiceArray = [...classProficienciesChoices]
 
-        for (var i = 0; i < choiceArray[choicesIndex].from.length; i++) {
-            if (choiceArray[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choiceArray[choicesIndex].choose)) {
-                alert('no more available!')
-                break;
-            } else {
-                if (choiceArray[choicesIndex].from[i].name === proficiencyName) {
+    //    for (var i = 0; i < choiceArray[choicesIndex].from.length; i++) {
+    //        if (choiceArray[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choiceArray[choicesIndex].choose)) {
+    //            alert('no more available!')
+    //            break;
+    //        } else {
+    //            if (choiceArray[choicesIndex].from[i].name === proficiencyName) {
 
-                    const newChoices = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name !== proficiencyName })
-                    let newProficiency = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
+    //                const newChoices = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name !== proficiencyName })
+    //                let newProficiency = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
                     
-                    newProficiency[0]['index'] = choicesIndex; //added for a check in the classProficiencies component for the removeProficiency() 
+    //                newProficiency[0]['index'] = choicesIndex; //added for a check in the classProficiencies component for the removeProficiency() 
 
-                    choiceArray[choicesIndex].from = [...newChoices]
+    //                choiceArray[choicesIndex].from = [...newChoices]
 
-                    this.setState(state => ({
-                        classProficiencies: [...state.classProficiencies, newProficiency[0]],
-                        classProficienicesChoices: choiceArray,
-                    }))
-                    break;
-                }
-            }
-        }
-    }
+    //                this.setState(state => ({
+    //                    classProficiencies: [...state.classProficiencies, newProficiency[0]],
+    //                    classProficienicesChoices: choiceArray,
+    //                }))
+    //                break;
+    //            }
+    //        }
+    //    }
+    //}
 
-    removeProficiency = (proficiencyName, choicesIndex) => {
+    //removeProficiency = (proficiencyName, choicesIndex) => {
 
-        const { classProficiencies } = this.state
-        const { classProficienciesChoices } = this.state
-        const { classSelected } = this.state
+    //    const { classProficiencies } = this.state
+    //    const { classProficienciesChoices } = this.state
+    //    const { classSelected } = this.state
 
-        let proficiencies = [...classProficiencies]
-        let proficienciesChoices = [...classProficienciesChoices]
-        let choices = JSON.parse(JSON.stringify(classSelected.proficiency_choices));
+    //    let proficiencies = [...classProficiencies]
+    //    let proficienciesChoices = [...classProficienciesChoices]
+    //    let choices = JSON.parse(JSON.stringify(classSelected.proficiency_choices));
 
-        for (var i = 0; i < classProficiencies.length; i++) {
-            if (proficiencies[i].name === proficiencyName) {
-                let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName })
-                let newChoice = choices[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
+    //    for (var i = 0; i < classProficiencies.length; i++) {
+    //        if (proficiencies[i].name === proficiencyName) {
+    //            let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName })
+    //            let newChoice = choices[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
 
-               // console.log(newChoice)
+    //           // console.log(newChoice)
 
-                proficienciesChoices[choicesIndex].from = [...proficienciesChoices[choicesIndex].from, newChoice[0]]
+    //            proficienciesChoices[choicesIndex].from = [...proficienciesChoices[choicesIndex].from, newChoice[0]]
 
-                this.setState({
-                    classProficiencies: [...newProficiencies],
-                    classProficienicesChoices: proficienciesChoices,
-                });
-                break;
-            }
-        }
-    }
+    //            this.setState({
+    //                classProficiencies: [...newProficiencies],
+    //                classProficienicesChoices: proficienciesChoices,
+    //            });
+    //            break;
+    //        }
+    //    }
+    //}
              
     displayRaceInfo = index => {
         const { racesInfo } = this.state
@@ -297,7 +297,7 @@ class App extends Component {
                     return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} handleSubmit={this.handleSubmit}/>);
                 case characterCategories[3]: //Proficiencies
                     //   eslint-disable-next-line
-                    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
+                    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
                 case characterCategories[4]: //spells
                     return (<Create classSelected={classSelected} isClassSelected={isClassSelected} spellsInfo={spellsInfo} category='spells' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
                 default:

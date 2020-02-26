@@ -41,7 +41,6 @@ class ClassSpells extends Component {
             //onClick={() => this.addSpell()}
 
     render() {
-        const { classSpells } = this.state
         return (<div className='row'>
             <div className='col-12'>
                 <div className='row'>

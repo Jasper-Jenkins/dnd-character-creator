@@ -1,5 +1,6 @@
 import React from 'react'
 import AbilityScoresForm from './AbilityScoresForm'
+import ClassProficiencies from './ClassProficiencies'
 
 const Selection = (props) => {
     if (props.category === 'races') {
@@ -29,10 +30,18 @@ const Selection = (props) => {
                         <AbilityScoresForm handleSubmit={props.handleSubmit} />
                     </div>
                 </div>
-                
+
             </div>)
+    } else if (props.category === 'proficiencies') {
+        const { classProficiencies } = props
+        const { classProficienciesChoices } = props
+        const { addProficiency } = props
+        const { removeProficiency } = props
+        const { classSelected } = props
+
+        return (<ClassProficiencies classSelected={classSelected} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />);
     } else {
-        return ((<div className='col-12 text-center selection'><p>broke something, or proficiencies is currently under construction</p></div>))
+        return ((<div className='col-12 text-center selection'><p>broke something, or proficiencies is currently under construction</p></div>));
     }
 
 

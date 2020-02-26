@@ -7,8 +7,6 @@ const CharacterClass = props => {
     const { classSelected } = props.classProps
     const { classProficiencies } = props.classProps
     const { classProficienciesChoices} = props.classProps
-    const { addProficiency } = props.classProps
-    const { removeProficiency } = props.classProps
     const { category } = props.classProps
     const { spellsInfo } = props.classProps
 
@@ -21,9 +19,8 @@ const CharacterClass = props => {
                     </p>
                 </div>);
         case 'proficiencies':
-            return (<div className='col-12 proficiencyInfo'>
+            return (<div className='col-12 info'>
                         <h1 className='text-center'>{classSelected.name}</h1>
-                        <ClassProficiencies classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
                     </div>);
         case 'spells':
 

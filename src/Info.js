@@ -38,7 +38,7 @@ const Info = (props) => {
             if (props.isClassSelected) {
                 return (<CharacterClass classProps={props} />);
             } else {
-                return (<div className="col-12 proficiencyInfo">
+                return (<div className="col-12 info">
                             <p>...Choose your class to select proficiencies </p>
                         </div>);
             }
