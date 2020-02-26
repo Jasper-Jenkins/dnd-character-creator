@@ -48,11 +48,20 @@
     background-color: green;
     margin: 0px;
     padding: 10px;
-    height: 400px;
     height: 85vh;
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.spellsInfo {
+    background-color: green;
+    margin: 0px;
+    padding: 10px;
+    height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 
 .proficiencies {
     margin: 0px 5px 0px 0px;

@@ -42,6 +42,14 @@ const Info = (props) => {
                             <p>...Choose your class to select proficiencies </p>
                         </div>);
             }
+        case 'spells':
+            if (props.isClassSelected) {
+                return (<CharacterClass classProps={props} />);
+            } else {
+                return (<div className='col-12 spellsInfo'>
+                    <p>..Choose your class to select spells </p>
+                    </div>);
+            }
          default:
             
         }

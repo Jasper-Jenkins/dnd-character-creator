@@ -13,7 +13,6 @@ class AbilityScoresForm extends Component {
                 { name: 'str', value: 0, },
                 { name: 'wis', value: 0, },
             ],
-            event: null,
             }
 
         this.state = this.initialState
@@ -30,14 +29,10 @@ class AbilityScoresForm extends Component {
         
         for (var i = 0; i < newScores.length; i++) {
             if (newScores[i].name === name) {
-                  console.log("SET SCORES", value)
                 if (value === '') {
-                    newScores[i].value = 0
-                    console.log("NAN found")
-                //  //  break;
+                    newScores[i].value = 0                    
                 } else {
                     newScores[i].value = parseInt(value, 10);
-                  //  break;
                 }
             }
         }
@@ -48,7 +43,7 @@ class AbilityScoresForm extends Component {
 
     submitForm = () => {
         this.props.handleSubmit(this.state.scores)
-     //   this.setState(this.initialState)
+        this.setState(this.initialState)
     }
 
     render() {

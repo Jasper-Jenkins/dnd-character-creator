@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Create from './Create'
 //import CharacterClass from './CharacterClass'
 
-const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Proficiencies']
+const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Proficiencies', 'spells']
 
 
 class App extends Component {
@@ -29,6 +29,12 @@ class App extends Component {
         abilityScoresSelected: {},
         abilityScoresChosen: [],
 
+        ////////
+        spells: {},
+        spellsInfo: [],
+        spellsSelected: [],
+
+
         ///////
         isRaceSelected: false,
         isClassSelected: false,
@@ -49,6 +55,9 @@ class App extends Component {
         fetch(url + 'ability-scores')
             .then(result => result.json())
             .then(result => { this.setState({ abilityScores: result }, this.getInfo(result, 'ability-scores')) });
+        fetch(url + 'spells')
+            .then(result => result.json())
+            .then(result => { this.setState({ spells: result }, this.getInfo(result, 'spells')) });
         this.setNavigation();
     }
 
@@ -79,12 +88,16 @@ class App extends Component {
                 break;
             case 'ability-scores':
                 this.setState({ abilityScoresInfo: info, })
-                let abilityScoresSetup = {}    
+                let abilityScoresSetup = {}
                 for (var j = 0; j < data.count; j++) {
                     let ability = data.results[j].index;
                     abilityScoresSetup[ability] = 0;
                 }
                 this.setState({ abilityScoresSelected: abilityScoresSetup });
+                break;
+            case 'spells':
+                console.log(info)
+                this.setState({ spellsInfo: info })
                 break;
             default:
         }
@@ -179,7 +192,7 @@ class App extends Component {
 
                     const newChoices = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name !== proficiencyName })
                     let newProficiency = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
-
+                    
                     newProficiency[0]['index'] = choicesIndex; //added for a check in the classProficiencies component for the removeProficiency() 
 
                     choiceArray[choicesIndex].from = [...newChoices]
@@ -260,6 +273,8 @@ class App extends Component {
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
 
+        const { spellsInfo } = this.state
+
         const { navigation } = this.state
         const { navigationCategories} = this.state
 
@@ -281,8 +296,9 @@ class App extends Component {
                     return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} handleSubmit={this.handleSubmit}/>);
                 case characterCategories[3]: //Proficiencies
                     //   eslint-disable-next-line
-                    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency}  navigate={this.navigate} navigation={navigation} />);
-
+                    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
+                case characterCategories[4]: //spells
+                    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} spellsInfo={spellsInfo} category='spells' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
                 default:
             }
         }
