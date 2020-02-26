@@ -273,12 +273,13 @@ class App extends Component {
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
 
+        const { spells } = this.state
         const { spellsInfo } = this.state
 
         const { navigation } = this.state
         const { navigationCategories} = this.state
 
-        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined) {
+        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.count === undefined) {
             return (<div className="container-fluid">
                 <div className="row">
                     <div className="col-12">

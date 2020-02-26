@@ -2,7 +2,7 @@ import React from 'react'
 import CharacterClass from './CharacterClass'
 
 const Info = (props) => {
-
+    console.log(props)
     switch (props.category) {
         case 'races':
             if (props.isRaceSelected) {
@@ -43,6 +43,7 @@ const Info = (props) => {
                         </div>);
             }
         case 'spells':
+            console.log("Info, at spells", props)
             if (props.isClassSelected) {
                 return (<CharacterClass classProps={props} />);
             } else {

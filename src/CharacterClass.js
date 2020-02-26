@@ -10,6 +10,7 @@ const CharacterClass = props => {
     const { addProficiency } = props.classProps
     const { removeProficiency } = props.classProps
     const { category } = props.classProps
+    const { spellsInfo } = props.classProps
 
     switch (category) {
         case 'classes':
@@ -25,9 +26,11 @@ const CharacterClass = props => {
                         <ClassProficiencies classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
                     </div>);
         case 'spells':
+
+           
             return (<div className='col-12 spellsInfo'>
                         <h1 className='text-center'>{classSelected.name}</h1>  
-                        <ClassSpells />
+                <ClassSpells classSelected={classSelected} spellsInfo={spellsInfo}/>
                     </div>)
         default:
     }     
