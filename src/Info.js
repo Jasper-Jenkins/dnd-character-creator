@@ -18,7 +18,10 @@ const Info = (props) => {
             }
         case 'classes':
             if (props.isClassSelected) {
-                return (<CharacterClass classProps={props} />);
+                // return (<CharacterClass classProps={props} />);
+                return (<div className="col-12 info">
+                    <p>WORKING ON CLASS CREATION</p>
+                </div>);
             } else {
                 return (<div className="col-12 info">
                             <p>...Choose your class</p>
@@ -36,7 +39,11 @@ const Info = (props) => {
             </div>);
         case 'proficiencies':
             if (props.isClassSelected) {
-                return (<CharacterClass classProps={props} />);
+               // return (<ClassProficiencies classProps={props} />);
+                //return (<CharacterClass classProps={props} />);
+                return (<div className="col-12 info">
+                    <p>...Proficiencies would be here once Character has chosen a Class </p>
+                </div >);
             } else {
                 return (<div className="col-12 info">
                             <p>...Choose your class to select proficiencies </p>
@@ -45,14 +52,14 @@ const Info = (props) => {
         case 'spells':
             console.log("Info, at spells", props)
             if (props.isClassSelected) {
-                return (<CharacterClass classProps={props} />);
+                return (<CharacterClass props={props} />);
             } else {
                 return (<div className='col-12 spellsInfo'>
                     <p>..Choose your class to select spells </p>
                     </div>);
             }
-         default:
-            
+        default:
+            return null;
         }
     }
     

@@ -62,7 +62,7 @@ class AbilityScoresForm extends Component {
                             value={scores[0].value}
                             onChange={this.handleChange}
                             onFocus={this.handleFocus} />
-                        
+
 
                     </div>
                     <div className="col-4">

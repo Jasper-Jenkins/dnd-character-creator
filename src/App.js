@@ -1,47 +1,40 @@
 import React, { Component } from 'react'
-import Create from './Create'
+//import { Button, StyleSheet, View } from 'react-native'
+import CreateCharacter from './CreateCharacter'
 //import CharacterClass from './CharacterClass'
-
-const characterCategories = ['Race', 'Class', 'Ability-Scores', 'Proficiencies', 'spells']
-
 
 class App extends Component {
 
     state = {
-        navigation: '',
-        navigationCategories: [],
+        //navigation: '',
+        //navigationCategories: [],
         //////
         races: {},
         racesInfo: [],
-        raceSelected: {},
-        raceChosen: {},
-        //////
+        //raceSelected: {},
+        //raceChosen: {},
+        ////////
         classes: {},
         classesInfo: [],
-        classSelected: {},
-        classChosen: {}, 
+        //classSelected: {},
+        //classChosen: {}, 
         classProficiencies: [],
         classProficienciesChoices: [],
        
         ///////
         abilityScores: {},
         abilityScoresInfo: [],
-        abilityScoresSelected: {},
-        abilityScoresChosen: [],
+        //abilityScoresSelected: {},
+        //abilityScoresChosen: [],
 
         ////////
         spells: {},
         spellsInfo: [],
-        spellsSelected: [],
+        //spellsSelected: [],
 
 
         ///////
-        isRaceSelected: false,
-        isClassSelected: false,
-        isRaceChosen: false,
-        isClassChosen: false,
-        isAbilityScoresSelected: false,
-        isAbilityScoresChosen: false,
+      
     }
 
     componentDidMount() {
@@ -58,18 +51,17 @@ class App extends Component {
         fetch(url + 'spells')
             .then(result => result.json())
             .then(result => { this.setState({ spells: result }, this.getInfo(result, 'spells')) });
-        this.setNavigation();
+    //    this.setNavigation();
     }
-
     
-    setNavigation() {
-        this.setState({ navigation: characterCategories[0] }) // default to race 
-        this.setState({ navigationCategories: characterCategories })
-    }
+    //setNavigation() {
+    //    this.setState({ navigation: characterCategories[0] }) // default to race 
+    //    this.setState({ navigationCategories: characterCategories })
+    //}
 
-    navigate = (category) => {
-        this.setState({ navigation: category })
-    }
+    //navigate = (category) => {
+    //    this.setState({ navigation: category })
+    //}
 
     getInfo(data, category) {
         let info = []
@@ -96,7 +88,6 @@ class App extends Component {
                 this.setState({ abilityScoresSelected: abilityScoresSetup });
                 break;
             case 'spells':
-                console.log(info)
                 this.setState({ spellsInfo: info })
                 break;
             default:
@@ -168,116 +159,40 @@ class App extends Component {
         return abilityPoints
     }
 
-    setStartingProficiencies(chosenClass) {
-        const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))
-        const proficienciesChoices = JSON.parse(JSON.stringify(chosenClass.proficiency_choices))
+    //setStartingProficiencies = (chosenClass) => {
+    //    const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))
+    //    const proficienciesChoices = JSON.parse(JSON.stringify(chosenClass.proficiency_choices))
                           
-        this.setState({ classProficiencies: proficiencies, classProficienciesChoices: proficienciesChoices, });
-        } 
-
-
-    //addProficiency = (proficiencyName, choicesIndex) => {
-
-    //    const { classProficienciesChoices } = this.state
-    //    const { classSelected } = this.state
-
-    //    const choiceArray = [...classProficienciesChoices]
-
-    //    for (var i = 0; i < choiceArray[choicesIndex].from.length; i++) {
-    //        if (choiceArray[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choiceArray[choicesIndex].choose)) {
-    //            alert('no more available!')
-    //            break;
-    //        } else {
-    //            if (choiceArray[choicesIndex].from[i].name === proficiencyName) {
-
-    //                const newChoices = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name !== proficiencyName })
-    //                let newProficiency = choiceArray[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
-                    
-    //                newProficiency[0]['index'] = choicesIndex; //added for a check in the classProficiencies component for the removeProficiency() 
-
-    //                choiceArray[choicesIndex].from = [...newChoices]
-
-    //                this.setState(state => ({
-    //                    classProficiencies: [...state.classProficiencies, newProficiency[0]],
-    //                    classProficienicesChoices: choiceArray,
-    //                }))
-    //                break;
-    //            }
-    //        }
-    //    }
-    //}
-
-    //removeProficiency = (proficiencyName, choicesIndex) => {
-
-    //    const { classProficiencies } = this.state
-    //    const { classProficienciesChoices } = this.state
-    //    const { classSelected } = this.state
-
-    //    let proficiencies = [...classProficiencies]
-    //    let proficienciesChoices = [...classProficienciesChoices]
-    //    let choices = JSON.parse(JSON.stringify(classSelected.proficiency_choices));
-
-    //    for (var i = 0; i < classProficiencies.length; i++) {
-    //        if (proficiencies[i].name === proficiencyName) {
-    //            let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName })
-    //            let newChoice = choices[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
-
-    //           // console.log(newChoice)
-
-    //            proficienciesChoices[choicesIndex].from = [...proficienciesChoices[choicesIndex].from, newChoice[0]]
-
-    //            this.setState({
-    //                classProficiencies: [...newProficiencies],
-    //                classProficienicesChoices: proficienciesChoices,
-    //            });
+    //    this.setState({ classProficiencies: proficiencies, classProficienciesChoices: proficienciesChoices, });
+    //} 
+    
+    //displayRaceInfo = (index) => {
+    //    const { racesInfo } = this.state
+    //    for (let i = 0; i < racesInfo.length; i++) {
+    //        if (racesInfo[i].index === index) {
+    //            const RaceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
+    //            this.setState({ raceSelected: RaceSelected[0], isRaceSelected: true });
     //            break;
     //        }
     //    }
     //}
-             
-    displayRaceInfo = index => {
-        const { racesInfo } = this.state
-        for (let i = 0; i < racesInfo.length; i++) {
-            if (racesInfo[i].index === index) {
-                const RaceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
-                this.setState({ raceSelected: RaceSelected[0], isRaceSelected: true });
-                break;
-            }
-        }
-    }
 
-    displayClassInfo = index => {
-        const { classesInfo } = this.state
-        for (let i = 0; i < classesInfo.length; i++) {
-            if (classesInfo[i].index === index) {
-                const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name })
-                this.setState({ classSelected: selectedClass[0], isClassSelected: true }, this.setStartingProficiencies(selectedClass[0]),)
-                break;
-            }
-        }
-    }
+    //displayClassInfo = (index) => {
+    //    const { classesInfo } = this.state
+    //    for (let i = 0; i < classesInfo.length; i++) {
+    //        if (classesInfo[i].index === index) {
+    //            const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name })
+    //            this.setState({ classSelected: selectedClass[0], isClassSelected: true }, this.setStartingProficiencies(selectedClass[0]),)
+    //            break;
+    //        }
+    //    }
+    //}
           
     render() {
         const { races } = this.state
-        const { racesInfo } = this.state
-        const { raceSelected } = this.state
-        const { isRaceSelected } = this.state
-        
         const { classes } = this.state
-        const { classesInfo } = this.state
-        const { classSelected } = this.state
-        const { isClassSelected } = this.state
-        const { classProficiencies } = this.state
-        const { classProficienciesChoices } = this.state
-        
         const { abilityScores } = this.state
-        const { abilityScoresSelected } = this.state
-
         const { spells } = this.state
-        const { spellsInfo } = this.state
-
-        const { navigation } = this.state
-        const { navigationCategories} = this.state
 
         if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.count === undefined) {
             return (<div className="container-fluid">
@@ -288,20 +203,7 @@ class App extends Component {
                 </div>
             </div>);
         } else {
-            switch (navigation) {
-                case characterCategories[0]: //Race
-                    return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
-                case characterCategories[1]: //Class
-                    return (<Create classes={classes} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} classSelected={classSelected} isClassSelected={isClassSelected} category='classes' classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} addProficiency={this.addProficiency} removeProficiency={this.removeProficiency} />);
-                case characterCategories[2]: //Ability-Scores
-                    return (<Create abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} handleSubmit={this.handleSubmit}/>);
-                case characterCategories[3]: //Proficiencies
-                    //   eslint-disable-next-line
-                    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
-                case characterCategories[4]: //spells
-                    return (<Create classSelected={classSelected} isClassSelected={isClassSelected} spellsInfo={spellsInfo} category='spells' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
-                default:
-            }
+            return (<CreateCharacter characterClass={this.state} />);
         }
     }
 }

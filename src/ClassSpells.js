@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 class ClassSpells extends Component {
     constructor(props) {
         super(props);
+        console.log("ClASS SPELLS PROPS", props)
         this.state = {
             spellsInfo: props.spellsInfo,
             classSelected: props.classSelected,
