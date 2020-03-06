@@ -7,32 +7,27 @@ class ClassProficiencies extends Component {
         console.log("ClassProficiencies: ", props);
         this.state = {
             classSelected: props.characterClass.classSelected,
-            classProficiencies: props.characterClass.classProficiencies,
-            classProficienciesChoices: props.characterClass.classProficienciesChoices,
-            //currentProficiencies: [],
-            proficienciesToChooseFrom: [],
-            //proficienciesToDisplay: []
+            proficiencies: [],
+            proficienciesChoices: [],
         };
     }
 
     state = {
         classSelected: {},
-        classProficiencies: [],
-        classProficienciesChoices: [],
-        //currentProficiencies: [],
-        proficienciesToChooseFrom: [],
-        //proficienciesToDisplay: []
+        proficiencies: [],
+        proficienciesChoices: [],
     }
 
-    //componentDidMount() {
-    //    this.classProficienciesToChooseFrom();
-    //}
+    componentDidMount() {
+        this.setStartingProficiencies(this.state.classSelected)
+    }
 
     addProficiency = (proficiencyName, choicesIndex) => {
-        const { classProficienciesChoices } = this.state
+        const { proficienciesChoices } = this.state
         const { classSelected } = this.state
 
-        const choiceArray = [...classProficienciesChoices]
+        const choiceArray = [...proficienciesChoices]
+
 
         for (var i = 0; i < choiceArray[choicesIndex].from.length; i++) {
             if (choiceArray[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choiceArray[choicesIndex].choose)) {
@@ -48,8 +43,8 @@ class ClassProficiencies extends Component {
                     choiceArray[choicesIndex].from = [...newChoices]
 
                     this.setState(state => ({
-                        classProficiencies: [...state.classProficiencies, newProficiency[0]],
-                        classProficienicesChoices: choiceArray,
+                        proficiencies: [...state.proficiencies, newProficiency[0]],
+                        proficienciesChoices: choiceArray,
                     }))
                     break;
                 }
@@ -58,35 +53,48 @@ class ClassProficiencies extends Component {
     }
 
     removeProficiency = (proficiencyName, choicesIndex) => {
-        const { classProficiencies } = this.state
-        const { classProficienciesChoices } = this.state
+        const { proficiencies } = this.state
+        const { proficienciesChoices } = this.state
         const { classSelected } = this.state
 
-        let proficiencies = [...classProficiencies]
-        let proficienciesChoices = [...classProficienciesChoices]
+        let classProficiencies = [...proficiencies]
+        let classProficienciesChoices = [...proficienciesChoices]
         let choices = JSON.parse(JSON.stringify(classSelected.proficiency_choices));
 
         for (var i = 0; i < classProficiencies.length; i++) {
-            if (proficiencies[i].name === proficiencyName) {
+            if (classProficiencies[i].name === proficiencyName) {
                 let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName })
                 let newChoice = choices[choicesIndex].from.filter(function (proficiency) { return proficiency.name === proficiencyName })
                 
-                proficienciesChoices[choicesIndex].from = [...proficienciesChoices[choicesIndex].from, newChoice[0]]
+                classProficienciesChoices[choicesIndex].from = [...proficienciesChoices[choicesIndex].from, newChoice[0]]
 
                 this.setState({
-                    classProficiencies: [...newProficiencies],
-                    classProficienicesChoices: proficienciesChoices,
+                    proficiencies: [...newProficiencies],
+                    proficienicesChoices: classProficienciesChoices,
                 });
                 break;
             }
         }
     }
 
+
+
+    setStartingProficiencies = (chosenClass) => {
+        console.log("Set Starting proficiencies", chosenClass)
+        const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))
+        const proficienciesChoices = JSON.parse(JSON.stringify(chosenClass.proficiency_choices))
+        this.setState({ proficiencies: proficiencies, proficienciesChoices: proficienciesChoices,});
+     
+    }
+
+
     currentClassProficienices() {
-        const { classProficiencies } = this.state
+     //   const { proficiencies } - this.state
+        const { proficiencies } = this.state
+        console.log("Current Proficiencies", this.state)
 
 
-        let currentProficiencies = classProficiencies.map((proficiency) => {
+        let currentProficiencies = proficiencies.map((proficiency) => {
             //if (proficiency.index === undefined) {
             //    return (<span className='proficiencies' key={proficiency.name}>{proficiency.name}</span>);
             //} else {
@@ -103,11 +111,14 @@ class ClassProficiencies extends Component {
     }
 
     classProficienciesToChooseFrom() {
-        const { classProficienciesChoices } = this.state
+        const { proficienciesChoices } = this.state
+        console.log("Proficiency Choices", proficienciesChoices)
+
         let chooseFrom = []
-        for (var i = 0; i < classProficienciesChoices.length; i++) {
+
+        for (var i = 0; i < proficienciesChoices.length; i++) {
             let choiceArrayIndex = i;
-            const chooseProficiencies = classProficienciesChoices[i].from.map((proficiency) => {
+            const chooseProficiencies = proficienciesChoices[i].from.map((proficiency) => {
                 return (<button className='btn-md btn-primary' onClick={() => this.addProficiency(proficiency.name, choiceArrayIndex)} key={proficiency.name}>{proficiency.name}</button>);
             })
             chooseFrom.push(<div className='col-12 chooseProficiency' key={choiceArrayIndex}>{chooseProficiencies}</div>)

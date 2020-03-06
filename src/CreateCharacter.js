@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 //import Info from './Info'
 import Navigation from './Navigation'
 import Selection from './Selection'
+import Info from './Info'
 //import CharacterClass from'./CharacterClass'
 
 
@@ -13,21 +14,59 @@ class CreateCharacter extends Component {
         this.state['navigationCategories'] = ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'];
         this.state['navigation'] = ['Races'];
         this.state['classSelected'] = {};
-
+        this.state['raceSelected'] = {};
     }
     
-    setCharacterClassProps(props) {
-        const propsKeys = Object.getOwnPropertyNames(props.characterClass);
-        let properties = {};
-        for (var i = 0; i < propsKeys.length; i++) {
-            properties[propsKeys[i]] = props.characterClass[propsKeys[i]];
-        };        
-        return properties
-    }
+    //setCharacterClassProps(props) {
+    //    const propsKeys = Object.getOwnPropertyNames(props.characterClass);
+    //    let properties = {};
+    //    for (var i = 0; i < propsKeys.length; i++) {
+    //        properties[propsKeys[i]] = props.characterClass[propsKeys[i]];
+    //    };        
+    //    return properties
+    //}
 
     navigate = (category) => {
         this.setState({ navigation: category, });
     }
+
+    getScore = ability => {
+
+        const { abilityScores } = this.state
+        const { abilityScoresSelected } = this.state
+        let scores = abilityScoresSelected
+
+        for (var i = 0; i < abilityScores.count; i++) {
+            if (abilityScores.results[i].index === ability) {
+                scores[ability] = this.randomDSix()
+                this.setState({abilityScoresSelected: scores})
+                console.log(scores[ability])
+                break;
+            }
+        }
+    }
+
+    randomDSix() {
+        let totalDiceRolls = 5;
+        let totalRollsToKeep = 3;
+
+        let abilityPoint = 0
+        let abilityPoints = 0
+        let abilityPointsArray = []
+
+        for (var i = 0; i < totalDiceRolls; i++) {
+            abilityPoint = Math.floor((Math.random() * 6) + 1)
+            abilityPointsArray.push(abilityPoint)
+        }
+        abilityPointsArray.sort()
+        abilityPointsArray.splice(0, totalDiceRolls - totalRollsToKeep)
+
+        for (var j = 0; j < abilityPointsArray.length; j++) {
+            abilityPoints += abilityPointsArray[j]
+        }
+        return abilityPoints
+    }
+
 
     displayRaceInfo = (index) => {
         const { racesInfo } = this.state
@@ -44,13 +83,39 @@ class CreateCharacter extends Component {
         const { classesInfo } = this.state
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
-                const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name })
-                this.setState({ classSelected: selectedClass[0], isClassSelected: true }, this.setStartingProficiencies(selectedClass[0]),)
+                const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
+                this.setState({ classSelected: selectedClass[0], isClassSelected: true });
                 break;
             }
         }
     }
 
+
+    handleSubmit = (abilities) => {
+        const { abilityScoresSelected } = this.state
+        let scores = abilityScoresSelected
+        let noZeroes = []
+        for (var i = 0; i < abilities.length; i++) {
+            if (abilities[i].value < 3 || abilities[i].value > 18) { //needs better validation
+                noZeroes.push(abilities[i].name);
+            } else {
+                scores[abilities[i].name] = parseInt(abilities[i].value, 10)
+                this.setState({ abilityScoresSelected: scores })
+            }
+        }
+        if (noZeroes.length > 0) {
+            let zeroesAlert = "Ability Scores must not be 0, you currently have 0 in: ";
+            for (var k = 0; k < noZeroes.length; k++) {
+                if (k < noZeroes.length - 1) {
+                    zeroesAlert += noZeroes[k] + ", ";
+                } else {
+                    zeroesAlert += noZeroes[k];
+                }
+            }
+            zeroesAlert += "."
+            alert(zeroesAlert)
+        }
+    }
     componentDidMount() {
         //this.navigate('Race')
     }
@@ -60,143 +125,14 @@ class CreateCharacter extends Component {
 
     render() {
         const { navigationCategories } = this.state
+        const { classSelected, raceSelected } = this.state
+        
         return (<div className='row'>
-            <Selection character={this.state} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} />
+            <Info classSelected={classSelected} raceSelected={raceSelected} />
+            <Selection character={this.state} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             <Navigation navigate={this.navigate} navigationCategories={navigationCategories} />
             </div>);
     }
 }
-
-
-//const CreateCharacter = props => { 
-//    const { navigationCategories } = props.characterClass
-//    const { navigation } = props.characterClass
-//    const { navigate } = props.characterClass // function
-
-//    const { category } = props.characterClass // races, classes, ability-scores, proficiencies, spells
-//    console.log("CreateCharacter() when " + category + " is selected", props)
-//    //if (navigation === 'Race' ||) {//Class
-//    //    console.log("CreateCharacter will create a CharacterClass: ", props)
-//    //    return (<div className="container-fluid">
-//    //        <div className="row creation">
-//    //            <CharacterClass props={props} />
-//    //        </div>
-//    //    </div>);
-        
-//    if (navigation === navigationCategories[0]) { //races
-//        const { races } = props.characterClass
-//        const { raceSelected } = props.characterClass
-//        const { racesInfo } = props.characterClass
-//        const { isRaceSelected } = props.characterClass
-//        const { displayRaceInfo } = props.characterClass
-
-//        return (<div className="container-fluid">
-//            <div className="row creation">
-//                <div className="col-12">
-//                    <div className="row">
-//                        <Info raceSelected={raceSelected} isRaceSelected={isRaceSelected} category={category} />
-//                    </div>
-//                    <div className="row">
-//                        <Selection races={races} racesInfo={racesInfo} displayRaceInfo={displayRaceInfo} category={category} />
-//                    </div>
-//                    <div className="row">
-//                        <Navigation navigationCategories={navigationCategories} navigate={navigate} />
-//                    </div>
-//                </div>
-//            </div>
-//        </div>);
-
-//    } else if (navigation === navigationCategories[1]) {//Class
-//        console.log("CreateCharacter will create a CharacterClass: ", props.characterClass)
-//        return (<div className="container-fluid">
-//            <div className="row creation">
-//                <CharacterClass props={props.characterClass} />
-//                <Navigation navigationCategories={navigationCategories} navigate={navigate} />
-//            </div>
-//        </div>);
-//    } else if (navigation === navigationCategories[2]) {//AbilityScores
-//        console.log(props)
-//        const { abilityScores } = props.characterClass
-//        const { abilityScoresSelected } = props.characterClass
-//        const { category } = props.characterClass
-//        const { getScore } = props.characterClass
-//        const { handleSubmit } = props.characterClass
-
-//        return (<div className="container-fluid">
-//            <div className="row creation">
-//                <div className="col-12">
-//                    <div className="row">
-//                        <Info abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category={category} />
-//                    </div>
-//                    <div className="row">
-//                        <Selection abilityScores={abilityScores} getScore={getScore} category={category} handleSubmit={handleSubmit} />
-//                    </div>
-//                    <div className="row">
-//                        <Navigation navigationCategories={navigationCategories} navigate={navigate} />
-//                    </div>
-//                </div>
-//            </div>
-//        </div>);
-//    } else if (navigation === navigationCategories[3]) {//proficiencies
-//        console.log("When proficiencies is selected in navigation: ", props.characterClass)
-
-//      //  const { classSelected } = props
-//       // const { isClassSelected } = props
-//        //const { classProficiencies } = props
-//        //const { classProficienciesChoices } = props
-//        //const { addProficiency } = props
-//        //const { removeProficiency } = props
-//                    //<div className='row'>
-//                    //    <Info classSelected={classSelected} isClassSelected={isClassSelected} category={category} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
-//                    //</div>
-//                    //<div className='row'>
-//                    //    <Selection classSelected={classSelected} isClassSelected={isClassSelected} category={category} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} addProficiency={addProficiency} removeProficiency={removeProficiency} />
-//                    //</div>                    
-
-//        return (<div className='container-fluid'>
-//            <div className='row creation'>
-//                <CharacterClass props={props.characterClass} />
-
-//                <div className='col-12'>
-
-//                    <div className='row'>
-//                        <Navigation navigationCategories={navigationCategories} navigate={navigate} />
-//                    </div>
-//                </div>
-//            </div>
-//        </div>);
-//    } else if (navigation === navigationCategories[4]) {//Spells
-//        console.log(props.characterClass)
-//        const { classSelected } = props.characterClass
-//        const { isClassSelected } = props.characterClass
-//        const { spellsInfo } = props.characterClass
-
-//        return (<div className='container-fluid'>
-//                    <div className='row creation'>
-//                        <div className='col-12'>
-//                            <div className='row'>
-//                                <Info classSelected={classSelected} isClassSelected={isClassSelected} spellsInfo={spellsInfo} category={category} />
-//                            </div>
-//                            <div className='row'>
-//                                <Navigation navigationCategories={navigationCategories} navigate={navigate} />
-//                            </div>
-//                        </div>
-//                    </div>
-//                </div>);
-//    } else {
-//        return (<div>Broke something!</div>);
-//    }
-
-   
-        
-    
-
-//}
-
-
-
-
-
-
 
 export default CreateCharacter

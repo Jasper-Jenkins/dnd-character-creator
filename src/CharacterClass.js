@@ -93,23 +93,6 @@ class CharacterClass extends Component {
 
     }
 
-    //classNavigation = () => {
-
-    //    switch (navigation) {
-    //        case characterCategories[0]: //Race
-    //            return (            //return (<Create raceSelected={raceSelected} isRaceSelected={isRaceSelected} category='races' races={races} racesInfo={racesInfo} displayRaceInfo={this.displayRaceInfo} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
-    //        case characterCategories[1]: //Class
-    //            return (<CharacterClass characterClass={this.state} />);
-    //        case characterCategories[2]: //Ability-Scores
-    //            return (<CreateCharacter abilityScores={abilityScores} abilityScoresSelected={abilityScoresSelected} category='ability-scores' getScore={this.getScore} navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} handleSubmit={this.handleSubmit} />);
-    //        case characterCategories[3]: //Proficiencies
-    //            //   eslint-disable-next-line
-    //            return (<CreateCharacter classSelected={classSelected} isClassSelected={isClassSelected} classProficiencies={classProficiencies} classProficienciesChoices={classProficienciesChoices} category='proficiencies' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
-    //        case characterCategories[4]: //Spells
-    //            return (<CreateCharacter classSelected={classSelected} isClassSelected={isClassSelected} spellsInfo={spellsInfo} category='spells' navigationCategories={navigationCategories} navigate={this.navigate} navigation={navigation} />);
-    //        default:
-    //    }
-    //}
 
     render() {
         const { detailsCategory } = this.state
@@ -119,39 +102,5 @@ class CharacterClass extends Component {
         </div>);
         }
 }
-
-
-
-//const CharacterClass = props => {
-//    console.log(props)
-//    const { classSelected } = props.classProps
-//    const { classProficiencies } = props.classProps
-//    const { classProficienciesChoices} = props.classProps
-//    const { category } = props.classProps
-//    const { spellsInfo } = props.classProps
-
-//    switch (category) {
-//        case 'classes':
-//            return (<div className='col-12 info'>
-//                    <h1 className='text-center'>{classSelected.name}</h1>
-//                    <p>Hit die: {classSelected.hit_die} + constitution modifier<br />
-                   
-//                    </p>
-//                </div>);
-//        case 'proficiencies':
-//            console.log('Proficiencies fixing.. sort it out buddies', props)
-//            return (<div className='col-12 info'>
-//                        <h1 className='text-center'>{classSelected.name}</h1>
-//                    </div>);
-//        case 'spells':
-
-           
-//            return (<div className='col-12 spellsInfo'>
-//                        <h1 className='text-center'>{classSelected.name}</h1>  
-//                <ClassSpells classSelected={classSelected} spellsInfo={spellsInfo}/>
-//                    </div>)
-//        default:
-//    }     
-//}
 
 export default CharacterClass

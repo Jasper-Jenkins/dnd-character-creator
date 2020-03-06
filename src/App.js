@@ -94,70 +94,70 @@ class App extends Component {
         }
     }
 
-    getScore = ability => {
+    //getScore = ability => {
 
-        const { abilityScores } = this.state
-        const { abilityScoresSelected } = this.state
-        let scores = abilityScoresSelected
+    //    const { abilityScores } = this.state
+    //    const { abilityScoresSelected } = this.state
+    //    let scores = abilityScoresSelected
 
-        for (var i = 0; i < abilityScores.count; i++) {
-            if (abilityScores.results[i].index === ability) {
-                scores[ability] = this.randomDSix()
-                this.setState({abilityScoresSelected: scores})
-          //      console.log(scores[ability])
-                break;
-            }
-        }
-    }
+    //    for (var i = 0; i < abilityScores.count; i++) {
+    //        if (abilityScores.results[i].index === ability) {
+    //            scores[ability] = this.randomDSix()
+    //            this.setState({abilityScoresSelected: scores})
+    //            console.log(scores[ability])
+    //            break;
+    //        }
+    //    }
+    //}
     
-    handleSubmit = (abilities) => {
-        const { abilityScoresSelected } = this.state
-        let scores = abilityScoresSelected
-        let noZeroes = []
-        for (var i = 0; i < abilities.length; i++) {
-            if (abilities[i].value < 3 || abilities[i].value > 18 ) { //needs better validation
-                noZeroes.push(abilities[i].name);
-            } else {
-                scores[abilities[i].name] = parseInt(abilities[i].value, 10)
-                this.setState({ abilityScoresSelected: scores })
-            }
-        }
-        if (noZeroes.length > 0) {
-            let zeroesAlert = "Ability Scores must not be 0, you currently have 0 in: ";
-            for (var k = 0; k < noZeroes.length; k++) {
-                if (k < noZeroes.length-1) {
-                    zeroesAlert += noZeroes[k] + ", ";
-                } else {
-                    zeroesAlert += noZeroes[k];
-                }
-            }
-            zeroesAlert += "."
-            alert(zeroesAlert)
-        }
-    }
+    //handleSubmit = (abilities) => {
+    //    const { abilityScoresSelected } = this.state
+    //    let scores = abilityScoresSelected
+    //    let noZeroes = []
+    //    for (var i = 0; i < abilities.length; i++) {
+    //        if (abilities[i].value < 3 || abilities[i].value > 18 ) { //needs better validation
+    //            noZeroes.push(abilities[i].name);
+    //        } else {
+    //            scores[abilities[i].name] = parseInt(abilities[i].value, 10)
+    //            this.setState({ abilityScoresSelected: scores })
+    //        }
+    //    }
+    //    if (noZeroes.length > 0) {
+    //        let zeroesAlert = "Ability Scores must not be 0, you currently have 0 in: ";
+    //        for (var k = 0; k < noZeroes.length; k++) {
+    //            if (k < noZeroes.length-1) {
+    //                zeroesAlert += noZeroes[k] + ", ";
+    //            } else {
+    //                zeroesAlert += noZeroes[k];
+    //            }
+    //        }
+    //        zeroesAlert += "."
+    //        alert(zeroesAlert)
+    //    }
+    //}
         
-    randomDSix() {
+    //randomDSix() {
 
-        let totalDiceRolls = 5;
-        let totalRollsToKeep = 3;
+    //    let totalDiceRolls = 5;
+    //    let totalRollsToKeep = 3;
 
-        let abilityPoint = 0
-        let abilityPoints = 0
-        let abilityPointsArray = []
+    //    let abilityPoint = 0
+    //    let abilityPoints = 0
+    //    let abilityPointsArray = []
 
-        for (var i = 0; i < totalDiceRolls; i++) {
-            abilityPoint = Math.floor((Math.random() * 6) + 1)
-            abilityPointsArray.push(abilityPoint)
-        }
-        abilityPointsArray.sort()
-        abilityPointsArray.splice(0, totalDiceRolls - totalRollsToKeep)
+    //    for (var i = 0; i < totalDiceRolls; i++) {
+    //        abilityPoint = Math.floor((Math.random() * 6) + 1)
+    //        abilityPointsArray.push(abilityPoint)
+    //    }
+    //    abilityPointsArray.sort()
+    //    abilityPointsArray.splice(0, totalDiceRolls - totalRollsToKeep)
 
-        for (var j = 0; j < abilityPointsArray.length; j++) {
-            abilityPoints += abilityPointsArray[j]
-        }
+    //    for (var j = 0; j < abilityPointsArray.length; j++) {
+    //        abilityPoints += abilityPointsArray[j]
+    //    }
 
-        return abilityPoints
-    }
+    //    return abilityPoints
+    //}
 
     //setStartingProficiencies = (chosenClass) => {
     //    const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))

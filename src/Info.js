@@ -2,7 +2,7 @@ import React from 'react'
 import CharacterClass from './CharacterClass'
 
 const Info = (props) => {
-    console.log(props)
+    //console.log("Info() props: ",props)
     switch (props.category) {
         case 'races':
             if (props.isRaceSelected) {
