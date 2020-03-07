@@ -2,12 +2,18 @@ import React from 'react'
 
 const Navigation = (props) => {
     console.log("Navigation", props)
+    const navigation = props.navigation
     const navigationCategories = props.navigationCategories
     const navigate = props.navigate   
 
-    let navbuttons = navigationCategories.map((category, index) => {
-        return (<button onClick={() => navigate(category)} className='btn btn-primary' key={index}>{category}</button>);
+
+    let navButtons = navigationCategories.map((category, index) => {
+        if (navigation === category) {
+            return (<button className='btn btn-primary disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+        } else {
+            return (<button onClick={() => navigate(category)} className='btn btn-primary' key={index}>{category}</button>);
+        }        
     });
-    return (<div className="col-12 text-center navigation">{navbuttons}</div>);
+    return (<div className="col-12 text-center navigation">{navButtons}</div>);
 }
 export default Navigation

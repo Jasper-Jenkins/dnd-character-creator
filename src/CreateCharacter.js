@@ -10,11 +10,12 @@ class CreateCharacter extends Component {
     constructor(props) {
         super(props);
         console.log("CreateCharacter: ", props.characterClass);
-        this.state = props.characterClass;
-        this.state['navigationCategories'] = ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'];
-        this.state['navigation'] = ['Races'];
-        this.state['classSelected'] = {};
-        this.state['raceSelected'] = {};
+        this.initialState = props.characterClass;
+        this.initialState['navigationCategories'] = ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'];
+        this.initialState['navigation'] = 'Races';
+        this.initialState['classSelected'] = {};
+        this.initialState['raceSelected'] = {};
+        this.state = this.initialState;
     }
     
     //setCharacterClassProps(props) {
@@ -30,7 +31,7 @@ class CreateCharacter extends Component {
         this.setState({ navigation: category, });
     }
 
-    getScore = ability => {
+    getScore = (ability) => {
 
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
@@ -46,7 +47,7 @@ class CreateCharacter extends Component {
         }
     }
 
-    randomDSix() {
+    randomDSix = () => {
         let totalDiceRolls = 5;
         let totalRollsToKeep = 3;
 
@@ -73,7 +74,7 @@ class CreateCharacter extends Component {
         for (let i = 0; i < racesInfo.length; i++) {
             if (racesInfo[i].index === index) {
                 const RaceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
-                this.setState({ raceSelected: RaceSelected[0], isRaceSelected: true });
+                this.setState({ raceSelected: RaceSelected[0]});
                 break;
             }
         }
@@ -84,7 +85,7 @@ class CreateCharacter extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: selectedClass[0], isClassSelected: true });
+                this.setState({ classSelected: selectedClass[0]});
                 break;
             }
         }
@@ -117,20 +118,22 @@ class CreateCharacter extends Component {
         }
     }
     componentDidMount() {
-        //this.navigate('Race')
+//        const { navigation } = this.state
+ //       this.navigate(navigation[0])
     }
     componentDidUpdate() {
+      //  const [state, newState] =  
         console.log("A Change to CreateCharacter has occured")
     }
 
     render() {
-        const { navigationCategories } = this.state
+        const { navigationCategories, navigation } = this.state
         const { classSelected, raceSelected } = this.state
         
         return (<div className='row'>
             <Info classSelected={classSelected} raceSelected={raceSelected} />
             <Selection character={this.state} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} handleSubmit={this.handleSubmit} getScore={this.getScore} />
-            <Navigation navigate={this.navigate} navigationCategories={navigationCategories} />
+            <Navigation navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation}/>
             </div>);
     }
 }

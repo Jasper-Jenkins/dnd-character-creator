@@ -3,7 +3,7 @@ import AbilityScoresForm from './AbilityScoresForm'
 import ClassProficiencies from './ClassProficiencies'
 
 const Selection = (props) => {
-    //console.log("Selection() props", props)
+ //   console.log("Selection() props", props)
     
     switch (props.character.navigation) {
         case 'Races':
@@ -12,16 +12,21 @@ const Selection = (props) => {
             });
             return (<div className="col-12 text-center selection">{races}</div>);
         case 'Classes':
-            let classes = props.character.classes.results.map((cClass, index) => {
-
-                return (<button onClick={() => props.displayClassInfo(cClass.index)} className='btn btn-primary col-4' key={index}>{cClass.name}</button>)
+            let classes = props.character.classes.results.map((characterClass, index) => {
+                return (<button onClick={() => props.displayClassInfo(characterClass.index)} className='btn btn-primary col-4' key={index}>{characterClass.name}</button>)
             });
             return (<div className='col-12 text-center selection'>{classes}</div>);
 
         case 'Proficiencies':
-         //   console.log("Selection() proficiencies")
-            return (<ClassProficiencies characterClass={props.character} />);
-        case 'Spells':
+          //     console.log("Selection() proficiencies", props.character.classSelected)
+            const { classSelected } = props.character.classSelected
+            if (classSelected === {}) {
+                return (<div className='col-12 text-center selection'>You must first choose a class, before you can select your proficiencies.</div>)
+            } else {
+                return (<ClassProficiencies characterClass={props.character} />);
+            }
+
+            case 'Spells':
 
             return (<div className='col-12'>HMmmm spell transfer is off</div>);
 
@@ -41,8 +46,8 @@ const Selection = (props) => {
                             <AbilityScoresForm handleSubmit={props.handleSubmit} />
                         </div>
                     </div>
-
-                </div>)
+                </div>
+            );
 
         default:
             return (<div className='col-12 text-center selection'>DEFAULT: It's a broke!</div>);
