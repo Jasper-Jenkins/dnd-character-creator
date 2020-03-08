@@ -15,6 +15,8 @@ class CreateCharacter extends Component {
         this.initialState['navigation'] = 'Races';
         this.initialState['classSelected'] = {};
         this.initialState['raceSelected'] = {};
+        this.initialState['isClassSelected'] = this.isClassSelected;
+        this.initialState['isRaceSelected'] = this.isRaceSelected;
         this.state = this.initialState;
     }
     
@@ -50,11 +52,9 @@ class CreateCharacter extends Component {
     randomDSix = () => {
         let totalDiceRolls = 5;
         let totalRollsToKeep = 3;
-
         let abilityPoint = 0
         let abilityPoints = 0
         let abilityPointsArray = []
-
         for (var i = 0; i < totalDiceRolls; i++) {
             abilityPoint = Math.floor((Math.random() * 6) + 1)
             abilityPointsArray.push(abilityPoint)
@@ -92,6 +92,23 @@ class CreateCharacter extends Component {
     }
 
 
+    isClassSelected = (obj) => {
+        return (this.isSelected(obj));
+    }
+
+    isRaceSelected = (obj) => {
+        return (this.isSelected(obj));
+    }
+
+    isSelected = (obj) => {
+        for (var key in obj) {
+            obj.hasOwnProperty(key)
+            return true;
+        }
+        return false;
+    }
+
+
     handleSubmit = (abilities) => {
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
@@ -117,10 +134,12 @@ class CreateCharacter extends Component {
             alert(zeroesAlert)
         }
     }
+
     componentDidMount() {
-//        const { navigation } = this.state
- //       this.navigate(navigation[0])
+        //        const { navigation } = this.state
+    //    this.setState({ isClassSelected: this.isClassSelected })   
     }
+
     componentDidUpdate() {
       //  const [state, newState] =  
         console.log("A Change to CreateCharacter has occured")
@@ -128,11 +147,11 @@ class CreateCharacter extends Component {
 
     render() {
         const { navigationCategories, navigation } = this.state
-        const { classSelected, raceSelected } = this.state
-        
+      //  const { classSelected, raceSelected } = this.state
+        const props = this.state;
         return (<div className='row'>
-            <Info classSelected={classSelected} raceSelected={raceSelected} />
-            <Selection character={this.state} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} handleSubmit={this.handleSubmit} getScore={this.getScore} />
+            <Info character={this.state} />
+            <Selection {...props} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             <Navigation navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation}/>
             </div>);
     }

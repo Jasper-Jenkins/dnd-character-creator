@@ -7,6 +7,7 @@ class ClassProficiencies extends Component {
         console.log("ClassProficiencies: ", props);
         this.state = {
             classSelected: props.characterClass.classSelected,
+            isClassSelected: props.characterClass.isClassSelected,
             proficiencies: [],
             proficienciesChoices: [],
         };
@@ -18,17 +19,17 @@ class ClassProficiencies extends Component {
         proficienciesChoices: [],
     }
 
-    isClassSelected(obj) {
-        for (var key in obj) {
-            obj.hasOwnProperty(key)
-            return true;
-        }
-        return false;
-    }
+    //isClassSelected(obj) {
+    //    for (var key in obj) {
+    //        obj.hasOwnProperty(key)
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     componentDidMount() {
         const { classSelected } = this.state
-        if (this.isClassSelected(classSelected)) {
+        if (this.state.isClassSelected(classSelected)) {
             this.setStartingProficiencies(classSelected)
         } else {
             //Do nothing if a class has not been selected, needs something...
@@ -135,9 +136,6 @@ class ClassProficiencies extends Component {
             }
         }
     }
-
-
-
 
     render() {
         return (<div className='col-12 selection'>
