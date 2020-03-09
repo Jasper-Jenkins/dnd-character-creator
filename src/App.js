@@ -86,6 +86,8 @@ class App extends Component {
         const { abilityScores } = this.state
         const { spells } = this.state
 
+        const character = this.state
+
         if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.count === undefined) {
             return (<div className="container-fluid">
                 <div className="row">
@@ -95,7 +97,10 @@ class App extends Component {
                 </div>
             </div>);
         } else {
-            return (<CreateCharacter characterClass={this.state} />);
+//            return (<CreateCharacter {...character} />);//why cant I add to the initialState of <CharacterCreate /> when I use spread?  
+
+            return (<CreateCharacter character={character} />);//why cant I add to the initialState of <CharacterCreate /> when I use spread?  
+
         }
     }
 }

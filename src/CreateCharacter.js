@@ -9,8 +9,8 @@ import Info from './Info'
 class CreateCharacter extends Component {
     constructor(props) {
         super(props);
-        console.log("CreateCharacter: ", props.characterClass);
-        this.initialState = props.characterClass;
+        console.log("CreateCharacter: ", props);
+        this.initialState = props.character;
         this.initialState['navigationCategories'] = ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'];
         this.initialState['navigation'] = 'Races';
         this.initialState['classSelected'] = {};
@@ -18,8 +18,9 @@ class CreateCharacter extends Component {
         this.initialState['isClassSelected'] = this.isClassSelected;
         this.initialState['isRaceSelected'] = this.isRaceSelected;
         this.state = this.initialState;
+
     }
-    
+
     //setCharacterClassProps(props) {
     //    const propsKeys = Object.getOwnPropertyNames(props.characterClass);
     //    let properties = {};
@@ -34,14 +35,12 @@ class CreateCharacter extends Component {
     }
 
     getScore = (ability) => {
-
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
-
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
-                scores[ability] = this.randomDSix()
+                scores[ability] = this.randomDiceRoll(6)
                 this.setState({abilityScoresSelected: scores})
                 console.log(scores[ability])
                 break;
@@ -49,14 +48,21 @@ class CreateCharacter extends Component {
         }
     }
 
-    randomDSix = () => {
+    imagesForRaces = () => {
+        const { races } = this.state
+        for (var i = 0; i < races.length; i++) {
+
+        }
+    }
+
+    randomDiceRoll = (maxNum) => {
         let totalDiceRolls = 5;
         let totalRollsToKeep = 3;
         let abilityPoint = 0
         let abilityPoints = 0
         let abilityPointsArray = []
         for (var i = 0; i < totalDiceRolls; i++) {
-            abilityPoint = Math.floor((Math.random() * 6) + 1)
+            abilityPoint = Math.floor((Math.random() * maxNum) + 1)
             abilityPointsArray.push(abilityPoint)
         }
         abilityPointsArray.sort()
@@ -90,7 +96,6 @@ class CreateCharacter extends Component {
             }
         }
     }
-
 
     isClassSelected = (obj) => {
         return (this.isSelected(obj));
@@ -135,13 +140,7 @@ class CreateCharacter extends Component {
         }
     }
 
-    componentDidMount() {
-        //        const { navigation } = this.state
-    //    this.setState({ isClassSelected: this.isClassSelected })   
-    }
-
-    componentDidUpdate() {
-      //  const [state, newState] =  
+componentDidUpdate() {
         console.log("A Change to CreateCharacter has occured")
     }
 
@@ -149,11 +148,12 @@ class CreateCharacter extends Component {
         const { navigationCategories, navigation } = this.state
       //  const { classSelected, raceSelected } = this.state
         const props = this.state;
-        return (<div className='row'>
+        return (<div className='container-fluid'>
+            <div className='row'>
             <Info character={this.state} />
             <Selection {...props} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             <Navigation navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation}/>
-            </div>);
+            </div></div>);
     }
 }
 

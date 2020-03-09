@@ -19,69 +19,28 @@ class ClassProficiencies extends Component {
         proficienciesChoices: [],
     }
 
-    //isClassSelected(obj) {
-    //    for (var key in obj) {
-    //        obj.hasOwnProperty(key)
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
     componentDidMount() {
         const { classSelected } = this.state
         if (this.state.isClassSelected(classSelected)) {
             this.setStartingProficiencies(classSelected)
         } else {
-            //Do nothing if a class has not been selected, needs something...
+            //Do nothing if a class has not been selected, needs something here...
         }
     }
+
+    componentWillUnmount(d) {
+        console.log("Whatever data it gives me before it dies", this.state)
+    }
+
 
     setStartingProficiencies = (chosenClass) => {
         console.log("Set Starting proficiencies", chosenClass)
         const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))
         const proficienciesChoices = JSON.parse(JSON.stringify(chosenClass.proficiency_choices))
         this.setState({ proficiencies: proficiencies, proficienciesChoices: proficienciesChoices, });
-
     }
 
 
-    currentClassProficienices() {
-        //   const { proficiencies } - this.state
-        const { proficiencies } = this.state
-        console.log("Current Proficiencies", proficiencies)
-
-
-        let currentProficiencies = proficiencies.map((proficiency) => {
-            //if (proficiency.index === undefined) {
-            //    return (<span className='proficiencies' key={proficiency.name}>{proficiency.name}</span>);
-            //} else {
-            //    return (<button className='chosenProficiency btn-md btn-secondary' onClick={() => this.removeProficiency(proficiency.name, proficiency.index)} key={proficiency.name}>{proficiency.name}</button>);
-            //}
-            if (proficiency.index < 20 && proficiency.index > -1) {
-                return (<button className='chosenProficiency btn-md btn-secondary' onClick={() => this.removeProficiency(proficiency.name, proficiency.index)} key={proficiency.name}>{proficiency.name}</button>);
-            } else {
-                return (<span className='proficiencies' key={proficiency.name}>{proficiency.name}</span>);
-            }
-
-        });
-        return (currentProficiencies);
-    }
-
-    classProficienciesToChooseFrom () {
-        const { proficienciesChoices } = this.state
-        console.log("Proficiency Choices", proficienciesChoices)
-
-        let chooseFrom = []
-
-        for (var i = 0; i < proficienciesChoices.length; i++) {
-            let choiceArrayIndex = i;
-            const chooseProficiencies = proficienciesChoices[i].from.map((proficiency) => {
-                return (<button className='btn-md btn-primary' onClick={() => this.addProficiency(proficiency.name, choiceArrayIndex)} key={proficiency.name}>{proficiency.name}</button>);
-            })
-            chooseFrom.push(<div className='col-12 chooseProficiency' key={choiceArrayIndex}>{chooseProficiencies}</div>)
-        }
-        return (chooseFrom);
-    }
     addProficiency = (proficiencyName, choicesIndex) => {
         const { proficienciesChoices } = this.state
         const { classSelected } = this.state
@@ -137,15 +96,43 @@ class ClassProficiencies extends Component {
         }
     }
 
+
+    currentClassProficienices() {
+        //   const { proficiencies } - this.state
+        const { proficiencies } = this.state
+        console.log("Current Proficiencies", proficiencies)
+        let currentProficiencies = proficiencies.map((proficiency) => {
+            if (proficiency.index < 20 && proficiency.index > -1) { //needs better validation
+                return (<button className='chosenProficiency btn-md btn-secondary' onClick={() => this.removeProficiency(proficiency.name, proficiency.index)} key={proficiency.name}>{proficiency.name}</button>);
+            } else {
+                return (<span className='proficiencies' key={proficiency.name}>{proficiency.name}</span>);
+            }
+        });
+        return (currentProficiencies);
+    }
+
+    classProficienciesToChooseFrom() {
+        const { proficienciesChoices } = this.state
+        console.log("Proficiency Choices", proficienciesChoices)
+
+        let chooseFrom = []
+
+        for (var i = 0; i < proficienciesChoices.length; i++) {
+            let choiceArrayIndex = i;
+            const chooseProficiencies = proficienciesChoices[i].from.map((proficiency) => {
+                return (<button className='btn-md btn-primary' onClick={() => this.addProficiency(proficiency.name, choiceArrayIndex)} key={proficiency.name}>{proficiency.name}</button>);
+            })
+            chooseFrom.push(<div className='col-12 chooseProficiency' key={choiceArrayIndex}>{chooseProficiencies}</div>)
+        }
+        return (chooseFrom);
+    }
+
+
     render() {
-        return (<div className='col-12 selection'>
-            <div className='row'>
-                <div className='col-12'>{this.currentClassProficienices()}</div>
-            </div>
-            <div className='row'>
-                {this.classProficienciesToChooseFrom()}
-            </div>
-        </div>);
+        return (<div className='row'>
+                    <div className='col-12'>{this.currentClassProficienices()}</div>
+                    {this.classProficienciesToChooseFrom()}
+                </div>);
     }
 }
 

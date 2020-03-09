@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 class ClassSpells extends Component {
     constructor(props) {
         super(props);
-        console.log("ClASS SPELLS PROPS", props)
+//        console.log("ClassSpells", props)
         this.state = {
             spellsInfo: props.spellsInfo,
             classSelected: props.classSelected,
