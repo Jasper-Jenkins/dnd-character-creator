@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import Info from './Info'
+
 import Navigation from './Navigation'
 import Selection from './Selection'
 import Info from './Info'
@@ -17,8 +17,9 @@ class CreateCharacter extends Component {
         this.initialState['raceSelected'] = {};
         this.initialState['isClassSelected'] = this.isClassSelected;
         this.initialState['isRaceSelected'] = this.isRaceSelected;
+        this.initialState['imagesForRaces'] = this.imagesForRaces;
         this.state = this.initialState;
-
+    //    this.imagesForRaces();
     }
 
     //setCharacterClassProps(props) {
@@ -48,11 +49,27 @@ class CreateCharacter extends Component {
         }
     }
 
-    imagesForRaces = () => {
-        const { races } = this.state
-        for (var i = 0; i < races.length; i++) {
+    imagesForRaces = (race) => {
+        const { racesInfo } = this.state
 
+        let imagesForRaceSelection = [
+            { name: 'dragonborn', url: 'https://i.pinimg.com/564x/61/e4/de/61e4ded99a6ac9f0a388cbd9b82ae567.jpg', author: '', contact:'', },
+            { name: 'dwarf', url: 'https://i.pinimg.com/564x/c0/8d/ff/c08dff825c68e504edea38371c5ee102.jpg', author: '', contact: '', },
+            { name: 'elf', url: 'https://i.pinimg.com/originals/63/86/73/63867332e190ee9ee647b82128399c75.jpg', author: '', contact: '', },
+            { name: 'gnome', url: 'https://i.pinimg.com/564x/46/4e/4f/464e4fc3b4f7d342cc06a3edbbc11498.jpg', author: '', contact: '', },
+            { name: 'half-elf', url: 'https://i.pinimg.com/564x/fd/19/7a/fd197a8cb51cb31e2a081203a6526e7b.jpg', author: '', contact: '', },
+            { name: 'halfling', url: 'https://i.pinimg.com/564x/57/ba/be/57babe55a84414e8de15424848567959.jpg', author: '', contact: '', },
+            { name: 'half-orc', url: 'https://i.pinimg.com/564x/e8/aa/82/e8aa821de4be602c6bfc776da87ca1e8.jpg', author: '', contact: '', },
+            { name: 'human', url: 'https://i.pinimg.com/564x/cc/e7/fd/cce7fdd2ee1e9451f39cc1efbd04c243.jpg', author: '', contact: '', },
+            { name: 'tiefling', url: 'https://i.pinimg.com/564x/0d/e0/01/0de001eb65d3920c851f040690e0bdc6.jpg', author: '', contact: '', },
+        ]
+
+        for (var i = 0; i < racesInfo.length; i++) {
+            if (race === imagesForRaceSelection[i].name) {
+                return (<img src={imagesForRaceSelection[i].url} className='raceSelectImage' alt={race} />);
+            }            
         }
+
     }
 
     randomDiceRoll = (maxNum) => {
@@ -97,12 +114,12 @@ class CreateCharacter extends Component {
         }
     }
 
-    isClassSelected = (obj) => {
-        return (this.isSelected(obj));
+    isClassSelected = (classSelected) => {
+        return (this.isSelected(classSelected));
     }
 
-    isRaceSelected = (obj) => {
-        return (this.isSelected(obj));
+    isRaceSelected = (raceSelected) => {
+        return (this.isSelected(raceSelected));
     }
 
     isSelected = (obj) => {
@@ -140,7 +157,7 @@ class CreateCharacter extends Component {
         }
     }
 
-componentDidUpdate() {
+    componentDidUpdate() {
         console.log("A Change to CreateCharacter has occured")
     }
 
@@ -149,11 +166,12 @@ componentDidUpdate() {
       //  const { classSelected, raceSelected } = this.state
         const props = this.state;
         return (<div className='container-fluid'>
-            <div className='row'>
-            <Info character={this.state} />
-            <Selection {...props} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} handleSubmit={this.handleSubmit} getScore={this.getScore} />
-            <Navigation navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation}/>
-            </div></div>);
+                    <div className='row creation'>
+                        <Info character={this.state} />
+                        <Selection {...props} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} handleSubmit={this.handleSubmit} getScore={this.getScore} />
+                        <Navigation navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation}/>
+                    </div>
+                </div>);
     }
 }
 

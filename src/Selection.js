@@ -1,26 +1,29 @@
 import React from 'react'
+
+
+import CharacterRace from'./CharacterRace'
 import AbilityScoresForm from './AbilityScoresForm'
 import ClassProficiencies from './ClassProficiencies'
 import ClassSpells from './ClassSpells'
 const Selection = (props) => {
     console.log("Selection() props", props)
     const classSelected = props.classSelected
-
+    const raceSelected = props.raceSelected
 
     switch (props.navigation) {
         case 'Races':
             let races = props.races.results.map((race, index) => {
-                //disabled' tabIndex=' - 1' aria-disabled='true'
-                if (false) {
-                    return (<button onClick={() => props.displayRaceInfo(race.index)} className='btn btn-primary col-4 disabled' tabIndex='- 1' aria-disabled='true' key={index}>{race.name}</button>)
+            //    console.log('selection race ', race)
+                if (raceSelected.index !== undefined && raceSelected.index === race.index) {
+                    return (<button className='btn selectionButtons col-4 {race.index}' tabIndex='- 1' aria-disabled='true' key={index}>{race.name}</button>)
                  } else {
-                return (<button onClick={() => props.displayRaceInfo(race.index)} className='btn btn-primary col-4' key={index}>{race.name}</button>)
+                    return (<button onClick={() => props.displayRaceInfo(race.index)} className='btn selectionButtons col-4' key={index}>{race.name}</button>)
                 }
             });
             return (<div className="col-12 text-center selection">{races}</div>);
         case 'Classes':
             let classes = props.classes.results.map((characterClass, index) => {
-                return (<button onClick={() => props.displayClassInfo(characterClass.index)} className='btn btn-primary col-4' key={index}>{characterClass.name}</button>)
+                return (<button onClick={() => props.displayClassInfo(characterClass.index)} className='btn selectionButtons col-4' key={index}>{characterClass.name}</button>)
             });
             return (<div className='col-12 text-center selection'>{classes}</div>);
         case 'Proficiencies':

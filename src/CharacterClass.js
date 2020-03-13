@@ -8,16 +8,9 @@ import ClassProficiencies from './ClassProficiencies';
 class CharacterClass extends Component {     
     constructor(props) {
         console.log("CharacterClass: ", props)
-
         super(props);
-        let propsKeys = Object.getOwnPropertyNames(props.characterClass);
-        let properties = {};
-
-        for (var i = 0; i < propsKeys.length; i++) {
-            properties[propsKeys[i]] = props.characterClass[propsKeys[i]];
-        };
-        this.state = properties 
-
+        this.intialState = props;
+        
     }
 
     state = {
@@ -38,69 +31,14 @@ class CharacterClass extends Component {
     setStartingProficiencies = (chosenClass) => {
         const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))
         const proficienciesChoices = JSON.parse(JSON.stringify(chosenClass.proficiency_choices))
-
         this.setState({ classProficiencies: proficiencies, classProficienciesChoices: proficienciesChoices, });
     }
 
-    classInformation = (informationCategory) => {
-        const { classSelected, spellsInfo } = this.state
-       // console.log("classInformation() is running")
-        switch (informationCategory) {
-            case 'Class':
-                return (<div className='col-12 info'>
-                           <h1 className='text-center'>{classSelected.name}</h1>
-                           <p>Hit die: {classSelected.hit_die} + constitution modifier</p>
-                           <p>..more main class details</p>
-                </div>);
-            case 'Proficiencies':
-                return (<div className='col-12 info'>
-                        <h1 className='text-center'>{classSelected.name}</h1>
-                      </div>);
-            case 'Spells':
-                return (<div className='col-12 spellsInfo'>
-                            <h1 className='text-center'>{classSelected.name}</h1>
-                        <ClassSpells classSelected={classSelected} spellsInfo={spellsInfo} />
-                </div>);
-            default:
-                return (<div className='col-12 info'>
-                    <h1 className='text-center'>Bad input Class Info</h1>
-                </div>);
-        }
-    }
-
-    classSelection = (selectionCategory) => {
-        const { classSelected } = this.state
-        const { classesInfo } = this.state
-        const { classes } = this.state
-        const { spellsInfo } = this.state
-        const { detailsCategory } = this.state
-        switch (selectionCategory) {
-            case 'classes':
-                return (<Selection classes={classes} classSelected={classSelected} classesInfo={classesInfo} displayClassInfo={this.displayClassInfo} category={detailsCategory} />);
-            case 'proficiencies':
-                return (<ClassProficiencies character={this.state} />);
-            case 'spells':
-                return (<ClassSpells spellsInfo={spellsInfo} classSelected={classSelected} />);
-                //return (<div className='col-12 spellsInfo'>
-                //    <h1 className='text-center'>{classSelected.name}</h1>
-                //    <ClassSpells classSelected={classSelected} spellsInfo={spellsInfo} />
-                //</div>);
-            default:
-                return (<div className='col-12 info'>
-                    <h1 className='text-center'>Bad input Class Selection</h1>
-                </div>);
-        }
-
-    }
-
-
+       
     render() {
-        const { detailsCategory } = this.state
         return (<div className='row'>
-            {this.classInformation(detailsCategory)}
-            {this.classSelection(detailsCategory)}
-        </div>);
-        }
+                </div>);
+    }
 }
 
 export default CharacterClass

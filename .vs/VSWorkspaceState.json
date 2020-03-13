@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\assets",
+    "\\src\\assets\\css"
   ],
   "SelectedNode": "\\src\\CreateCharacter.js",
   "PreviewInSolutionExplorer": false

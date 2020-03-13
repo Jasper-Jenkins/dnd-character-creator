@@ -29,7 +29,7 @@ class ClassProficiencies extends Component {
     }
 
     componentWillUnmount(d) {
-        console.log("Whatever data it gives me before it dies", this.state)
+        console.log("Whatever data it gives me before it dies", d)
     }
 
 
@@ -46,7 +46,6 @@ class ClassProficiencies extends Component {
         const { classSelected } = this.state
 
         const choiceArray = [...proficienciesChoices]
-
 
         for (var i = 0; i < choiceArray[choicesIndex].from.length; i++) {
             if (choiceArray[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choiceArray[choicesIndex].choose)) {
@@ -100,7 +99,7 @@ class ClassProficiencies extends Component {
     currentClassProficienices() {
         //   const { proficiencies } - this.state
         const { proficiencies } = this.state
-        console.log("Current Proficiencies", proficiencies)
+        console.log("Current Proficiencies", proficiencies) 
         let currentProficiencies = proficiencies.map((proficiency) => {
             if (proficiency.index < 20 && proficiency.index > -1) { //needs better validation
                 return (<button className='chosenProficiency btn-md btn-secondary' onClick={() => this.removeProficiency(proficiency.name, proficiency.index)} key={proficiency.name}>{proficiency.name}</button>);
@@ -108,7 +107,7 @@ class ClassProficiencies extends Component {
                 return (<span className='proficiencies' key={proficiency.name}>{proficiency.name}</span>);
             }
         });
-        return (currentProficiencies);
+        return (<div className='col-12'>currentProficiencies</div>);
     }
 
     classProficienciesToChooseFrom() {
@@ -130,7 +129,7 @@ class ClassProficiencies extends Component {
 
     render() {
         return (<div className='row'>
-                    <div className='col-12'>{this.currentClassProficienices()}</div>
+                    {this.currentClassProficienices()}
                     {this.classProficienciesToChooseFrom()}
                 </div>);
     }
