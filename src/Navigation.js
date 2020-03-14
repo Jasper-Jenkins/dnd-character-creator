@@ -1,11 +1,10 @@
 import React from 'react'
 
 const Navigation = (props) => {
-    //console.log("Navigation", props)
+    console.log("Navigation", props)
     const navigation = props.navigation
     const navigationCategories = props.navigationCategories
-    const navigate = props.navigate   
-
+    const navigate = props.navigate
 
     let navButtons = navigationCategories.map((category, index) => {
         if (navigation === category) {

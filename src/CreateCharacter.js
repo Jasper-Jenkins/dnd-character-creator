@@ -49,14 +49,42 @@ class CreateCharacter extends Component {
         }
     }
 
-    imagesForRaces = (race) => {
+    imagesForHumans = (characterClassName) => {
+        const classesInfo = this.state
+
+        let imagesForClassSelectionAsHuman = [
+            { name: 'barbarian', url: 'https://i.pinimg.com/564x/db/c8/7c/dbc87c7ceb36d62190d3d90f9d4dafc2.jpg', author: '', contact: '', },
+            { name: 'bard', url: 'https://i.pinimg.com/564x/b3/07/90/b30790fbb186269e1e935bc7723c42d4.jpg', author: '', contact: '', },
+            { name: 'cleric', url: 'https://i.pinimg.com/564x/1a/3b/78/1a3b784f009047d3213235de843607ae.jpg', author: '', contact: '', },
+            { name: 'druid', url: 'https://i.pinimg.com/564x/72/7b/e5/727be5cd3cab5399fdec593d6331cd6c.jpg', author: '', contact: '', },
+            { name: 'fighter', url: 'https://i.pinimg.com/564x/24/cf/fc/24cffc7132c9a450490e9ac1c87468d4.jpg', author: '', contact: '', },
+            { name: 'monk', url: 'https://i.pinimg.com/564x/8c/37/71/8c3771cd013384aa23f5730720899c9a.jpg', author: '', contact: '', },
+            { name: 'paladin', url: 'https://i.pinimg.com/564x/45/24/72/4524723510cd2602015af0c304bc9a4e.jpg', author: '', contact: '', },
+            { name: 'ranger', url: 'https://i.pinimg.com/564x/81/68/05/816805148150db62e71a576111996331.jpg', author: '', contact: '', },
+            { name: 'rogue', url: 'https://i.pinimg.com/564x/83/45/38/834538b196724b0c00f8e5b232105737.jpg', author: '', contact: '', },
+            { name: 'sorcerer', url: '', author: '', contact: '', },
+            { name: 'warlock', url: '', author: '', contact: '', },
+            { name: 'wizard', url: '', author: '', contact: '', },
+         ]
+        for (var i = 0; i < classesInfo.length; i++) {
+            if (characterClassName === imagesForClassSelectionAsHuman[i].name) {
+                return (<img src={imagesForClassSelectionAsHuman[i].url} className='classSelectImage' alt={characterClassName} />);
+            }
+        }
+    }
+
+
+
+
+
+    imagesForRaces = (raceName) => {
         const { racesInfo } = this.state
 
         let imagesForRaceSelection = [
             { name: 'dragonborn', url: 'https://i.pinimg.com/564x/61/e4/de/61e4ded99a6ac9f0a388cbd9b82ae567.jpg', author: '', contact:'', },
             { name: 'dwarf', url: 'https://i.pinimg.com/564x/c0/8d/ff/c08dff825c68e504edea38371c5ee102.jpg', author: '', contact: '', },
             { name: 'elf', url: 'https://i.pinimg.com/originals/63/86/73/63867332e190ee9ee647b82128399c75.jpg', author: '', contact: '', },
-            { name: 'gnome', url: 'https://i.pinimg.com/564x/46/4e/4f/464e4fc3b4f7d342cc06a3edbbc11498.jpg', author: '', contact: '', },
+            { name: 'gnome', url: 'https://i.pinimg.com/564x/3e/54/26/3e5426b3dbec68142d1a836f04dd0e66.jpg', author: '', contact: '', },
             { name: 'half-elf', url: 'https://i.pinimg.com/564x/fd/19/7a/fd197a8cb51cb31e2a081203a6526e7b.jpg', author: '', contact: '', },
             { name: 'halfling', url: 'https://i.pinimg.com/564x/57/ba/be/57babe55a84414e8de15424848567959.jpg', author: '', contact: '', },
             { name: 'half-orc', url: 'https://i.pinimg.com/564x/e8/aa/82/e8aa821de4be602c6bfc776da87ca1e8.jpg', author: '', contact: '', },
@@ -65,9 +93,33 @@ class CreateCharacter extends Component {
         ]
 
         for (var i = 0; i < racesInfo.length; i++) {
-            if (race === imagesForRaceSelection[i].name) {
-                return (<img src={imagesForRaceSelection[i].url} className='raceSelectImage' alt={race} />);
+            if (raceName === imagesForRaceSelection[i].name) {
+                return (<img src={imagesForRaceSelection[i].url} className='raceSelectImage' alt={raceName} />);
             }            
+        }
+    }
+
+    imagesForClasses = (characterClassName) => {
+        const { classesInfo } = this.state
+        let imagesForClassSelection = [
+            { name: 'barbarian', url: '', author: '', contact: '', },
+            { name: 'bard', url: '', author: '', contact: '', },
+            { name: 'cleric', url: '', author: '', contact: '', },
+            { name: 'druid', url: '', author: '', contact: '', },
+            { name: 'fighter', url: '', author: '', contact: '', },
+            { name: 'monk', url: '', author: '', contact: '', },
+            { name: 'paladin', url: '', author: '', contact: '', },
+            { name: 'ranger', url: '', author: '', contact: '', },
+            { name: 'rogue', url: '', author: '', contact: '', },
+            { name: 'sorcerer', url: '', author: '', contact: '', },
+            { name: 'warlock', url: '', author: '', contact: '', },
+            { name: 'wizard', url: '', author: '', contact: '', },
+        ]
+
+        for (var i = 0; i < classesInfo.length; i++) {
+            if (characterClassName === imagesForClassSelection[i].name) {
+                return (<img src={imagesForClassSelection[i].url} className='classSelectImage' alt={characterClassName} />);
+            }
         }
 
     }
@@ -91,35 +143,34 @@ class CreateCharacter extends Component {
         return abilityPoints
     }
 
-
-    displayRaceInfo = (index) => {
+    selectRace = (index) => {
         const { racesInfo } = this.state
         for (let i = 0; i < racesInfo.length; i++) {
             if (racesInfo[i].index === index) {
                 const RaceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
-                this.setState({ raceSelected: RaceSelected[0]});
+                this.setState({ raceSelected: RaceSelected[0] });
                 break;
             }
         }
     }
 
-    displayClassInfo = (index) => {
+    selectClass = (index) => {
         const { classesInfo } = this.state
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: selectedClass[0]});
+                this.setState({ classSelected: selectedClass[0] });
                 break;
             }
         }
     }
 
-    isClassSelected = (classSelected) => {
-        return (this.isSelected(classSelected));
-    }
-
     isRaceSelected = (raceSelected) => {
         return (this.isSelected(raceSelected));
+    }
+
+    isClassSelected = (classSelected) => {
+        return (this.isSelected(classSelected));
     }
 
     isSelected = (obj) => {
@@ -129,7 +180,6 @@ class CreateCharacter extends Component {
         }
         return false;
     }
-
 
     handleSubmit = (abilities) => {
         const { abilityScoresSelected } = this.state
@@ -168,7 +218,7 @@ class CreateCharacter extends Component {
         return (<div className='container-fluid'>
                     <div className='row creation'>
                         <Info character={this.state} />
-                        <Selection {...props} displayRaceInfo={this.displayRaceInfo} displayClassInfo={this.displayClassInfo} handleSubmit={this.handleSubmit} getScore={this.getScore} />
+                        <Selection {...props} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
                         <Navigation navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation}/>
                     </div>
                 </div>);

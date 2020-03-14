@@ -25,9 +25,9 @@
         font-size:13px;
     }
 
-        .info h2 {
-            text-align: center;
-        }
+    .info h2, h1 {
+        text-align: center;
+    }
 
     .info img { /*need better handling for aspect ratios*/
         background-color: black;
@@ -40,19 +40,20 @@
     }
 
     .selection {
-        background-color: black ;
+        background-color: black;
+        width:100%;
         padding: 0px;
         margin: 0px;
         height: 30vh;
+        
     }
 
     .selectionButtons {
         background-color: black;
         color: white;
-        border: none;
         font-size: 20px;
-        border-radius: 5px 5px;
-        padding: 3px;
+        padding: 0px;
+        float:left
     }
 
     .navigation {
@@ -83,7 +84,8 @@
     .abilityScores {
         background-color: cornflowerblue;
         border:solid black 1px;
-    }
+        margin: 0px 5px 0px 0px;
+        }
 
     .chooseProficiency {
         margin: 10px 0px;

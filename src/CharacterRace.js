@@ -10,11 +10,13 @@ const CharacterRace = (props) => {
         case "Races":
             if (props.character.isRaceSelected(raceSelected)) {
                 const imageRace = props.character.imagesForRaces(raceSelected.index)
+                const sizeDescription = props.character.raceSelected.size_description
                 return (<div className="col-12 info">
-                    {imageRace}
-                    <h2>{raceSelected.name}</h2>
-                    <p>{raceSelected.alignment}</p>
-                </div>);
+                            {imageRace}
+                            <h2>{raceSelected.name}</h2>
+                            <p>{raceSelected.alignment}</p>
+                            <p>{sizeDescription}</p>
+                        </div>);
 
             } else {
                 return (<div className="col-12 info">
@@ -24,12 +26,14 @@ const CharacterRace = (props) => {
 
         case "Ability-Scores":
             var abilities = Object.keys(props.character.abilityScoresSelected);
-            let abilityScoresDisplay = abilities.map((ability, index) => {
+            let abilityScoresInfo = abilities.map((ability, index) => {
                 return (<div className='col-2 text-center abilityScores' key={index}>{props.character.abilityScoresSelected[ability]}</div>);
             });
             return (<div className="col-12 info">
-                {abilityScoresDisplay}
-            </div>);
+                        <div className="row">
+                            {abilityScoresInfo}
+                        </div>
+                    </div>);
     }
 }
 
