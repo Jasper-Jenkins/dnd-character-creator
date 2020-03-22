@@ -1,5 +1,7 @@
 import React from 'react'
-import CharacterRace from './CharacterRace'
+//import CharacterRace from './CharacterRace'
+
+//import ClassProficiencies from './ClassProficiencies'
 //import CharacterClass from './CharacterClass'
 
 const Info = (props) => {
@@ -14,33 +16,32 @@ const Info = (props) => {
                 const imageRace = props.character.imagesForRaces(raceSelected.index)
                 const sizeDescription = props.character.raceSelected.size_description
                 return (<div className="col-12 info">
-                    {imageRace}
-                    <h2>{raceSelected.name}</h2>
-                    <p>{raceSelected.alignment}</p>
-                    <p>{sizeDescription}</p>
-                </div>);
-
+                            {imageRace}
+                            <h2>{raceSelected.name}</h2>
+                            <p>{raceSelected.alignment}</p>
+                            <p>{sizeDescription}</p>
+                        </div>);
             } else {
                 return (<div className="col-12 info">
-                    <p>...Choose your race</p>
+                    <p className='text-center'>...Choose your race</p>
                 </div>);
             }
         case 'Classes':
             if (props.character.isClassSelected(classSelected)) {
-                // return (<CharacterClass classProps={props} />);
+                const imageHuman = props.character.imagesForHumans(classSelected.index)
                 return (<div className="col-12 info">
-                    <h1>{props.character.classSelected.name}</h1>
-                    <p>WORKING ON CLASS CREATION</p>
-                </div>);
+                            {imageHuman}
+                            <h1>{classSelected.name}</h1>
+                        </div>);
             } else {
                 return (<div className="col-12 info">
-                            <p>...Choose your class</p>
+                    <p className='text-center'>...Choose your class</p>
                         </div>);
             }
         case 'Ability-Scores':
             var abilities = Object.keys(props.character.abilityScoresSelected);
-            let abilityScoresInfo = abilities.map((ability, index) => {
-                return (<div className='col-2 text-center abilityScores' key={index}>{props.character.abilityScoresSelected[ability]}</div>);
+            let abilityScoresInfo = abilities.map((ability) => {
+                return (<div className='col-4 text-center abilityScores' key={ability}>{props.character.abilityScoresSelected[ability]}</div>);
             });
             return (<div className="col-12 info">
                         <div className="row">
@@ -50,23 +51,21 @@ const Info = (props) => {
         case 'Proficiencies':
             if (props.character.isClassSelected(classSelected)) {
                 return (<div className="col-12 info">
-                    <h1 className='text-center'>{props.character.classSelected.name}</h1>
-
-                    <p>...Proficiencies would be here once Character has chosen a Class </p>
-                </div >);
+                            <h1 className='text-center'>{props.character.classSelected.name}</h1>
+                        </div>);
             } else {
-                return (<div className="col-12 info">
-                            <p>...Choose your class to select proficiencies </p>
+                return (<div className='col-12 info'>
+                            <p className='text-center'>...Choose your class to select proficiencies </p>
                         </div>);
             }
         case 'Spells':
             if (props.character.isClassSelected(classSelected)) {
                 return (<div className='col-12 info'>
-
-                </div>)
+                            <p className='text-center'>...Spell Information...</p> 
+                        </div>)
             } else {
                 return (<div className='col-12 info'>
-                           <p>..Choose your class to select spells </p>
+                            <p className='text-center'>..Choose your class to select spells </p>
                         </div>);
             }
         default:

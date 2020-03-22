@@ -13,7 +13,7 @@
         border: 5px solid black;
         margin: 0px;
         padding: 10px;
-        height: 60vh;
+        height: 55vh;
         overflow-y:auto;
         overflow-x:hidden;
     }
@@ -45,7 +45,6 @@
         padding: 0px;
         margin: 0px;
         height: 30vh;
-        
     }
 
     .selectionButtons {
@@ -53,13 +52,20 @@
         color: white;
         font-size: 20px;
         padding: 0px;
+        margin:0px;
         float:left
     }
 
     .navigation {
         background-color: black;
-        height: 10vh;
+        height: 15vh;
         border: 2px dotted white;
+    }
+
+    .navigation p {
+        margin: 0px;
+        padding: 0px;
+        border: 1px solid white;
     }
 
     .navigationButtons {
@@ -68,8 +74,17 @@
         border: none;
         font-size: 20px;
         border-radius: 5px 5px;
-        margin: 0px 10px 0px 0px;
+        margin: 5px 10px 5px 0px;
         padding: 0px;
+    }
+
+    .shiny {     
+        box-shadow: 0px 0px 5px 1px yellow;
+    }
+
+    .whiteBorder {
+        border: 3px solid white;
+
     }
 
     /*.raceSelectImage {
@@ -78,14 +93,22 @@
         margin: 0px 0px 0px 10px;
         box-shadow: 0px 0px 10px 1px;
         border-radius: 15px;
-    }*/   
-
+    }*/
+.shinyBlue {
+    box-shadow: 0px 0px 5px 1px #7032ed;
+}
 
     .abilityScores {
         background-color: cornflowerblue;
         border:solid black 1px;
         margin: 0px 5px 0px 0px;
-        }
+     }
+
+    .abilityScoresSelection {
+        background-color: black;
+        border:none;
+        color:white;
+    }
 
     .chooseProficiency {
         margin: 10px 0px;
@@ -133,5 +156,4 @@
 
     .half-orc {
         background-image: linear-gradient(to bottom right, #9e0909, #099e1a);
-        color:red;
     }       

@@ -10,12 +10,8 @@ class CharacterClass extends Component {
         console.log("CharacterClass: ", props)
         super(props);
         this.intialState = props;
-        
+        this.state = initialState; 
     }
-
-    state = {
-
-    }   
 
     displayClassInfo = (index) => {
         const { classesInfo } = this.state

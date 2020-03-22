@@ -33,7 +33,12 @@ const CharacterRace = (props) => {
                         <div className="row">
                             {abilityScoresInfo}
                         </div>
+                     </div>);
+        default: 
+            return (<div className="col-12 info">
+                        <p>Great gasping ghouls, what have you done!</p>
                     </div>);
+
     }
 }
 

@@ -6,17 +6,11 @@ class ClassProficiencies extends Component {
         super(props);
         console.log("ClassProficiencies: ", props);
         this.state = {
-            classSelected: props.characterClass.classSelected,
-            isClassSelected: props.characterClass.isClassSelected,
+            classSelected: props.classSelected,
+            isClassSelected: props.isClassSelected,
             proficiencies: [],
             proficienciesChoices: [],
         };
-    }
-
-    state = {
-        classSelected: {},
-        proficiencies: [],
-        proficienciesChoices: [],
     }
 
     componentDidMount() {
@@ -28,15 +22,20 @@ class ClassProficiencies extends Component {
         }
     }
 
-    componentWillUnmount(d) {
-        console.log("Whatever data it gives me before it dies", d)
+    componentWillUnmount() {
+
+        console.log("Whatever data it gives me before it dies", this.state.proficiencies)
+
+       //  const { proficiencies } = this.state;
+       //  this.state.selectedProficiencies(proficiencies)
+
     }
+     
 
-
-    setStartingProficiencies = (chosenClass) => {
-        console.log("Set Starting proficiencies", chosenClass)
-        const proficiencies = JSON.parse(JSON.stringify(chosenClass.proficiencies))
-        const proficienciesChoices = JSON.parse(JSON.stringify(chosenClass.proficiency_choices))
+    setStartingProficiencies = (selectedClass) => {
+        console.log("Set Starting proficiencies", selectedClass)
+        const proficiencies = JSON.parse(JSON.stringify(selectedClass.proficiencies))
+        const proficienciesChoices = JSON.parse(JSON.stringify(selectedClass.proficiency_choices))
         this.setState({ proficiencies: proficiencies, proficienciesChoices: proficienciesChoices, });
     }
 
@@ -107,7 +106,7 @@ class ClassProficiencies extends Component {
                 return (<span className='proficiencies' key={proficiency.name}>{proficiency.name}</span>);
             }
         });
-        return (<div className='col-12'>currentProficiencies</div>);
+        return (<div className='col-12'>{currentProficiencies}</div>);
     }
 
     classProficienciesToChooseFrom() {
