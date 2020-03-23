@@ -45,6 +45,8 @@
         padding: 0px;
         margin: 0px;
         height: 30vh;
+        overflow-x:scroll;
+        
     }
 
     .selectionButtons {

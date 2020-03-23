@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
     "\\src"
   ],
-  "SelectedNode": "\\src\\CreateCharacter.js",
+  "SelectedNode": "\\src\\ClassProficiencies.js",
   "PreviewInSolutionExplorer": false
 }

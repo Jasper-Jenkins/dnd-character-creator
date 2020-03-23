@@ -1,6 +1,6 @@
 import React from 'react'
 //import CharacterRace from './CharacterRace'
-
+import CharacterImages from'./CharacterImages'
 //import ClassProficiencies from './ClassProficiencies'
 //import CharacterClass from './CharacterClass'
 
@@ -13,11 +13,10 @@ const Info = (props) => {
     switch (props.character.navigation) {
         case "Races":
             if (props.character.isRaceSelected(raceSelected)) {
-                const imageRace = props.character.imagesForRaces(raceSelected.index)
                 const sizeDescription = props.character.raceSelected.size_description
                 return (<div className="col-12 info">
-                            {imageRace}
-                            <h2>{raceSelected.name}</h2>
+                            <CharacterImages {...props.character} />
+                    <h2>{raceSelected.name} {classSelected.name}</h2>
                             <p>{raceSelected.alignment}</p>
                             <p>{sizeDescription}</p>
                         </div>);
@@ -28,10 +27,9 @@ const Info = (props) => {
             }
         case 'Classes':
             if (props.character.isClassSelected(classSelected)) {
-                const imageHuman = props.character.imagesForHumans(classSelected.index)
                 return (<div className="col-12 info">
-                            {imageHuman}
-                            <h1>{classSelected.name}</h1>
+                            <CharacterImages {...props.character} />
+                            <h2>{classSelected.name}</h2>
                         </div>);
             } else {
                 return (<div className="col-12 info">

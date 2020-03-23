@@ -18,9 +18,7 @@ class App extends Component {
         classesInfo: [],
         //classSelected: {},
         //classChosen: {}, 
-        classProficiencies: [],
-        classProficienciesChoices: [],
-       
+
         ///////
         abilityScores: {},
         abilityScoresInfo: [],
