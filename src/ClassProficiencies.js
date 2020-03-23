@@ -94,7 +94,6 @@ class ClassProficiencies extends Component {
         }
     }
 
-
     currentClassProficienices() {
         //   const { proficiencies } - this.state
         const { proficiencies } = this.state

@@ -29,6 +29,8 @@ class App extends Component {
         spells: {},
         spellsInfo: [],
         //spellsSelected: [],
+
+        features: {},
     }
 
     componentDidMount() {

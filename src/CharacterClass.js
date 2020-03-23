@@ -29,7 +29,6 @@ class CharacterClass extends Component {
         const proficienciesChoices = JSON.parse(JSON.stringify(chosenClass.proficiency_choices))
         this.setState({ classProficiencies: proficiencies, classProficienciesChoices: proficienciesChoices, });
     }
-
        
     render() {
         return (<div className='row'>

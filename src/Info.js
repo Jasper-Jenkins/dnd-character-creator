@@ -13,23 +13,24 @@ const Info = (props) => {
     switch (props.character.navigation) {
         case "Races":
             if (props.character.isRaceSelected(raceSelected)) {
-                const sizeDescription = props.character.raceSelected.size_description
+          //      const sizeDescription = props.character.raceSelected.size_description
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                    <h2>{raceSelected.name} {classSelected.name}</h2>
+                            <h2>{raceSelected.name} {classSelected.name}</h2>
                             <p>{raceSelected.alignment}</p>
-                            <p>{sizeDescription}</p>
+                            <p>{raceSelected.size_description}</p>
                         </div>);
             } else {
                 return (<div className="col-12 info">
-                    <p className='text-center'>...Choose your race</p>
-                </div>);
+                            <p className='text-center'>...Choose your race</p>
+                        </div>);
             }
         case 'Classes':
             if (props.character.isClassSelected(classSelected)) {
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                            <h2>{classSelected.name}</h2>
+                    <h2>{raceSelected.name} {classSelected.name}</h2>
+                    <p>Starting Proficiencies:</p>
                         </div>);
             } else {
                 return (<div className="col-12 info">
