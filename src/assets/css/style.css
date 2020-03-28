@@ -14,8 +14,7 @@
         margin: 0px;
         padding: 10px;
         height: 55vh;
-        overflow-y:auto;
-        overflow-x:hidden;
+        overflow:auto
     }
 
     .info p {
@@ -45,8 +44,8 @@
         padding: 0px;
         margin: 0px;
         height: 30vh;
-        overflow-x:scroll;
-        
+        overflow:auto;
+
     }
 
     .selectionButtons {
@@ -96,14 +95,13 @@
         box-shadow: 0px 0px 10px 1px;
         border-radius: 15px;
     }*/
-.shinyBlue {
-    box-shadow: 0px 0px 5px 1px #7032ed;
-}
+
+    .shinyBlue {
+        box-shadow: 0px 0px 5px 1px #7032ed;
+    }
 
     .abilityScores {
         background-color: cornflowerblue;
-        border:solid black 1px;
-        margin: 0px 5px 0px 0px;
      }
 
     .abilityScoresSelection {

@@ -1,11 +1,10 @@
 import React from 'react'
-//import CharacterRace from './CharacterRace'
 import CharacterImages from'./CharacterImages'
 //import ClassProficiencies from './ClassProficiencies'
 //import CharacterClass from './CharacterClass'
 
 const Info = (props) => {
-    console.log("Info() props: ", props)
+ //   console.log("Info() props: ", props)
     const raceSelected = props.character.raceSelected
     const classSelected = props.character.classSelected
 
@@ -13,10 +12,10 @@ const Info = (props) => {
     switch (props.character.navigation) {
         case "Races":
             if (props.character.isRaceSelected(raceSelected)) {
-          //      const sizeDescription = props.character.raceSelected.size_description
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                            <h2>{raceSelected.name} {classSelected.name}</h2>
+                            <h2>{raceSelected.name}</h2>
+                            <h2>{classSelected.name}</h2>
                             <p>{raceSelected.alignment}</p>
                             <p>{raceSelected.size_description}</p>
                         </div>);
@@ -29,28 +28,42 @@ const Info = (props) => {
             if (props.character.isClassSelected(classSelected)) {
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                    <h2>{raceSelected.name} {classSelected.name}</h2>
-                    <p>Starting Proficiencies:</p>
+                            <h2>{raceSelected.name}</h2>
+                            <h2>{classSelected.name}</h2>
+                            <p>Starting Proficiencies:</p>
                         </div>);
             } else {
                 return (<div className="col-12 info">
-                    <p className='text-center'>...Choose your class</p>
+                            <CharacterImages {...props.character} />
+                            <h2>{raceSelected.name}</h2>
+                            <p className='text-center'> ...Choose your class</p>
                         </div>);
             }
         case 'Ability-Scores':
             var abilities = Object.keys(props.character.abilityScoresSelected);
             let abilityScoresInfo = abilities.map((ability) => {
-                return (<div className='col-4 text-center abilityScores' key={ability}>{props.character.abilityScoresSelected[ability]}</div>);
+                return (<div className='col text-center abilityScores' key={ability}>
+                            {props.character.abilityScoresSelected[ability]}
+                        </div>);
             });
             return (<div className="col-12 info">
-                        <div className="row">
+                        <div className='row row-col-4'>
                             {abilityScoresInfo}
                         </div>
                     </div>);
         case 'Proficiencies':
             if (props.character.isClassSelected(classSelected)) {
+                console.log("no problems here yet")
+                const { proficiencies } = props.character
+                let characterProficiencies = proficiencies.map((proficiency) => {
+                    return (<span key={proficiency.name}>{proficiency.name} </span>)
+                });
+
+
                 return (<div className="col-12 info">
-                            <h1 className='text-center'>{props.character.classSelected.name}</h1>
+                            <CharacterImages {...props.character} />
+                            <h2>{props.character.classSelected.name}</h2>
+                            <p>{characterProficiencies}</p>
                         </div>);
             } else {
                 return (<div className='col-12 info'>

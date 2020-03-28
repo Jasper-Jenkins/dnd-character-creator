@@ -1,12 +1,10 @@
 import React from 'react'
-
-
-//import CharacterRace from'./CharacterRace'
 import AbilityScoresForm from './AbilityScoresForm'
 import ClassProficiencies from './ClassProficiencies'
 import ClassSpells from './ClassSpells'
+
 const Selection = (props) => {
-    console.log("Selection() props", props)
+  //  console.log("Selection() props", props)
     const classSelected = props.classSelected
     const raceSelected = props.raceSelected
 
@@ -57,17 +55,20 @@ const Selection = (props) => {
                         <div className='col-12'>
                             {abilityScores}
                         </div>
+                        <AbilityScoresForm handleSubmit={props.handleSubmit} />
                     </div>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <AbilityScoresForm handleSubmit={props.handleSubmit} />
-                        </div>
-                    </div>
+
                 </div>
             );
         default:
             return (<div className='col-12 text-center selection'>DEFAULT: It's a broke!</div>);
     }
 }
+
+//<div className='row'>
+    //<div className='col-12'>
+    //    <AbilityScoresForm handleSubmit={props.handleSubmit} />
+    //</div>
+//</div>
 
 export default Selection 

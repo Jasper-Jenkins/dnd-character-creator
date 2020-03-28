@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const CharacterSave = (props) => {
-    console.log("CharacterSave", props)
+   // console.log("CharacterSave", props)
 
 
     //let saveButton = () => {

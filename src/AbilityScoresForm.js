@@ -20,7 +20,7 @@ class AbilityScoresForm extends Component {
 
     handleFocus = (event) => event.target.select();
 
-    handleChange = event => {
+    handleChange = (event) => {
 
         const { name, value } = event.target
         const { scores } = this.state
@@ -47,10 +47,8 @@ class AbilityScoresForm extends Component {
     }
 
     render() {
-
         const { scores } = this.state;
-      
-        return (<form>
+        return (<form className='col-12'>
                     <label className='col-3'htmlFor="cha">Charisma</label>
                     <input className='col-3'
                         type='number'
@@ -78,8 +76,8 @@ class AbilityScoresForm extends Component {
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
 
-            <label className='col-3' htmlFor="int">Intelligence</label>
-            <input className='col-3'
+                    <label className='col-3' htmlFor="int">Intelligence</label>
+                    <input className='col-3'
                         type='number'
                         name='int'
                         id='int'
@@ -87,8 +85,8 @@ class AbilityScoresForm extends Component {
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
 
-            <label className='col-3' htmlFor='str'>Strength</label>
-            <input className='col-3'
+                    <label className='col-3' htmlFor='str'>Strength</label>
+                    <input className='col-3'
                         type='number'
                         name='str'
                         id='str'
@@ -96,8 +94,8 @@ class AbilityScoresForm extends Component {
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
 
-            <label className='col-3' htmlFor="wis">Wisdom</label>
-            <input className='col-3'
+                    <label className='col-3' htmlFor="wis">Wisdom</label>
+                    <input className='col-3'
                         type='number'
                         name='wis'
                         id='wis'
@@ -106,8 +104,7 @@ class AbilityScoresForm extends Component {
                         onFocus={this.handleFocus} />
 
                     <input type="button" value="Submit" onClick={this.submitForm} />
-            </form>
-        );       
+            </form>);       
     }
 }
 
