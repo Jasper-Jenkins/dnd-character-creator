@@ -58,8 +58,6 @@ const Info = (props) => {
                 let characterProficiencies = proficiencies.map((proficiency) => {
                     return (<span key={proficiency.name}>{proficiency.name} </span>)
                 });
-
-
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
                             <h2>{props.character.classSelected.name}</h2>

@@ -3,10 +3,8 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\assets",
-    "\\src\\assets\\css",
-    "\\src\\assets\\images"
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\App.js",
+  "SelectedNode": "\\src\\ClassProficiencies.js",
   "PreviewInSolutionExplorer": false
 }

@@ -5,6 +5,8 @@ import Selection from './Selection'
 import Navigation from './Navigation'
 import CharacterSave from'./CharacterSave'
 
+//import GOOFING from './GOOFING'
+
 class CreateCharacter extends Component {
     constructor(props) {
         super(props);
@@ -21,6 +23,7 @@ class CreateCharacter extends Component {
         this.initialState['isRaceSelected'] = this.isRaceSelected;
         this.initialState['selectedProficiencies'] = this.selectedProficiencies;
         this.initialState['addProficiency'] = this.addProficiency;
+        this.initialState['removeProficiency'] = this.removeProficiency;
         this.initialState['startingProficiencies'] = this.startingProficiencies;
         this.initialState['updateProficiencies'] = this.updateProficiencies;
         this.state = this.initialState;
@@ -91,7 +94,7 @@ class CreateCharacter extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: selectedClass[0] });
+                this.setState({ classSelected: selectedClass[0], proficiencies: [] });
                 break;
             }
         }
@@ -103,17 +106,36 @@ class CreateCharacter extends Component {
         }));
     }
 
-    updateProficiencies = (chosenProficiencies, chosenClassName) => {
-        const { classSelected } = this.state
-        if (chosenClassName === classSelected.name) {
-            this.setState({ proficiencies: chosenProficiencies })
-        } else {
-            this.setState({ proficiencies: [] })             
-        }
-
+    removeProficiency = (proficiencies) => {
+        console.log("Removing?", proficiencies)
+        this.setState({
+            proficiencies: proficiencies
+        }, this.removed);
     }
 
-    startingProficiencies = (proficiencies) => {
+    removed = () => {
+        const { proficiencies } = this.state
+        console.log("Removed", proficiencies)
+    }
+
+    updateProficiencies = (proficiencies, choices) => {
+   //     const { classSelected } = this.state
+
+   //     if () { }
+        this.setState({
+            proficiencies: proficiencies,
+            proficienciesChoices: choices,
+        });
+    }
+
+    //resetClassProficiencies = (classChangingTo) => {
+    //    //if  
+    //}
+
+
+
+
+    startingProficiencies = (proficiencies) => {        
         this.setState({proficiencies: proficiencies });
     }
     
@@ -133,7 +155,7 @@ class CreateCharacter extends Component {
         return false;
     }
 
-    handleSubmit = (abilities) => {
+    handleSubmit = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled maaaybe
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
         let noZeroes = []
@@ -165,25 +187,23 @@ class CreateCharacter extends Component {
 
     render() {
         const { navigationCategories, navigation, } = this.state
-        // const { classSelected, raceSelected } = this.state
-        // const { classSelected } = this.state
-     
-        const props = this.state;
+    
         return (<div className='container-fluid creation'>
                     <div className='row'>
                         <Info character={this.state} />
-                    </div>      
-                    <div className='row'>
-                        <Selection {...props} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
                     </div>
                     <div className='row'>
-                        <Navigation {...props} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />
+                        <Selection {...this.state} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
                     </div>
                     <div className='row'>
-                        <CharacterSave {...props} />
+                        <Navigation {...this.state} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />
                     </div>
-                </div>);
+                    <div className='row'>
+                        <CharacterSave {...this.state} />
+                    </div>
+               </div>);
     }
 }
 
+// <GOOFING />
 export default CreateCharacter

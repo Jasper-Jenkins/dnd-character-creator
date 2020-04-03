@@ -19,7 +19,7 @@ class AbilityScoresForm extends Component {
     }
 
     handleFocus = (event) => event.target.select();
-
+        
     handleChange = (event) => {
 
         const { name, value } = event.target
