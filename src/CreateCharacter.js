@@ -100,40 +100,24 @@ class CreateCharacter extends Component {
         }
     }
 
-    addProficiency = (proficiency) => {
-        this.setState(state => ({
-            proficiencies: [...state.proficiencies, proficiency],
-        }));
+    addProficiency = (proficiencies) => {
+        this.setState({
+            proficiencies: proficiencies,
+        });
     }
 
     removeProficiency = (proficiencies) => {
-        console.log("Removing?", proficiencies)
         this.setState({
             proficiencies: proficiencies
-        }, this.removed);
-    }
-
-    removed = () => {
-        const { proficiencies } = this.state
-        console.log("Removed", proficiencies)
+        });
     }
 
     updateProficiencies = (proficiencies, choices) => {
-   //     const { classSelected } = this.state
-
-   //     if () { }
         this.setState({
             proficiencies: proficiencies,
             proficienciesChoices: choices,
         });
     }
-
-    //resetClassProficiencies = (classChangingTo) => {
-    //    //if  
-    //}
-
-
-
 
     startingProficiencies = (proficiencies) => {        
         this.setState({proficiencies: proficiencies });
@@ -188,7 +172,8 @@ class CreateCharacter extends Component {
     render() {
         const { navigationCategories, navigation, } = this.state
     
-        return (<div className='container-fluid creation'>
+        return (<div id='creator' className='container-fluid creation'>
+                    <div className='row' id='alert'></div>
                     <div className='row'>
                         <Info character={this.state} />
                     </div>

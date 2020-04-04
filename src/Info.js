@@ -7,8 +7,7 @@ const Info = (props) => {
  //   console.log("Info() props: ", props)
     const raceSelected = props.character.raceSelected
     const classSelected = props.character.classSelected
-
-
+    
     switch (props.character.navigation) {
         case "Races":
             if (props.character.isRaceSelected(raceSelected)) {

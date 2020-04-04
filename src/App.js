@@ -87,12 +87,12 @@ class App extends Component {
 
         if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined) {
             return (<div className="container-fluid">
-                <div className="row">
-                    <div className="col-12">
-                        <p>...Loading API</p>
-                    </div>
-                </div>
-            </div>);
+                        <div className="row">
+                            <div className="col-12">
+                                <p>...Loading API</p>
+                            </div>
+                        </div>
+                    </div>);
         } else {
             return (<CreateCharacter character={character} />); 
         }
