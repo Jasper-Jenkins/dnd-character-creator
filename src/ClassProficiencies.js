@@ -49,7 +49,11 @@ class ClassProficiencies extends Component {
             proficienciesChoices: proficienciesChoices,
         }, this.state.startingProficiencies(startingProficiencies));
     }
-    
+
+    fadeEffect = () => {
+
+    }
+
     addProficiency = (proficiencyName, choicesIndex) => {
         const { classSelected } = this.state
         const { proficienciesChoices } = this.state
@@ -57,14 +61,26 @@ class ClassProficiencies extends Component {
         for (var i = 0; i < choices[choicesIndex].from.length; i++) {
             if (choices[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choices[choicesIndex].choose)) {
                 console.log("You have selected your fair share of awesome!")
-                const element = (<div className='col-12 text-center'>
+                const element = (<div className='col text-center'>
                                     <p>You can not select any more proficiencies from this category</p>
                                 </div>);
                 ReactDOM.render(element, document.getElementById('alert'))
-
+                const fadeOut = document.getElementById('alert')
                 setTimeout(function () {
-                    ReactDOM.unmountComponentAtNode(document.getElementById('alert'));
-                }, 2000);
+                    var fade = setInterval(function () {
+                        if (!fadeOut.style.opacity) {
+                            fadeOut.style.opacity = 1;
+                        }
+                        if (fadeOut.style.opacity > 0) {
+                            fadeOut.style.opacity -= 0.01;
+                        } else {
+                            ReactDOM.unmountComponentAtNode(document.getElementById('alert'));
+                            fadeOut.style.opacity = 1;
+                            clearInterval(fade);
+                        }
+                    }, 10)
+                }, 1700)
+                        
                 break;
             } else {
                 if (choices[choicesIndex].from[i].name === proficiencyName) {
@@ -101,8 +117,6 @@ class ClassProficiencies extends Component {
             }
         }
     }
-
-
     //currentClassProficienices() {
     //    //   const { proficiencies } - this.state
     //    const { proficiencies } = this.state
@@ -137,8 +151,8 @@ class ClassProficiencies extends Component {
     }
 
     render() {
-        const { proficienciesChoices } = this.state
-        console.log("pro choices: ", proficienciesChoices)
+     // const { proficienciesChoices } = this.state
+     // console.log("pro choices: ", proficienciesChoices)
         return (<div className='row'>
                     {this.classProficienciesToChooseFrom()}
                 </div>);

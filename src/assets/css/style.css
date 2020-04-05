@@ -6,6 +6,7 @@
         max-width: 700px;
         margin: 0 auto;
         border-radius: 3px;
+        box-shadow:0px 0px 20px 30px;
     }
 
     .info {
@@ -22,13 +23,22 @@
         text-align:justify;
         text-justify:trim;
         font-size:13px;
+        padding: 0px;
+        margin: 0px 0px 10px 0px;
     }
 
-    .info h2, h1 {
+    .info h1, h2, h3, h4, h5, h6 {
         text-align: center;
     }
 
-    .info img { /*need better handling for aspect ratios*/
+    .info ul {
+        padding: 0px;
+        margin: 0px;
+        text-indent: 10px;
+        list-style:none;
+    }
+
+    .characterImage { /*need better handling for aspect ratios*/
         background-color: black;
         border-radius: 13px;
         box-shadow: 0px 0px 10px 1px;
@@ -44,17 +54,22 @@
         padding: 0px;
         margin: 0px;
         height: 30vh;
-        overflow:auto;
+        overflow: auto;
     }
-
+    
     .selectionButtons {
         background-color: black;
         color: white;
+        border: none;
         font-size: 20px;
         padding: 0px;
-        margin:0px;
-        float:left
+        margin: 0px;
     }
+
+    .selectionButtons:focus {
+        outline: none;
+    }
+
 
     .navigation {
         background-color: black;
@@ -77,6 +92,11 @@
         margin: 5px 10px 5px 0px;
         padding: 0px;
     }
+
+    .buttonSelected {
+        background-color:mediumseagreen;
+    }
+
 
     .shiny {     
         box-shadow: 0px 0px 5px 1px yellow;
@@ -103,12 +123,13 @@
 
     #alert {
         position: absolute;
-        width:100%;
-        max-width:100%;
+        width: inherit;
+        max-width: 700px;
         top: 40vh;
         z-index: 10;
         background-color: black;
         color: white;
+        
     }
     .chooseProficiency {
         margin: 10px 0px;

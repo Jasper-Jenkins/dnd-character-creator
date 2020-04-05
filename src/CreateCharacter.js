@@ -166,7 +166,7 @@ class CreateCharacter extends Component {
     }
 
     componentDidUpdate() {
-        console.log("A Change to CreateCharacter has occured")
+    //    console.log("A Change to CreateCharacter has occured")
     }
 
     render() {

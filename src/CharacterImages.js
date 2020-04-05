@@ -10,9 +10,9 @@ const CharacterImage = (props) => {
         for (var i = 0; i < selection.length; i++) {
             if (index === selection[i].index) {
                 if (selection[i].url.length < 1) { //needs validation for image urls that are broken
-                    return (<img src={defaultImage} className='classSelectImage' alt={selection[i].index} />);
+                    return (<img src={defaultImage} className='characterImage' alt={selection[i].index} />);
                 }
-                return (<img src={selection[i].url} className='classSelectImage' alt={selection[i].index} />);
+                return (<img src={selection[i].url} className='characterImage' alt={selection[i].index} />);
             }
         }
     }
@@ -36,7 +36,7 @@ const CharacterImage = (props) => {
                 ]
                 return pickImage(images, classSelected.index);
             } else {
-                return (<img src='https://i.pinimg.com/564x/1a/b0/0b/1ab00b7f21a506b04ae305ebfed5023b.jpg' className='classSelectImage' alt='default' />);
+                return (<img src='https://i.pinimg.com/564x/1a/b0/0b/1ab00b7f21a506b04ae305ebfed5023b.jpg' className='characterImage' alt='default' />);
             }
         case 'half-orc':
             if (classSelected.index !== undefined) {
@@ -56,7 +56,7 @@ const CharacterImage = (props) => {
                 ]
                 return (pickImage(images, classSelected.index));
             } else {
-                return (<img src='https://i.pinimg.com/564x/b5/62/82/b562828218dec5916a898c2ab29c5922.jpg' className='classSelectImage' alt='default' />);
+                return (<img src='https://i.pinimg.com/564x/b5/62/82/b562828218dec5916a898c2ab29c5922.jpg' className='characterImage' alt='default' />);
             }
         case 'elf':
             if (classSelected.index !== undefined) {
@@ -76,7 +76,7 @@ const CharacterImage = (props) => {
                 ]
                 return pickImage(images, classSelected.index)
             } else {
-                return (<img src={defaultImage} className='classSelectImage' alt='default' />);
+                return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'half-elf':
             if (classSelected.index !== undefined) {
@@ -96,7 +96,7 @@ const CharacterImage = (props) => {
                 ]
                 return pickImage(images, classSelected.index)
             } else {
-                return (<img src={defaultImage} className='classSelectImage' alt='default' />);
+                return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'halfling':
             if (classSelected.index !== undefined) {
@@ -116,7 +116,7 @@ const CharacterImage = (props) => {
                 ]
                 return pickImage(images, classSelected.index)
             } else {
-                return (<img src={defaultImage} className='classSelectImage' alt='default' />);
+                return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'tiefling':
             if (classSelected.index !== undefined) {
@@ -136,7 +136,7 @@ const CharacterImage = (props) => {
                 ]
                 return pickImage(images, classSelected.index)
             } else {
-                return (<img src={defaultImage} className='classSelectImage' alt='default' />);
+                return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'dragonborn':
             if (classSelected.index !== undefined) {
@@ -156,7 +156,7 @@ const CharacterImage = (props) => {
                 ]
                 return pickImage(images, classSelected.index)
             } else {
-                return (<img src={defaultImage} className='classSelectImage' alt='default' />);
+                return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'gnome':
             if (classSelected.index !== undefined) {
@@ -176,7 +176,7 @@ const CharacterImage = (props) => {
                 ]
                 return pickImage(images, classSelected.index)
             } else {
-                return (<img src={defaultImage} className='classSelectImage' alt='default' />);
+                return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'dwarf':
             if (classSelected.index !== undefined) {
@@ -196,10 +196,10 @@ const CharacterImage = (props) => {
                 ]
                 return pickImage(images, classSelected.index)
             } else {
-                return (<img src={defaultImage} className='classSelectImage' alt='default' />);
+                return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         default:
-            return (<img src={defaultImage} className='classSelectImage' alt='default' />);
+            return (<img src={defaultImage} className='characterImage' alt='default' />);
     }
 } 
 

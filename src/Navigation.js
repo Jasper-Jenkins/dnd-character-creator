@@ -10,13 +10,13 @@ const Navigation = (props) => {
     let navButtons = navigationCategories.map((category, index) => {
         if (props.isClassSelected(classSelected)) {
             if (navigation === category) {
-                return (<button className='navigationButtons disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                return (<button className='navigationButtons buttonSelected disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
             } else {
                 return (<button onClick={() => navigate(category)} className='navigationButtons' key={index}>{category}</button>);
             }
         } else {
             if (navigation === category) {
-                return (<button className='navigationButtons disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                return (<button className='navigationButtons buttonSelected disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
             } else {
                 if (category === 'Classes' && (navigation === 'Proficiencies' || navigation === 'Spells')) {
                     switch (navigation) {

@@ -3,18 +3,27 @@ import CharacterImages from'./CharacterImages'
 //import ClassProficiencies from './ClassProficiencies'
 //import CharacterClass from './CharacterClass'
 
+
 const Info = (props) => {
- //   console.log("Info() props: ", props)
     const raceSelected = props.character.raceSelected
     const classSelected = props.character.classSelected
-    
+    let ability_bonuses = [];
+    if (props.character.isRaceSelected(raceSelected)) {
+        ability_bonuses = props.character.raceSelected.ability_bonuses.map((bonus) => {
+            return (<li key={bonus.name}>{bonus.name}: {bonus.bonus}</li>);
+        });
+    }
+
+
     switch (props.character.navigation) {
         case "Races":
             if (props.character.isRaceSelected(raceSelected)) {
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                            <h2>{raceSelected.name}</h2>
-                            <h2>{classSelected.name}</h2>
+                            <h3>{raceSelected.name}</h3>
+                            <h3>{classSelected.name}</h3>
+                            <p>Racial ability bounues</p>
+                            <ul>{ability_bonuses}</ul>
                             <p>{raceSelected.alignment}</p>
                             <p>{raceSelected.size_description}</p>
                         </div>);
@@ -25,16 +34,24 @@ const Info = (props) => {
             }
         case 'Classes':
             if (props.character.isClassSelected(classSelected)) {
+                const { hit_die } = props.character.classSelected
+                const saving_throws = props.character.classSelected.saving_throws.map((saving_throw) => {
+                    return (<li key={saving_throw.name.toLowerCase()}>{saving_throw.name}</li>);
+                });
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                            <h2>{raceSelected.name}</h2>
-                            <h2>{classSelected.name}</h2>
-                            <p>Starting Proficiencies:</p>
+                                
+                            <h3>{raceSelected.name}</h3>
+                            <h3>{classSelected.name}</h3>
+                            
+                            <p>Hit die: d{hit_die}</p>
+                            <p>Saving throws</p>    
+                            <ul>{saving_throws}</ul>
                         </div>);
             } else {
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                            <h2>{raceSelected.name}</h2>
+                            <h3>{raceSelected.name}</h3>
                             <p className='text-center'> ...Choose your class</p>
                         </div>);
             }
@@ -42,10 +59,14 @@ const Info = (props) => {
             var abilities = Object.keys(props.character.abilityScoresSelected);
             let abilityScoresInfo = abilities.map((ability) => {
                 return (<div className='col text-center abilityScores' key={ability}>
-                            {props.character.abilityScoresSelected[ability]}
+                        <h6>{ability}</h6>
+                        {props.character.abilityScoresSelected[ability]}
                         </div>);
             });
             return (<div className="col-12 info">
+                        <CharacterImages {...props.character} />
+                        <h3>{raceSelected.name}</h3>
+                        <h3>{classSelected.name}</h3>
                         <div className='row row-col-4'>
                             {abilityScoresInfo}
                         </div>
@@ -55,12 +76,15 @@ const Info = (props) => {
                 console.log("no problems here yet")
                 const { proficiencies } = props.character
                 let characterProficiencies = proficiencies.map((proficiency) => {
-                    return (<span key={proficiency.name}>{proficiency.name} </span>)
+                    return (<li key={proficiency.name}>{proficiency.name}</li>)
                 });
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                            <h2>{props.character.classSelected.name}</h2>
-                            <p>{characterProficiencies}</p>
+                            <h3>{props.character.raceSelected.name}</h3>
+                            <h3>{props.character.classSelected.name}</h3>
+                            <ul>{ability_bonuses}</ul>
+                            <p>Starting Proficiencies</p>
+                            <ul>{characterProficiencies}</ul>
                         </div>);
             } else {
                 return (<div className='col-12 info'>
