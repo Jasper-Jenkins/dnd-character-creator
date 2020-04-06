@@ -49,7 +49,7 @@ class AbilityScoresForm extends Component {
     render() {
         const { scores } = this.state;
         return (<form className='col-12'>
-                    <label className='col-3'htmlFor="cha">Charisma</label>
+                    <label className='col-3' htmlFor="cha">Charisma</label>
                     <input className='col-1'
                         type='number'
                         name='cha'

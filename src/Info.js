@@ -12,9 +12,7 @@ const Info = (props) => {
         ability_bonuses = props.character.raceSelected.ability_bonuses.map((bonus) => {
             return (<li key={bonus.name}>{bonus.name}: {bonus.bonus}</li>);
         });
-    }
-
-
+    }    
     switch (props.character.navigation) {
         case "Races":
             if (props.character.isRaceSelected(raceSelected)) {
@@ -22,7 +20,7 @@ const Info = (props) => {
                             <CharacterImages {...props.character} />
                             <h3>{raceSelected.name}</h3>
                             <h3>{classSelected.name}</h3>
-                            <p>Racial ability bounues</p>
+                            <p>{raceSelected.name} ability bonuses</p>
                             <ul>{ability_bonuses}</ul>
                             <p>{raceSelected.alignment}</p>
                             <p>{raceSelected.size_description}</p>
@@ -39,11 +37,9 @@ const Info = (props) => {
                     return (<li key={saving_throw.name.toLowerCase()}>{saving_throw.name}</li>);
                 });
                 return (<div className="col-12 info">
-                            <CharacterImages {...props.character} />
-                                
+                            <CharacterImages {...props.character} />                                
                             <h3>{raceSelected.name}</h3>
-                            <h3>{classSelected.name}</h3>
-                            
+                            <h3>{classSelected.name}</h3>                            
                             <p>Hit die: d{hit_die}</p>
                             <p>Saving throws</p>    
                             <ul>{saving_throws}</ul>
@@ -56,11 +52,17 @@ const Info = (props) => {
                         </div>);
             }
         case 'Ability-Scores':
+            if (props.character.isRaceSelected(raceSelected)) {
+                let bonuses = raceSelected.ability_bonuses.map((bonus) => {
+                    return bonus
+                });
+                console.log("BONUSES", bonuses)
+            }
             var abilities = Object.keys(props.character.abilityScoresSelected);
             let abilityScoresInfo = abilities.map((ability) => {
                 return (<div className='col text-center abilityScores' key={ability}>
-                        <h6>{ability}</h6>
-                        {props.character.abilityScoresSelected[ability]}
+                            <h6>{ability}</h6>
+                            {props.character.abilityScoresSelected[ability]}
                         </div>);
             });
             return (<div className="col-12 info">
@@ -73,7 +75,6 @@ const Info = (props) => {
                     </div>);
         case 'Proficiencies':
             if (props.character.isClassSelected(classSelected)) {
-                console.log("no problems here yet")
                 const { proficiencies } = props.character
                 let characterProficiencies = proficiencies.map((proficiency) => {
                     return (<li key={proficiency.name}>{proficiency.name}</li>)

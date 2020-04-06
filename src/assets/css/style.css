@@ -95,6 +95,7 @@
 
     .buttonSelected {
         background-color:mediumseagreen;
+        color:black;
     }
 
 
@@ -119,6 +120,14 @@
         background-color: black;
         border:none;
         color:white;
+    }
+
+    .abilityScoresSelection:focus {
+        outline:none;
+    }
+
+    .bonus {
+        color: mediumseagreen;
     }
 
     #alert {
