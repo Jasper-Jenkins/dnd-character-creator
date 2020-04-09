@@ -3,8 +3,9 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\assets"
+    "\\src\\assets",
+    "\\src\\assets\\css"
   ],
-  "SelectedNode": "\\src\\ClassProficiencies.js",
+  "SelectedNode": "\\src\\Info.js",
   "PreviewInSolutionExplorer": false
 }

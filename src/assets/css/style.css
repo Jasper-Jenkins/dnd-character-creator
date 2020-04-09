@@ -98,14 +98,12 @@
         color:black;
     }
 
-
     .shiny {     
         box-shadow: 0px 0px 5px 1px yellow;
     }
 
     .whiteBorder {
         border: 3px solid white;
-
     }
 
     .shinyBlue {
@@ -115,6 +113,16 @@
     .abilityScores {
         background-color: cornflowerblue;
      }
+
+    .abilityScores p { /*this conflict with .info p {} need to find a better formatting solution*/
+        background-color:deeppink;
+        color: azure;
+        text-align: center;
+        text-justify: trim;
+        font-size:15px;
+        padding: 0px;
+        margin: 0px auto;
+    }
 
     .abilityScoresSelection {
         background-color: black;
