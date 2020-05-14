@@ -21,16 +21,14 @@ class CreateCharacter extends Component {
         this.initialState['spellsChosen'] = [];
         this.initialState['isClassSelected'] = this.isClassSelected;
         this.initialState['isRaceSelected'] = this.isRaceSelected;
-        this.initialState['selectedProficiencies'] = this.selectedProficiencies;
-        this.initialState['addProficiency'] = this.addProficiency;
-        this.initialState['removeProficiency'] = this.removeProficiency;
+        this.initialState['setProficiencies'] = this.setProficiencies;
         this.initialState['startingProficiencies'] = this.startingProficiencies;
         this.initialState['updateProficiencies'] = this.updateProficiencies;
-        this.state = this.initialState;
-    }
+        this.initialState['setSpells'] = this.setSpells;
+        
 
-    selectedProficiencies = (classProficiencies) => {
-        this.setState({ proficiencies: classProficiencies, });
+
+        this.state = this.initialState;
     }
     
     //setCharacterClassProps(props) {
@@ -78,6 +76,8 @@ class CreateCharacter extends Component {
         return abilityPoints
     }
 
+    setBackgroundImage = () => { }
+
     selectRace = (index) => {
         const { racesInfo } = this.state
         for (let i = 0; i < racesInfo.length; i++) {
@@ -100,29 +100,29 @@ class CreateCharacter extends Component {
         }
     }
 
-    addProficiency = (proficiencies) => {
+    startingProficiencies = (proficiencies) => {
+        this.setState({ proficiencies: proficiencies });
+    }
+
+    setProficiencies = (proficiencies) => {
         this.setState({
             proficiencies: proficiencies,
-        });
+        })
     }
-
-    removeProficiency = (proficiencies) => {
-        this.setState({
-            proficiencies: proficiencies
-        });
-    }
-
+       
     updateProficiencies = (proficiencies, choices) => {
         this.setState({
             proficiencies: proficiencies,
             proficienciesChoices: choices,
         });
     }
-
-    startingProficiencies = (proficiencies) => {        
-        this.setState({proficiencies: proficiencies });
+         
+    setSpells = (spells) => {
+        this.setState({
+            spellsChosen: spells,
+        });
     }
-    
+
     isRaceSelected = (raceSelected) => {
         return (this.isSelected(raceSelected));
     }
@@ -189,6 +189,5 @@ class CreateCharacter extends Component {
                </div>);
     }
 }
-
 // <GOOFING />
 export default CreateCharacter

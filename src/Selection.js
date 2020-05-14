@@ -43,7 +43,7 @@ const Selection = (props) => {
                             <ClassSpells {...props} />
                         </div>);
             } else {
-                return (<div className='col-12 selection'>HMmmm spell transfer is off</div>);
+                return (<div className='col-12 selection'>Hmmmm spell transfer is off</div>);
             }
         case 'Ability-Scores':
             let abilityScores = props.abilityScores.results.map((abilityScore, index) => {

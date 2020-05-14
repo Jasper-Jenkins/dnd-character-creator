@@ -34,9 +34,9 @@ class App extends Component {
         fetch(url + 'ability-scores')
             .then(result => result.json())
             .then(result => { this.setState({ abilityScores: result }, this.getInfo(result, 'ability-scores')) });
-        //fetch(url + 'spells')
-        //    .then(result => result.json())
-        //    .then(result => { this.setState({ spells: result }, this.getInfo(result, 'spells')) });
+        fetch(url + 'spells')
+            .then(result => result.json())
+            .then(result => { this.setState({ spells: result }, this.getInfo(result, 'spells')) });
         //fetch(url + 'features')
         //    .then(result => result.json())
         //    .then(result => { this.setState({ features: result }, this.getInfo(result, 'features')) });
@@ -69,9 +69,9 @@ class App extends Component {
             case 'spells':
                 this.setState({ spellsInfo: info, })
                 break;
-            case 'features':
-                this.setState({ featuresInfo: info, })
-                break;
+            //case 'features':
+            //    this.setState({ featuresInfo: info, })
+            //    break;
             default:
         }
     }
@@ -80,12 +80,12 @@ class App extends Component {
         const { races } = this.state
         const { classes } = this.state
         const { abilityScores } = this.state
-        //const { spells } = this.state
-        //const { features } = this.state
+        const { spells } = this.state
+      //  const { features } = this.state
 
         const character = this.state
 
-        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined) {
+        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined) {
             return (<div className="container-fluid">
                         <div className="row">
                             <div className="col-12">

@@ -10,9 +10,8 @@ class ClassProficiencies extends Component {
             isClassSelected: props.isClassSelected,
             proficiencies: props.proficiencies,
             proficienciesChoices: props.proficienciesChoices,
-            addProficiency: props.addProficiency,
-            removeProficiency: props.removeProficiency,
             startingProficiencies: props.startingProficiencies,
+            setProficiencies: props.setProficiencies,
             updateProficiencies: props.updateProficiencies,
         };
     }
@@ -31,7 +30,6 @@ class ClassProficiencies extends Component {
         const { classSelected } = this.state
         const { proficiencies } = this.state
         const { proficienciesChoices } = this.state
-
         if (proficiencies.length < 1) { //needs better validation
             console.log("should default here")
             this.setStartingProficiencies(classSelected.proficiencies, classSelected.proficiency_choices)
@@ -90,7 +88,7 @@ class ClassProficiencies extends Component {
                     const newProfs = [...this.state.proficiencies, newProficiency[0]]
                     this.setState(state => ({
                         proficiencies: [...state.proficiencies, newProficiency[0]],
-                    }), this.state.addProficiency(newProfs));
+                    }), this.state.setProficiencies(newProfs));
                     break;
                 }
             }
@@ -112,7 +110,7 @@ class ClassProficiencies extends Component {
                 this.setState({
                     proficiencies: [...newProficiencies],
                     proficienicesChoices: classProficienciesChoices,
-                }, this.state.removeProficiency(newProficiencies));
+                }, this.state.setProficiencies(newProficiencies));
                 break;
             }
         }
