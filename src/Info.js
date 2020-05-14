@@ -50,7 +50,7 @@ const Info = (props) => {
             classSpells = spellsChosen.map((spell) => {
              //   console.log("chosen spell", spell)
 
-                return (spell.name);
+                return (<li key={spell.name}>{spell.name}</li>);
             }) 
 
         }

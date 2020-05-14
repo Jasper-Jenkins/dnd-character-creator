@@ -6,6 +6,7 @@ class ClassSpells extends Component {
         console.log("ClassSpells", props);
         this.state = {
             classSelected: props.classSelected,
+            classes: props.classes,
             spells: props.spells,
             spellsInfo: props.spellsInfo,
             setSpells: props.setSpells,
@@ -14,9 +15,11 @@ class ClassSpells extends Component {
         };
         this.classSpells(this.state.classSelected, 1);
     }
+
     componentWillUnmount() {
 
     }
+
     classSpells(classSelected, level) {
         const { classSpells } = this.state
         const { spellsInfo } = this.state
@@ -38,26 +41,50 @@ class ClassSpells extends Component {
 
     displaySpells() {
         const { classSpells } = this.state
+        const { spellsChosen} = this.state
         let spells = classSpells.map((spell) => {
+            for (var i = 0; i < spellsChosen.length; i++) {
+                if (spellsChosen[i].name === spell.name) {
+                    return (<button className='btn-md btn-secondary' onClick={() => this.removeSpell(spell)} key={spell.name}>{spell.name}</button>);
+                }
+            }
             return (<button className='btn-md btn-primary' onClick={() => this.addSpell(spell)} key={spell.name}>{spell.name}</button>);
         });
         return (spells);
     }
 
     addSpell = (spell) => {
-        let spells = this.state.spellsChosen
+        const { spellsChosen } = this.state
+        let spells = []
+        //for (var i = 0; i < spellsChosen.length; i++) {
+        //    spells.push(spellsChosen[i])
+        //}
+        spells = [...spellsChosen]
         spells.push(spell)
+        this.setState({
+            spellsChosen: spells,
+        });
         this.state.setSpells(spells)
     }
 
-            //onClick={() => this.addSpell()}
+    removeSpell = (spell) => {
+        const { spellsChosen } = this.state
+        let spells = []
+        for (var i = 0; i < spellsChosen.length; i++) {
+            if (spellsChosen[i].name !== spell.name) {
+                spells.push(spellsChosen[i])
+            }
+        }
+        this.setState({
+            spellsChosen: spells,
+        });
+        this.state.setSpells(spells)
+    }
 
+           
     render() {
         return (<div className='row'>
             <div className='col-12'>
-                <div className='row'>
-                    <div className='col-12'>spells that you will keep</div>
-                </div>
                 <div className='row'>
                     <div className='col-12'>{this.displaySpells()}</div>
                 </div>
