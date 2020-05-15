@@ -164,6 +164,7 @@ const Info = (props) => {
                             <ul>{ability_bonuses}</ul>
                             <p>Spells</p>
                             <ul>{classSpells}</ul>
+                            <p>{}</p>
                         </div>)
             } else {
                 return (<div className='col-12 info'>
