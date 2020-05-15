@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-//import { Button, StyleSheet, View } from 'react-native'
 import CreateCharacter from './CreateCharacter'
-//import CharacterClass from './CharacterClass'
 
 class App extends Component {
 
@@ -21,6 +19,8 @@ class App extends Component {
         ////////
         features: {},
         featuresInfo: [],
+        ////////
+        levelOne: [],
     }
 
     componentDidMount() {
@@ -37,9 +37,23 @@ class App extends Component {
         fetch(url + 'spells')
             .then(result => result.json())
             .then(result => { this.setState({ spells: result }, this.getInfo(result, 'spells')) });
+        
         //fetch(url + 'features')
         //    .then(result => result.json())
         //    .then(result => { this.setState({ features: result }, this.getInfo(result, 'features')) });
+    }
+    
+    getLevelOne(data) {
+        let levels = []
+        const url = 'http://www.dnd5eapi.co'
+        for (var i = 0; i < data.results.length; i++) {
+            fetch(url + "/api/classes/" + data.results[i].index + "/levels/1")
+                .then(result => result.json())
+                .then(result => levels.push(result))
+        }
+        this.setState({
+            levelOne: levels,
+        })
     }
 
     getInfo(data, category) {
@@ -55,7 +69,7 @@ class App extends Component {
                 this.setState({ racesInfo: info, })
             break;
             case 'classes':
-                this.setState({ classesInfo: info, })
+                this.setState({ classesInfo: info, }, this.getLevelOne(data))
                 break;
             case 'ability-scores':
                 this.setState({ abilityScoresInfo: info, })

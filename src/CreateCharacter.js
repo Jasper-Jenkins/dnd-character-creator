@@ -58,7 +58,7 @@ class CreateCharacter extends Component {
         }
     }
 
-    randomDiceRoll = (maxNum) => {
+    randomDiceRoll = (maxNum) => {//may need to extend this to accept two additional arguments for the total rolls to roll and keep 
         let totalDiceRolls = 5;
         let totalRollsToKeep = 3;
         let abilityPoint = 0
@@ -76,7 +76,7 @@ class CreateCharacter extends Component {
         return abilityPoints
     }
 
-    setBackgroundImage = () => { }
+    //setBackgroundImage = () => { } //This will be used if I want to put the character image as the background
 
     selectRace = (index) => {
         const { racesInfo } = this.state
@@ -94,7 +94,7 @@ class CreateCharacter extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: selectedClass[0], proficiencies: [] });
+                this.setState({ classSelected: selectedClass[0], proficiencies: [], spellsChosen: []});
                 break;
             }
         }
@@ -186,8 +186,10 @@ class CreateCharacter extends Component {
                     <div className='row'>
                         <CharacterSave {...this.state} />
                     </div>
-               </div>);
+                </div>);
     }
 }
-// <GOOFING />
+
+
+
 export default CreateCharacter

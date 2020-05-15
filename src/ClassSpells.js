@@ -11,6 +11,7 @@ class ClassSpells extends Component {
             spellsInfo: props.spellsInfo,
             setSpells: props.setSpells,
             spellsChosen: props.spellsChosen,
+            levelOne: props.levelOne,
             classSpells: [],
         };
         this.classSpells(this.state.classSelected, 1);
@@ -54,17 +55,47 @@ class ClassSpells extends Component {
     }
 
     addSpell = (spell) => {
+        const { classSelected } = this.state
         const { spellsChosen } = this.state
+        const { levelOne } = this.state
         let spells = []
-        //for (var i = 0; i < spellsChosen.length; i++) {
-        //    spells.push(spellsChosen[i])
-        //}
-        spells = [...spellsChosen]
-        spells.push(spell)
-        this.setState({
-            spellsChosen: spells,
-        });
-        this.state.setSpells(spells)
+        let spellsKnown = 0
+
+        console.log("Level One", levelOne)
+        console.log("SpellsChosen", spellsChosen)
+
+        for (var i = 0; i < levelOne.length; i++) {
+            if (levelOne[i].class.name === classSelected.name) {
+                if (levelOne[i].spellcasting.spells_known === undefined) {                    
+                    spellsKnown = parseInt(levelOne[i].spellcasting.spell_slots_level_1)
+                    if (spellsChosen.length === spellsKnown) {
+                        alert("NO more spells")
+                    } else {
+                        spells = [...spellsChosen, spell]
+                        this.setState({
+                            spellsChosen: spells,
+                        });
+                        this.state.setSpells(spells)
+                        console.log("added spell to cast")
+                    }
+                    break;
+                } else {
+                    spellsKnown = parseInt(levelOne[i].spellcasting.spells_known)
+                    if (spellsChosen.length === spellsKnown) {
+                        alert("NO more spells")
+                    } else {
+                        spells = [...spellsChosen, spell]
+                        this.setState({
+                            spellsChosen: spells,
+                        });
+                        this.state.setSpells(spells)
+                        console.log("added spell")
+                    }
+                    break;
+                }
+            }
+            console.log("cycled spell add")
+        }
     }
 
     removeSpell = (spell) => {
