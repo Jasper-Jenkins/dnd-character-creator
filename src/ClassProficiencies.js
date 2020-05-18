@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 
+import UserAlert from './Alert'
+
 class ClassProficiencies extends Component {
     constructor(props) {
         super(props);
@@ -58,27 +60,7 @@ class ClassProficiencies extends Component {
         const choices = [...proficienciesChoices]
         for (var i = 0; i < choices[choicesIndex].from.length; i++) {
             if (choices[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choices[choicesIndex].choose)) {
-                console.log("You have selected your fair share of awesome!")
-                const element = (<div className='col text-center'>
-                                    <p>You can not select any more proficiencies from this category</p>
-                                </div>);
-                ReactDOM.render(element, document.getElementById('alert'))
-                const fadeOut = document.getElementById('alert')
-                setTimeout(function () {
-                    var fade = setInterval(function () {
-                        if (!fadeOut.style.opacity) {
-                            fadeOut.style.opacity = 1;
-                        }
-                        if (fadeOut.style.opacity > 0) {
-                            fadeOut.style.opacity -= 0.01;
-                        } else {
-                            ReactDOM.unmountComponentAtNode(document.getElementById('alert'));
-                            fadeOut.style.opacity = 1;
-                            clearInterval(fade);
-                        }
-                    }, 10)
-                }, 1700)
-                        
+                UserAlert('You have selected the maximum number of proficiencies from this category');
                 break;
             } else {
                 if (choices[choicesIndex].from[i].name === proficiencyName) {
@@ -115,19 +97,6 @@ class ClassProficiencies extends Component {
             }
         }
     }
-    //currentClassProficienices() {
-    //    //   const { proficiencies } - this.state
-    //    const { proficiencies } = this.state
-    //    console.log("Current Proficiencies", proficiencies) 
-    //    let currentProficiencies = proficiencies.map((proficiency) => {
-    //        if (proficiency.index < 20 && proficiency.index > -1) { //needs better validation
-    //            return (<button className='chosenProficiency btn-md btn-secondary' onClick={() => this.removeProficiency(proficiency.name, proficiency.index)} key={proficiency.name}>{proficiency.name}</button>);
-    //        } else {
-    //            return (<span className='proficiencies' key={proficiency.name}>{proficiency.name}</span>);
-    //        }
-    //    });
-    //    return (<div className='col-12'>{currentProficiencies}</div>);
-    //}
 
     classProficienciesToChooseFrom() {
         const { classSelected } = this.state

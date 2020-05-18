@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
+import UserAlert from './Alert'
 
 class ClassSpells extends Component {
     constructor(props) {
         super(props);
-        console.log("ClassSpells", props);
+        //console.log("ClassSpells", props);
         this.state = {
             classSelected: props.classSelected,
             classes: props.classes,
@@ -36,7 +37,6 @@ class ClassSpells extends Component {
                 break;
             default: 
                 alert("level of character is invalid in spells creation. ")
-
         }
      }
 
@@ -60,16 +60,12 @@ class ClassSpells extends Component {
         const { levelOne } = this.state
         let spells = []
         let spellsKnown = 0
-
-        console.log("Level One", levelOne)
-        console.log("SpellsChosen", spellsChosen)
-
         for (var i = 0; i < levelOne.length; i++) {
             if (levelOne[i].class.name === classSelected.name) {
                 if (levelOne[i].spellcasting.spells_known === undefined) {                    
                     spellsKnown = parseInt(levelOne[i].spellcasting.spell_slots_level_1)
                     if (spellsChosen.length === spellsKnown) {
-                        alert("NO more spells")
+                        UserAlert('You have selected the maximum number of spells')
                     } else {
                         spells = [...spellsChosen, spell]
                         this.setState({
@@ -82,7 +78,7 @@ class ClassSpells extends Component {
                 } else {
                     spellsKnown = parseInt(levelOne[i].spellcasting.spells_known)
                     if (spellsChosen.length === spellsKnown) {
-                        alert("NO more spells")
+                        UserAlert('You have selected the maximum number of spells')
                     } else {
                         spells = [...spellsChosen, spell]
                         this.setState({
@@ -115,12 +111,8 @@ class ClassSpells extends Component {
            
     render() {
         return (<div className='row'>
-            <div className='col-12'>
-                <div className='row'>
                     <div className='col-12'>{this.displaySpells()}</div>
-                </div>
-            </div>
-        </div>);
+                </div>);
     }
 }
 

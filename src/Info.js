@@ -31,7 +31,6 @@ const Info = (props) => {
 
     if (props.character.isClassSelected(classSelected)) {
         className = classSelected.name
-
         saving_throws = props.character.classSelected.saving_throws.map((saving_throw, index) => {
             for (var j = 0; j < abilityScoresInfo.length; j++) {
                 if (abilityScoresInfo[j].name === saving_throw.name) {
@@ -43,16 +42,10 @@ const Info = (props) => {
         characterProficiencies = proficiencies.map((proficiency) => {
             return (<li key={proficiency.name}>{proficiency.name}</li>);
         });
-
         if (spellsChosen.length > 0) {
-          // console.log("spells Chosen", spellsChosen)
-
             classSpells = spellsChosen.map((spell) => {
-             //   console.log("chosen spell", spell)
-
                 return (<li key={spell.name}>{spell.name}</li>);
-            }) 
-
+            })
         }
 
     }

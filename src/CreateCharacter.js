@@ -173,22 +173,25 @@ class CreateCharacter extends Component {
         const { navigationCategories, navigation, } = this.state
     
         return (<div id='creator' className='container-fluid creation'>
-                    <div className='row' id='alert'></div>
-                    <div className='row'>
-                        <Info character={this.state} />
-                    </div>
-                    <div className='row'>
-                        <Selection {...this.state} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
-                    </div>
-                    <div className='row'>
-                        <Navigation {...this.state} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />
-                    </div>
-                    <div className='row'>
-                        <CharacterSave {...this.state} />
-                    </div>
-                </div>);
+            <div className='row' id='alert'></div>
+            <div className='row'>
+                <Info character={this.state} />
+            </div>
+            <div className='row'>
+                <Selection {...this.state} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
+            </div>
+            <div className='row'>
+                <Navigation {...this.state} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />
+            </div>
+            <div className='row'>
+                <CharacterSave {...this.state} />
+            </div>
+        </div>);
     }
 }
+
+
+//<GOOFING />
 
 
 

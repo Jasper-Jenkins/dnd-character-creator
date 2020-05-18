@@ -71,7 +71,6 @@
         outline: none;
     }
 
-
     .navigation {
         background-color: black;
         height: 15vh;
@@ -139,15 +138,16 @@
         color: mediumseagreen;
     }
 
-#alert {
-    position: absolute;
-    width: inherit;
-    max-width: var(--main-max-width);
-    top: 40vh;
-    z-index: 10;
-    background-color: black;
-    color: white;
-}
+    #alert {
+        position: absolute;
+        width: inherit;
+        max-width: var(--main-max-width);
+        top: 40vh;
+        z-index: 10;
+        background-color: black;
+        color: white;
+    }
+
     .chooseProficiency {
         margin: 10px 0px;
     }
