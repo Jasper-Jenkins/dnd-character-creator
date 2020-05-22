@@ -28,7 +28,7 @@ class CreateCharacter extends Component {
         
 
 
-        this.state = this.initialState;
+        this.state = this.initialState; 
     }
     
     //setCharacterClassProps(props) {
@@ -82,8 +82,8 @@ class CreateCharacter extends Component {
         const { racesInfo } = this.state
         for (let i = 0; i < racesInfo.length; i++) {
             if (racesInfo[i].index === index) {
-                const RaceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
-                this.setState({ raceSelected: RaceSelected[0] });
+                const raceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
+                this.setState({ raceSelected: raceSelected[0] });
                 break;
             }
         }
@@ -93,8 +93,8 @@ class CreateCharacter extends Component {
         const { classesInfo } = this.state
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
-                const selectedClass = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: selectedClass[0], proficiencies: [], spellsChosen: []});
+                const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
+                this.setState({ classSelected: classSelected[0], proficiencies: [], spellsChosen: []});
                 break;
             }
         }

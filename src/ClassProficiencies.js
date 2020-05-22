@@ -50,10 +50,6 @@ class ClassProficiencies extends Component {
         }, this.state.startingProficiencies(startingProficiencies));
     }
 
-    fadeEffect = () => {
-
-    }
-
     addProficiency = (proficiencyName, choicesIndex) => {
         const { classSelected } = this.state
         const { proficienciesChoices } = this.state

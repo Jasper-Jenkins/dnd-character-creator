@@ -2,7 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const UserAlert = (alertMessage) => {
-    const message = alertMessage
+    let message = ""
+    if (alertMessage.length > 100) {
+        message = "Yeah we dont do that here. Your message is way to long"
+    } else {
+        message = alertMessage
+    }
     const element = (<div className='col text-center'>
                         <p>{message}</p>
                     </div>);

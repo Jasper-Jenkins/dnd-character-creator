@@ -1,18 +1,50 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar"
-import Nav from "react-bootstrap/Nav"
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 
-function LoginNav() {
-    return (<Navbar bg="light" expand="md">
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>);
+const GOOFING = () => {
+        var divElem = document.createElement("DIV"); // style this div elements attribute with position: absolute, and a z-index: 10. 
+        // to ensure its positioning is out front and is independent of the other elements. 
+        // this elements parent is the body.
+        document.body.appendChild(divElem);
+        var divText = document.createTextNode("If you go back you will lose progress");
+        divElem.appendChild(divText);
+
+        var btnReturn = document.createElement("BUTTON");
+        var btnStay = document.createElement("BUTTON");
+        var btnReturnText = document.createTextNode("Go Back");
+        var btnStayText = document.createTextNode("Stay on page");
+        btnReturn.appendChild(btnReturnText);
+        btnStay.appendChild(btnStayText);
+         
+        divElem.appendChild(btnReturn);
+        divElem.appendChild(btnStay);
+        divElem.setAttribute("id", "customAlert")
+        btnReturn.setAttribute("id", "return");
+        btnStay.setAttribute("id", "stay");
+        var returnButton = document.getElementById("return");
+        var stayButton = document.getElementById("stay")
+        returnButton.addEventListener('click', () => leavePage(), false);
+        stayButton.addEventListener('click', () => stayOnPage(), false);
+
+   function leavePage() {
+        alert("Left page, progress lost")
+        var customAlert = document.getElementById('customAlert')
+      //  customAlert.remove()
+        /**
+         Your code to handle the user leaving the page     
+         */
+    }
+
+    function stayOnPage() {
+        alert("Stayed on page")
+        var customAlert = document.getElementById('customAlert')
+  //      customAlert.remove()
+        /**
+        Your code to handle the user staying on the page
+        **/
+    }
+    return(null)
 };
 
-export default LoginNav;
+export default GOOFING;

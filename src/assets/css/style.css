@@ -114,7 +114,7 @@
         background-color: cornflowerblue;
      }
 
-    .abilityScores p { /*this conflict with .info p {} need to find a better formatting solution*/
+    .abilityScores p { /*this conflicts with .info p {} need to find a better formatting solution*/
         background-color:deeppink;
         color: azure;
         text-align: center;
@@ -161,26 +161,9 @@
         overflow-x: hidden;
     }
 
-    .spellsInfo {
-        background-color: green;
-        margin: 0px;
-        padding: 10px;
-        height: 85vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
     .proficiencies {
         margin: 0px 5px 0px 0px;
         padding: 0px;
-    }
-
-    .chosenProficiency {
-        color:blueviolet;
-    }
-
-    .abilityScoresForm {
-
     }
 
     input[type=number] {
