@@ -20,13 +20,12 @@ class ClassSpells extends Component {
 
     componentDidMount() {
         console.log("ClassSpells", this.state);
-
     }
 
     spellBook(spell, classLevel) {
         const { classSelected } = this.state
         const { spellsChosen } = this.state
-        const { levelOne } = this.state
+    //    const { levelOne } = this.state
         let spells = []
 
         if (classSelected.name === 'Wizard') { 
@@ -76,7 +75,9 @@ class ClassSpells extends Component {
         let classLevel = 1;
 
         let spellLevelLimit = 0;
-        let spellsToChooSeFrom = [];
+        let spellsToChooseFrom = [];
+
+     // var num = 0;
 
         for (var i = 0; i < classSpells.length; i++) {
             var num = parseInt(classSpells[i].level);
@@ -85,20 +86,35 @@ class ClassSpells extends Component {
             } 
         }
 
-        for (var j = 0; j < spellLevelLimit; j++) {
+        var spellLevel = 0;
+
+        for (var j = 0; j < spellLevelLimit + 1; j++) {
+            spellLevel = j;
             let spells = classSpells.map((spell) => {
-                if (spell.level === j) {
+
+                if (spell.level === spellLevel) {
                     for (var k = 0; k < spellsChosen.length; k++) {
                         if (spellsChosen[k].name === spell.name) {
-                            return (<button className='btn-md btn-secondary' onClick={() => this.removeSpell(spell)} key={spell.name}>{spell.name}</button>);
+                            return (<button className='btn-md btn-primary' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                         }
                     }
-                    return (<button className='btn-md btn-primary' onClick={() => this.addSpell(spell, classLevel)} key={spell.name}>{spell.name}</button>);
-                }
+                    return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell, classLevel)} key={spell.name + spell.level}>{spell.name}</button>);
+                } else { return null}
             });
-            spellsToChooSeFrom.push(spells)
+
+            //for (var l = 0; l < spells.length; l++) {
+            //    var keyLength = spells[l].key.length
+            //    var keyValue = spells[l].key[keyLength - 1]
+            //}
+           
+            spellsToChooseFrom.push(spells)
         }
-        /*       
+
+
+
+
+
+        /*
         let cantrips = classSpells.map((spell) => {
             if (spell.level === 0) {
                 for (var i = 0; i < spellsChosen.length; i++) {
@@ -123,7 +139,7 @@ class ClassSpells extends Component {
         */
         return (<div className="row">
                     <div className="col-12">
-                        {spellsToChooSeFrom}
+                        {spellsToChooseFrom}
                     </div>
                 </div>);
     }
