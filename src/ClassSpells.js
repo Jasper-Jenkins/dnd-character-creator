@@ -15,6 +15,7 @@ class ClassSpells extends Component {
             levelOne: props.levelOne,
             classSpells: [],
             cantrips: [],
+            updateAlertMessage: props.updateAlertMessage,
         };
         this.classSpells(this.state.classSelected, 1);
     }
@@ -28,9 +29,6 @@ class ClassSpells extends Component {
         const { spellsChosen } = this.state
     //  const { levelOne } = this.state
         let spells = []
-        let spellsChosenByLevel = []
-
-
 
         if (classSelected.name === "Wizard") { 
             switch (parseInt(classLevel)) {
@@ -41,8 +39,6 @@ class ClassSpells extends Component {
                         }
                     }
 
-
-
                     if (spellsChosen.length < 6) {
                         spells = [...spellsChosen, spell];
                         this.setState({
@@ -51,7 +47,8 @@ class ClassSpells extends Component {
                         this.state.setSpells(spells);
                         console.log("added " + spell.name + " to your spell book");
                     } else {
-                        UserAlert("You are unable to learn " + spell.name + " at this time.");
+                        //   UserAlert("You are unable to learn " + spell.name + " at this time.");
+                        this.state.updateAlertMessage("You are unable to learn " + spell.name + " at this time.")
                     }
                     break;                                       
                 default:
@@ -97,7 +94,7 @@ class ClassSpells extends Component {
         }
         
         for (var j = 0; j < spellLevelLimit + 1; j++) {
-            var spellLevel = j;
+            let spellLevel = j;
             let spells = classSpells.map((spell) => {
                 if (spell.level === spellLevel) {
                     for (var k = 0; k < spellsChosen.length; k++) {

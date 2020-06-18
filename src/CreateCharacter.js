@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import Info from './Info'
 import Selection from './Selection'
 import Navigation from './Navigation'
-import CharacterSave from'./CharacterSave'
+import CharacterSave from './CharacterSave'
+import UserAlert from './Alert'
 
 //import GOOFING from './GOOFING'
 
@@ -20,6 +21,8 @@ class CreateCharacter extends Component {
         this.initialState['proficienciesChoices'] = [];
         this.initialState['spellsChosen'] = [];
         this.initialState['selectedSpell'] = {};
+        this.initialState['alertMessage'] = "";
+        this.initialState['updateAlertMessage'] = this.updateAlertMessage;
         this.initialState['updateSelectedSpell'] = this.updateSelectedSpell;
         this.initialState['isClassSelected'] = this.isClassSelected;
         this.initialState['isRaceSelected'] = this.isRaceSelected;
@@ -39,6 +42,30 @@ class CreateCharacter extends Component {
     //    };        
     //    return properties
     //}
+
+
+    updateAlertMessage = (message) => {
+        this.setState({ alertMessage: message }, this.fadeMessage()); 
+    }
+
+    fadeMessage = () => {
+
+    const alertNode = document.getElementById('alert');
+    setTimeout(function () {
+        let fade = setInterval(function () {
+            if (!alertNode.style.opacity) {
+                alertNode.style.opacity = 1;
+            }
+            if (alertNode.style.opacity > 0) {
+                alertNode.style.opacity -= 0.01;
+            } else {
+                clearInterval(fade);
+            }
+        }, 10);// If I do not wait the 10 seconds, it craps on my parade!
+    }, 1700);
+        this.setState({ alertMessage: "" });
+        alertNode.style.opacity = 1;
+    }
 
     updateSelectedSpell = (spell) => {
         this.setState({ selectedSpell: spell });
@@ -177,7 +204,7 @@ class CreateCharacter extends Component {
         const { navigationCategories, navigation, } = this.state
     
         return (<div id='creator' className='container-fluid creation'>
-            <div className='row' id='alert'></div>
+            <UserAlert alertMessage={this.state.alertMessage} />
             <div className='row'>
                 <Info character={this.state} />
             </div>
