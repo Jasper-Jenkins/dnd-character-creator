@@ -1,12 +1,18 @@
 import React from 'react'
 import CharacterImages from'./CharacterImages'
 
+//Work on refactoring this mess
+
 const Info = (props) => {
+    console.log("Info props", props)
+
     const { raceSelected } = props.character
     const { classSelected } = props.character
     const { abilityScoresInfo } = props.character
     const { proficiencies } = props.character
     const { spellsChosen } = props.character
+    const { selectedSpell } = props.character
+    const { updateSelectedSpell } = props.character 
 
     let raceName = ""
     let className = "" 
@@ -44,10 +50,13 @@ const Info = (props) => {
         });
         if (spellsChosen.length > 0) {
             classSpells = spellsChosen.map((spell) => {
-                return (<li key={spell.name}>{spell.name}</li>);
+                if (spell === selectedSpell) {
+                    return (<li key={spell.name}>{spell.name}</li>);
+                } else {
+                    return (<li onClick={() => updateSelectedSpell(spell)} key={spell.name}>{spell.name}</li>);
+                }
             })
-        }
-
+        } 
     }
     
     switch (props.character.navigation) {
@@ -66,7 +75,7 @@ const Info = (props) => {
             } else {
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
-                            <p className='text-center'> ...Choose your class</p>
+                            <p className='text-center'> ...Choose your race</p>
                         </div>);
             }
         case 'Classes':
@@ -149,7 +158,15 @@ const Info = (props) => {
             }
         case 'Spells':
             if (props.character.isClassSelected(classSelected)) {
-               
+                let spellDescription = []
+                if (selectedSpell.name === undefined) {
+                    console.log("check check check")
+                } else {
+                    spellDescription = selectedSpell.desc.map((desc, index) => {
+                        return (<p key={index}>{desc}</p>)
+                    })
+
+                }
                 return (<div className="col-12 info">
                             <CharacterImages {...props.character} />
                             <h3>{props.character.raceSelected.name}</h3>
@@ -157,7 +174,8 @@ const Info = (props) => {
                             <ul>{ability_bonuses}</ul>
                             <p>Spells</p>
                             <ul>{classSpells}</ul>
-                            <p>{}</p>
+                            <h4>{selectedSpell.name}</h4>
+                            {spellDescription}
                         </div>)
             } else {
                 return (<div className='col-12 info'>

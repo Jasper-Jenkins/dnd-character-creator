@@ -19,14 +19,14 @@ class CreateCharacter extends Component {
         this.initialState['proficiencies'] = [];
         this.initialState['proficienciesChoices'] = [];
         this.initialState['spellsChosen'] = [];
+        this.initialState['selectedSpell'] = {};
+        this.initialState['updateSelectedSpell'] = this.updateSelectedSpell;
         this.initialState['isClassSelected'] = this.isClassSelected;
         this.initialState['isRaceSelected'] = this.isRaceSelected;
         this.initialState['setProficiencies'] = this.setProficiencies;
         this.initialState['startingProficiencies'] = this.startingProficiencies;
         this.initialState['updateProficiencies'] = this.updateProficiencies;
         this.initialState['setSpells'] = this.setSpells;
-        
-
 
         this.state = this.initialState; 
     }
@@ -39,6 +39,10 @@ class CreateCharacter extends Component {
     //    };        
     //    return properties
     //}
+
+    updateSelectedSpell = (spell) => {
+        this.setState({ selectedSpell: spell });
+    }
 
     navigate = (category) => {
         this.setState({ navigation: category, });

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const UserAlert = (alertMessage) => {
+const UserAlert = (alertMessage) => {//this needs better validation againts invalid messages
     let message = ""
     if (alertMessage.length > 100) {
         message = "Yeah we dont do that here. Your message is way to long"
