@@ -2,8 +2,7 @@ import React, { Component} from 'react'
 
 class AbilityScoresForm extends Component {
     constructor(props) {
-        super(props);
-      
+        super(props);      
         this.initialState = {
             scores: [
                 { name: 'cha', value: 0, },
@@ -13,20 +12,16 @@ class AbilityScoresForm extends Component {
                 { name: 'str', value: 0, },
                 { name: 'wis', value: 0, },
             ],
-            }
-
+        }
         this.state = this.initialState
     }
 
     handleFocus = (event) => event.target.select();
         
     handleChange = (event) => {
-
         const { name, value } = event.target
         const { scores } = this.state
-
         const newScores = JSON.parse(JSON.stringify(scores))
-        
         for (var i = 0; i < newScores.length; i++) {
             if (newScores[i].name === name) {
                 if (value === '') {
@@ -35,10 +30,8 @@ class AbilityScoresForm extends Component {
                     newScores[i].value = parseInt(value, 10);
                 }
             }
-        }
-        
+        }        
         this.setState({ scores: newScores })
-
     } 
 
     submitForm = () => {

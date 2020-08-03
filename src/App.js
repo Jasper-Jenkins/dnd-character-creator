@@ -66,16 +66,16 @@ class App extends Component {
         }
         switch(category) {
             case 'races':
-                this.setState({ racesInfo: info, })
+                this.setState({ racesInfo: info, });
             break;
             case 'classes':
-                this.setState({ classesInfo: info, }, this.getLevelOne(data))
+                this.setState({ classesInfo: info, }, this.getLevelOne(data));
                 break;
             case 'ability-scores':
-                this.setState({ abilityScoresInfo: info, })
+                this.setState({ abilityScoresInfo: info, });
                 break;
             case 'spells':
-                this.setState({ spellsInfo: info, })
+                this.setState({ spellsInfo: info, });
                 break;
             //case 'features':
             //    this.setState({ featuresInfo: info, })

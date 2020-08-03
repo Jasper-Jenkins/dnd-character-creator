@@ -42,19 +42,11 @@ class CreateCharacter extends Component {
     abilityScoresSetup = () => {
         const { count }  = this.state.abilityScores
         const { results } = this.state.abilityScores
-        console.log("Setting up ability score data: count ", count);
-        console.log("Setting up ability score data: results ", results);
-
         let abilityScores = {};
-
-        console.log("Information length : ", count)
-
         for (var j = 0; j < count; j++) {
             let ability = results[j].index;
-            console.log("ability: ", ability);
             abilityScores[ability] = 0;
         }
-        console.log("Ability Scores: ", abilityScores)
         this.setState({ abilityScoresSelected: abilityScores, });
     }
 
@@ -104,17 +96,16 @@ class CreateCharacter extends Component {
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
 
-        console.log("Ability Scores Selected", abilityScoresSelected)
-
         let scores = abilityScoresSelected
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
                 scores[ability] = this.randomDiceRoll(6)
                 this.setState({abilityScoresSelected: scores})
-                console.log(scores[ability])
                 break;
             }
         }
+
+        console.log("Ability Scores Selected", abilityScoresSelected[ability])
     }
 
     randomDiceRoll = (maxNum) => { // may need to extend this to accept two additional arguments: total rolls to roll, and total rolls to keep 
@@ -234,7 +225,7 @@ class CreateCharacter extends Component {
         return (<div id='creator' className='container-fluid creation'>
             <UserAlert alertMessage={this.state.alertMessage} />
             <div className='row'>
-                <Info character={this.state} />
+                <Info {...this.state} />
             </div>
             <div className='row'>
                 <Selection {...this.state} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />

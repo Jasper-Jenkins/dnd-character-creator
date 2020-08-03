@@ -1,18 +1,37 @@
 import React from 'react'
 //import CharacterImages from'./CharacterImages'
 
-//Work on refactoring this mess
+function InfoDisplay (raceName, className, hit_die, ability_bonuses, saving_throws){
+    return (<div className="col-12 info">
+        <table className='infoDisplay'>
+            <tbody>
+                <tr>
+                    <th><h3>{raceName}</h3></th>
+                    <th><h3>{className}</h3></th>
+                </tr>
+                <tr>
+                    <td>Ability bonuses <ul>{ability_bonuses}</ul></td>
+                    <td>Hit die: {hit_die}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Saving throws<ul>{saving_throws}</ul></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>);
+}
 
+//Work on refactoring this mess
 const Info = (props) => {
     console.log("Info props", props)
-
-    const { raceSelected } = props.character
-    const { classSelected } = props.character
-    const { abilityScoresInfo } = props.character
-    const { proficiencies } = props.character
-    const { spellsChosen } = props.character
-    const { selectedSpell } = props.character
-    const { updateSelectedSpell } = props.character 
+    const { raceSelected } = props
+    const { classSelected } = props
+    const { abilityScoresInfo } = props
+    const { proficiencies } = props
+    const { spellsChosen } = props
+    const { selectedSpell } = props
+    const { updateSelectedSpell } = props 
 
     let raceName = ""
     let className = "" 
@@ -22,10 +41,10 @@ const Info = (props) => {
     let characterProficiencies = []
     let classSpells = []
 
-    if (props.character.isRaceSelected(raceSelected)) { //setting up info for when a race has been selected
+    if (props.isRaceSelected(raceSelected)) { //setting up info for when a race has been selected
         raceName = raceSelected.name
-        hit_die = props.character.classSelected.hit_die
-        ability_bonuses = props.character.raceSelected.ability_bonuses.map((bonus, index) => {
+        hit_die = props.classSelected.hit_die
+        ability_bonuses = props.raceSelected.ability_bonuses.map((bonus, index) => {
             for (var i = 0; i < abilityScoresInfo.length; i++) {
                 if (abilityScoresInfo[i].name === bonus.name) {
                     return (<li key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
@@ -35,9 +54,9 @@ const Info = (props) => {
         });
     }
 
-    if (props.character.isClassSelected(classSelected)) { //setting up info for when a class has been selected
+    if (props.isClassSelected(classSelected)) { //setting up info for when a class has been selected
         className = classSelected.name
-        saving_throws = props.character.classSelected.saving_throws.map((saving_throw, index) => {
+        saving_throws = props.classSelected.saving_throws.map((saving_throw, index) => {
             for (var j = 0; j < abilityScoresInfo.length; j++) {
                 if (abilityScoresInfo[j].name === saving_throw.name) {
                     return (<li key={saving_throw.name.toLowerCase()}>{abilityScoresInfo[j].full_name}</li>);
@@ -59,34 +78,18 @@ const Info = (props) => {
         } 
     }
     
-    switch (props.character.navigation) {
+    switch (props.navigation) {
         case "Races":        
-            if (props.character.isRaceSelected(raceSelected) || props.character.isClassSelected(classSelected)) {
-                return (<div className="col-12 info">
-                            <h3>{raceName}</h3>
-                            <h3>{className}</h3>
-                            <p>Hit die: {hit_die}</p>
-                            <p>{raceName} ability bonuses</p>
-                            <ul>{ability_bonuses}</ul>
-                            <p>Saving throws</p>
-                            <ul>{saving_throws}</ul>
-                        </div>)
+            if (props.isRaceSelected(raceSelected) || props.isClassSelected(classSelected)) {
+                return InfoDisplay(raceName, className, hit_die, ability_bonuses, saving_throws);
             } else {
                 return (<div className="col-12 info">
                             <p className='text-center'> ...Choose your race</p>
                         </div>);
             }
         case 'Classes':
-            if (props.character.isClassSelected(classSelected) || props.character.isRaceSelected(raceSelected)) {
-                return (<div className="col-12 info">
-                            <h3>{raceName}</h3>
-                            <h3>{className}</h3>
-                            <p>Hit die: {hit_die}</p>
-                            <p>{raceName} ability bonuses</p>
-                            <ul>{ability_bonuses}</ul>
-                            <p>Saving throws</p>
-                            <ul>{saving_throws}</ul>
-                        </div>)
+            if (props.isClassSelected(classSelected) || props.isRaceSelected(raceSelected)) {
+                return InfoDisplay(raceName, className, hit_die, ability_bonuses, saving_throws);
             } else {
                 return (<div className="col-12 info">
                             <h3>{raceName}</h3>
@@ -94,14 +97,14 @@ const Info = (props) => {
                         </div>);
             }
         case 'Ability-Scores':
-            var abilities = Object.keys(props.character.abilityScoresSelected);
+            var abilities = Object.keys(props.abilityScoresSelected);
             let abilityScores = abilities.map((ability) => {
                 return (<div className='col text-center abilityScores' key={ability}>
                             <h6>{ability}</h6>
-                            {props.character.abilityScoresSelected[ability]}
+                            {props.abilityScoresSelected[ability]}
                 </div>);
             });
-            if (props.character.isRaceSelected(raceSelected)) {
+            if (props.isRaceSelected(raceSelected)) {
                 let bonuses = raceSelected.ability_bonuses.map((bonus) => {
                     return bonus
                 });
@@ -110,13 +113,13 @@ const Info = (props) => {
                         if (bonuses[i].name.toLowerCase() === ability) {
                             return (<div className='col text-center abilityScores' key={ability}>
                                         <h6>{ability}</h6>
-                                        <p>{props.character.abilityScoresSelected[ability]}+{bonuses[i].bonus}</p>
+                                        <p>{props.abilityScoresSelected[ability]}+{bonuses[i].bonus}</p>
                                     </div>);
                         }
                     }
                     return (<div className='col text-center abilityScores' key={ability}>
                                 <h6>{ability}</h6>
-                                <p>{props.character.abilityScoresSelected[ability]}</p>
+                                <p>{props.abilityScoresSelected[ability]}</p>
                             </div>);
                 });
                 console.log("BONUSES", bonuses)
@@ -136,10 +139,10 @@ const Info = (props) => {
                         </div>
                     </div>);
         case 'Proficiencies':
-            if (props.character.isClassSelected(classSelected)) {
+            if (props.isClassSelected(classSelected)) {
                 return (<div className="col-12 info">
-                            <h3>{props.character.raceSelected.name}</h3>
-                            <h3>{props.character.classSelected.name}</h3>
+                            <h3>{props.raceSelected.name}</h3>
+                            <h3>{props.classSelected.name}</h3>
                             <ul>{ability_bonuses}</ul>
                             <p>Starting Proficiencies</p>
                             <ul>{characterProficiencies}</ul>
@@ -150,7 +153,7 @@ const Info = (props) => {
                         </div>);
             }
         case 'Spells':
-            if (props.character.isClassSelected(classSelected)) {
+            if (props.isClassSelected(classSelected)) {
                 let spellDescription = []
                 if (selectedSpell.name === undefined) {
                     console.log("check check check")
@@ -161,8 +164,8 @@ const Info = (props) => {
 
                 }
                 return (<div className="col-12 info">
-                            <h3>{props.character.raceSelected.name}</h3>
-                            <h3>{props.character.classSelected.name}</h3>
+                            <h3>{props.raceSelected.name}</h3>
+                            <h3>{props.classSelected.name}</h3>
                             <ul>{ability_bonuses}</ul>
                             <p>Spells</p>
                             <ul>{classSpells}</ul>
@@ -175,7 +178,7 @@ const Info = (props) => {
                         </div>);
             }
         default:
-            return null; //this needs to be a <div>, or anything other than null
+            return InfoDisplay(raceName, className, hit_die, ability_bonuses, saving_throws); //this needs to be a <div>, or anything other than null
         }
     }
     
