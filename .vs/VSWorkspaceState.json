@@ -1,12 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
     "\\src",
-    "\\src\\assets",
     "\\src\\assets\\css",
-    "\\src\\assets\\images"
+    "\\src\\assets\\images",
+    "\\src\\champion"
   ],
-  "SelectedNode": "\\src\\AbilityScoresForm.js",
+  "SelectedNode": "\\src\\Alert.js",
   "PreviewInSolutionExplorer": false
 }

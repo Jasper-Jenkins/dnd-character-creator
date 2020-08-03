@@ -73,12 +73,6 @@ class App extends Component {
                 break;
             case 'ability-scores':
                 this.setState({ abilityScoresInfo: info, })
-                let abilityScoresSetup = {}
-                for (var j = 0; j < data.count; j++) {
-                    let ability = data.results[j].index;
-                    abilityScoresSetup[ability] = 0;
-                }
-                this.setState({ abilityScoresSelected: abilityScoresSetup, });
                 break;
             case 'spells':
                 this.setState({ spellsInfo: info, })

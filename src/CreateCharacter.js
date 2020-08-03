@@ -13,6 +13,7 @@ class CreateCharacter extends Component {
         super(props);
         console.log("CreateCharacter: ", props);
         this.initialState = props.character;
+        this.initialState['abilityScoresSelected'] = {};
         this.initialState['navigationCategories'] = ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'];
         this.initialState['navigation'] = 'Races';
         this.initialState['classSelected'] = {};
@@ -31,9 +32,34 @@ class CreateCharacter extends Component {
         this.initialState['updateProficiencies'] = this.updateProficiencies;
         this.initialState['setSpells'] = this.setSpells;
 
-        this.state = this.initialState; 
+        this.state = this.initialState;
     }
     
+    componentDidMount() {
+        this.abilityScoresSetup();
+    }
+
+    abilityScoresSetup = () => {
+        const { count }  = this.state.abilityScores
+        const { results } = this.state.abilityScores
+        console.log("Setting up ability score data: count ", count);
+        console.log("Setting up ability score data: results ", results);
+
+        let abilityScores = {};
+
+        console.log("Information length : ", count)
+
+        for (var j = 0; j < count; j++) {
+            let ability = results[j].index;
+            console.log("ability: ", ability);
+            abilityScores[ability] = 0;
+        }
+        console.log("Ability Scores: ", abilityScores)
+        this.setState({ abilityScoresSelected: abilityScores, });
+    }
+
+
+
     //setCharacterClassProps(props) {
     //    const propsKeys = Object.getOwnPropertyNames(props.characterClass);
     //    let properties = {};
@@ -49,20 +75,19 @@ class CreateCharacter extends Component {
     }
 
     fadeMessage = () => {
-
-    const alertNode = document.getElementById('alert');
-    setTimeout(function () {
-        let fade = setInterval(function () {
-            if (!alertNode.style.opacity) {
-                alertNode.style.opacity = 1;
-            }
-            if (alertNode.style.opacity > 0) {
-                alertNode.style.opacity -= 0.01;
-            } else {
-                clearInterval(fade);
-            }
-        }, 10);// If I do not wait the 10 seconds, it craps on my parade!
-    }, 1700);
+        const alertNode = document.getElementById('alert');
+        setTimeout(() => {
+            let fade = setInterval(() => {
+                if (!alertNode.style.opacity) {
+                    alertNode.style.opacity = 1;
+                }
+                if (alertNode.style.opacity > 0) {
+                    alertNode.style.opacity -= 0.01;
+                } else {
+                    clearInterval(fade);
+                }
+            }, 10);// If I do not wait the 10 seconds, it craps on my parade!
+        }, 1700);
         this.setState({ alertMessage: "" });
         alertNode.style.opacity = 1;
     }
@@ -78,6 +103,9 @@ class CreateCharacter extends Component {
     getScore = (ability) => {
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
+
+        console.log("Ability Scores Selected", abilityScoresSelected)
+
         let scores = abilityScoresSelected
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
@@ -89,7 +117,7 @@ class CreateCharacter extends Component {
         }
     }
 
-    randomDiceRoll = (maxNum) => {//may need to extend this to accept two additional arguments for the total rolls to roll and keep 
+    randomDiceRoll = (maxNum) => { // may need to extend this to accept two additional arguments: total rolls to roll, and total rolls to keep 
         let totalDiceRolls = 5;
         let totalRollsToKeep = 3;
         let abilityPoint = 0

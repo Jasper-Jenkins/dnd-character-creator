@@ -1,5 +1,5 @@
 import React from 'react'
-import CharacterImages from'./CharacterImages'
+//import CharacterImages from'./CharacterImages'
 
 //Work on refactoring this mess
 
@@ -22,7 +22,7 @@ const Info = (props) => {
     let characterProficiencies = []
     let classSpells = []
 
-    if (props.character.isRaceSelected(raceSelected)) {
+    if (props.character.isRaceSelected(raceSelected)) { //setting up info for when a race has been selected
         raceName = raceSelected.name
         hit_die = props.character.classSelected.hit_die
         ability_bonuses = props.character.raceSelected.ability_bonuses.map((bonus, index) => {
@@ -35,7 +35,7 @@ const Info = (props) => {
         });
     }
 
-    if (props.character.isClassSelected(classSelected)) {
+    if (props.character.isClassSelected(classSelected)) { //setting up info for when a class has been selected
         className = classSelected.name
         saving_throws = props.character.classSelected.saving_throws.map((saving_throw, index) => {
             for (var j = 0; j < abilityScoresInfo.length; j++) {
@@ -63,7 +63,6 @@ const Info = (props) => {
         case "Races":        
             if (props.character.isRaceSelected(raceSelected) || props.character.isClassSelected(classSelected)) {
                 return (<div className="col-12 info">
-                            <CharacterImages {...props.character} />
                             <h3>{raceName}</h3>
                             <h3>{className}</h3>
                             <p>Hit die: {hit_die}</p>
@@ -74,14 +73,12 @@ const Info = (props) => {
                         </div>)
             } else {
                 return (<div className="col-12 info">
-                            <CharacterImages {...props.character} />
                             <p className='text-center'> ...Choose your race</p>
                         </div>);
             }
         case 'Classes':
             if (props.character.isClassSelected(classSelected) || props.character.isRaceSelected(raceSelected)) {
                 return (<div className="col-12 info">
-                            <CharacterImages {...props.character} />
                             <h3>{raceName}</h3>
                             <h3>{className}</h3>
                             <p>Hit die: {hit_die}</p>
@@ -92,7 +89,6 @@ const Info = (props) => {
                         </div>)
             } else {
                 return (<div className="col-12 info">
-                            <CharacterImages {...props.character} />
                             <h3>{raceName}</h3>
                             <p className='text-center'> ...Choose your class</p>
                         </div>);
@@ -125,7 +121,6 @@ const Info = (props) => {
                 });
                 console.log("BONUSES", bonuses)
                 return (<div className="col-12 info">
-                            <CharacterImages {...props.character} />
                             <h3>{raceSelected.name}</h3>
                             <h3>{classSelected.name}</h3>
                             <div className='row row-col-4'>
@@ -134,7 +129,6 @@ const Info = (props) => {
                         </div>);
             }
             return (<div className="col-12 info">
-                        <CharacterImages {...props.character} />
                         <h3>{raceSelected.name}</h3>
                         <h3>{classSelected.name}</h3>
                         <div className='row row-col-4'>
@@ -144,7 +138,6 @@ const Info = (props) => {
         case 'Proficiencies':
             if (props.character.isClassSelected(classSelected)) {
                 return (<div className="col-12 info">
-                            <CharacterImages {...props.character} />
                             <h3>{props.character.raceSelected.name}</h3>
                             <h3>{props.character.classSelected.name}</h3>
                             <ul>{ability_bonuses}</ul>
@@ -168,7 +161,6 @@ const Info = (props) => {
 
                 }
                 return (<div className="col-12 info">
-                            <CharacterImages {...props.character} />
                             <h3>{props.character.raceSelected.name}</h3>
                             <h3>{props.character.classSelected.name}</h3>
                             <ul>{ability_bonuses}</ul>
@@ -183,7 +175,7 @@ const Info = (props) => {
                         </div>);
             }
         default:
-            return null;
+            return null; //this needs to be a <div>, or anything other than null
         }
     }
     

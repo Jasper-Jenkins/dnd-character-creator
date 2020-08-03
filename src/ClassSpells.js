@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import UserAlert from './Alert'
 
 class ClassSpells extends Component {
     constructor(props) {
@@ -30,6 +29,13 @@ class ClassSpells extends Component {
     //  const { levelOne } = this.state
         let spells = []
 
+        for (var l = 0; l < 2; l++) {
+            let num = l;
+            spells[num] = spellsChosen.map((spell) => { if (spell.level === num) { return spell } else { return null} })
+        }
+        console.log("Spells to mess with", spells)
+
+
         if (classSelected.name === "Wizard") { 
             switch (parseInt(classLevel)) {
                 case 1:
@@ -38,7 +44,6 @@ class ClassSpells extends Component {
 
                         }
                     }
-
                     if (spellsChosen.length < 6) {
                         spells = [...spellsChosen, spell];
                         this.setState({
@@ -47,7 +52,6 @@ class ClassSpells extends Component {
                         this.state.setSpells(spells);
                         console.log("added " + spell.name + " to your spell book");
                     } else {
-                        //   UserAlert("You are unable to learn " + spell.name + " at this time.");
                         this.state.updateAlertMessage("You are unable to learn " + spell.name + " at this time.")
                     }
                     break;                                       
@@ -75,52 +79,8 @@ class ClassSpells extends Component {
             default: 
                 alert("level of character is invalid in spells creation. ")
         }
-     }
-
-    displaySpells() {
-        const { classSpells } = this.state
-        const { spellsChosen } = this.state
-        
-        let classLevel = 1;
-
-        let spellLevelLimit = 0;
-        let spellsToChooseFrom = [];
-
-        for (var i = 0; i < classSpells.length; i++) {
-            var num = parseInt(classSpells[i].level);
-            if (spellLevelLimit < num) {
-                spellLevelLimit = num;
-            } 
-        }
-        
-        for (var j = 0; j < spellLevelLimit + 1; j++) {
-            let spellLevel = j;
-            let spells = classSpells.map((spell) => {
-                if (spell.level === spellLevel) {
-                    for (var k = 0; k < spellsChosen.length; k++) {
-                        if (spellsChosen[k].name === spell.name) {
-                            return (<button className='btn-md btn-primary' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                        }
-                    }
-                    return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell, classLevel)} key={spell.name + spell.level}>{spell.name}</button>);
-                } else { return null}
-            });
-
-            //for (var l = 0; l < spells.length; l++) {
-            //    var keyLength = spells[l].key.length
-            //    var keyValue = spells[l].key[keyLength - 1]
-            //}
-           
-            spellsToChooseFrom.push(spells)
-        }
-
-        return (<div className="row">
-                    <div className="col-12">
-                        {spellsToChooseFrom}
-                    </div>
-                </div>);
     }
-
+    
     addSpell = (spell, classLevel) => {
         const { classSelected } = this.state
         const { updateSelectedSpell } = this.state
@@ -153,6 +113,48 @@ class ClassSpells extends Component {
         });
         this.state.setSpells(spells)
         updateSelectedSpell({})
+    }
+
+    displaySpells() {
+        const { classSpells } = this.state
+        const { spellsChosen } = this.state
+        let classLevel = 1;
+        let spellLevelLimit = 0;
+        let spellsToChooseFrom = [];
+
+        for (var i = 0; i < classSpells.length; i++) {
+            var num = parseInt(classSpells[i].level);
+            if (spellLevelLimit < num) {
+                spellLevelLimit = num;
+            } 
+        }
+        
+        for (var j = 0; j < spellLevelLimit + 1; j++) {
+            let spellLevel = j;
+            let spells = classSpells.map((spell) => {
+                if (spell.level === spellLevel) {
+                    for (var k = 0; k < spellsChosen.length; k++) {
+                        if (spellsChosen[k].name === spell.name) {
+                            return (<button className='btn-md btn-primary' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                        }
+                    }
+                    return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell, classLevel)} key={spell.name + spell.level}>{spell.name}</button>);
+                } else { return null }
+            });
+
+            //for (var l = 0; l < spells.length; l++) {
+            //    var keyLength = spells[l].key.length
+            //    var keyValue = spells[l].key[keyLength - 1]
+            //}
+           
+            spellsToChooseFrom.push(spells)
+        }
+
+        return (<div className="row">
+                    <div className="col-12">
+                        {spellsToChooseFrom}
+                    </div>
+                </div>);
     }
            
     render() {

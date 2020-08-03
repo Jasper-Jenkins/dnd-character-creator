@@ -1,7 +1,4 @@
 import React, {Component} from 'react'
-//import ReactDOM from 'react-dom'
-
-import UserAlert from './Alert'
 
 class ClassProficiencies extends Component {
     constructor(props) {
@@ -15,6 +12,7 @@ class ClassProficiencies extends Component {
             startingProficiencies: props.startingProficiencies,
             setProficiencies: props.setProficiencies,
             updateProficiencies: props.updateProficiencies,
+            updateAlertMessage: props.updateAlertMessage,
         };
     }
 
@@ -56,7 +54,7 @@ class ClassProficiencies extends Component {
         const choices = [...proficienciesChoices]
         for (var i = 0; i < choices[choicesIndex].from.length; i++) {
             if (choices[choicesIndex].from.length === (classSelected.proficiency_choices[choicesIndex].from.length - choices[choicesIndex].choose)) {
-                UserAlert('You have selected the maximum number of proficiencies from this category');
+                this.state.updateAlertMessage('You have selected the maximum number of proficiencies from this category');
                 break;
             } else {
                 if (choices[choicesIndex].from[i].name === proficiencyName) {
