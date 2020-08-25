@@ -39,7 +39,7 @@ class ClassSpells extends Component {
         if (classSelected.name === "Wizard") { 
             switch (parseInt(classLevel)) {
                 case 1:
-                    if (spell.level === 0) {
+                    if (spell.level === 0) { // INCOMPLETE trying to separate 
                         for (var i = 0; i < spellsChosen.length; i++) {
 
                         }
@@ -63,7 +63,7 @@ class ClassSpells extends Component {
         }
     }
 
-    classSpells(classSelected, level) {
+    classSpells(classSelected, level) { // needs to be fixed, improper 'classSpells' state update
         const { classSpells } = this.state
         const { spellsInfo } = this.state
         switch (level) {

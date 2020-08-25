@@ -7,8 +7,8 @@ class ClassProficiencies extends Component {
         this.state = {
             classSelected: props.classSelected,
             isClassSelected: props.isClassSelected,
-            proficiencies: props.proficiencies,
-            proficienciesChoices: props.proficienciesChoices,
+            proficiencies: [],
+            proficienciesChoices: [],
             startingProficiencies: props.startingProficiencies,
             setProficiencies: props.setProficiencies,
             updateProficiencies: props.updateProficiencies,
@@ -21,31 +21,45 @@ class ClassProficiencies extends Component {
     }
 
     componentWillUnmount() {
-        const { proficiencies } = this.state
-        const { proficienciesChoices } = this.state        
-        this.state.updateProficiencies(proficiencies, proficienciesChoices)
+        const { proficiencies } = this.state;
+        const { proficienciesChoices } = this.state;        
+        this.state.updateProficiencies(proficiencies, proficienciesChoices);
     }
 
     startingProficiencies = () => {
-        const { classSelected } = this.state
-        const { proficiencies } = this.state
-        const { proficienciesChoices } = this.state
-        if (proficiencies.length < 1) { //needs better validation
-            console.log("should default here")
-            this.setStartingProficiencies(classSelected.proficiencies, classSelected.proficiency_choices)
-        } else {
-            console.log("created proficiencies from those already selected")
-            this.setStartingProficiencies(proficiencies, proficienciesChoices)
-        }        
+        const { classSelected } = this.state;
+        //const { proficiencies } = this.state;
+        //const { proficienciesChoices } = this.state;
+        //if (proficiencies.length < 1) { // needs better validation
+        //    console.log("should default here")
+        //    this.setStartingProficiencies(classSelected.proficiencies, classSelected.proficiency_choices);
+        //} else {
+        //    console.log("created proficiencies from those already selected")
+        //    this.setStartingProficiencies(proficiencies, proficienciesChoices);
+        //}        
+
+
+        this.setStartingProficiencies(classSelected.proficiencies, classSelected.proficiency_choices);
     }
 
-    setStartingProficiencies = (proficiencies, choices) => {
-        const startingProficiencies = JSON.parse(JSON.stringify(proficiencies))
-        const proficienciesChoices = JSON.parse(JSON.stringify(choices))
+    setStartingProficiencies = (classProficiencies, classProficienciesChoices) => { // this needs to be fixed
+
+        const { proficiencies } = this.state;
+        const { proficienciesChoices } = this.state;
+
+        const starting = JSON.parse(JSON.stringify(classProficiencies));
+        const choices = JSON.parse(JSON.stringify(classProficienciesChoices));
+        
+        for (var i = 0; i < proficiencies.length; i++) {
+
+        }
+
+
+
         this.setState({
-            proficiencies: startingProficiencies,
-            proficienciesChoices: proficienciesChoices,
-        }, this.state.startingProficiencies(startingProficiencies));
+            proficiencies: starting,
+            proficienciesChoices: choices,
+        }, this.state.startingProficiencies(starting));
     }
 
     addProficiency = (proficiencyName, choicesIndex) => {

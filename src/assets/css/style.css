@@ -37,7 +37,8 @@
         margin: 0px;
         padding: 10px;
         height: 55vh;
-        overflow:auto
+        overflow-y:auto;
+        overflow-x:auto;
     }
 
     .info p {
@@ -58,6 +59,9 @@
         margin: 0px;
         text-indent: 10px;
         list-style:none;
+    }
+    .characterTitle { /*Info.js*/
+        min-height:40px;
     }
 
     .characterImage { /*need better handling for aspect ratios*/

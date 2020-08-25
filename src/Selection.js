@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AbilityScoresForm from './AbilityScoresForm'
 import ClassProficiencies from './ClassProficiencies'
 import ClassSpells from './ClassSpells'
 
 const Selection = (props) => {
   //  console.log("Selection() props", props)
+    const [character, updateCharacterName] = useState(props);
+    console.log("useState Hook fun!", character);
+
+
     const classSelected = props.classSelected
     const raceSelected = props.raceSelected
 
@@ -12,7 +16,7 @@ const Selection = (props) => {
         case 'Races':
             let races = props.races.results.map((race) => {
                 if (raceSelected.index !== undefined && raceSelected.index === race.index) {
-                    return (<button onDoubleClick={() => props.chooseRace(race.index)} className='selectionButtons buttonSelected col-4 {race.index}' tabIndex='- 1' aria-disabled='true' key={race.index}>{race.name}</button>);
+                    return (<button className='selectionButtons buttonSelected col-4 {race.index}' tabIndex='- 1' aria-disabled='true' key={race.index}>{race.name}</button>);
                  } else {
                     return (<button onClick={() => props.selectRace(race.index)} className='selectionButtons col-4' key={race.index}>{race.name}</button>);
                 }

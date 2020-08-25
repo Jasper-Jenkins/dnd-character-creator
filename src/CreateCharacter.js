@@ -40,8 +40,8 @@ class CreateCharacter extends Component {
     }
 
     abilityScoresSetup = () => {
-        const { count }  = this.state.abilityScores
-        const { results } = this.state.abilityScores
+        const { count } = this.state.abilityScores;
+        const { results } = this.state.abilityScores;
         let abilityScores = {};
         for (var j = 0; j < count; j++) {
             let ability = results[j].index;
@@ -66,7 +66,7 @@ class CreateCharacter extends Component {
         this.setState({ alertMessage: message }, this.fadeMessage()); 
     }
 
-    fadeMessage = () => {
+    fadeMessage = () => { // FIX THIS!!! 
         const alertNode = document.getElementById('alert');
         setTimeout(() => {
             let fade = setInterval(() => {
@@ -85,7 +85,7 @@ class CreateCharacter extends Component {
     }
 
     updateSelectedSpell = (spell) => {
-        this.setState({ selectedSpell: spell });
+        this.setState({ selectedSpell: spell, });
     }
 
     navigate = (category) => {
@@ -95,7 +95,6 @@ class CreateCharacter extends Component {
     getScore = (ability) => {
         const { abilityScores } = this.state
         const { abilityScoresSelected } = this.state
-
         let scores = abilityScoresSelected
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
@@ -104,26 +103,25 @@ class CreateCharacter extends Component {
                 break;
             }
         }
-
-        console.log("Ability Scores Selected", abilityScoresSelected[ability])
+   //     console.log("Ability Scores Selected", abilityScoresSelected[ability])
     }
 
     randomDiceRoll = (maxNum) => { // may need to extend this to accept two additional arguments: total rolls to roll, and total rolls to keep 
         let totalDiceRolls = 5;
         let totalRollsToKeep = 3;
-        let abilityPoint = 0
-        let abilityPoints = 0
-        let abilityPointsArray = []
+        let abilityPoint = 0;
+        let abilityPoints = 0;
+        let abilityPointsArray = [];
         for (var i = 0; i < totalDiceRolls; i++) {
-            abilityPoint = Math.floor((Math.random() * maxNum) + 1)
-            abilityPointsArray.push(abilityPoint)
+            abilityPoint = Math.floor((Math.random() * maxNum) + 1);
+            abilityPointsArray.push(abilityPoint);
         }
         abilityPointsArray.sort()
         abilityPointsArray.splice(0, totalDiceRolls - totalRollsToKeep)
         for (var j = 0; j < abilityPointsArray.length; j++) {
-            abilityPoints += abilityPointsArray[j]
+            abilityPoints += abilityPointsArray[j];
         }
-        return abilityPoints
+        return abilityPoints;
     }
 
     //setBackgroundImage = () => { } //This will be used if I want to put the character image as the background
@@ -144,7 +142,7 @@ class CreateCharacter extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: classSelected[0], proficiencies: [], spellsChosen: []});
+                this.setState({ classSelected: classSelected[0], spellsChosen: [], },  );
                 break;
             }
         }
@@ -155,9 +153,10 @@ class CreateCharacter extends Component {
     }
 
     setProficiencies = (proficiencies) => {
+        console.log("SET PROFICIENCIES", proficiencies)
         this.setState({
             proficiencies: proficiencies,
-        })
+        });
     }
        
     updateProficiencies = (proficiencies, choices) => {

@@ -2,10 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\assets",
     "\\src\\assets\\css",
-    "\\src\\assets\\images",
-    "\\src\\champion"
+    "\\src\\assets\\images"
   ],
-  "SelectedNode": "\\src\\Alert.js",
+  "SelectedNode": "\\src\\ClassProficiencies.js",
   "PreviewInSolutionExplorer": false
 }
