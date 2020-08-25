@@ -20,7 +20,7 @@ class App extends Component {
         features: {},
         featuresInfo: [],
         ////////
-        levelOne: [],
+        levelData: [],
     }
 
     componentDidMount() {
@@ -43,16 +43,16 @@ class App extends Component {
         //    .then(result => { this.setState({ features: result }, this.getInfo(result, 'features')) });
     }
     
-    getLevelOne(data) {
+    getLevelData(data, currentLevel) {
         let levels = []
         const url = 'http://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
-            fetch(url + "/api/classes/" + data.results[i].index + "/levels/1")
+            fetch(url + "/api/classes/" + data.results[i].index + "/levels/" + currentLevel)
                 .then(result => result.json())
                 .then(result => levels.push(result))
         }
         this.setState({
-            levelOne: levels,
+            levelData: levels,
         })
     }
 
@@ -69,7 +69,7 @@ class App extends Component {
                 this.setState({ racesInfo: info, });
             break;
             case 'classes':
-                this.setState({ classesInfo: info, }, this.getLevelOne(data));
+                this.setState({ classesInfo: info, }, this.getLevelData(data, 1));
                 break;
             case 'ability-scores':
                 this.setState({ abilityScoresInfo: info, });

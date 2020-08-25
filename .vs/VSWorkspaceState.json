@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\assets",
-    "\\src\\assets\\css",
-    "\\src\\assets\\images"
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\ClassProficiencies.js",
+  "SelectedNode": "\\src\\CreateCharacter.js",
   "PreviewInSolutionExplorer": false
 }

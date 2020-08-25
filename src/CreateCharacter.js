@@ -188,7 +188,7 @@ class CreateCharacter extends Component {
         return false;
     }
 
-    handleSubmit = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled maaaybe
+    handleSubmit = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
         let noZeroes = []

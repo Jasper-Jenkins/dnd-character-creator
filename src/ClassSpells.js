@@ -11,7 +11,7 @@ class ClassSpells extends Component {
             setSpells: props.setSpells,
             spellsChosen: props.spellsChosen,
             updateSelectedSpell: props.updateSelectedSpell,
-            levelOne: props.levelOne,
+            levelData: props.levelData,
             classSpells: [],
             cantrips: [],
             updateAlertMessage: props.updateAlertMessage,
@@ -23,23 +23,81 @@ class ClassSpells extends Component {
         console.log("ClassSpells", this.state);
     }
 
+    spellsKnown(characterClass, currentLevel) {        
+        const { levelData } = this.state;
+
+        for (var j = 0; j < levelData.length; j++) {
+            if (levelData[j].class.name === characterClass) {
+                switch (currentLevel) {
+                    case 1:
+
+                        break;
+                    default:
+                        break;
+
+                }
+            } else {
+                console.log("No");
+            }
+        }
+    }
+
+
+
     spellBook(spell, classLevel) {
         const { classSelected } = this.state
         const { spellsChosen } = this.state
-    //  const { levelOne } = this.state
+        const { levelData } = this.state
         let spells = []
 
-        for (var l = 0; l < 2; l++) {
-            let num = l;
-            spells[num] = spellsChosen.map((spell) => { if (spell.level === num) { return spell } else { return null} })
+      
+
+        for (var l = 0; l < 2; l++) { // the 2 being compared against l needs to be a variable as it will change as the user levels up. What variable though?
+            const num = l;
+            console.log("About to map spells");
+            spells[num] = spellsChosen.map((spell) => { if (spell.level === num) { console.log("Mapped Spell"); return spell } else { console.log("Mapped empty");return {} } })
         }
+
         console.log("Spells to mess with", spells)
 
+        switch (classSelected.name) {
+           
+                //console.log()
+
+        
+            case "Barbarian":
+                break;
+            case "Bard":
+                break;
+            case "Cleric":
+                break;
+            case "Druid":
+                break;
+            case "Fighter":
+                break;
+            case "Monk":
+                break;
+            case "Paladin":
+                break;
+            case "Ranger":
+                break;
+            case "Rogue":
+                break;
+            case "Sorcerer":
+                break;
+            case "Warlock":
+                break;
+            case "Wizard":
+                this.spellsKnown(classSelected.name, 1);
+                break;
+            default:
+                return null;
+        }
 
         if (classSelected.name === "Wizard") { 
             switch (parseInt(classLevel)) {
                 case 1:
-                    if (spell.level === 0) { // INCOMPLETE trying to separate 
+                    if (spell.level === 0) { // INCOMPLETE trying to separate spells by level
                         for (var i = 0; i < spellsChosen.length; i++) {
 
                         }

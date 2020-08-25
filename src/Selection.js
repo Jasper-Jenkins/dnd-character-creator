@@ -6,7 +6,7 @@ import ClassSpells from './ClassSpells'
 const Selection = (props) => {
   //  console.log("Selection() props", props)
     const [character, updateCharacterName] = useState(props);
-    console.log("useState Hook fun!", character);
+  //  console.log("useState Hook fun!", character);
 
 
     const classSelected = props.classSelected

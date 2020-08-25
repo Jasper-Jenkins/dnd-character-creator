@@ -8,8 +8,8 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-native": "^0.61.5",
-    "react-scripts": "3.3.0"
+    "react-native": "^0.63.2",
+    "react-scripts": "^3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,5 +31,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "25 August 2020",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jasper-Jenkins/dnd-character-creator.git"
+  },
+  "author": "Jasper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jasper-Jenkins/dnd-character-creator/issues"
+  },
+  "homepage": "https://localhost:3000"
 }

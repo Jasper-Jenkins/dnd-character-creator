@@ -31,7 +31,7 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
 
 //Work on refactoring this mess
 const Info = (props) => {
-    console.log("Info props", props)
+  //  console.log("Info props", props)
     const { raceSelected } = props
     const { classSelected } = props
     const { abilityScoresInfo } = props
