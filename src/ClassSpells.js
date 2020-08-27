@@ -11,7 +11,7 @@ class ClassSpells extends Component {
             setSpells: props.setSpells,
             spellsChosen: props.spellsChosen,
             updateSelectedSpell: props.updateSelectedSpell,
-            levelData: props.levelData,
+            levelData: props.levelData, // this should be resolved for the characters level before its initialized here. 
             classSpells: [],
             cantrips: [],
             updateAlertMessage: props.updateAlertMessage,
@@ -24,17 +24,20 @@ class ClassSpells extends Component {
     }
 
     spellsKnown(characterClass, currentLevel) {        
+        const { classSelected } = this.state;
         const { levelData } = this.state;
 
         for (var j = 0; j < levelData.length; j++) {
-            if (levelData[j].class.name === characterClass) {
+            if (levelData[j].class.name === classSelected.name) {
                 switch (currentLevel) {
                     case 1:
+                        const cantripsKnown = levelData[j].spellcasting.cantrips_known;
+                        break;
+                    case 2:
 
                         break;
                     default:
                         break;
-
                 }
             } else {
                 console.log("No");

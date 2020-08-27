@@ -26,17 +26,21 @@ class App extends Component {
     componentDidMount() {
         const url = 'http://www.dnd5eapi.co/api/'
         fetch(url + 'races')
-            .then(result => result.json())
-            .then(result => { this.setState({ races: result }, this.getInfo(result, 'races')) });
+                .then(result => result.json())
+                .then(result => { this.setState({ races: result }, this.getInfo(result, 'races')) })
+                .catch(e => { console.log("Cant request API data from " + url + ""+e);})
         fetch(url + 'classes')
             .then(result => result.json())
-            .then(result => { this.setState({ classes: result }, this.getInfo(result, 'classes')) });
+            .then(result => { this.setState({ classes: result }, this.getInfo(result, 'classes')) })
+            .catch(e => { console.log("You fucked up . Error: ", e); });
         fetch(url + 'ability-scores')
             .then(result => result.json())
-            .then(result => { this.setState({ abilityScores: result }, this.getInfo(result, 'ability-scores')) });
+            .then(result => { this.setState({ abilityScores: result }, this.getInfo(result, 'ability-scores')) })
+            .catch(e => { console.log("You fucked up races. Error: ", e); });
         fetch(url + 'spells')
             .then(result => result.json())
-            .then(result => { this.setState({ spells: result }, this.getInfo(result, 'spells')) });
+            .then(result => { this.setState({ spells: result }, this.getInfo(result, 'spells')) })
+            .catch(e => { console.log("You fucked up races. Error: ", e); });
         
         //fetch(url + 'features')
         //    .then(result => result.json())
