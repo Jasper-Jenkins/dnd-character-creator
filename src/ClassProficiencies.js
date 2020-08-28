@@ -45,7 +45,7 @@ class ClassProficiencies extends Component {
     setStartingProficiencies = (classProficiencies, classProficienciesChoices) => { // this needs to be fixed
 
         const { proficiencies } = this.state;
-        const { proficienciesChoices } = this.state;
+       // const { proficienciesChoices } = this.state;
 
         const starting = JSON.parse(JSON.stringify(classProficiencies));
         const choices = JSON.parse(JSON.stringify(classProficienciesChoices));

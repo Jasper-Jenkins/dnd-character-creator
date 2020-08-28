@@ -1,6 +1,6 @@
 import React from 'react'
 //import CharacterImages from'./CharacterImages'
-import ClassProficiencies from './ClassProficiencies'
+//import ClassProficiencies from './ClassProficiencies'
 
 function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScores, saving_throws, characterProficiencies){ //choose 1, either underscores or camelCase. You can't have both!!! Or can you...no
     return (<div className="col-12 info">
@@ -9,6 +9,7 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
                 <h3>{raceName} {className}</h3>
             </div>
             <div className='col-6'>
+            
                 <strong>Ability bonuses</strong><br />
                 <ul>{ability_bonuses}</ul>
                 <strong>Ability Scores: </strong>
@@ -148,7 +149,8 @@ const Info = (props) => {
                 }
                 return (<div className="col-12 info">
                             <h3>{props.raceSelected.name}</h3>
-                            <h3>{props.classSelected.name}</h3>
+                    <h3>{props.classSelected.name}</h3>
+                    
                             <ul>{ability_bonuses}</ul>
                             <p>Spells</p>
                             <ul>{classSpells}</ul>

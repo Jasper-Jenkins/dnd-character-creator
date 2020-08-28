@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AbilityScoresForm from './AbilityScoresForm'
 import ClassProficiencies from './ClassProficiencies'
 import ClassSpells from './ClassSpells'
 
 const Selection = (props) => {
   //  console.log("Selection() props", props)
-    const [character, updateCharacterName] = useState(props);
+  //  const [character, updateCharacterName] = useState(props);
   //  console.log("useState Hook fun!", character);
 
 

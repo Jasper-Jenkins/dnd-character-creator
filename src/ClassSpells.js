@@ -14,6 +14,7 @@ class ClassSpells extends Component {
             levelData: props.levelData, // this should be resolved for the characters level before its initialized here. 
             classSpells: [],
             cantrips: [],
+            spellSlots: [],
             updateAlertMessage: props.updateAlertMessage,
         };
         this.classSpells(this.state.classSelected, 1);
@@ -21,45 +22,49 @@ class ClassSpells extends Component {
 
     componentDidMount() {
         console.log("ClassSpells", this.state);
+        this.spellsKnown();
     }
 
-    spellsKnown(characterClass, currentLevel) {        
+    spellsKnown() {        
         const { classSelected } = this.state;
-        const { levelData } = this.state;
-
+        const { levelData } = this.state;    
         for (var j = 0; j < levelData.length; j++) {
             if (levelData[j].class.name === classSelected.name) {
-                switch (currentLevel) {
-                    case 1:
-                        const cantripsKnown = levelData[j].spellcasting.cantrips_known;
+                const propsKeys = Object.getOwnPropertyNames(levelData[j]);
+                for (var p = 0; p < propsKeys.length; p++) {
+                    if (propsKeys[p] === 'spellcasting') {
+                        let slotsAvailable = [];
+                        slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
+                        for (var k = 1; k < 10; k++) {
+                            if (levelData[j].spellcasting['spell_slots_level_' + k] !== 0) {
+                                slotsAvailable[k] = levelData[j].spellcasting['spell_slots_level_' + k];
+                            }
+                        }
+                        console.log("Available Slots", slotsAvailable);
+                        this.setState({
+                            spellSlots: slotsAvailable,
+                        });
                         break;
-                    case 2:
-
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                console.log("No");
-            }
+                    }      
+                }                
+            } 
         }
     }
 
 
 
-    spellBook(spell, classLevel) {
+    spellBook(spell, currentLevel) {
         const { classSelected } = this.state
         const { spellsChosen } = this.state
-        const { levelData } = this.state
-        let spells = []
+        let spells = [];
+        //for (var l = 0; l < 2; l++) { // the 2 being compared against l needs to be a variable as it will change as the user levels up. What variable though?
+        //    const num = l;
+        //    console.log("About to map spells");
+        //    spells[num] = spellsChosen.map((spell) => { if (spell.level === num) { console.log("Mapped Spell"); return spell } else { console.log("Mapped empty"); return {} } })
+        //}
 
-      
 
-        for (var l = 0; l < 2; l++) { // the 2 being compared against l needs to be a variable as it will change as the user levels up. What variable though?
-            const num = l;
-            console.log("About to map spells");
-            spells[num] = spellsChosen.map((spell) => { if (spell.level === num) { console.log("Mapped Spell"); return spell } else { console.log("Mapped empty");return {} } })
-        }
+       
 
         console.log("Spells to mess with", spells)
 
@@ -91,14 +96,14 @@ class ClassSpells extends Component {
             case "Warlock":
                 break;
             case "Wizard":
-                this.spellsKnown(classSelected.name, 1);
+             //   this.spellsKnown();
                 break;
             default:
                 return null;
         }
 
         if (classSelected.name === "Wizard") { 
-            switch (parseInt(classLevel)) {
+            switch (parseInt(currentLevel)) {
                 case 1:
                     if (spell.level === 0) { // INCOMPLETE trying to separate spells by level
                         for (var i = 0; i < spellsChosen.length; i++) {
@@ -142,15 +147,15 @@ class ClassSpells extends Component {
         }
     }
     
-    addSpell = (spell, classLevel) => {
+    addSpell = (spell, currentLevel) => {
         const { classSelected } = this.state
         const { updateSelectedSpell } = this.state
         switch (classSelected.name) {
             case "Wizard":
-                this.spellBook(spell, classLevel)
+                this.spellBook(spell, currentLevel)
                 break;
             case "Sorcerer":
-                this.spellBook(spell, classLevel) // just messing around trying to add spells to a spellbook, while not being a wizard. 
+                this.spellBook(spell, currentLevel) // just messing around trying to add spells to a spellbook, while not being a wizard. 
                 break;
             default:
                 console.log("setting spells that are not for a wizard")
@@ -179,7 +184,7 @@ class ClassSpells extends Component {
     displaySpells() {
         const { classSpells } = this.state
         const { spellsChosen } = this.state
-        let classLevel = 1;
+        let currentLevel = 1;
         let spellLevelLimit = 0;
         let spellsToChooseFrom = [];
 
@@ -199,7 +204,7 @@ class ClassSpells extends Component {
                             return (<button className='btn-md btn-primary' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                         }
                     }
-                    return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell, classLevel)} key={spell.name + spell.level}>{spell.name}</button>);
+                    return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell, currentLevel)} key={spell.name + spell.level}>{spell.name}</button>);
                 } else { return null }
             });
 

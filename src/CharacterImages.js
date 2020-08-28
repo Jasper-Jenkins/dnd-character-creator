@@ -6,10 +6,12 @@ const CharacterImage = (props) => {
     const raceSelected = props.raceSelected
     const classSelected = props.classSelected
 
+    console.log("race: ", raceSelected, " class: ", classSelected)
     const pickImage = (selection, index) => {
+        console.log(index)
         for (var i = 0; i < selection.length; i++) {
-            if (index === selection[i].index) {
-                if (selection[i].url.length < 1) { //needs validation for image urls that are broken
+            if (index.toLowerCase === selection[i].index) {
+                if (selection[i].url.length < 1) { //needs better validation
                     return (<img src={defaultImage} className='characterImage' alt={selection[i].index} />);
                 }
                 return (<img src={selection[i].url} className='characterImage' alt={selection[i].index} />);
@@ -17,9 +19,9 @@ const CharacterImage = (props) => {
         }
     }
 
-    switch (raceSelected.index) {
+    switch (raceSelected.toLowerCase) {
         case 'human':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: 'https://i.pinimg.com/564x/a4/58/88/a458888a16d0643b81f9f9421f80dd5b.jpg', author: '', contact: '', },
                     { index: 'bard', url: 'https://i.pinimg.com/564x/b3/07/90/b30790fbb186269e1e935bc7723c42d4.jpg', author: '', contact: '', },
@@ -34,12 +36,12 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: 'https://i.pinimg.com/564x/58/c0/a6/58c0a66f043e574167d6ad8846b0764f.jpg', author: '', contact: '', },
                     { index: 'wizard', url: 'https://i.pinimg.com/564x/a8/7c/af/a87caf005ff8e694317734fb00bc9b49.jpg', author: '', contact: '', },
                 ]
-                return pickImage(images, classSelected.index);
+                return pickImage(images, classSelected);
             } else {
                 return (<img src='https://i.pinimg.com/564x/1a/b0/0b/1ab00b7f21a506b04ae305ebfed5023b.jpg' className='characterImage' alt='default' />);
             }
         case 'half-orc':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: 'https://i.pinimg.com/564x/65/5b/66/655b66eaccf07c85075cc9ee7a6b7621.jpg', author: '', contact: '', },
                     { index: 'bard', url: 'https://i.pinimg.com/564x/a2/dd/43/a2dd43c8acc92d3a8817a5ebbf5de84c.jpg', author: '', contact: '', },
@@ -54,12 +56,12 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: 'https://i.pinimg.com/564x/e8/aa/82/e8aa821de4be602c6bfc776da87ca1e8.jpg', author: '', contact: '', },
                     { index: 'wizard', url: 'https://i.pinimg.com/564x/75/ef/b4/75efb4e3685efb77effcc40c710a7403.jpg', author: '', contact: '', },
                 ]
-                return (pickImage(images, classSelected.index));
+                return (pickImage(images, classSelected));
             } else {
                 return (<img src='https://i.pinimg.com/564x/b5/62/82/b562828218dec5916a898c2ab29c5922.jpg' className='characterImage' alt='default' />);
             }
         case 'elf':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: '', author: '', contact: '', },
                     { index: 'bard', url: '', author: '', contact: '', },
@@ -74,12 +76,12 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: '', author: '', contact: '', },
                     { index: 'wizard', url: '', author: '', contact: '', },
                 ]
-                return pickImage(images, classSelected.index)
+                return pickImage(images, classSelected)
             } else {
                 return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'half-elf':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: '', author: '', contact: '', },
                     { index: 'bard', url: '', author: '', contact: '', },
@@ -94,12 +96,12 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: '', author: '', contact: '', },
                     { index: 'wizard', url: '', author: '', contact: '', },
                 ]
-                return pickImage(images, classSelected.index)
+                return pickImage(images, classSelected)
             } else {
                 return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'halfling':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: '', author: '', contact: '', },
                     { index: 'bard', url: '', author: '', contact: '', },
@@ -114,12 +116,12 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: '', author: '', contact: '', },
                     { index: 'wizard', url: '', author: '', contact: '', },
                 ]
-                return pickImage(images, classSelected.index)
+                return pickImage(images, classSelected)
             } else {
                 return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'tiefling':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: '', author: '', contact: '', },
                     { index: 'bard', url: '', author: '', contact: '', },
@@ -134,12 +136,12 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: '', author: '', contact: '', },
                     { index: 'wizard', url: '', author: '', contact: '', },
                 ]
-                return pickImage(images, classSelected.index)
+                return pickImage(images, classSelected)
             } else {
                 return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'dragonborn':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: '', author: '', contact: '', },
                     { index: 'bard', url: '', author: '', contact: '', },
@@ -154,12 +156,12 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: '', author: '', contact: '', },
                     { index: 'wizard', url: '', author: '', contact: '', },
                 ]
-                return pickImage(images, classSelected.index)
+                return pickImage(images, classSelected)
             } else {
                 return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'gnome':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: '', author: '', contact: '', },
                     { index: 'bard', url: '', author: '', contact: '', },
@@ -174,12 +176,12 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: '', author: '', contact: '', },
                     { index: 'wizard', url: '', author: '', contact: '', },
                 ]
-                return pickImage(images, classSelected.index)
+                return pickImage(images, classSelected)
             } else {
                 return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
         case 'dwarf':
-            if (classSelected.index !== undefined) {
+            if (classSelected !== undefined) {
                 const images = [
                     { index: 'barbarian', url: '', author: '', contact: '', },
                     { index: 'bard', url: '', author: '', contact: '', },
@@ -194,7 +196,7 @@ const CharacterImage = (props) => {
                     { index: 'warlock', url: '', author: '', contact: '', },
                     { index: 'wizard', url: '', author: '', contact: '', },
                 ]
-                return pickImage(images, classSelected.index)
+                return pickImage(images, classSelected)
             } else {
                 return (<img src={defaultImage} className='characterImage' alt='default' />);
             }
