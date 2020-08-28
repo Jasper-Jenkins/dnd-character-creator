@@ -32,7 +32,7 @@ class ClassSpells extends Component {
             if (levelData[j].class.name === classSelected.name) {
                 const propsKeys = Object.getOwnPropertyNames(levelData[j]);
                 for (var p = 0; p < propsKeys.length; p++) {
-                    if (propsKeys[p] === 'spellcasting') {
+                    if (propsKeys[p] === 'spellcasting') { 
                         let slotsAvailable = [];
                         slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
                         for (var k = 1; k < 10; k++) {
