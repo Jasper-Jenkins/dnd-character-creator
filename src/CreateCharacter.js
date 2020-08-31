@@ -21,8 +21,10 @@ class CreateCharacter extends Component {
         this.initialState['proficiencies'] = [];
         this.initialState['proficienciesChoices'] = [];
         this.initialState['spellsChosen'] = [];
+        this.initialState['spellSlots'] = [];
         this.initialState['selectedSpell'] = {};
         this.initialState['alertMessage'] = "";
+        this.initialState['updateSpellSlots'] = this.updateSpellSlots;
         this.initialState['updateAlertMessage'] = this.updateAlertMessage;
         this.initialState['updateSelectedSpell'] = this.updateSelectedSpell;
         this.initialState['isClassSelected'] = this.isClassSelected;
@@ -88,6 +90,17 @@ class CreateCharacter extends Component {
         this.setState({ selectedSpell: spell, });
     }
 
+    setSpells = (spells) => {
+        this.setState({
+            spellsChosen: spells,
+        });
+    }
+
+    updateSpellSlots = (slots) => {
+        this.setState({
+        spellSlots: slots,})
+    }
+
     navigate = (category) => {
         this.setState({ navigation: category, });
     }
@@ -142,7 +155,7 @@ class CreateCharacter extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: classSelected[0], spellsChosen: [], },  );
+                this.setState({ classSelected: classSelected[0], spellsChosen: [], });
                 break;
             }
         }
@@ -165,12 +178,7 @@ class CreateCharacter extends Component {
             proficienciesChoices: choices,
         });
     }
-         
-    setSpells = (spells) => {
-        this.setState({
-            spellsChosen: spells,
-        });
-    }
+    
 
     isRaceSelected = (raceSelected) => {
         return (this.isSelected(raceSelected));

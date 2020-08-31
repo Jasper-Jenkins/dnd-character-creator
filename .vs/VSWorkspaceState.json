@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\assets"
+    "\\src\\assets",
+    "\\src\\champion"
   ],
-  "SelectedNode": "\\src\\CreateCharacter.js",
+  "SelectedNode": "\\src\\ClassSpells.js",
   "PreviewInSolutionExplorer": false
 }

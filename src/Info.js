@@ -149,12 +149,11 @@ const Info = (props) => {
                 }
                 return (<div className="col-12 info">
                             <h3>{props.raceSelected.name}</h3>
-                    <h3>{props.classSelected.name}</h3>
-                    
+                            <h3>{props.classSelected.name}</h3>                    
                             <ul>{ability_bonuses}</ul>
                             <p>Spells</p>
                             <ul>{classSpells}</ul>
-                            <h4>{selectedSpell.name}</h4>
+                            <h4>{selectedSpell.name} level: {selectedSpell.level}</h4>
                             {spellDescription}
                         </div>)
             } else {
