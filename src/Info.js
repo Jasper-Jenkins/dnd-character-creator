@@ -103,7 +103,16 @@ const Info = (props) => {
         characterProficiencies = proficiencies.map((proficiency) => {
             return (<li key={proficiency.name}>{proficiency.name}</li>);
         });
+
+
+
+
         if (spellsChosen.length > 0) {
+            for (var k = 0; k < spellsChosen.length; k++) {
+
+            }
+
+
             classSpells = spellsChosen.map((spell) => {
                 if (spell === selectedSpell) {
                     return (<li key={spell.name}>{spell.name}</li>);
@@ -111,6 +120,7 @@ const Info = (props) => {
                     return (<li onClick={() => updateSelectedSpell(spell)} key={spell.name}>{spell.name}</li>);
                 }
             });
+            console.log("Class Spells ", classSpells);
         } 
     }
     
@@ -145,12 +155,10 @@ const Info = (props) => {
                     spellDescription = selectedSpell.desc.map((desc, index) => {
                         return (<p key={index}>{desc}</p>)
                     })
-
                 }
                 return (<div className="col-12 info">
                             <h3>{props.raceSelected.name}</h3>
                             <h3>{props.classSelected.name}</h3>                    
-                            <ul>{ability_bonuses}</ul>
                             <p>Spells</p>
                             <ul>{classSpells}</ul>
                             <h4>{selectedSpell.name} {selectedSpell.level}</h4>

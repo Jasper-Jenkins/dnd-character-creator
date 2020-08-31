@@ -63,19 +63,29 @@ class ClassSpells extends Component {
         this.state.setSpells(spells); //parent spells update
     }
 
+    spellsChosenByLevel = () => {
+        const { spellsChosen } = this.state;
+        let cantrips = 0;
+        let levelOneSpells = 0;
+        let spells = []
+        for (var i = 0; i < spellsChosen.length; i++) {
+            if (spellsChosen[i].level === 0) {
+                cantrips++;
+            } else if (spellsChosen[i].level === 1) {
+                levelOneSpells++;
+            }
+        }
+        spells.push(cantrips);
+        spells.push(levelOneSpells);
+        return spells;
+    }
 
     spellSource = (spell, currentLevel) => {
         const { classSelected } = this.state;
         const { spellsChosen } = this.state;
-        
-        let spells = [];      
-
-      
+        let cantrips = 0;
+        let levelOneSpells = 0;
         switch(classSelected.name) {
-           
-                //console.log()
-
-        
             case "Barbarian":
                 break;
             case "Bard":
@@ -95,56 +105,53 @@ class ClassSpells extends Component {
             case "Rogue":
                 break;
             case "Sorcerer":
+                if (spellsChosen.length === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }               
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+                if (cantrips < 4 && spell.level === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+
+                if (levelOneSpells < 2 && spell.level === 1) {
+                    this.updateSpells(spell);
+                }
                 break;
             case "Warlock":
+                if (spellsChosen.length === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+                if (cantrips < 4 && spell.level === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+
+                if (levelOneSpells < 2 && spell.level === 1) {
+                    this.updateSpells(spell);
+                }
                 break;
             case "Wizard":
-                let cantrips = [];
-                let levelOneSpells = [];
                 if (spellsChosen.length === 0) {
                     this.updateSpells(spell);
                     break;
                 } 
-                for (var i = 0; i < spellsChosen.length; i++) {
-                    if (spellsChosen[i].level === 0) {
-                        cantrips.push(spell);
-                    } else if (spellsChosen[i].level === 1) {
-                        levelOneSpells.push(spell);
-                    }
-                }
-                if (cantrips.length < 3 && spell.level === 0) {
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+                if (cantrips < 3 && spell.level === 0) {
                     this.updateSpells(spell);
                     break;
                 } 
 
-                if (levelOneSpells.length < 6 && spell.level === 1) {
+                if (levelOneSpells < 6 && spell.level === 1) {
                     this.updateSpells(spell);
                 } 
                 break;
             default:
                 break;
-        }
-
-        //if (classSelected.name === "Wizard") { 
-        //    switch (parseInt(currentLevel)) {
-        //        case 1:
-        //               if (spellsChosen.length < 6) {
-        //                spells = [...spellsChosen, spell];
-        //                this.setState({
-        //                    spellsChosen: spells,
-        //                });
-        //                this.state.setSpells(spells);
-        //                console.log("added " + spell.name + " to your spell book");
-        //            } else {
-        //                this.state.updateAlertMessage("You are unable to learn " + spell.name + " at this time.")
-        //            }
-        //            break;                                       
-        //        default:
-        //            break;
-        //    }
-        //} else {
-        //    alert('You are not a wizard!')
-        //}
+        }              
     }
 
     classSpells = (level) => { 
@@ -171,35 +178,8 @@ class ClassSpells extends Component {
     }
     
     addSpell = (spell) => {
-     //   const { classSelected } = this.state;
         const { updateSelectedSpell } = this.state;
-        //const { spellSlots } = this.state;
-        //const { spellsChosen } = this.state;
-
-
         this.spellSource(spell, 1);
-        //let check = [];
-        //for (var j = 0; j < spellSlots.length; j++) {
-        //    check[j] = 0;
-        //}
-        //if (spellsChosen.length === 0) {
-        //    this.spellSource(spell, 1);
-        //} else {
-        //    for (var i = 0; i < spellSlots.length; i++) {
-        //        for (var k = 0; k < spellsChosen.length; k++) {
-        //            if (spellsChosen[k].level === i) {
-        //                check[i]++;
-        //                console.log("adding " + spellsChosen[k].name + " to slot " + i)
-        //            }
-        //        }    
-        //    }
-        //    for (var l = 0; l < spellSlots.length; l++) {
-        //        if (check[l] < spellSlots[l]) {
-        //           this.spellSource(spell, 1);
-        //        }
-        //    }       
-            
-        //}
         updateSelectedSpell(spell)
     }
 
@@ -221,21 +201,12 @@ class ClassSpells extends Component {
     }
 
     displaySpells() {
-        const { classSpells } = this.state
-        const { spellsChosen } = this.state
-      //  let currentLevel = 1;
-        let spellLevelLimit = 0;
+        const { classSpells } = this.state;
+        const { spellsChosen } = this.state;
+        const { spellSlots } = this.state;
         let spellsToChooseFrom = [];
-
-        for (var i = 0; i < classSpells.length; i++) {
-            var num = parseInt(classSpells[i].level);
-            if (spellLevelLimit < num) {
-                spellLevelLimit = num;
-            } 
-        }
-        
-        for (var j = 0; j < spellLevelLimit + 1; j++) {
-            let spellLevel = j;
+        for (var j = 0; j < spellSlots.length; j++) {
+            const spellLevel = j;
             let spells = classSpells.map((spell) => {
                 if (spell.level === spellLevel) {
                     for (var k = 0; k < spellsChosen.length; k++) {
@@ -244,26 +215,16 @@ class ClassSpells extends Component {
                         }
                     }
                     return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                } else { return null }
+                } else { return null; } // Returning null works, but seems hacky. Find a better solution. 
             });
-
-            //for (var l = 0; l < spells.length; l++) {
-            //    var keyLength = spells[l].key.length
-            //    var keyValue = spells[l].key[keyLength - 1]
-            //}
-           
-            spellsToChooseFrom.push(spells)
+            spellsToChooseFrom.push(<div className='row'><div className='col-12'>{spells}</div></div>)
         }
 
-        return (<div className="row">
-                    <div className="col-12">
-                        {spellsToChooseFrom}
-                    </div>
-                </div>);
+        return (spellsToChooseFrom);
     }
            
     render() {
-        return (this.displaySpells());
+        return (<div className='col-12'>{this.displaySpells()}</div>);
     }
 }
 
