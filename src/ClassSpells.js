@@ -54,41 +54,23 @@ class ClassSpells extends Component {
         }
     }
 
+    updateSpells = (spell) => {
+        const { spellsChosen } = this.state;
+        let spells = [...spellsChosen, spell];
+        this.setState({
+            spellsChosen: spells,
+        });
+        this.state.setSpells(spells); //parent spells update
+    }
 
 
     spellSource = (spell, currentLevel) => {
         const { classSelected } = this.state;
         const { spellsChosen } = this.state;
-       // const { spellSlots } = this.state;
+        
+        let spells = [];      
 
-        let spells = [];
-
-
-
-
-
-
-
-
-        //for (var l = 0; l < spellSlots.length; l++) { // the 2 being compared against l needs to be a variable as it will change as the user levels up. What variable though?
-        //    const num = l;
-        ////    console.log("About to map spells");
-        //    spells[num] = spellsChosen.map((spell) => {
-        //        if (spell.level === num) {
-        //        //    console.log("Mapped Spell");
-        //            return spell;
-        //        } else {
-        //          //  console.log("Mapped empty");
-        //            return {};
-        //        }
-        //    })
-        //}
-
-
-       
-
-        //console.log("Spells to mess with", spells)
-
+      
         switch(classSelected.name) {
            
                 //console.log()
@@ -117,22 +99,27 @@ class ClassSpells extends Component {
             case "Warlock":
                 break;
             case "Wizard":
-                switch (currentLevel) {
-                    case 1:
-                        if (spellsChosen.length < 6) {
-                            spells = [...spellsChosen, spell];
-                            this.setState({
-                                spellsChosen: spells,
-                            });
-                            this.state.setSpells(spells); //parent spells update
-                      //      console.log("added " + spell.name + " to your spell book");
-                        } else {
-                            this.state.updateAlertMessage("You are unable to learn " + spell.name + " at this time.")
-                        }
-                        break;
-                    default:
-                        break;
+                let cantrips = [];
+                let levelOneSpells = [];
+                if (spellsChosen.length === 0) {
+                    this.updateSpells(spell);
+                    break;
+                } 
+                for (var i = 0; i < spellsChosen.length; i++) {
+                    if (spellsChosen[i].level === 0) {
+                        cantrips.push(spell);
+                    } else if (spellsChosen[i].level === 1) {
+                        levelOneSpells.push(spell);
+                    }
                 }
+                if (cantrips.length < 3 && spell.level === 0) {
+                    this.updateSpells(spell);
+                    break;
+                } 
+
+                if (levelOneSpells.length < 6 && spell.level === 1) {
+                    this.updateSpells(spell);
+                } 
                 break;
             default:
                 break;
@@ -186,30 +173,33 @@ class ClassSpells extends Component {
     addSpell = (spell) => {
      //   const { classSelected } = this.state;
         const { updateSelectedSpell } = this.state;
-        const { spellSlots } = this.state;
-        const { spellsChosen } = this.state;
-        let check = [];
-        for (var j = 0; j < spellSlots.length; j++) {
-            check[j] = 0;
-        }
-        if (spellsChosen.length === 0) {
-            this.spellSource(spell, 1);
-        } else {
-            for (var i = 0; i < spellSlots.length; i++) {
-                for (var k = 0; k < spellsChosen.length; k++) {
-                    if (spellsChosen[k].level === i) {
-                        check[i]++;
-                        console.log("adding " + spellsChosen[k].name + " to slot " + i)
-                    }
-                }    
-            }
-            for (var l = 0; l < spellSlots.length; l++) {
-                if (check[l] < spellSlots[l]) {
-                   this.spellSource(spell, 1);
-                }
-            }       
+        //const { spellSlots } = this.state;
+        //const { spellsChosen } = this.state;
+
+
+        this.spellSource(spell, 1);
+        //let check = [];
+        //for (var j = 0; j < spellSlots.length; j++) {
+        //    check[j] = 0;
+        //}
+        //if (spellsChosen.length === 0) {
+        //    this.spellSource(spell, 1);
+        //} else {
+        //    for (var i = 0; i < spellSlots.length; i++) {
+        //        for (var k = 0; k < spellsChosen.length; k++) {
+        //            if (spellsChosen[k].level === i) {
+        //                check[i]++;
+        //                console.log("adding " + spellsChosen[k].name + " to slot " + i)
+        //            }
+        //        }    
+        //    }
+        //    for (var l = 0; l < spellSlots.length; l++) {
+        //        if (check[l] < spellSlots[l]) {
+        //           this.spellSource(spell, 1);
+        //        }
+        //    }       
             
-        }
+        //}
         updateSelectedSpell(spell)
     }
 

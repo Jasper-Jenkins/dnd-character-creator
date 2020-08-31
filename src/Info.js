@@ -153,7 +153,7 @@ const Info = (props) => {
                             <ul>{ability_bonuses}</ul>
                             <p>Spells</p>
                             <ul>{classSpells}</ul>
-                            <h4>{selectedSpell.name} level: {selectedSpell.level}</h4>
+                            <h4>{selectedSpell.name} {selectedSpell.level}</h4>
                             {spellDescription}
                         </div>)
             } else {
