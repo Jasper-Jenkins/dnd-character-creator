@@ -108,19 +108,13 @@ const Info = (props) => {
 
 
         if (spellsChosen.length > 0) {
-            for (var k = 0; k < spellsChosen.length; k++) {
-
-            }
-
-
             classSpells = spellsChosen.map((spell) => {
                 if (spell === selectedSpell) {
                     return (<li key={spell.name}>{spell.name}</li>);
                 } else {
                     return (<li onClick={() => updateSelectedSpell(spell)} key={spell.name}>{spell.name}</li>);
                 }
-            });
-            console.log("Class Spells ", classSpells);
+            });            
         } 
     }
     
@@ -156,14 +150,22 @@ const Info = (props) => {
                         return (<p key={index}>{desc}</p>)
                     })
                 }
-                return (<div className="col-12 info">
+                return (<div className='col-12 info'>
+                    <div className='row'>
+                        <div className='col-12'>
                             <h3>{props.raceSelected.name}</h3>
-                            <h3>{props.classSelected.name}</h3>                    
+                            <h3>{props.classSelected.name}</h3>
+                        </div>
+                        <div className='col-3'>
                             <p>Spells</p>
                             <ul>{classSpells}</ul>
+                        </div>
+                        <div className='col-9'>
                             <h4>{selectedSpell.name} {selectedSpell.level}</h4>
                             {spellDescription}
-                        </div>)
+                        </div>
+                    </div>
+                </div>);
             } else {
                 return (<div className='col-12 info'>
                             <p className='text-center'>..Choose your class to select spells </p>
