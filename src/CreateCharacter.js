@@ -155,7 +155,7 @@ class CreateCharacter extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: classSelected[0], spellsChosen: [], });
+                this.setState({ classSelected: classSelected[0], spellsChosen: [], selectedSpell: {},});
                 break;
             }
         }

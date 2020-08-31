@@ -8,8 +8,7 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
             <div className='col-12 characterTitle'>
                 <h3>{raceName} {className}</h3>
             </div>
-            <div className='col-6'>
-            
+            <div className='col-6'>            
                 <strong>Ability bonuses</strong><br />
                 <ul>{ability_bonuses}</ul>
                 <strong>Ability Scores: </strong>
@@ -142,19 +141,16 @@ const Info = (props) => {
             return InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScores, saving_throws, characterProficiencies);
         case 'Spells':
             if (props.isClassSelected(classSelected)) {
-                let spellDescription = []
+                let spellDescription;
                 if (selectedSpell.name === undefined) {
                     console.log("check check check")
                 } else {
-                    spellDescription = selectedSpell.desc.map((desc, index) => {
-                        return (<p key={index}>{desc}</p>)
-                    })
+                    spellDescription = <p>{selectedSpell.desc}</p>
                 }
                 return (<div className='col-12 info'>
                     <div className='row'>
                         <div className='col-12'>
-                            <h3>{props.raceSelected.name}</h3>
-                            <h3>{props.classSelected.name}</h3>
+                            <h3>{props.raceSelected.name} {props.classSelected.name}</h3>
                         </div>
                         <div className='col-3'>
                             <p>Spells</p>

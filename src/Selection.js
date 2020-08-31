@@ -16,7 +16,7 @@ const Selection = (props) => {
         case 'Races':
             let races = props.races.results.map((race) => {
                 if (raceSelected.index !== undefined && raceSelected.index === race.index) {
-                    return (<button className='selectionButtons buttonSelected col-4 {race.index}' tabIndex='- 1' aria-disabled='true' key={race.index}>{race.name}</button>);
+                    return (<button className='selectionButtons buttonSelected col-4 {race.index}' tabIndex='-1' aria-disabled='true' key={race.index}>{race.name}</button>);
                  } else {
                     return (<button onClick={() => props.selectRace(race.index)} className='selectionButtons col-4' key={race.index}>{race.name}</button>);
                 }

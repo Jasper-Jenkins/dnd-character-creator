@@ -57,7 +57,7 @@ class App extends Component {
         }
         this.setState({
             levelData: levels,
-        })
+        });
     }
 
     getInfo(data, category) {

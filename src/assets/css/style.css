@@ -33,12 +33,9 @@
 
     .info {
         background-color: var(--main-bg-color);
-        border: 5px solid black;
-        margin: 0px;
-        padding: 10px;
         height: 55vh;
-        overflow-y:auto;
-        overflow-x:auto;
+        overflow-y: auto;
+        overflow-x: auto;
     }
 
     .info p {
@@ -77,8 +74,6 @@
     .selection {
         background-color: white;
         width:100%;
-        padding: 0px;
-        margin: 0px;
         height: 30vh;
         overflow: auto;
     }
