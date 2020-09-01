@@ -177,8 +177,7 @@ class CreateCharacter extends Component {
             proficiencies: proficiencies,
             proficienciesChoices: choices,
         });
-    }
-    
+    }    
 
     isRaceSelected = (raceSelected) => {
         return (this.isSelected(raceSelected));

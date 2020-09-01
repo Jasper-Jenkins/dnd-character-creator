@@ -30,18 +30,26 @@ class ClassSpells extends Component {
         const { classSelected } = this.state;
         const { levelData } = this.state;    
         for (var j = 0; j < levelData.length; j++) {
-            console.log("level Data for: ", levelData[j].class.name)
             if (levelData[j].class.name === classSelected.name) {
                 const propsKeys = Object.getOwnPropertyNames(levelData[j]);
                 for (var p = 0; p < propsKeys.length; p++) {
-                    if (propsKeys[p] === 'spellcasting') {  
-                        let slotsAvailable = [];
-                        slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
-                        for (var k = 1; k < 10; k++) {
-                            if (levelData[j].spellcasting['spell_slots_level_' + k] !== 0) {
-                                slotsAvailable[k] = levelData[j].spellcasting['spell_slots_level_' + k];
+                    if (propsKeys[p] === 'spellcasting') {  // this is breaking because not all of the classes have a 'cantrips_known'
+                        let slotsAvailable = [];                        
+                        if (classSelected.name === 'Ranger' || 'Paladin') {
+                            slotsAvailable[0] = 0;
+                            for (var k = 1; k < 6; k++) {
+                                if (levelData[j].spellcasting['spell_slots_level_' + k] !== 0) {
+                                    slotsAvailable[k] = levelData[j].spellcasting['spell_slots_level_' + k];
+                                }
                             }
-                        }
+                        } else {
+                            slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
+                            for (var l = 1; l < 10; l++) {
+                                if (levelData[j].spellcasting['spell_slots_level_' + l] !== 0) {
+                                    slotsAvailable[l] = levelData[j].spellcasting['spell_slots_level_' + l];
+                                }
+                            }
+                        }                        
                         console.log("Available Slots", slotsAvailable);
                         this.setState({
                             spellSlots: slotsAvailable,
@@ -83,24 +91,96 @@ class ClassSpells extends Component {
     spellSource = (spell, currentLevel) => {
         const { classSelected } = this.state;
         const { spellsChosen } = this.state;
+        const { spellSlots } = this.state;
         let cantrips = 0;
         let levelOneSpells = 0;
+        let level0, level1;
+        
+
         switch(classSelected.name) {
             case "Barbarian":
                 break;
             case "Bard":
+                if (spellsChosen.length === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+                [level0, level1] = spellSlots; 
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+                if (cantrips < level0 && spell.level === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+
+                if (levelOneSpells < level1 && spell.level === 1) {
+                    this.updateSpells(spell);
+                }
                 break;
             case "Cleric":
+                if (spellsChosen.length === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+                [level0, level1] = spellSlots;
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+                if (cantrips < level0 && spell.level === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+
+                if (levelOneSpells < level1 && spell.level === 1) {
+                    this.updateSpells(spell);
+                }
                 break;
             case "Druid":
+                if (spellsChosen.length === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+                [level0, level1] = spellSlots;
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+                if (cantrips < level0 && spell.level === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+                if (levelOneSpells < level1 && spell.level === 1) {
+                    this.updateSpells(spell);
+                }
                 break;
             case "Fighter":
                 break;
             case "Monk":
                 break;
             case "Paladin":
+                if (spellsChosen.length === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+                [level0, level1] = spellSlots;
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+                if (cantrips < level0 && spell.level === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+
+                if (levelOneSpells < level1 && spell.level === 1) {
+                    this.updateSpells(spell);
+                }
                 break;
             case "Ranger":
+                if (spellsChosen.length === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+                [level0, level1] = spellSlots;
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+                if (cantrips < level0 && spell.level === 0) {
+                    this.updateSpells(spell);
+                    break;
+                }
+                if (levelOneSpells < level1 && spell.level === 1) {
+                    this.updateSpells(spell);
+                }
                 break;
             case "Rogue":
                 break;
@@ -125,7 +205,7 @@ class ClassSpells extends Component {
                     break;
                 }
                 [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                if (cantrips < 4 && spell.level === 0) {
+                if (cantrips < 2 && spell.level === 0) {
                     this.updateSpells(spell);
                     break;
                 }
@@ -227,7 +307,7 @@ class ClassSpells extends Component {
                         <h6>{title}</h6>
                         {spells}
                     </div>
-                </div>)
+                </div>);
         }
         return (spellsToChooseFrom);
     }

@@ -73,7 +73,7 @@ class App extends Component {
                 this.setState({ racesInfo: info, });
             break;
             case 'classes':
-                this.setState({ classesInfo: info, }, this.getLevelData(data, 1));
+                this.setState({ classesInfo: info, }, this.getLevelData(data, 2));
                 break;
             case 'ability-scores':
                 this.setState({ abilityScoresInfo: info, });
