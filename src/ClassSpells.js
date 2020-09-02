@@ -287,28 +287,36 @@ class ClassSpells extends Component {
         let spellsToChooseFrom = [];
         for (var j = 0; j < spellSlots.length; j++) {
             const spellLevel = j;
-            let title = "Level " + j + " spells ";
-            if (spellLevel === 0) {
-                title = "Cantrips";
-            }
-            let spells = classSpells.map((spell) => {
-                if (spell.level === spellLevel) {
-                    for (var k = 0; k < spellsChosen.length; k++) {
-                        if (spellsChosen[k].name === spell.name) {
-                            return (<button className='btn-md btn-primary' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+            let title = "";
+            let spells = [];
+            
+                title = "Level " + j + " spells ";
+                if (spellLevel === 0) {
+                    title = "Cantrips";
+                }
+                spells = classSpells.map((spell) => {
+                    if (spell.level === spellLevel) {
+                        for (var k = 0; k < spellsChosen.length; k++) {
+                            if (spellsChosen[k].name === spell.name) {
+                                return (<button className='btn-md btn-primary' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                            }
                         }
-                    }
-                    return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                } else { return null; } // Returning null works, but seems hacky. Find a better solution.!? 
-            });         
-            spellsToChooseFrom.push(
-                <div className='row' key={spellLevel}>
-                    <div className='col-12'>
-                        <h6>{title}</h6>
-                        {spells}
-                    </div>
-                </div>);
-        }
+                        return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                    } else { return null; } // Returning null works, but seems hacky. Find a better solution.!? 
+                });         
+            if (spells === null) {
+                console.log("Spells", spells)
+            } else {
+                spellsToChooseFrom.push(
+                    <div className='row' key={spellLevel}>
+                        <div className='col-12'>
+                            <h6>{title}</h6>
+                            {spells}
+                        </div>
+                    </div>);
+            }
+           
+               }
         return (spellsToChooseFrom);
     }
            
