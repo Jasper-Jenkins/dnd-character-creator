@@ -33,7 +33,7 @@ class ClassSpells extends Component {
             if (levelData[j].class.name === classSelected.name) {
                 const propsKeys = Object.getOwnPropertyNames(levelData[j]);
                 for (var p = 0; p < propsKeys.length; p++) {
-                    if (propsKeys[p] === 'spellcasting') {  // this is breaking because not all of the classes have a 'cantrips_known'
+                    if (propsKeys[p] === 'spellcasting') {  // this is breaking because not all of the classes have a 'cantrips_known' data point
                         let slotsAvailable = [];                        
                         if (classSelected.name === 'Ranger' || 'Paladin') {
                             slotsAvailable[0] = 0;
@@ -280,6 +280,60 @@ class ClassSpells extends Component {
         updateSelectedSpell({})
     }
 
+    spellDamageType = (spell) => {
+        let descriptionWords = [];
+        let damageType = "noDamage";
+
+        console.log("Spell Description: ", spell)
+
+        for (var i = 0; i < spell.desc.length; i++) {
+            descriptionWords = spell.desc[i].split(" ");
+            let check = false;
+            for (var j = 0; j < descriptionWords.length; j++) {
+                switch (descriptionWords[j]) {
+                    case 'fire':
+                        damageType = descriptionWords[j];
+                        check = true;
+                        break;
+                    case 'necrotic':
+                        damageType = descriptionWords[j];
+                        check = true;
+                        break;
+                    case 'lightninig':
+                        damageType = descriptionWords[j];
+                        check = true;
+                        break;
+                    case 'cold':
+                        damageType = descriptionWords[j];
+                        check = true;
+                        break;
+                    case 'holy':
+                        damageType = descriptionWords[j];
+                        check = true;
+                        break;
+                    case 'poison':
+                        damageType = descriptionWords[j];
+                        check = true;
+                        break;
+                    case 'acid':
+                        damageType = descriptionWords[j];
+                        check = true;
+                        break;
+                    default:
+                        damageType = 'noDamage';
+                        break;
+                }
+                if (check) {
+                    break;
+                }
+            }
+            if (check) {
+                break;
+            }
+        }
+        return damageType;
+    }
+
     displaySpells() {
         const { classSpells } = this.state;
         const { spellsChosen } = this.state;
@@ -289,34 +343,54 @@ class ClassSpells extends Component {
             const spellLevel = j;
             let title = "";
             let spells = [];
-            
-                title = "Level " + j + " spells ";
-                if (spellLevel === 0) {
-                    title = "Cantrips";
+            let count = false;
+            let damageType = "";
+            title = "Level " + j + " spells ";
+            if (spellLevel === 0) {
+                title = "Cantrips";
+            }
+            for (var i = 0; i < classSpells.length; i++) {
+                if (classSpells[i].level === j) {
+                    count = true;;
+                    break;
                 }
+            }
+            if (count) {
                 spells = classSpells.map((spell) => {
                     if (spell.level === spellLevel) {
+                        damageType = this.spellDamageType(spell);
+                        let classNames = "btn-md btn-primary " + damageType;
                         for (var k = 0; k < spellsChosen.length; k++) {
                             if (spellsChosen[k].name === spell.name) {
-                                return (<button className='btn-md btn-primary' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                                
+                                return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                             }
                         }
-                        return (<button className='btn-md btn-secondary' onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                    } else { return null; } // Returning null works, but seems hacky. Find a better solution.!? 
-                });         
-            if (spells === null) {
-                console.log("Spells", spells)
-            } else {
+                        return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                    } else {
+                        return null; // Returning null works, but seems hacky. Find a better solution.!?
+                    }  
+                });
+               console.log("Spells", spells)
+                    spellsToChooseFrom.push(
+                        <div className='row' key={spellLevel}>
+                            <div className='col-12'>
+                                <h6>{title}</h6>
+                                {spells}
+                            </div>
+                        </div>);
+                
+                console.log("Spells have been found for level ", j)
+            } else {// this needs tending to. I want nothing to display if there are no spells for the heroes level.
                 spellsToChooseFrom.push(
                     <div className='row' key={spellLevel}>
-                        <div className='col-12'>
-                            <h6>{title}</h6>
-                            {spells}
-                        </div>
                     </div>);
+                console.log("No spells found for level ", j);
             }
+
+            
            
-               }
+        }
         return (spellsToChooseFrom);
     }
            

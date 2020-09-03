@@ -71,6 +71,26 @@
         max-width: 100%;
     }
 
+
+    .fire {
+        background-color: orangered;
+    }
+    .holy {
+        background-color: gold;
+    }
+    .necrotic {
+        background-color: rebeccapurple;
+    }
+    .cold {
+        background-color: cadetblue;
+    }
+    .acid {
+        background-color: green;
+    }
+    .poison {
+        background-color: lawngreen;
+    }
+
     .selection {
         background-color: white;
         width:100%;
