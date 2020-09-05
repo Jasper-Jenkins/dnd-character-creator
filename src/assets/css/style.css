@@ -90,6 +90,18 @@
     .poison {
         background-color: lawngreen;
     }
+    .lightning {
+        background-color: lightgoldenrodyellow;
+        color: black;
+        font-size: large;
+    }
+    .thunder {
+        background-color: grey;
+    }
+    .radiant {
+        background-color: yellow;
+        color: black;
+    }
 
     .selection {
         background-color: white;

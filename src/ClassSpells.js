@@ -15,6 +15,7 @@ class ClassSpells extends Component {
             classSpells: [],
             cantrips: [],
             spellSlots: [],
+            spellsByDamage: [],
             updateAlertMessage: props.updateAlertMessage,
             updateSpellSlots: props.updateSpellSlots,
         };        
@@ -67,7 +68,7 @@ class ClassSpells extends Component {
         let spells = [...spellsChosen, spell];
         this.setState({
             spellsChosen: spells,
-        });
+        }, this.spellDamageByColor());
         this.state.setSpells(spells); //parent spells update
     }
 
@@ -95,8 +96,6 @@ class ClassSpells extends Component {
         let cantrips = 0;
         let levelOneSpells = 0;
         let level0, level1;
-        
-
         switch(classSelected.name) {
             case "Barbarian":
                 break;
@@ -224,7 +223,6 @@ class ClassSpells extends Component {
                     this.updateSpells(spell);
                     break;
                 } 
-
                 if (levelOneSpells < 6 && spell.level === 1) {
                     this.updateSpells(spell);
                 } 
@@ -234,20 +232,59 @@ class ClassSpells extends Component {
         }              
     }
 
+    spellDamageByColor = () => { // this depends on other functions to have set a spell. 
+        const { classSpells } = this.state;
+        const { spellSlots } = this.state;
+        const { spellsChosen } = this.state; 
+        const { spellsByDamage } = this.state;
+
+        let spellsByDamageColored = [];
+        for (var j = 0; j < spellSlots.length; j++) {
+            const spellLevel = j;
+            let spells = [];
+            let count = false;
+            let damageType = "";
+            for (var i = 0; i < classSpells.length; i++) {
+                if (classSpells[i].level === j) {
+                    count = true;;
+                    break;
+                }
+            }
+            if (count) {
+                spells = classSpells.map((spell) => {
+                    if (spell.level === spellLevel) {
+                        damageType = this.spellDamageType(spell);
+                        let classNames = "btn-md btn-primary " + damageType;
+                        return ({ [spell.name]: classNames });
+                    }          
+                });               
+                .push();                              
+            } else {// this needs tending to. I want nothing to display if there are no spells for the heroes level.
+                choices.push();               
+            }
+        }
+    }
+
     classSpells = (level) => { 
         const { classSelected } = this.state;
         const { spellsInfo } = this.state;   
-     //   const { spellSlots } = this.state;
+        const { spellSlots } = this.state;        
+       
         let spells = []
+
         switch (level) {
             case 1:
                 for (var i = 0; i < spellsInfo.length; i++) {
                     for (var j = 0; j < spellsInfo[i].classes.length; j++) {
-                        if (classSelected.name === spellsInfo[i].classes[j].name && (spellsInfo[i].level === 0 || spellsInfo[i].level === 1)) {
+                        if (classSelected.name === spellsInfo[i].classes[j].name && (spellsInfo[i].level <= level)) {
                             spells.push(spellsInfo[i])
                         }
                     }
                 }
+
+               
+
+
                 this.setState({
                     classSpells: spells,
                 });
@@ -283,9 +320,7 @@ class ClassSpells extends Component {
     spellDamageType = (spell) => {
         let descriptionWords = [];
         let damageType = "noDamage";
-
         console.log("Spell Description: ", spell)
-
         for (var i = 0; i < spell.desc.length; i++) {
             descriptionWords = spell.desc[i].split(" ");
             let check = false;
@@ -299,7 +334,7 @@ class ClassSpells extends Component {
                         damageType = descriptionWords[j];
                         check = true;
                         break;
-                    case 'lightninig':
+                    case 'lightning':
                         damageType = descriptionWords[j];
                         check = true;
                         break;
@@ -316,6 +351,10 @@ class ClassSpells extends Component {
                         check = true;
                         break;
                     case 'acid':
+                        damageType = descriptionWords[j];
+                        check = true;
+                        break;
+                    case 'thunder':
                         damageType = descriptionWords[j];
                         check = true;
                         break;
@@ -387,13 +426,9 @@ class ClassSpells extends Component {
                     </div>);
                 console.log("No spells found for level ", j);
             }
-
-            
-           
         }
         return (spellsToChooseFrom);
-    }
-           
+    }      
     render() {
         return (<div className='col-12'>{this.displaySpells()}</div>);
     }
