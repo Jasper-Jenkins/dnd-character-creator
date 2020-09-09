@@ -34,7 +34,7 @@ class ClassSpells extends Component {
             if (levelData[j].class.name === classSelected.name) {
                 const propsKeys = Object.getOwnPropertyNames(levelData[j]);
                 for (var p = 0; p < propsKeys.length; p++) {
-                    if (propsKeys[p] === 'spellcasting') {  // this is breaking because not all of the classes have a 'cantrips_known' data point
+                    if (propsKeys[p] === 'spellcasting') {  // this is breaking because not all of the classes have a 'cantrips_known' data point inside 'spellcasting'
                         let slotsAvailable = [];                        
                         if (classSelected.name === 'Ranger' || 'Paladin') {
                             slotsAvailable[0] = 0;
@@ -235,9 +235,6 @@ class ClassSpells extends Component {
     spellDamageByColor = () => { // this depends on other functions to have set a spell. 
         const { classSpells } = this.state;
         const { spellSlots } = this.state;
-        const { spellsChosen } = this.state; 
-        const { spellsByDamage } = this.state;
-
         let spellsByDamageColored = [];
         for (var j = 0; j < spellSlots.length; j++) {
             const spellLevel = j;
@@ -250,26 +247,25 @@ class ClassSpells extends Component {
                     break;
                 }
             }
-            if (count) {
-                spells = classSpells.map((spell) => {
-                    if (spell.level === spellLevel) {
-                        damageType = this.spellDamageType(spell);
-                        let classNames = "btn-md btn-primary " + damageType;
-                        return ({ [spell.name]: classNames });
-                    }          
-                });               
-                .push();                              
-            } else {// this needs tending to. I want nothing to display if there are no spells for the heroes level.
-                choices.push();               
-            }
+            if (count) {             
+                for (var k = 0; k < classSpells.length; k++) {
+                    if (classSpells[k].level === spellLevel) {
+                        damageType = this.spellDamageType(classSpells[k]);
+                        spells.push({ [classSpells[k].name]: damageType, });
+                    } 
+                }
+                spellsByDamageColored.push(spells);                           
+            } 
         }
+        this.setState({
+            spellsByDamage: spellsByDamageColored,
+        });
+        console.log("Color spells", spellsByDamageColored);
     }
 
     classSpells = (level) => { 
         const { classSelected } = this.state;
         const { spellsInfo } = this.state;   
-        const { spellSlots } = this.state;        
-       
         let spells = []
 
         switch (level) {
@@ -281,13 +277,10 @@ class ClassSpells extends Component {
                         }
                     }
                 }
-
-               
-
-
                 this.setState({
                     classSpells: spells,
                 });
+                console.log("Made it here");
                 break;
             default: 
                 alert("level of character is invalid in spells creation. ")
@@ -320,7 +313,6 @@ class ClassSpells extends Component {
     spellDamageType = (spell) => {
         let descriptionWords = [];
         let damageType = "noDamage";
-        console.log("Spell Description: ", spell)
         for (var i = 0; i < spell.desc.length; i++) {
             descriptionWords = spell.desc[i].split(" ");
             let check = false;
@@ -378,6 +370,7 @@ class ClassSpells extends Component {
         const { spellsChosen } = this.state;
         const { spellSlots } = this.state;
         let spellsToChooseFrom = [];
+        console.log("Class Spells", classSpells);
         for (var j = 0; j < spellSlots.length; j++) {
             const spellLevel = j;
             let title = "";
@@ -395,21 +388,44 @@ class ClassSpells extends Component {
                 }
             }
             if (count) {
-                spells = classSpells.map((spell) => {
-                    if (spell.level === spellLevel) {
-                        damageType = this.spellDamageType(spell);
-                        let classNames = "btn-md btn-primary " + damageType;
-                        for (var k = 0; k < spellsChosen.length; k++) {
-                            if (spellsChosen[k].name === spell.name) {
+                //spells = classSpells.map((spell) => {
+                //    if (spell.level === spellLevel) {
+                //        damageType = this.spellDamageType(spell);
+                //        if (spell.damage !== undefined) {
+                //            console.log("SPELL", spell.damage);
+                //        }
+                //        let classNames = "btn-md btn-primary " + damageType;
+                //        for (var k = 0; k < spellsChosen.length; k++) {
+                //            if (spellsChosen[k].name === spell.name) {
                                 
-                                return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                //                return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                //            }
+                //        }
+                //        return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                //    } else {
+                //        return null; // Returning null works, but seems hacky. Find a better solution.!?
+                //    }  
+                //});
+                for (var k = 0; k < classSpells; k++) {
+                    if (classSpells[k].level === spellLevel) {
+                        console.log("Mad it")
+                        let classNames = "btn-md btn-primary "
+                        if (classSpells[k].damage !== undefined) {
+                            classNames += classSpells[k].damage.damage_type.index;                            
+                        } 
+                        for (var l = 0; l < spellsChosen.length; l++) {
+                            if (spellsChosen[l].name === classSpells[k].name) {
+                                spells.push(<button className={classNames} onClick={() => this.removeSpell(classSpells[k])} key={classSpells[k].name + classSpells[k].level}>{classSpells[k].name}</button>);
+                            } else {
+                                spells.push(<button className={classNames} onClick={() => this.addSpell(classSpells[k])} key={classSpells[k].name + classSpells[k].level}>{classSpells[k].name}</button>);
                             }
                         }
-                        return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                    } else {
-                        return null; // Returning null works, but seems hacky. Find a better solution.!?
-                    }  
-                });
+                    }                    
+                }
+                
+
+
+
                console.log("Spells", spells)
                     spellsToChooseFrom.push(
                         <div className='row' key={spellLevel}>
@@ -419,12 +435,12 @@ class ClassSpells extends Component {
                             </div>
                         </div>);
                 
-                console.log("Spells have been found for level ", j)
+            //    console.log("Spells have been found for level ", j)
             } else {// this needs tending to. I want nothing to display if there are no spells for the heroes level.
                 spellsToChooseFrom.push(
                     <div className='row' key={spellLevel}>
                     </div>);
-                console.log("No spells found for level ", j);
+           //     console.log("No spells found for level ", j);
             }
         }
         return (spellsToChooseFrom);
