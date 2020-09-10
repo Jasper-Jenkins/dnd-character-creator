@@ -143,7 +143,7 @@ const Info = (props) => {
             if (props.isClassSelected(classSelected)) {
                 let spellDescription;
                 if (selectedSpell.name === undefined) {
-                    console.log("check check check")
+               //     console.log("check check check")
                 } else {
                     spellDescription = <p>{selectedSpell.desc}</p>
                 }

@@ -68,7 +68,7 @@ class ClassSpells extends Component {
         let spells = [...spellsChosen, spell];
         this.setState({
             spellsChosen: spells,
-        }, this.spellDamageByColor());
+        });
         this.state.setSpells(spells); //parent spells update
     }
 
@@ -232,42 +232,11 @@ class ClassSpells extends Component {
         }              
     }
 
-    spellDamageByColor = () => { // this depends on other functions to have set a spell. 
-        const { classSpells } = this.state;
-        const { spellSlots } = this.state;
-        let spellsByDamageColored = [];
-        for (var j = 0; j < spellSlots.length; j++) {
-            const spellLevel = j;
-            let spells = [];
-            let count = false;
-            let damageType = "";
-            for (var i = 0; i < classSpells.length; i++) {
-                if (classSpells[i].level === j) {
-                    count = true;;
-                    break;
-                }
-            }
-            if (count) {             
-                for (var k = 0; k < classSpells.length; k++) {
-                    if (classSpells[k].level === spellLevel) {
-                        damageType = this.spellDamageType(classSpells[k]);
-                        spells.push({ [classSpells[k].name]: damageType, });
-                    } 
-                }
-                spellsByDamageColored.push(spells);                           
-            } 
-        }
-        this.setState({
-            spellsByDamage: spellsByDamageColored,
-        });
-        console.log("Color spells", spellsByDamageColored);
-    }
-
     classSpells = (level) => { 
         const { classSelected } = this.state;
         const { spellsInfo } = this.state;   
         let spells = []
-
+        console.log("ITs setting classSpells")
         switch (level) {
             case 1:
                 for (var i = 0; i < spellsInfo.length; i++) {
@@ -310,123 +279,61 @@ class ClassSpells extends Component {
         updateSelectedSpell({})
     }
 
-    spellDamageType = (spell) => {
-        let descriptionWords = [];
-        let damageType = "noDamage";
-        for (var i = 0; i < spell.desc.length; i++) {
-            descriptionWords = spell.desc[i].split(" ");
-            let check = false;
-            for (var j = 0; j < descriptionWords.length; j++) {
-                switch (descriptionWords[j]) {
-                    case 'fire':
-                        damageType = descriptionWords[j];
-                        check = true;
-                        break;
-                    case 'necrotic':
-                        damageType = descriptionWords[j];
-                        check = true;
-                        break;
-                    case 'lightning':
-                        damageType = descriptionWords[j];
-                        check = true;
-                        break;
-                    case 'cold':
-                        damageType = descriptionWords[j];
-                        check = true;
-                        break;
-                    case 'holy':
-                        damageType = descriptionWords[j];
-                        check = true;
-                        break;
-                    case 'poison':
-                        damageType = descriptionWords[j];
-                        check = true;
-                        break;
-                    case 'acid':
-                        damageType = descriptionWords[j];
-                        check = true;
-                        break;
-                    case 'thunder':
-                        damageType = descriptionWords[j];
-                        check = true;
-                        break;
-                    default:
-                        damageType = 'noDamage';
-                        break;
-                }
-                if (check) {
-                    break;
-                }
-            }
-            if (check) {
-                break;
-            }
-        }
-        return damageType;
-    }
-
-    displaySpells() {
+    displaySpells = () => {
         const { classSpells } = this.state;
         const { spellsChosen } = this.state;
         const { spellSlots } = this.state;
+        console.log("Spells Chosen", spellsChosen)
         let spellsToChooseFrom = [];
-        console.log("Class Spells", classSpells);
+      //  console.log("Class Spells", classSpells);
+        console.log("Spells to choose from", spellsToChooseFrom)
+        for (var j = 0; j < spellSlots.length; j++) {
+
+        }
+
+
+
         for (var j = 0; j < spellSlots.length; j++) {
             const spellLevel = j;
             let title = "";
             let spells = [];
             let count = false;
-            let damageType = "";
             title = "Level " + j + " spells ";
             if (spellLevel === 0) {
                 title = "Cantrips";
             }
-            for (var i = 0; i < classSpells.length; i++) {
-                if (classSpells[i].level === j) {
-                    count = true;;
-                    break;
-                }
-            }
+            //for (var i = 0; i < classSpells.length; i++) {
+            //    if (classSpells[i].level === j) { //If there are any spells with a level that matches the current spell slot level (j) set to true. 
+            //        count = true;
+            //        break;
+            //    }
+            //}
             if (count) {
-                //spells = classSpells.map((spell) => {
-                //    if (spell.level === spellLevel) {
-                //        damageType = this.spellDamageType(spell);
-                //        if (spell.damage !== undefined) {
-                //            console.log("SPELL", spell.damage);
-                //        }
-                //        let classNames = "btn-md btn-primary " + damageType;
-                //        for (var k = 0; k < spellsChosen.length; k++) {
-                //            if (spellsChosen[k].name === spell.name) {
-                                
-                //                return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                //            }
-                //        }
-                //        return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                //    } else {
-                //        return null; // Returning null works, but seems hacky. Find a better solution.!?
-                //    }  
-                //});
-                for (var k = 0; k < classSpells; k++) {
-                    if (classSpells[k].level === spellLevel) {
-                        console.log("Mad it")
-                        let classNames = "btn-md btn-primary "
-                        if (classSpells[k].damage !== undefined) {
-                            classNames += classSpells[k].damage.damage_type.index;                            
+                for (var k = 0; k < classSpells.length; k++) {
+                    const num = k;
+                    if (classSpells[num].level === spellLevel) {                        
+                        let classNames = "btn-md btn-primary ";
+                        if (classSpells[num].damage !== undefined ) {
+                            if (classSpells[num].damage.damage_type !== undefined) {
+                                classNames += classSpells[num].damage.damage_type.index;
+                            } 
                         } 
-                        for (var l = 0; l < spellsChosen.length; l++) {
-                            if (spellsChosen[l].name === classSpells[k].name) {
-                                spells.push(<button className={classNames} onClick={() => this.removeSpell(classSpells[k])} key={classSpells[k].name + classSpells[k].level}>{classSpells[k].name}</button>);
-                            } else {
-                                spells.push(<button className={classNames} onClick={() => this.addSpell(classSpells[k])} key={classSpells[k].name + classSpells[k].level}>{classSpells[k].name}</button>);
+                        if (spellsChosen.length === 0) {
+                            spells.push(<button className={classNames} onClick={() => this.addSpell(classSpells[num])} key={classSpells[num].name + classSpells[num].level}>{classSpells[num].name}</button>);
+                        } else {
+                            for (var l = 0; l < spellsChosen.length; l++) {
+                                if (spellsChosen[l].name === classSpells[num].name) {
+                            //        console.log("EH?")
+                                    spells.push(<button className={classNames} onClick={() => this.removeSpell(classSpells[num])} key={classSpells[num].name + classSpells[num].level}>{classSpells[num].name}</button>);
+                                } else {
+                             //       console.log("MEH?")
+                                    spells.push(<button className={classNames} onClick={() => this.addSpell(classSpells[num])} key={classSpells[num].name + classSpells[num].level}>{classSpells[num].name}</button>);
+                                }
                             }
                         }
                     }                    
-                }
+                }         
                 
-
-
-
-               console.log("Spells", spells)
                     spellsToChooseFrom.push(
                         <div className='row' key={spellLevel}>
                             <div className='col-12'>
@@ -435,16 +342,15 @@ class ClassSpells extends Component {
                             </div>
                         </div>);
                 
-            //    console.log("Spells have been found for level ", j)
             } else {// this needs tending to. I want nothing to display if there are no spells for the heroes level.
                 spellsToChooseFrom.push(
                     <div className='row' key={spellLevel}>
                     </div>);
-           //     console.log("No spells found for level ", j);
             }
         }
         return (spellsToChooseFrom);
-    }      
+    }  
+    
     render() {
         return (<div className='col-12'>{this.displaySpells()}</div>);
     }
