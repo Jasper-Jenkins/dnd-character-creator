@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Info from './Info'
 import Selection from './Selection'
 import Navigation from './Navigation'
-import CharacterSave from './CharacterSave'
+//import CharacterSave from './CharacterSave'
 import UserAlert from './Alert'
 
 //import GOOFING from './GOOFING'
@@ -11,39 +11,49 @@ import UserAlert from './Alert'
 class CreateCharacter extends Component {
     constructor(props) {
         super(props);
-        console.log("CreateCharacter: ", props);
-        this.initialState = props.character;
-        this.initialState['abilityScoresSelected'] = {};
-        this.initialState['navigationCategories'] = ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'];
-        this.initialState['navigation'] = 'Races';
-        this.initialState['classSelected'] = {};
-        this.initialState['raceSelected'] = {};
-        this.initialState['proficiencies'] = [];
-        this.initialState['proficienciesChoices'] = [];
-        this.initialState['spellsChosen'] = [];
-        this.initialState['spellSlots'] = [];
-        this.initialState['selectedSpell'] = {};
-        this.initialState['alertMessage'] = "";
-        this.initialState['updateSpellSlots'] = this.updateSpellSlots;
-        this.initialState['updateAlertMessage'] = this.updateAlertMessage;
-        this.initialState['updateSelectedSpell'] = this.updateSelectedSpell;
-        this.initialState['isClassSelected'] = this.isClassSelected;
-        this.initialState['isRaceSelected'] = this.isRaceSelected;
-        this.initialState['setProficiencies'] = this.setProficiencies;
-        this.initialState['startingProficiencies'] = this.startingProficiencies;
-        this.initialState['updateProficiencies'] = this.updateProficiencies;
-        this.initialState['setSpells'] = this.setSpells;
-
-        this.state = this.initialState;
+        this.state = {
+            abilityScoresSelected: {},
+            navigationCategories: ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'],
+            navigation: 'Races',
+            classSelected: {},
+            raceSelected: {},
+            proficiencies: [],
+            proficienciesChoices: [],
+            spellsChosen: [],
+            spellSlots: [],
+            selectedSpell: {},
+            alertMessage: "",
+            updateSpellSlots: this.updateSpellSlots,
+            updateAlertMessage: this.updateAlertMessage,
+            updaSelectedSpell: this.updateSelectedSpell,
+            isClassSelected: this.isClassSelected,
+            isRaceSelected: this.isRaceSelected,
+            setProficiences: this.setProficiencies,
+            startingProficiences: this.startingProficiencies,
+            updateProficiencies: this.updateProficiencies,
+            setSpells: this.setSpells,
+        }
+        //this.updateSpellsSlots = this.updateSpellSlots.bind(this);
+        //this.updateAlertMessage = this.updateAlertMessage.bind(this);
+        //this.updateSelectedSpell = this.updateSelectedSpell.bind(this);
+        //this.isClassSelected = this.isClassSelected.bind(this);
+        //this.isRaceSelected = this.isRaceSelected.bind(this);
     }
     
     componentDidMount() {
-        this.abilityScoresSetup();
+        const { abilityScores } = this.props;
+        this.abilityScoresSetup(abilityScores);
+        console.log("CreateCharacter mounted")
     }
 
-    abilityScoresSetup = () => {
-        const { count } = this.state.abilityScores;
-        const { results } = this.state.abilityScores;
+    componentDidUpdate() {
+        console.log("CreateCharacter updated")
+    }
+
+
+    abilityScoresSetup = (abilityScoresData) => {
+        const { count } = abilityScoresData;
+        const { results } = abilityScoresData;
         let abilityScores = {};
         for (var j = 0; j < count; j++) {
             let ability = results[j].index;
@@ -106,8 +116,8 @@ class CreateCharacter extends Component {
     }
 
     getScore = (ability) => {
-        const { abilityScores } = this.state
-        const { abilityScoresSelected } = this.state
+        const { abilityScores } = this.props;
+        const { abilityScoresSelected } = this.state;
         let scores = abilityScoresSelected
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
@@ -140,7 +150,8 @@ class CreateCharacter extends Component {
     //setBackgroundImage = () => { } //This will be used if I want to put the character image as the background
 
     selectRace = (index) => {
-        const { racesInfo } = this.state
+       // console.log("PROPS FOR SELECT RACE", this.props)
+        const { racesInfo } = this.props;
         for (let i = 0; i < racesInfo.length; i++) {
             if (racesInfo[i].index === index) {
                 const raceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
@@ -151,7 +162,7 @@ class CreateCharacter extends Component {
     }
 
     selectClass = (index) => {
-        const { classesInfo } = this.state
+        const { classesInfo } = this.props;
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
@@ -220,33 +231,29 @@ class CreateCharacter extends Component {
             alert(zeroesAlert)
         }
     }
-
-    componentDidUpdate() {
-    //    console.log("A Change to CreateCharacter has occured")
-    }
-
+       
     render() {
         const { navigationCategories, navigation, } = this.state
-    
+    console.log("PROPS", this.props)
         return (<div id='creator' className='container-fluid creation'>
             <UserAlert alertMessage={this.state.alertMessage} />
             <div className='row'>
-                <Info {...this.state} />
+                <Info {...this.state} {...this.props} />
             </div>
             <div className='row'>
-                <Selection {...this.state} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
+                <Selection {...this.state} {...this.props} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             </div>
             <div className='row'>
-                <Navigation {...this.state} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />
+                <Navigation {...this.state} {...this.props} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />
             </div>
-            <div className='row'>
-                <CharacterSave {...this.state} />
-            </div>
+           
         </div>);
     }
 }
 
-
+//<div className='row'>
+//    <CharacterSave {...this.state} />
+//</div>
 //<GOOFING />
 
 

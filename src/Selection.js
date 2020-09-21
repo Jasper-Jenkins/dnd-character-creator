@@ -4,7 +4,7 @@ import ClassProficiencies from './ClassProficiencies'
 import ClassSpells from './ClassSpells'
 
 const Selection = (props) => {
-  //  console.log("Selection() props", props)
+    console.log("Selection() props", props)
   //  const [character, updateCharacterName] = useState(props);
   //  console.log("useState Hook fun!", character);
 
@@ -14,21 +14,28 @@ const Selection = (props) => {
 
     switch (props.navigation) {
         case 'Races':
+          
             let races = props.races.results.map((race) => {
+               // console.log("creating button for races.");
                 if (raceSelected.index !== undefined && raceSelected.index === race.index) {
+                    console.log("Disabled race button")
                     return (<button className='selectionButtons buttonSelected col-4 {race.index}' tabIndex='-1' aria-disabled='true' key={race.index}>{race.name}</button>);
-                 } else {
+                } else {
+                    console.log("Enabled race button");
                     return (<button onClick={() => props.selectRace(race.index)} className='selectionButtons col-4' key={race.index}>{race.name}</button>);
                 }
             });
+            console.log("Putting races buttons up")
             return (<div className="col-12 text-center selection">
                         {races}
                     </div>);
         case 'Classes':
             let classes = props.classes.results.map((characterClass) => {
                 if (classSelected.index !== undefined && classSelected.index === characterClass.index) {
+                    //console.log("selection disabled for class");
                     return (<button className='selectionButtons buttonSelected col-4' key={characterClass.index}>{characterClass.name}</button>);
                 } else {
+                   // console.log("selection enabled for class");
                     return (<button onClick={() => props.selectClass(characterClass.index)} className='selectionButtons col-4' key={characterClass.index}>{characterClass.name}</button>);
                 }
             });
@@ -66,7 +73,7 @@ const Selection = (props) => {
             );
         default:
             return (<div className='col-12 text-center selection'>DEFAULT: It's a broke!</div>);
-    }
+    }    
 }
 
 //<div className='row'>

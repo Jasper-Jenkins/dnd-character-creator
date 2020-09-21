@@ -52,6 +52,7 @@ const Info = (props) => {
 
     let abilities = Object.keys(props.abilityScoresSelected);
     let abilityScores = abilities.map((ability) => {
+        console.log("HERE")
         return (<div className='col text-center abilityScores' key={ability}>
             <h6>{ability}</h6>
             <p>{props.abilityScoresSelected[ability]}</p>

@@ -18,49 +18,48 @@ class ClassSpells extends Component {
             spellsByDamage: [],
             updateAlertMessage: props.updateAlertMessage,
             updateSpellSlots: props.updateSpellSlots,
-        };        
+        };
     }
 
     componentDidMount() {
-        console.log("ClassSpells", this.state);
+        console.log("ClassSpells mounted:", this.state);
         this.spellSlots();
-        this.classSpells(1);
+        this.setClassSpells(1);
     }
-
+    componentDidUpdate() {
+        console.log("ClassSpells updated: ", this.state);
+    }
     spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
         const { classSelected } = this.state;
         const { levelData } = this.state;    
-        for (var j = 0; j < levelData.length; j++) {
-            if (levelData[j].class.name === classSelected.name) {
-                const propsKeys = Object.getOwnPropertyNames(levelData[j]);
-                for (var p = 0; p < propsKeys.length; p++) {
-                    if (propsKeys[p] === 'spellcasting') {  // this is breaking because not all of the classes have a 'cantrips_known' data point inside 'spellcasting'
-                        let slotsAvailable = [];                        
-                        if (classSelected.name === 'Ranger' || 'Paladin') {
-                            slotsAvailable[0] = 0;
-                            for (var k = 1; k < 6; k++) {
-                                if (levelData[j].spellcasting['spell_slots_level_' + k] !== 0) {
-                                    slotsAvailable[k] = levelData[j].spellcasting['spell_slots_level_' + k];
-                                }
-                            }
-                        } else {
-                            slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
-                            for (var l = 1; l < 10; l++) {
-                                if (levelData[j].spellcasting['spell_slots_level_' + l] !== 0) {
-                                    slotsAvailable[l] = levelData[j].spellcasting['spell_slots_level_' + l];
-                                }
-                            }
-                        }                        
-                        console.log("Available Slots", slotsAvailable);
-                        this.setState({
-                            spellSlots: slotsAvailable,
-                        }, this.state.updateSpellSlots(slotsAvailable));
-                        break;
-                    }      
-                }                
-                break;
-            } 
-        }
+        let slotsAvailable = [];
+        if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {
+            for (var h = 0; h < levelData.length; h++) {
+                if (levelData[h].class.name === classSelected.name) {
+                    slotsAvailable[0] = 0;
+                    for (var i = 1; i < 10; i++) {
+                        if (levelData[h].spellcasting['spell_slots_level_' + i] !== 0) {
+                            slotsAvailable[i] = levelData[h].spellcasting['spell_slots_level_' + i];
+                        }
+                    }
+                }
+            }
+        } else {
+            for (var j = 0; j < levelData.length; j++) {
+                if (levelData[j].class.name === classSelected.name) {
+                    slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
+                    for (var k = 1; k < 10; k++) {
+                        if (levelData[j].spellcasting['spell_slots_level_' + k] !== 0) {
+                            slotsAvailable[k] = levelData[j].spellcasting['spell_slots_level_' + k];
+                        }
+                    }
+                }
+            }            
+        } 
+        console.log("slots available ", slotsAvailable);
+        this.setState({
+            spellSlots: slotsAvailable,
+        }, this.state.updateSpellSlots(slotsAvailable));
     }
 
     updateSpells = (spell) => {
@@ -214,6 +213,7 @@ class ClassSpells extends Component {
                 }
                 break;
             case "Wizard":
+                console.log("Wizard Spell source. ")
                 if (spellsChosen.length === 0) {
                     this.updateSpells(spell);
                     break;
@@ -232,11 +232,11 @@ class ClassSpells extends Component {
         }              
     }
 
-    classSpells = (level) => { 
+    setClassSpells = (level) => { 
         const { classSelected } = this.state;
         const { spellsInfo } = this.state;   
         let spells = []
-        console.log("ITs setting classSpells")
+        console.log("setClassSpells() fired")
         switch (level) {
             case 1:
                 for (var i = 0; i < spellsInfo.length; i++) {
@@ -249,7 +249,7 @@ class ClassSpells extends Component {
                 this.setState({
                     classSpells: spells,
                 });
-                console.log("Made it here");
+                console.log("state classSpells updated", spells);
                 break;
             default: 
                 alert("level of character is invalid in spells creation. ")
@@ -257,6 +257,7 @@ class ClassSpells extends Component {
     }
     
     addSpell = (spell) => {
+        console.log("Add Spell: ", spell.name);
         const { updateSelectedSpell } = this.state;
         this.spellSource(spell, 1);
         updateSelectedSpell(spell)
@@ -283,72 +284,41 @@ class ClassSpells extends Component {
         const { classSpells } = this.state;
         const { spellsChosen } = this.state;
         const { spellSlots } = this.state;
-        console.log("Spells Chosen", spellsChosen)
-        let spellsToChooseFrom = [];
-      //  console.log("Class Spells", classSpells);
-        console.log("Spells to choose from", spellsToChooseFrom)
-        for (var j = 0; j < spellSlots.length; j++) {
+        let spellChoices = [];
+       
+        for (var a = 0; a < spellSlots.length; a++) {
+      //      let spells = [];
+            const slotLevel = a;
+            let slotSpells = classSpells.filter((spell) => {
+                return (spell.level === slotLevel ? spell : null);
+            })
 
-        }
+          
 
-
-
-        for (var j = 0; j < spellSlots.length; j++) {
-            const spellLevel = j;
-            let title = "";
-            let spells = [];
-            let count = false;
-            title = "Level " + j + " spells ";
-            if (spellLevel === 0) {
-                title = "Cantrips";
-            }
-            //for (var i = 0; i < classSpells.length; i++) {
-            //    if (classSpells[i].level === j) { //If there are any spells with a level that matches the current spell slot level (j) set to true. 
-            //        count = true;
-            //        break;
-            //    }
-            //}
-            if (count) {
-                for (var k = 0; k < classSpells.length; k++) {
-                    const num = k;
-                    if (classSpells[num].level === spellLevel) {                        
-                        let classNames = "btn-md btn-primary ";
-                        if (classSpells[num].damage !== undefined ) {
-                            if (classSpells[num].damage.damage_type !== undefined) {
-                                classNames += classSpells[num].damage.damage_type.index;
-                            } 
-                        } 
-                        if (spellsChosen.length === 0) {
-                            spells.push(<button className={classNames} onClick={() => this.addSpell(classSpells[num])} key={classSpells[num].name + classSpells[num].level}>{classSpells[num].name}</button>);
-                        } else {
-                            for (var l = 0; l < spellsChosen.length; l++) {
-                                if (spellsChosen[l].name === classSpells[num].name) {
-                            //        console.log("EH?")
-                                    spells.push(<button className={classNames} onClick={() => this.removeSpell(classSpells[num])} key={classSpells[num].name + classSpells[num].level}>{classSpells[num].name}</button>);
-                                } else {
-                             //       console.log("MEH?")
-                                    spells.push(<button className={classNames} onClick={() => this.addSpell(classSpells[num])} key={classSpells[num].name + classSpells[num].level}>{classSpells[num].name}</button>);
-                                }
-                            }
+            spellChoices[slotLevel] = slotSpells.map((spell) => {
+                let classNames = "btn-md btn-primary ";
+                    if (spell.damage !== undefined) {
+                        if (spell.damage.damage_type !== undefined) {
+                            classNames += spell.damage.damage_type.index;
                         }
-                    }                    
-                }         
-                
-                    spellsToChooseFrom.push(
-                        <div className='row' key={spellLevel}>
-                            <div className='col-12'>
-                                <h6>{title}</h6>
-                                {spells}
-                            </div>
-                        </div>);
-                
-            } else {// this needs tending to. I want nothing to display if there are no spells for the heroes level.
-                spellsToChooseFrom.push(
-                    <div className='row' key={spellLevel}>
-                    </div>);
-            }
+                    }
+                    if (spellsChosen.length === 0) {
+                        return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                    }
+                    for (var b = 0; b < spellsChosen.length; b++) {
+                        let chosen = b;
+                        if (spellsChosen[chosen].name === spell.name) {
+                            console.log("displaying a selected spell");
+                            return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                        }
+                        console.log("displaying a non selected spell")
+                        return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                    }
+                                    
+                return (null);
+            });
         }
-        return (spellsToChooseFrom);
+        return (spellChoices);
     }  
     
     render() {

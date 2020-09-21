@@ -2,25 +2,28 @@ import React, { Component } from 'react'
 import CreateCharacter from './CreateCharacter'
 
 class App extends Component {
-
-    state = {
-        ////////
-        races: {},
-        racesInfo: [],
-        ////////
-        classes: {},
-        classesInfo: [],
-        ////////
-        abilityScores: {},
-        abilityScoresInfo: [],
-        ////////
-        spells: {},
-        spellsInfo: [],
-        ////////
-        features: {},
-        featuresInfo: [],
-        ////////
-        levelData: [],
+    constructor(props) {
+        super(props);
+        this.initialState = {
+            ////////
+            races: {},
+            racesInfo: [],
+            ////////
+            classes: {},
+            classesInfo: [],
+            ////////
+            abilityScores: {},
+            abilityScoresInfo: [],
+            ////////
+            spells: {},
+            spellsInfo: [],
+            ////////
+            features: {},
+            featuresInfo: [],
+            ////////
+            levelData: [],
+        }
+        this.state = this.initialState;
     }
 
     componentDidMount() {
@@ -45,8 +48,18 @@ class App extends Component {
         //fetch(url + 'features')
         //    .then(result => result.json())
         //    .then(result => { this.setState({ features: result }, this.getInfo(result, 'features')) });
+        console.log("App mounted: ", this.state);
     }
-    
+
+
+    componentDidUpdate() {
+        //let keys 
+        //if (this.props.userID !== prevProps.userID) {
+        //    this.fetchData(this.props.userID);
+        //}
+        console.log("App updated: ", this.state, "App props: ", this.props);
+    }
+
     getLevelData(data, currentLevel) {
         let levels = []
         const url = 'http://www.dnd5eapi.co'
@@ -94,10 +107,6 @@ class App extends Component {
         const { abilityScores } = this.state
         const { spells } = this.state
         const { spellsInfo } = this.state
-      //  const { features } = this.state
-
-        const character = this.state
-
         if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined || spellsInfo.length === spells.count) {
             return (<div className="container-fluid">
                         <div className="row">
@@ -107,7 +116,7 @@ class App extends Component {
                         </div>
                     </div>);
         } else {
-            return (<CreateCharacter character={character} />); 
+            return (<CreateCharacter {...this.state} />); 
         }
     }
 }
