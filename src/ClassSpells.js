@@ -268,11 +268,13 @@ class ClassSpells extends Component {
         const { updateSelectedSpell } = this.state
 
         let spells = []
+
         for (var i = 0; i < spellsChosen.length; i++) {
             if (spellsChosen[i].name !== spell.name) {
                 spells.push(spellsChosen[i])
             }
         }
+        console.log("Spells that wont be removed, ", spells)
         this.setState({
             spellsChosen: spells,
         });
@@ -293,7 +295,7 @@ class ClassSpells extends Component {
                 return (spell.level === slotLevel ? spell : null);
             })
 
-          
+            console.log("Slots Spells", slotSpells);
 
             spellChoices[slotLevel] = slotSpells.map((spell) => {
                 let classNames = "btn-md btn-primary ";
@@ -310,11 +312,11 @@ class ClassSpells extends Component {
                         if (spellsChosen[chosen].name === spell.name) {
                             console.log("displaying a selected spell");
                             return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                        } else {
+                            console.log("displaying a non selected spell")
+                            return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                         }
-                        console.log("displaying a non selected spell")
-                        return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                     }
-                                    
                 return (null);
             });
         }

@@ -53,11 +53,11 @@ class App extends Component {
 
 
     componentDidUpdate() {
-        //let keys 
+        //let keys = Object.getOwnPropertyNames(this.state)
         //if (this.props.userID !== prevProps.userID) {
         //    this.fetchData(this.props.userID);
         //}
-        console.log("App updated: ", this.state, "App props: ", this.props);
+        console.log("App updated: ", this.state);
     }
 
     getLevelData(data, currentLevel) {
@@ -86,7 +86,7 @@ class App extends Component {
                 this.setState({ racesInfo: info, });
             break;
             case 'classes':
-                this.setState({ classesInfo: info, }, this.getLevelData(data, 2));
+                this.setState({ classesInfo: info, }, this.getLevelData(data, 1));
                 break;
             case 'ability-scores':
                 this.setState({ abilityScoresInfo: info, });
@@ -100,14 +100,38 @@ class App extends Component {
             default:
         }
     }
+
+    readyToCreate = () => {
+        const data = this.state;
+        for (var key in data) {
+            switch (Object.getPrototypeOf(data[key]).constructor) {
+                case Array:
+                 //   console.log("Array");
+                    break;
+                case Object:
+                  //  console.log("Object");
+                    break;
+                default:
+                    break;
+            }
+            
+            //console.log("KEY:", Object.getPrototypeOf(data[key]).constructor);
+            //if (Object.getPrototypeOf(data[key]) === 'object') {
+            //    console.log("Object: ", key)
+            //}
+        }
+    }
+
           
     render() {
-        const { races } = this.state
-        const { classes } = this.state
-        const { abilityScores } = this.state
-        const { spells } = this.state
-        const { spellsInfo } = this.state
-        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined || spellsInfo.length === spells.count) {
+        const { races } = this.state;
+        const { classes } = this.state;
+        const { abilityScores } = this.state;
+        const { spells } = this.state;
+        const { spellsInfo } = this.state;
+        const { levelData } = this.state;
+       // this.readyToCreate();
+        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined || spellsInfo.length === spells.count || levelData.length === 12) {
             return (<div className="container-fluid">
                         <div className="row">
                             <div className="col-12">

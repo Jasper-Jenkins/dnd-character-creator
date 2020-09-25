@@ -25,11 +25,11 @@ class CreateCharacter extends Component {
             alertMessage: "",
             updateSpellSlots: this.updateSpellSlots,
             updateAlertMessage: this.updateAlertMessage,
-            updaSelectedSpell: this.updateSelectedSpell,
+            updateSelectedSpell: this.updateSelectedSpell,
             isClassSelected: this.isClassSelected,
             isRaceSelected: this.isRaceSelected,
-            setProficiences: this.setProficiencies,
-            startingProficiences: this.startingProficiencies,
+            setProficiencies: this.setProficiencies,
+            startingProficiencies: this.startingProficiencies,
             updateProficiencies: this.updateProficiencies,
             setSpells: this.setSpells,
         }
@@ -234,7 +234,7 @@ class CreateCharacter extends Component {
        
     render() {
         const { navigationCategories, navigation, } = this.state
-    console.log("PROPS", this.props)
+   
         return (<div id='creator' className='container-fluid creation'>
             <UserAlert alertMessage={this.state.alertMessage} />
             <div className='row'>
@@ -245,8 +245,7 @@ class CreateCharacter extends Component {
             </div>
             <div className='row'>
                 <Navigation {...this.state} {...this.props} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />
-            </div>
-           
+            </div>           
         </div>);
     }
 }
