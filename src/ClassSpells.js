@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
 
 class ClassSpells extends Component {
     constructor(props) {
@@ -289,17 +289,17 @@ class ClassSpells extends Component {
         let spellChoices = [];
        
         for (var a = 0; a < spellSlots.length; a++) {
-      //      let spells = [];
+          //let spells = [];
             const slotLevel = a;
             let slotSpells = classSpells.filter((spell) => {
                 return (spell.level === slotLevel ? spell : null);
-            })
+            });
 
             console.log("Slots Spells", slotSpells);
 
             spellChoices[slotLevel] = slotSpells.map((spell) => {
-                let classNames = "btn-md btn-primary ";
-                    if (spell.damage !== undefined) {
+                let classNames = "btn-md spell-btn ";
+                    if (spell.damage !== undefined) { // Is there a better check for this?
                         if (spell.damage.damage_type !== undefined) {
                             classNames += spell.damage.damage_type.index;
                         }
@@ -309,15 +309,11 @@ class ClassSpells extends Component {
                     }
                     for (var b = 0; b < spellsChosen.length; b++) {
                         let chosen = b;
-                        if (spellsChosen[chosen].name === spell.name) {
-                            console.log("displaying a selected spell");
+                        if (spellsChosen[chosen].name === spell.name) {                           
                             return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                        } else {
-                            console.log("displaying a non selected spell")
-                            return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                        }
+                        } 
                     }
-                return (null);
+                return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
             });
         }
         return (spellChoices);
@@ -328,4 +324,4 @@ class ClassSpells extends Component {
     }
 }
 
-export default ClassSpells
+export default ClassSpells;

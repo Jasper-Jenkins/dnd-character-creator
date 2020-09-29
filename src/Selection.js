@@ -3,6 +3,29 @@ import AbilityScoresForm from './AbilityScoresForm'
 import ClassProficiencies from './ClassProficiencies'
 import ClassSpells from './ClassSpells'
 
+
+//class Selection extends Component {
+//    constructor(props) {
+//        super(props);
+//        this.state = {
+//            navigation: 'Races',
+//        }
+//    }
+
+//    componentDidMount() {
+//        console.log("Selection converted to a from a Function to a Class. class Selection {} MOUNTED. ");
+//    }
+
+
+
+//    render() {
+//        return (<div></div>);
+//    }
+//}
+
+
+
+
 const Selection = (props) => {
     console.log("Selection() props", props)
   //  const [character, updateCharacterName] = useState(props);
@@ -14,32 +37,32 @@ const Selection = (props) => {
 
     switch (props.navigation) {
         case 'Races':
-          
+
             let races = props.races.results.map((race) => {
-               // console.log("creating button for races.");
+                // console.log("creating button for races.");
                 if (raceSelected.index !== undefined && raceSelected.index === race.index) {
                     console.log("Disabled race button")
                     return (<button className='selectionButtons buttonSelected col-4 {race.index}' tabIndex='-1' aria-disabled='true' key={race.index}>{race.name}</button>);
-                } else {
-                    console.log("Enabled race button");
-                    return (<button onClick={() => props.selectRace(race.index)} className='selectionButtons col-4' key={race.index}>{race.name}</button>);
                 }
+                return (<button onClick={() => props.selectRace(race.index)} className='selectionButtons col-4' key={race.index}>{race.name}</button>);
+
             });
             console.log("Putting races buttons up")
             return (<div className="col-12 text-center selection">
-                        {races}
-                    </div>);
+                {races}
+            </div>);
+           
         case 'Classes':
             let classes = props.classes.results.map((characterClass) => {
                 if (classSelected.index !== undefined && classSelected.index === characterClass.index) {
                     //console.log("selection disabled for class");
                     return (<button className='selectionButtons buttonSelected col-4' key={characterClass.index}>{characterClass.name}</button>);
-                } else {
-                   // console.log("selection enabled for class");
-                    return (<button onClick={() => props.selectClass(characterClass.index)} className='selectionButtons col-4' key={characterClass.index}>{characterClass.name}</button>);
                 }
+                return (<button onClick={() => props.selectClass(characterClass.index)} className='selectionButtons col-4' key={characterClass.index}>{characterClass.name}</button>);
+
             });
             return (<div className='col-12 text-center selection'>{classes}</div>);
+           
         case 'Proficiencies':
             if (props.isClassSelected(classSelected)) {
                 return (<div className='col-12 text-center selection'>
