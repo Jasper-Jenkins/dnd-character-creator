@@ -35,19 +35,19 @@ class App extends Component {
         fetch(url + 'classes')
             .then(result => result.json())
             .then(result => { this.setState({ classes: result }, this.getInfo(result, 'classes')) })
-            .catch(e => { console.log("You fucked up . Error: ", e); });
+            .catch(e => { console.log("API Request Error: ", e); });
         fetch(url + 'ability-scores')
             .then(result => result.json())
             .then(result => { this.setState({ abilityScores: result }, this.getInfo(result, 'ability-scores')) })
-            .catch(e => { console.log("You fucked up races. Error: ", e); });
+            .catch(e => { console.log("API Request Error: ", e); });
         fetch(url + 'spells')
             .then(result => result.json())
             .then(result => { this.setState({ spells: result }, this.getInfo(result, 'spells')) })
-            .catch(e => { console.log("You fucked up races. Error: ", e); });
+            .catch(e => { console.log("API Request Error: ", e); });
         
-        //fetch(url + 'features')
-        //    .then(result => result.json())
-        //    .then(result => { this.setState({ features: result }, this.getInfo(result, 'features')) });
+        fetch(url + 'features')
+            .then(result => result.json())
+            .then(result => { this.setState({ features: result }, this.getInfo(result, 'features')) });
         console.log("App mounted: ", this.state);
     }
 
@@ -94,9 +94,9 @@ class App extends Component {
             case 'spells':
                 this.setState({ spellsInfo: info, });
                 break;
-            //case 'features':
-            //    this.setState({ featuresInfo: info, })
-            //    break;
+            case 'features':
+                this.setState({ featuresInfo: info, })
+                break;
             default:
         }
     }
@@ -129,9 +129,10 @@ class App extends Component {
         const { abilityScores } = this.state;
         const { spells } = this.state;
         const { spellsInfo } = this.state;
+        const { features } = this.state;
         const { levelData } = this.state;
        // this.readyToCreate();
-        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined || spellsInfo.length === spells.count || levelData.length === 12) {
+        if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined || spellsInfo.length === spells.count || levelData.length === 12 || features.results === undefined) {
             return (<div className="container-fluid">
                         <div className="row">
                             <div className="col-12">

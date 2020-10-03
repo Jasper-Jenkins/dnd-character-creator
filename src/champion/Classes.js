@@ -6,7 +6,11 @@ class CharacterClass extends Component {
 
 
     };
-
+    componentDidMount() {
+        fetch(url + 'races')
+            .then(result => result.json())
+            .then(result => { this.setState({ races: result }, this.getInfo(result, 'races')) });
+    }
 
     render() {
 

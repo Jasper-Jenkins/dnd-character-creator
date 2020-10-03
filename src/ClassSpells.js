@@ -4,34 +4,23 @@ class ClassSpells extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            classSelected: props.classSelected,
-            classes: props.classes,
-            spells: props.spells,
-            spellsInfo: props.spellsInfo,
-            setSpells: props.setSpells,
-            spellsChosen: props.spellsChosen,
-            updateSelectedSpell: props.updateSelectedSpell,
-            levelData: props.levelData, // this should be resolved for the characters level before its initialized here. 
-            classSpells: [],
-            cantrips: [],
-            spellSlots: [],
-            spellsByDamage: [],
-            updateAlertMessage: props.updateAlertMessage,
-            updateSpellSlots: props.updateSpellSlots,
+            classSpells: [], 
+            spellSlots: [], 
+            spellsChosen: [],    
         };
     }
 
     componentDidMount() {
-        console.log("ClassSpells mounted:", this.state);
+        console.log("ClassSpells mounted:", this.props);
         this.spellSlots();
         this.setClassSpells(1);
     }
     componentDidUpdate() {
-        console.log("ClassSpells updated: ", this.state);
+        console.log("ClassSpells updated: ", this.props);
     }
     spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
-        const { classSelected } = this.state;
-        const { levelData } = this.state;    
+        const { classSelected } = this.props;
+        const { levelData } = this.props;    
         let slotsAvailable = [];
         if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {
             for (var h = 0; h < levelData.length; h++) {
@@ -59,20 +48,20 @@ class ClassSpells extends Component {
         console.log("slots available ", slotsAvailable);
         this.setState({
             spellSlots: slotsAvailable,
-        }, this.state.updateSpellSlots(slotsAvailable));
+        }, this.props.updateSpellSlots(slotsAvailable));
     }
 
     updateSpells = (spell) => {
-        const { spellsChosen } = this.state;
+        const { spellsChosen } = this.props;
         let spells = [...spellsChosen, spell];
         this.setState({
             spellsChosen: spells,
         });
-        this.state.setSpells(spells); //parent spells update
+        this.props.setSpells(spells); //parent spells update so Info can display chosen spells
     }
 
     spellsChosenByLevel = () => {
-        const { spellsChosen } = this.state;
+        const { spellsChosen } = this.props;
         let cantrips = 0;
         let levelOneSpells = 0;
         let spells = []
@@ -89,8 +78,8 @@ class ClassSpells extends Component {
     }
 
     spellSource = (spell, currentLevel) => {
-        const { classSelected } = this.state;
-        const { spellsChosen } = this.state;
+        const { classSelected } = this.props;
+        const { spellsChosen } = this.props;
         const { spellSlots } = this.state;
         let cantrips = 0;
         let levelOneSpells = 0;
@@ -233,8 +222,8 @@ class ClassSpells extends Component {
     }
 
     setClassSpells = (level) => { 
-        const { classSelected } = this.state;
-        const { spellsInfo } = this.state;   
+        const { classSelected } = this.props;
+        const { spellsInfo } = this.props;   
         let spells = []
         console.log("setClassSpells() fired")
         switch (level) {
@@ -258,14 +247,14 @@ class ClassSpells extends Component {
     
     addSpell = (spell) => {
         console.log("Add Spell: ", spell.name);
-        const { updateSelectedSpell } = this.state;
+        const { updateSelectedSpell } = this.props;
         this.spellSource(spell, 1);
         updateSelectedSpell(spell)
     }
 
     removeSpell = (spell) => {
-        const { spellsChosen } = this.state
-        const { updateSelectedSpell } = this.state
+        const { spellsChosen } = this.props
+        const { updateSelectedSpell } = this.props
 
         let spells = []
 
@@ -278,14 +267,15 @@ class ClassSpells extends Component {
         this.setState({
             spellsChosen: spells,
         });
-        this.state.setSpells(spells)
+        this.props.setSpells(spells)
         updateSelectedSpell({})
     }
 
     displaySpells = () => {
         const { classSpells } = this.state;
-        const { spellsChosen } = this.state;
         const { spellSlots } = this.state;
+
+        const { spellsChosen } = this.props;
         let spellChoices = [];
        
         for (var a = 0; a < spellSlots.length; a++) {
