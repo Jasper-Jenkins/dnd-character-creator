@@ -29,6 +29,19 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
     </div>);
 }
 
+//export class Info extends Component {
+//    constructor(props) {
+//        super(props);
+//        this.state = {
+//            spellsChosen = [],
+//            proficienciesChosen = 
+
+//        }
+//    }
+//}
+
+
+
 //Work on refactoring this mess
 const Info = (props) => {
   //  console.log("Info props", props)
@@ -40,13 +53,14 @@ const Info = (props) => {
     const { selectedSpell } = props
     const { updateSelectedSpell } = props 
 
-    let raceName = ""
-    let className = "" 
-    let hit_die = ""
-    let ability_bonuses = []
-    let saving_throws = []
-    let characterProficiencies = []
-    let classSpells = []
+    let raceName = "";
+    let className = ""; 
+    let hit_die = "";
+    let ability_bonuses = [];
+    let saving_throws = [];
+    let characterProficiencies = [];
+    let classSpells = [];
+  //  let classFeatures = [];
 
     let bonuses = []
 
@@ -62,7 +76,7 @@ const Info = (props) => {
     
     if (props.isRaceSelected(raceSelected)) { //setting up info for when a race has been selected
         raceName = raceSelected.name
-        ability_bonuses = props.raceSelected.ability_bonuses.map((bonus, index) => {
+        ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
             for (var i = 0; i < abilityScoresInfo.length; i++) {
                 if (abilityScoresInfo[i].name === bonus.name) {
                     return (<li key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);

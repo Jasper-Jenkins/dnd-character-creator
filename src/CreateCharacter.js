@@ -32,12 +32,15 @@ class CreateCharacter extends Component {
             startingProficiencies: this.startingProficiencies,
             updateProficiencies: this.updateProficiencies,
             setSpells: this.setSpells,
+          //  setRace: this.setRace,
         }
         //this.updateSpellsSlots = this.updateSpellSlots.bind(this);
         //this.updateAlertMessage = this.updateAlertMessage.bind(this);
         //this.updateSelectedSpell = this.updateSelectedSpell.bind(this);
         //this.isClassSelected = this.isClassSelected.bind(this);
         //this.isRaceSelected = this.isRaceSelected.bind(this);
+        this.setRace = this.setRace.bind(this);
+        this.setClass = this.setClass.bind(this);
     }
     
     componentDidMount() {
@@ -149,28 +152,36 @@ class CreateCharacter extends Component {
 
     //setBackgroundImage = () => { } //This will be used if I want to put the character image as the background
 
-    selectRace = (index) => {
-       // console.log("PROPS FOR SELECT RACE", this.props)
-        const { racesInfo } = this.props;
-        for (let i = 0; i < racesInfo.length; i++) {
-            if (racesInfo[i].index === index) {
-                const raceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
-                this.setState({ raceSelected: raceSelected[0] });
-                break;
-            }
-        }
+    //selectRace = (index) => {
+    //   // console.log("PROPS FOR SELECT RACE", this.props)
+    //    const { racesInfo } = this.props;
+    //    for (let i = 0; i < racesInfo.length; i++) {
+    //        if (racesInfo[i].index === index) {
+    //            const raceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
+    //            this.setState({ raceSelected: raceSelected[0] });
+    //            break;
+    //        }
+    //    }
+    //}
+
+    setRace(ChosenRace) {
+        this.setState({ raceSelected: ChosenRace, });
     }
 
-    selectClass = (index) => {
-        const { classesInfo } = this.props;
-        for (let i = 0; i < classesInfo.length; i++) {
-            if (classesInfo[i].index === index) {
-                const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: classSelected[0], spellsChosen: [], selectedSpell: {},});
-                break;
-            }
-        }
+    setClass(ChosenClass) {
+        this.setState({ classSelected: ChosenClass, });
     }
+
+    //selectClass = (index) => {
+    //    const { classesInfo } = this.props;
+    //    for (let i = 0; i < classesInfo.length; i++) {
+    //        if (classesInfo[i].index === index) {
+    //            const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
+    //            this.setState({ classSelected: classSelected[0], spellsChosen: [], selectedSpell: {},});
+    //            break;
+    //        }
+    //    }
+    //}
 
     startingProficiencies = (proficiencies) => {
         this.setState({ proficiencies: proficiencies });
@@ -234,14 +245,14 @@ class CreateCharacter extends Component {
        
     render() {
         const { navigationCategories, navigation, } = this.state
-   
+        
         return (<div id='creator' className='container-fluid creation'>
             <UserAlert alertMessage={this.state.alertMessage} />
             <div className='row'>
                 <Info {...this.state} {...this.props} />
             </div>
             <div className='row'>
-                <Selection {...this.state} {...this.props} selectRace={this.selectRace} selectClass={this.selectClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
+                <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             </div>
             <div className='row'>
                 <Navigation {...this.state} {...this.props} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />

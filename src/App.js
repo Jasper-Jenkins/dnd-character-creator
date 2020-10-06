@@ -48,7 +48,7 @@ class App extends Component {
         fetch(url + 'features')
             .then(result => result.json())
             .then(result => { this.setState({ features: result }, this.getInfo(result, 'features')) });
-        console.log("App mounted: ", this.state);
+     //   console.log("App mounted: ", this.state);
     }
 
 
@@ -57,7 +57,7 @@ class App extends Component {
         //if (this.props.userID !== prevProps.userID) {
         //    this.fetchData(this.props.userID);
         //}
-        console.log("App updated: ", this.state);
+     //   console.log("App updated: ", this.state);
     }
 
     getLevelData(data, currentLevel) {
