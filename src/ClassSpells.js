@@ -27,9 +27,10 @@ class ClassSpells extends Component {
             for (var h = 0; h < levelData.length; h++) {
                 if (levelData[h].class.name === classSelected.name) {
                     slotsAvailable[0] = 0;
-                    for (var i = 1; i < 10; i++) {
+                    for (var i = 1; i < 6; i++) {
                         if (levelData[h].spellcasting['spell_slots_level_' + i] !== 0) {
                             slotsAvailable[i] = levelData[h].spellcasting['spell_slots_level_' + i];
+                            console.log("SLOTS avail", slotsAvailable[i])
                         }
                     }
                 }
@@ -65,7 +66,7 @@ class ClassSpells extends Component {
         const { spellsChosen } = this.props;
         let cantrips = 0;
         let levelOneSpells = 0;
-        let spells = []
+        let spells = [];
         for (var i = 0; i < spellsChosen.length; i++) {
             if (spellsChosen[i].level === 0) {
                 cantrips++;
@@ -276,6 +277,7 @@ class ClassSpells extends Component {
     }
 
     displaySpells = () => {
+        const { classSelected } = this.props;
         const { classSpells } = this.state;
         const { spellSlots } = this.state;
 
@@ -313,7 +315,12 @@ class ClassSpells extends Component {
         let spellChoiceDisplay = [];
         for (var b = 0; b < spellChoices.length; b++) {
             if (b === 0) {
-                spellChoiceDisplay[b] = <div className='row' key='cantrips'><div className='col-12'><h6>Cantrips</h6>{spellChoices[b]}</div></div>
+                if (classSelected.name === "Paladin" || classSelected.name === "Ranger") {
+                    spellChoiceDisplay[b] = <div className='row' key='cantrips'><div className='col-12'><h6>You have no spells to choose from at level 1</h6></div></div>
+                } else {
+                    spellChoiceDisplay[b] = <div className='row' key='cantrips'><div className='col-12'><h6>Cantrips</h6>{spellChoices[b]}</div></div>
+                }
+                
             } else {
                 let keyForThee = "spellLevel";
                 spellChoiceDisplay[b] = <div className='row' key={keyForThee + b}><div className='col-12' ><h6>Spell Level {b}</h6>{spellChoices[b]}</div></div> 

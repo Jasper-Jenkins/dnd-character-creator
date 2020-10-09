@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CreateCharacter from './CreateCharacter'
 
-class App extends Component {
+export default class App extends Component {
     constructor(props) {
         super(props);
         this.initialState = {
@@ -145,5 +145,3 @@ class App extends Component {
         }
     }
 }
-
-export default App

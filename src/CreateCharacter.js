@@ -144,7 +144,7 @@ class CreateCharacter extends Component {
     }
 
     setClass(chosenClass) {
-        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, });
+        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, proficienciesChosen: [] });
     }
     
     startingProficiencies = (proficiencies) => {

@@ -23,12 +23,14 @@ class ClassProficiencies extends Component {
     setProficiencies() {
         const { classSelected } = this.props;
         const { proficienciesChosen } = this.props;
+        console.log("SET PROFICIENCIES ", proficienciesChosen);
         let proficiencies = classSelected.proficiencies;
         let chosen = []; 
         let numberOfCategories = classSelected.proficiency_choices.length;
         for (var b = 0; b < numberOfCategories; b++) {
             if (proficienciesChosen.length > 0) {
                 chosen = proficienciesChosen;
+                console.log("DID IT");
                 break;
             } else {
                 chosen[b] = [];
@@ -45,10 +47,6 @@ class ClassProficiencies extends Component {
        // const { proficiencies } = this.state; // testing another way to use state in setState below. 
         const { proficienciesChosen } = this.state;
         const choices = classSelected.proficiency_choices;     
-
-        let chosener = proficienciesChosen;
-        console.log("Add chosen", chosener);
-
         for (var i = 0; i < choices[choicesIndex].from.length; i++) {
             if (proficienciesChosen[choicesIndex].length < choices[choicesIndex].choose) {
                 if (choices[choicesIndex].from[i].name === proficiencyName) {
@@ -72,17 +70,19 @@ class ClassProficiencies extends Component {
     removeProficiency = (proficiencyName, choicesIndex) => {
         const { proficiencies } = this.state;
         const { proficienciesChosen } = this.state;
-        for (var i = 0; i < proficiencies.length; i++) {
-            if (proficiencies[i].name === proficiencyName) {
-                let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName });
-                let newChoices = proficienciesChosen;
-                newChoices[choicesIndex] = proficienciesChosen[choicesIndex].filter(function (proficiency) { return proficiency.name !== proficiencyName });
-                this.setState({
-                    proficiencies: [...newProficiencies],
-                    proficienciesChosen: newChoices,
-                }, this.props.setProficiencies(newProficiencies, newChoices));
-                break;
-            }
+        for (var a = 0; a < proficienciesChosen.length; a++) {
+            for (var b = 0; b < proficienciesChosen[a].length; b++) {
+                if (proficienciesChosen[a][b].name === proficiencyName) {                    
+                    let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName });
+                    let newChoices = proficienciesChosen;
+                    newChoices[choicesIndex] = proficienciesChosen[choicesIndex].filter(function (proficiency) { return proficiency.name !== proficiencyName });
+                    this.setState({
+                        proficiencies: [...newProficiencies],
+                        proficienciesChosen: newChoices,
+                    }, this.props.setProficiencies(newProficiencies, newChoices));
+                    break;
+                }
+            }           
         }
     }
 
