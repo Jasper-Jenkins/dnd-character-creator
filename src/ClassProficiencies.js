@@ -6,40 +6,26 @@ class ClassProficiencies extends Component {
         super(props);
         console.log("ClassProficiencies: ", props);
         this.state = {
-            classSelected: {},            
             proficiencies: [],
-            proficienciesChoices: [],
             proficienciesChosen: [],
-            //startingProficiencies: props.startingProficiencies,
-            //setProficiencies: props.setProficiencies,
-            //updateProficiencies: props.updateProficiencies,
-            //updateAlertMessage: props.updateAlertMessage,
+            
         };
         this.setProficiencies = this.setProficiencies.bind(this);
     }
 
     componentDidMount() {
-        const classSelected = this.props.classSelected;
+        const { classSelected }  = this.props;
         if (isSelected(classSelected)) {
             this.setProficiencies();
-         //   this.setState({ classSelected: classSelected, })
         }        
-    }
-
-    componentWillUnmount() {
-        const { proficiencies } = this.state;
-        const { proficienciesChoices } = this.state;        
-        this.props.updateProficiencies(proficiencies, proficienciesChoices);
-    }
+    }   
     
     setProficiencies() {
         const { classSelected } = this.props;
         const { proficienciesChosen } = this.props;
         let proficiencies = classSelected.proficiencies;
         let chosen = []; 
-        let numberOfCategories = classSelected.proficiency_choices.length;         
-       
-        console.log("Setting props", proficienciesChosen)
+        let numberOfCategories = classSelected.proficiency_choices.length;
         for (var b = 0; b < numberOfCategories; b++) {
             if (proficienciesChosen.length > 0) {
                 chosen = proficienciesChosen;
@@ -48,7 +34,6 @@ class ClassProficiencies extends Component {
                 chosen[b] = [];
             }
         }
-        console.log("setProficiencies", chosen);
         this.setState({
             proficiencies: proficiencies,
             proficienciesChosen: chosen,
@@ -103,19 +88,22 @@ class ClassProficiencies extends Component {
 
     classProficienciesToChooseFrom() {
         const { classSelected } = this.props;
-        const { proficiencies } = this.props;
+        const { proficiencies } = this.state;
+        const { proficienciesChosen } = this.state;
         let chooseFrom = []
         for (var i = 0; i < classSelected.proficiency_choices.length; i++) {
             let choicesIndex = i;
             const chooseProficiencies = classSelected.proficiency_choices[i].from.map((proficiency) => {
                 for (var j = 0; j < proficiencies.length; j++) {
-                    if (proficiency.name === proficiencies[j].name) {
-                        return (<button className='btn-md btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
-                    }
+                    for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
+                        if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
+                            return (<button className='btn-md btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                        }
+                    }                    
                 }
                 return (<button className='btn-md btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
-            chooseFrom.push(<div className='col-12 chooseProficiency' key={choicesIndex}>{chooseProficiencies}</div>)
+            chooseFrom.push(<div className='col-12 chooseProficiency' key={'catetory' + choicesIndex}>{chooseProficiencies}</div>)
         }
         return (chooseFrom);
     }

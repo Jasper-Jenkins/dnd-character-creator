@@ -3,9 +3,9 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\assets\\css",
+    "\\src\\champion",
     "\\src\\helper"
   ],
-  "SelectedNode": "\\src\\Selection.js",
+  "SelectedNode": "\\src\\ClassProficiencies.js",
   "PreviewInSolutionExplorer": false
 }

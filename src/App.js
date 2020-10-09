@@ -135,7 +135,7 @@ class App extends Component {
         if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined || spellsInfo.length === spells.count || levelData.length === 12 || features.results === undefined) {
             return (<div className="container-fluid">
                         <div className="row">
-                            <div className="col-12">
+                            <div className="col-12 text-center">
                                 <p>...Loading API</p>
                             </div>
                         </div>
