@@ -1,4 +1,5 @@
 import React from 'react'
+import isSelected from './helper/helper-functions'
 //import CharacterImages from'./CharacterImages'
 //import ClassProficiencies from './ClassProficiencies'
 
@@ -51,7 +52,7 @@ const Info = (props) => {
     const { proficiencies } = props
     const { spellsChosen } = props
     const { selectedSpell } = props
-    const { updateSelectedSpell } = props 
+    const { setSelectedSpell } = props 
 
     let raceName = "";
     let className = ""; 
@@ -74,7 +75,7 @@ const Info = (props) => {
     });
 
     
-    if (props.isRaceSelected(raceSelected)) { //setting up info for when a race has been selected
+    if (isSelected(raceSelected)) { //setting up info for when a race has been selected
         raceName = raceSelected.name
         ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
             for (var i = 0; i < abilityScoresInfo.length; i++) {
@@ -103,7 +104,7 @@ const Info = (props) => {
         });
     }
 
-    if (props.isClassSelected(classSelected)) { //setting up info for when a class has been selected
+    if (isSelected(classSelected)) { //setting up info for when a class has been selected
         className = classSelected.name
         hit_die = props.classSelected.hit_die
         saving_throws = props.classSelected.saving_throws.map((saving_throw, index) => {
@@ -126,7 +127,7 @@ const Info = (props) => {
                 if (spell === selectedSpell) {
                     return (<li key={spell.name}>{spell.name}</li>);
                 } else {
-                    return (<li onClick={() => updateSelectedSpell(spell)} key={spell.name}>{spell.name}</li>);
+                    return (<li onClick={() => setSelectedSpell(spell)} key={spell.name}>{spell.name}</li>);
                 }
             });            
         } 
@@ -155,7 +156,7 @@ const Info = (props) => {
         case 'Proficiencies':
             return InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScores, saving_throws, characterProficiencies);
         case 'Spells':
-            if (props.isClassSelected(classSelected)) {
+            if (isSelected(classSelected)) {
                 let spellDescription;
                 if (selectedSpell.name === undefined) {
                //     console.log("check check check")

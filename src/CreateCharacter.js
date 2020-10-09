@@ -4,8 +4,8 @@ import Info from './Info'
 import Selection from './Selection'
 import Navigation from './Navigation'
 //import CharacterSave from './CharacterSave'
-import UserAlert from './Alert'
-
+//import isSelected from './helper/helper-functions'
+import UserAlert from './helper/Alert'
 //import GOOFING from './GOOFING'
 
 class CreateCharacter extends Component {
@@ -19,20 +19,18 @@ class CreateCharacter extends Component {
             raceSelected: {},
             proficiencies: [],
             proficienciesChoices: [],
+            proficienciesChosen: [],
             spellsChosen: [],
             spellSlots: [],
             selectedSpell: {},
             alertMessage: "",
             updateSpellSlots: this.updateSpellSlots,
             updateAlertMessage: this.updateAlertMessage,
-            updateSelectedSpell: this.updateSelectedSpell,
-            isClassSelected: this.isClassSelected,
-            isRaceSelected: this.isRaceSelected,
+            setSelectedSpell: this.setSelectedSpell,
             setProficiencies: this.setProficiencies,
             startingProficiencies: this.startingProficiencies,
             updateProficiencies: this.updateProficiencies,
             setSpells: this.setSpells,
-          //  setRace: this.setRace,
         }
         //this.updateSpellsSlots = this.updateSpellSlots.bind(this);
         //this.updateAlertMessage = this.updateAlertMessage.bind(this);
@@ -65,28 +63,20 @@ class CreateCharacter extends Component {
         this.setState({ abilityScoresSelected: abilityScores, });
     }
 
-
-
-    //setCharacterClassProps(props) {
-    //    const propsKeys = Object.getOwnPropertyNames(props.characterClass);
-    //    let properties = {};
-    //    for (var i = 0; i < propsKeys.length; i++) {
-    //        properties[propsKeys[i]] = props.characterClass[propsKeys[i]];
-    //    };        
-    //    return properties
-    //}
-
-
     updateAlertMessage = (message) => {
         this.setState({ alertMessage: message }, this.fadeMessage()); 
     }
 
-    fadeMessage = () => { // FIX THIS!!! 
+    fadeMessage = () => { // FIX THIS!!! AAAAAAAAAAAA!!!!!!
         const alertNode = document.getElementById('alert');
+
+        //const alertNode = document.createElement("div");
+        //alertNode.setAttribute("className", "alert");
+        //document.body.appendChild("alertNode");
         setTimeout(() => {
             let fade = setInterval(() => {
                 if (!alertNode.style.opacity) {
-                    alertNode.style.opacity = 1;
+                   alertNode.style.opacity = 1;
                 }
                 if (alertNode.style.opacity > 0) {
                     alertNode.style.opacity -= 0.01;
@@ -99,7 +89,7 @@ class CreateCharacter extends Component {
         alertNode.style.opacity = 1;
     }
 
-    updateSelectedSpell = (spell) => {
+    setSelectedSpell = (spell) => {
         this.setState({ selectedSpell: spell, });
     }
 
@@ -110,8 +100,7 @@ class CreateCharacter extends Component {
     }
 
     updateSpellSlots = (slots) => {
-        this.setState({
-        spellSlots: slots,})
+        this.setState({ spellSlots: slots, });
     }
 
     navigate = (category) => {
@@ -148,49 +137,25 @@ class CreateCharacter extends Component {
             abilityPoints += abilityPointsArray[j];
         }
         return abilityPoints;
+    }    
+
+    setRace(chosenRace) {
+        this.setState({ raceSelected: chosenRace, });
     }
 
-    //setBackgroundImage = () => { } //This will be used if I want to put the character image as the background
-
-    //selectRace = (index) => {
-    //   // console.log("PROPS FOR SELECT RACE", this.props)
-    //    const { racesInfo } = this.props;
-    //    for (let i = 0; i < racesInfo.length; i++) {
-    //        if (racesInfo[i].index === index) {
-    //            const raceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
-    //            this.setState({ raceSelected: raceSelected[0] });
-    //            break;
-    //        }
-    //    }
-    //}
-
-    setRace(ChosenRace) {
-        this.setState({ raceSelected: ChosenRace, });
+    setClass(chosenClass) {
+        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, });
     }
-
-    setClass(ChosenClass) {
-        this.setState({ classSelected: ChosenClass, });
-    }
-
-    //selectClass = (index) => {
-    //    const { classesInfo } = this.props;
-    //    for (let i = 0; i < classesInfo.length; i++) {
-    //        if (classesInfo[i].index === index) {
-    //            const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-    //            this.setState({ classSelected: classSelected[0], spellsChosen: [], selectedSpell: {},});
-    //            break;
-    //        }
-    //    }
-    //}
-
+    
     startingProficiencies = (proficiencies) => {
         this.setState({ proficiencies: proficiencies });
     }
 
-    setProficiencies = (proficiencies) => {
+    setProficiencies = (proficiencies, choices) => {
         console.log("SET PROFICIENCIES", proficiencies)
         this.setState({
             proficiencies: proficiencies,
+            proficienciesChosen: choices,
         });
     }
        
@@ -201,21 +166,21 @@ class CreateCharacter extends Component {
         });
     }    
 
-    isRaceSelected = (raceSelected) => {
-        return (this.isSelected(raceSelected));
-    }
+    //isRaceSelected = (raceSelected) => {
+    //    return (this.isSelected(raceSelected));
+    //}
 
-    isClassSelected = (classSelected) => {
-        return (this.isSelected(classSelected));
-    }
+    //isClassSelected = (classSelected) => {
+    //    return (this.isSelected(classSelected));
+    //}
 
-    isSelected = (obj) => {
-        for (var key in obj) {
-            obj.hasOwnProperty(key)
-            return true;
-        }
-        return false;
-    }
+    //isSelected = (obj) => {
+    //    for (var key in obj) {
+    //        obj.hasOwnProperty(key)
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     handleSubmit = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
         const { abilityScoresSelected } = this.state
@@ -238,13 +203,13 @@ class CreateCharacter extends Component {
                     zeroesAlert += noZeroes[k];
                 }
             }
-            zeroesAlert += "."
-            alert(zeroesAlert)
+            zeroesAlert += ".";
+            this.updateAlertMessage(zeroesAlert);
         }
     }
        
     render() {
-        const { navigationCategories, navigation, } = this.state
+       // const { navigationCategories, navigation, } = this.state
         
         return (<div id='creator' className='container-fluid creation'>
             <UserAlert alertMessage={this.state.alertMessage} />
@@ -255,7 +220,7 @@ class CreateCharacter extends Component {
                 <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             </div>
             <div className='row'>
-                <Navigation {...this.state} {...this.props} navigate={this.navigate} navigationCategories={navigationCategories} navigation={navigation} />
+                <Navigation {...this.state} {...this.props} navigate={this.navigate} />
             </div>           
         </div>);
     }

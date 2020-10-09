@@ -1,4 +1,5 @@
 import React from 'react'
+import isSelected from './helper/helper-functions'
 
 const Navigation = (props) => {
  //   console.log("Navigation", props)
@@ -8,7 +9,7 @@ const Navigation = (props) => {
     const classSelected = props.classSelected
 
     let navButtons = navigationCategories.map((category, index) => {
-        if (props.isClassSelected(classSelected)) {
+        if (isSelected(classSelected)) {
             if (navigation === category) {
                 return (<button className='navigationButtons buttonSelected disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
             } else {

@@ -12,8 +12,9 @@ class ClassSpells extends Component {
 
     componentDidMount() {
         console.log("ClassSpells mounted:", this.props);
+        
         this.spellSlots();
-        this.setClassSpells(1);
+        this.setClassSpells(1); // character level: 1
     }
     componentDidUpdate() {
         console.log("ClassSpells updated: ", this.props);
@@ -98,9 +99,9 @@ class ClassSpells extends Component {
                     this.updateSpells(spell);
                     break;
                 }
-
                 if (levelOneSpells < level1 && spell.level === 1) {
                     this.updateSpells(spell);
+                    break;
                 }
                 break;
             case "Cleric":
@@ -214,7 +215,10 @@ class ClassSpells extends Component {
                 } 
                 if (levelOneSpells < 6 && spell.level === 1) {
                     this.updateSpells(spell);
+                    break;
                 } 
+                let message = "You cannot add " + spell.name + " to your spell book.";
+                this.props.updateAlertMessage(message)
                 break;
             default:
                 break;
@@ -247,14 +251,14 @@ class ClassSpells extends Component {
     
     addSpell = (spell) => {
         console.log("Add Spell: ", spell.name);
-        const { updateSelectedSpell } = this.props;
+        const { setSelectedSpell } = this.props;
         this.spellSource(spell, 1);
-        updateSelectedSpell(spell)
+        setSelectedSpell(spell)
     }
 
     removeSpell = (spell) => {
         const { spellsChosen } = this.props
-        const { updateSelectedSpell } = this.props
+        const { setSelectedSpell } = this.props
 
         let spells = []
 
@@ -268,7 +272,7 @@ class ClassSpells extends Component {
             spellsChosen: spells,
         });
         this.props.setSpells(spells)
-        updateSelectedSpell({})
+        setSelectedSpell({})
     }
 
     displaySpells = () => {
@@ -278,8 +282,7 @@ class ClassSpells extends Component {
         const { spellsChosen } = this.props;
         let spellChoices = [];
        
-        for (var a = 0; a < spellSlots.length; a++) {
-          //let spells = [];
+        for (var a = 0; a < spellSlots.length; a++) {         
             const slotLevel = a;
             let slotSpells = classSpells.filter((spell) => {
                 return (spell.level === slotLevel ? spell : null);
@@ -305,8 +308,18 @@ class ClassSpells extends Component {
                     }
                 return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
             });
+
         }
-        return (spellChoices);
+        let spellChoiceDisplay = [];
+        for (var b = 0; b < spellChoices.length; b++) {
+            if (b === 0) {
+                spellChoiceDisplay[b] = <div className='row' key='cantrips'><div className='col-12'><h6>Cantrips</h6>{spellChoices[b]}</div></div>
+            } else {
+                let keyForThee = "spellLevel";
+                spellChoiceDisplay[b] = <div className='row' key={keyForThee + b}><div className='col-12' ><h6>Spell Level {b}</h6>{spellChoices[b]}</div></div> 
+            }            
+        }
+        return (spellChoiceDisplay);
     }  
     
     render() {
