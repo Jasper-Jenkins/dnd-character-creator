@@ -293,18 +293,20 @@ class ClassSpells extends Component {
             console.log("Slots Spells", slotSpells);
 
             spellChoices[slotLevel] = slotSpells.map((spell) => {
-                let classNames = "btn-md spell-btn ";
+                let classNames = "btn-md btn-sm spell-btn ";
                     if (spell.damage !== undefined) { // Is there a better check for this?
                         if (spell.damage.damage_type !== undefined) {
                             classNames += spell.damage.damage_type.index;
                         }
                     }
-                    if (spellsChosen.length === 0) {
+                if (spellsChosen.length === 0) {
+                    classNames += "btn-secondary";
                         return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                     }
                     for (var b = 0; b < spellsChosen.length; b++) {
                         let chosen = b;
-                        if (spellsChosen[chosen].name === spell.name) {                           
+                        if (spellsChosen[chosen].name === spell.name) {  
+                            classNames += "btn-primary";
                             return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                         } 
                     }

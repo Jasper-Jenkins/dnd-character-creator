@@ -16,7 +16,7 @@ const Selection = (props) => {
 
     switch (navigation) {
         case 'Races':
-            return (<Races {...props} />);           
+            return (<div className='col-12 text-center selection'><Races {...props} /></div>);           
         case 'Classes':
             return (<div className='col-12 text-center selection'><Classes {...props} /></div>); 
         case 'Proficiencies':

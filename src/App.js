@@ -27,7 +27,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        const url = 'http://www.dnd5eapi.co/api/'
+        const url = 'https://www.dnd5eapi.co/api/'
         fetch(url + "races")
             .then(result => result.json())
             .then(result => { this.setState({ races: result }, this.getInfo(result, 'races')) })
@@ -58,11 +58,12 @@ export default class App extends Component {
         //    this.fetchData(this.props.userID);
         //}
      //   console.log("App updated: ", this.state);
+        this.readyToCreate();
     }
 
     getLevelData(data, currentLevel) {
         let levels = []
-        const url = 'http://www.dnd5eapi.co'
+        const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + "/api/classes/" + data.results[i].index + "/levels/" + currentLevel)
                 .then(result => result.json())
@@ -75,7 +76,7 @@ export default class App extends Component {
 
     getInfo(data, category) {
         let info = []
-        const url = 'http://www.dnd5eapi.co'
+        const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
@@ -106,10 +107,10 @@ export default class App extends Component {
         for (var key in data) {
             switch (Object.getPrototypeOf(data[key]).constructor) {
                 case Array:
-                 //   console.log("Array");
+                    console.log("Array");
                     break;
                 case Object:
-                  //  console.log("Object");
+                    console.log("Object");
                     break;
                 default:
                     break;
@@ -131,7 +132,7 @@ export default class App extends Component {
         const { spellsInfo } = this.state;
         const { features } = this.state;
         const { levelData } = this.state;
-       // this.readyToCreate();
+       
         if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined || spellsInfo.length === spells.count || levelData.length === 12 || features.results === undefined) {
             return (<div className="container-fluid">
                         <div className="row">

@@ -17,7 +17,8 @@ class ClassProficiencies extends Component {
         const { classSelected }  = this.props;
         if (isSelected(classSelected)) {
             this.setProficiencies();
-        }        
+        }    
+        
     }   
     
     setProficiencies() {
@@ -27,15 +28,22 @@ class ClassProficiencies extends Component {
         let proficiencies = classSelected.proficiencies;
         let chosen = []; 
         let numberOfCategories = classSelected.proficiency_choices.length;
+        
         for (var b = 0; b < numberOfCategories; b++) {
             if (proficienciesChosen.length > 0) {
-                chosen = proficienciesChosen;
-                console.log("DID IT");
-                break;
+                if (proficienciesChosen[b].length > 0) {
+
+                    chosen[b] = [...proficienciesChosen[b]]
+                    console.log("DID IT");
+                }
+                //chosen = proficienciesChosen;
+               
+              //  break;
             } else {
                 chosen[b] = [];
             }
         }
+        console.log("chosen: ", chosen);
         this.setState({
             proficiencies: proficiencies,
             proficienciesChosen: chosen,
@@ -70,6 +78,7 @@ class ClassProficiencies extends Component {
     removeProficiency = (proficiencyName, choicesIndex) => {
         const { proficiencies } = this.state;
         const { proficienciesChosen } = this.state;
+        console.log("PROFICIENCIES::::", proficiencies)
         for (var a = 0; a < proficienciesChosen.length; a++) {
             for (var b = 0; b < proficienciesChosen[a].length; b++) {
                 if (proficienciesChosen[a][b].name === proficiencyName) {                    
@@ -79,7 +88,7 @@ class ClassProficiencies extends Component {
                     this.setState({
                         proficiencies: [...newProficiencies],
                         proficienciesChosen: newChoices,
-                    }, this.props.setProficiencies(newProficiencies, newChoices));
+                    }, this.props.setProficiencies([...newProficiencies], newChoices));
                     break;
                 }
             }           
@@ -97,13 +106,13 @@ class ClassProficiencies extends Component {
                 for (var j = 0; j < proficiencies.length; j++) {
                     for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
                         if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
-                            return (<button className='btn-md btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                            return (<button className='col-6 btn-md btn-sm btn-block btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
                         }
                     }                    
                 }
-                return (<button className='btn-md btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                return (<button className='col-6 btn-md btn-sm btn-block btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
-            chooseFrom.push(<div className='col-12 chooseProficiency' key={'catetory' + choicesIndex}>{chooseProficiencies}</div>)
+            chooseFrom.push(<div className='col-6 chooseProficiency' key={'catetory' + choicesIndex}>{chooseProficiencies}</div>)
         }
         return (chooseFrom);
     }

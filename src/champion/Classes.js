@@ -14,6 +14,8 @@ export default class CharacterClass extends Component {
     componentDidMount() {
         if (isSelected(this.props.classSelected)) {
             this.setState({ classSelected: this.props.classSelected, });
+        } else {
+            this.setState({ classSelected: this.props.classesInfo[1], });
         }
     }
 

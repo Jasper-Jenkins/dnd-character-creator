@@ -44,7 +44,8 @@ class CreateCharacter extends Component {
     componentDidMount() {
         const { abilityScores } = this.props;
         this.abilityScoresSetup(abilityScores);
-        console.log("CreateCharacter mounted")
+        console.log("CreateCharacter mounted");
+               
     }
 
     componentDidUpdate() {
@@ -151,10 +152,10 @@ class CreateCharacter extends Component {
         this.setState({ proficiencies: proficiencies });
     }
 
-    setProficiencies = (proficiencies, choices) => {
-        console.log("SET PROFICIENCIES", proficiencies)
+    setProficiencies = (profs, choices) => {
+        console.log("SET PROFICIENCIES", profs, choices)
         this.setState({
-            proficiencies: proficiencies,
+            proficiencies: profs,
             proficienciesChosen: choices,
         });
     }

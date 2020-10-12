@@ -80,31 +80,28 @@
         color: orangered;
     }
     .holy {
-        background-color: gold;
+        color: gold;
     }
     .necrotic {
-        background-color: rebeccapurple;
+        color: rebeccapurple;
     }
     .cold {
-        background-color: cadetblue;
+        color: cadetblue;
     }
     .acid {
-        background-color: green;
+        color: green;
     }
     .poison {
-        background-color: lawngreen;
+        color: lawngreen;
     }
     .lightning {
-        background-color: lightgoldenrodyellow;
-        color: black;
-        font-size: large;
+        color: lightgoldenrodyellow;        
     }
     .thunder {
-        background-color: grey;
+        color: darkslategray;
     }
     .radiant {
-        background-color: yellow;
-        color: black;
+        color: yellow;        
     }
 
     .selection {
