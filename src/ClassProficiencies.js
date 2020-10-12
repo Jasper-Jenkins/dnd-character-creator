@@ -32,13 +32,12 @@ class ClassProficiencies extends Component {
         for (var b = 0; b < numberOfCategories; b++) {
             if (proficienciesChosen.length > 0) {
                 if (proficienciesChosen[b].length > 0) {
-
                     chosen[b] = [...proficienciesChosen[b]]
-                    console.log("DID IT");
-                }
-                //chosen = proficienciesChosen;
-               
-              //  break;
+                    console.log("DID IT", chosen[b]);
+                    if (b === proficienciesChosen.length) {
+                        break;
+                    }
+                }               
             } else {
                 chosen[b] = [];
             }
@@ -78,13 +77,15 @@ class ClassProficiencies extends Component {
     removeProficiency = (proficiencyName, choicesIndex) => {
         const { proficiencies } = this.state;
         const { proficienciesChosen } = this.state;
-        console.log("PROFICIENCIES::::", proficiencies)
+        console.log("PROFICIENCIES::::CHOSEN ", proficiencies, " :::: ", proficienciesChosen);
+        
         for (var a = 0; a < proficienciesChosen.length; a++) {
             for (var b = 0; b < proficienciesChosen[a].length; b++) {
                 if (proficienciesChosen[a][b].name === proficiencyName) {                    
                     let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName });
                     let newChoices = proficienciesChosen;
                     newChoices[choicesIndex] = proficienciesChosen[choicesIndex].filter(function (proficiency) { return proficiency.name !== proficiencyName });
+
                     this.setState({
                         proficiencies: [...newProficiencies],
                         proficienciesChosen: newChoices,
@@ -106,13 +107,13 @@ class ClassProficiencies extends Component {
                 for (var j = 0; j < proficiencies.length; j++) {
                     for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
                         if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
-                            return (<button className='col-6 btn-md btn-sm btn-block btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                            return (<button className='col-12 btn-md btn-sm btn-block btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
                         }
                     }                    
                 }
-                return (<button className='col-6 btn-md btn-sm btn-block btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                return (<button className='col-12 btn-md btn-sm btn-block btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
-            chooseFrom.push(<div className='col-6 chooseProficiency' key={'catetory' + choicesIndex}>{chooseProficiencies}</div>)
+            chooseFrom.push(<div className='col-6 chooseProficiency' key={'catetory' + choicesIndex}><h6>Choose: {classSelected.proficiency_choices[choicesIndex].choose}</h6>{chooseProficiencies}</div>)
         }
         return (chooseFrom);
     }
