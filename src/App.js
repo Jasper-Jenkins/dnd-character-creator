@@ -4,7 +4,7 @@ import CreateCharacter from './CreateCharacter'
 export default class App extends Component {
     constructor(props) {
         super(props);
-        this.initialState = {
+        this.state = {
             ////////
             races: {},
             racesInfo: [],
@@ -23,11 +23,13 @@ export default class App extends Component {
             ////////
             levelData: [],
         }
-        this.state = this.initialState;
+      //  this.state = this.initialState;
+        this.readyToCreate = this.readyToCreate.bind(this);
     }
 
     componentDidMount() {
         const url = 'https://www.dnd5eapi.co/api/'
+       
         fetch(url + "races")
             .then(result => result.json())
             .then(result => { this.setState({ races: result }, this.getInfo(result, 'races')) })
@@ -58,7 +60,9 @@ export default class App extends Component {
         //    this.fetchData(this.props.userID);
         //}
      //   console.log("App updated: ", this.state);
-     //   this.readyToCreate();
+     // this.readyToCreate();
+
+        this.readyToCreate();
     }
 
     getLevelData(data, currentLevel) {
@@ -87,7 +91,8 @@ export default class App extends Component {
                 this.setState({ racesInfo: info, });
             break;
             case 'classes':
-                this.setState({ classesInfo: info, }, this.getLevelData(data, 1));
+                this.setState({ classesInfo: info, });
+                this.getLevelData(data, 1);
                 break;
             case 'ability-scores':
                 this.setState({ abilityScoresInfo: info, });
@@ -100,27 +105,84 @@ export default class App extends Component {
                 break;
             default:
         }
+        let cat = category;
+     //   console.log("Cat..", category, this.state)
+
     }
 
-    readyToCreate = () => {
-        const data = this.state;
-        for (var key in data) {
-            switch (Object.getPrototypeOf(data[key]).constructor) {
-                case Array:
-                    console.log("Array");
-                    break;
-                case Object:
-                    console.log("Object");
-                    break;
-                default:
-                    break;
-            }
+    readyToCreate() {
+        const { races } = this.state;
+        const { racesInfo } = this.state;
+        //const { classesInfo } = this.state;
+        //const { abilityScoresInfo } = this.state;
+        //const { spellsInfo } = this.state;
+        //let count = 0;
+        //let ready = false;
+        //let checkLength = 0;
+        //console.log("Info Length", racesInfo, "race count ", races)
+        if (racesInfo.length === races.count) {
+            console.log("Info Length", racesInfo, "race count ", races)
             
-            //console.log("KEY:", Object.getPrototypeOf(data[key]).constructor);
-            //if (Object.getPrototypeOf(data[key]) === 'object') {
+        }
+        //switch (category) {
+        //    case 'races':
+        //        console.log("Info Length", racesInfo, "race count ", races)
+        //        if (racesInfo.length === races.count) {
+        //            console.log("Yup");
+        //        }
+        //        break;
+        //    case 'classes':
+               
+        //        break;
+        //    case 'ability-scores':
+                
+        //        break;
+        //    case 'spells':
+               
+        //        break;
+        //    case 'features':
+               
+        //        break;
+        //    default:
+        //}
+        //console.log("Category", category)
+        //for (var key in characterInfo) {
+        //    switch (Object.getPrototypeOf(characterInfo[key]).constructor) {
+        //        case Array:
+        //            console.log("Key ", key, " ", characterInfo[key], " category ", category, " ", characterInfo[category]);                  
+        //            if (key === 'racesInfo') {
+        //                if (characterInfo[key].length === characterInfo[category].count) {
+        //                //    count++;
+                            
+        //                    console.log("ReadyToCreate() info", characterInfo[key]);
+        //                }
+        //            }
+        //           // let length = characterInfo[key].length;
+        //          //  console.log("Array", key, " : ", length);
+                    
+        //            break;
+        //        case Object:
+        //          //  console.log("Object", key, " : ", characterInfo[key]);
+        //            //if (key === 'races' && key.count > 0) {
+        //            //    checkLength = key.count;
+        //            //    count++;
+        //            //    console.log("ReadytoCreate() ", characterInfo[key]);
+        //            //}
+        //            count++;
+        //            break;
+        //        default:
+        //            console.log("BROKEN IN readyToCreate()");
+        //            break;
+        //    }
+            
+            //console.log("KEY:", Object.getPrototypeOf(characterInfo[key]).constructor);
+            //if (Object.getPrototypeOf(characterInfo[key]) === 'object') {
             //    console.log("Object: ", key)
             //}
-        }
+        //}
+       
+       // console.log("Total elements in App state: ", count);
+       // return ready;
     }
 
           
@@ -132,7 +194,18 @@ export default class App extends Component {
         const { spellsInfo } = this.state;
         const { features } = this.state; // be sure to change !==  to === below, once you are pulling the features data. 
         const { levelData } = this.state;
-       
+        //if (this.readyToCreate()) {
+        //    return (<div className="container-fluid">
+        //        <div className="row">
+        //            <div className="col-12 text-center">
+        //                <p>...Loading API</p>
+        //            </div>
+        //        </div>
+        //    </div>);
+        //} else {
+        //    return (<CreateCharacter {...this.state} />);
+        //}
+        //this.readyToCreate();
         if (races.results === undefined || classes.results === undefined || abilityScores.results === undefined || spells.results === undefined || spellsInfo.length === spells.count || levelData.length === 12 || features.results !== undefined) {
             return (<div className="container-fluid">
                         <div className="row">

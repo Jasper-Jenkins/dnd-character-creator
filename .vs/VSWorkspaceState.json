@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\champion"
+    "\\src\\champion",
+    "\\src\\helper"
   ],
-  "SelectedNode": "\\src\\App.js",
+  "SelectedNode": "\\src\\ClassProficiencies.js",
   "PreviewInSolutionExplorer": false
 }

@@ -53,6 +53,7 @@ const Info = (props) => {
     const { spellsChosen } = props
     const { selectedSpell } = props
     const { setSelectedSpell } = props 
+    const { proficienciesChosen } = props
 
     let raceName = "";
     let className = ""; 
@@ -67,7 +68,7 @@ const Info = (props) => {
 
     let abilities = Object.keys(props.abilityScoresSelected);
     let abilityScores = abilities.map((ability) => {
-        console.log("HERE")
+       // console.log("HERE")
         return (<div className='col text-center abilityScores' key={ability}>
             <h6>{ability}</h6>
             <p>{props.abilityScoresSelected[ability]}</p>
@@ -84,7 +85,7 @@ const Info = (props) => {
                 }
             }
             return (<li key={index}>Ability: +BONUS</li>);
-        });
+        });        
         bonuses = raceSelected.ability_bonuses.map((bonus) => {
             return bonus
         });
@@ -115,6 +116,9 @@ const Info = (props) => {
             }
             return (<li key={index}>Ability: +BONUS</li>);
         });
+
+       // console.log("Chosen profs ", proficienciesChosen);
+      
         characterProficiencies = proficiencies.map((proficiency) => {
             return (<li key={proficiency.name}>{proficiency.name}</li>);
         });

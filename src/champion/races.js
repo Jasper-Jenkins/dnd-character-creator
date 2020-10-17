@@ -9,7 +9,7 @@ export default class CharacterRace extends Component {
         }
         this.buttons = this.buttons.bind(this);
         this.selectRace = this.selectRace.bind(this);
-        console.log("Race Constructor", props);
+      //  console.log("Race Constructor", props);
     }
 
     componentDidMount() {

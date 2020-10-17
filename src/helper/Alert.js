@@ -1,7 +1,7 @@
 import React from 'react'
 
 const UserAlert = (props) => { //this needs better validation against invalid messages
-    console.log("userAlert props", props);
+  //  console.log("userAlert props", props);
 
     let element = (<div className='row' id='alert'></div>);
     if (props.alertMessage.length > 0) {

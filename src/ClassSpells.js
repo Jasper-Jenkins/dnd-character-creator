@@ -289,27 +289,28 @@ class ClassSpells extends Component {
             let slotSpells = classSpells.filter((spell) => {
                 return (spell.level === slotLevel ? spell : null);
             });
-
-            console.log("Slots Spells", slotSpells);
+            //console.log("Slots Spells", slotSpells);
 
             spellChoices[slotLevel] = slotSpells.map((spell) => {
-                let classNames = "btn-md btn-sm spell-btn ";
+                let classNames = "btn btn-sm btn-block spell-btn ";
+              //  console.log("Spell ", spell);
                     if (spell.damage !== undefined) { // Is there a better check for this?
                         if (spell.damage.damage_type !== undefined) {
-                            classNames += spell.damage.damage_type.index;
+                            classNames += spell.damage.damage_type.index + " ";
                         }
                     }
                 if (spellsChosen.length === 0) {
-                    classNames += "btn-secondary";
+                    classNames += "btn-secondary ";
                         return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                     }
                     for (var b = 0; b < spellsChosen.length; b++) {
                         let chosen = b;
                         if (spellsChosen[chosen].name === spell.name) {  
-                            classNames += "btn-primary";
+                            classNames += "btn-primary ";
                             return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
                         } 
-                    }
+                }
+                classNames += 'btn-secondary ';
                 return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
             });
 
@@ -318,21 +319,21 @@ class ClassSpells extends Component {
         for (var b = 0; b < spellChoices.length; b++) {
             if (b === 0) {
                 if (classSelected.name === "Paladin" || classSelected.name === "Ranger") {
-                    spellChoiceDisplay[b] = <div className='row' key='cantrips'><div className='col-12'><h6>You have no spells to choose from at level 1</h6></div></div>
+                    spellChoiceDisplay[b] = <div className='col-12' key='cantrips'><h6>You have no spells to choose from at level 1</h6></div>
                 } else {
-                    spellChoiceDisplay[b] = <div className='row' key='cantrips'><div className='col-12'><h6>Cantrips</h6>{spellChoices[b]}</div></div>
+                    spellChoiceDisplay[b] = <div className='col-6' key='cantrips'><h6>Cantrips</h6>{spellChoices[b]}</div>
                 }
                 
             } else {
                 let keyForThee = "spellLevel";
-                spellChoiceDisplay[b] = <div className='row' key={keyForThee + b}><div className='col-12' ><h6>Spell Level {b}</h6>{spellChoices[b]}</div></div> 
+                spellChoiceDisplay[b] = <div className='col-6' key={keyForThee + b}><h6>Spell Level {b}</h6>{spellChoices[b]}</div> 
             }            
         }
         return (spellChoiceDisplay);
     }  
     
     render() {
-        return (<div className='col-12'>{this.displaySpells()}</div>);
+        return (<div className='row'>{this.displaySpells()}</div>);
     }
 }
 

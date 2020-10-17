@@ -7,7 +7,7 @@ import Classes from './champion/Classes'
 import isSelected from './helper/helper-functions'
 
 const Selection = (props) => {
-    console.log("Selection() props", props)
+    //console.log("Selection() props", props)
 
     const abilityScores = props.abilityScores;
     const classSelected = props.classSelected;
