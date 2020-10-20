@@ -153,7 +153,6 @@ class CreateCharacter extends Component {
     }
 
     setProficiencies = (profs, choices) => {
-        console.log("SET PROFICIENCIES", profs, choices)
         this.setState({
             proficiencies: profs,
             proficienciesChosen: choices,

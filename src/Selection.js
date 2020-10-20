@@ -8,7 +8,6 @@ import isSelected from './helper/helper-functions'
 
 const Selection = (props) => {
     //console.log("Selection() props", props)
-
     const abilityScores = props.abilityScores;
     const classSelected = props.classSelected;
     const navigation = props.navigation;
@@ -21,20 +20,16 @@ const Selection = (props) => {
             return (<div className='col-12 text-center selection'><Classes {...props} /></div>); 
         case 'Proficiencies':
             if (isSelected(classSelected)) {
-                return (<div className='col-12 text-center selection'>
-                            <ClassProficiencies {...props}/>
-                        </div>);
+                return (<div className='col-12 text-center selection'><ClassProficiencies {...props} /></div>);
             }
-            return (<div className='col-12 text-center selection'>You must first choose a class, before you can select your proficiencies.</div>)
-            
+            return (<div className='col-12 text-center selection'>You must choose a class to select your proficiencies.</div>);            
         case 'Spells':
             if (isSelected(classSelected) && classSelected.spellcasting !== undefined) {
                 return (<div className='col-12 text-center selection'>
                             <ClassSpells {...props} />
                         </div>);
             }
-            return (<div className='col-12 text-center selection'>{classSelected.name} is not a spell caster.</div>);
-            
+            return (<div className='col-12 text-center selection'>{classSelected.name} is not a spell caster.</div>);            
         case 'Ability-Scores':
             let scores = abilityScores.results.map((abilityScore, index) => {
                 return (<button onClick={() => getScore(abilityScore.index)} className='col-2 abilityScoresSelection' key={index}>{abilityScore.name}</button>)
@@ -47,7 +42,6 @@ const Selection = (props) => {
                         </div>
                         <AbilityScoresForm handleSubmit={props.handleSubmit} />
                     </div>
-
                 </div>
             );
         default:

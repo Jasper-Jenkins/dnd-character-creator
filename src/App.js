@@ -29,10 +29,11 @@ export default class App extends Component {
 
     componentDidMount() {
         const url = 'https://www.dnd5eapi.co/api/'
-       
+
         fetch(url + "races")
             .then(result => result.json())
-            .then(result => { this.setState({ races: result }, this.getInfo(result, 'races')) })
+            .then(result => { this.setState({ races: result, }) })    
+            .then(result => { this.getInfo(result, 'races') })
             .catch(e => { console.log(e + " -- " + url);})
         fetch(url + 'classes')
             .then(result => result.json())
@@ -120,9 +121,9 @@ export default class App extends Component {
         //let ready = false;
         //let checkLength = 0;
         //console.log("Info Length", racesInfo, "race count ", races)
-        if (racesInfo.length === races.count) {
-            console.log("Info Length", racesInfo, "race count ", races)
-            
+       // console.log("Updated ", this.state);
+        if (racesInfo.length > 0) {
+            console.log("racesInfo", racesInfo);            
         }
         //switch (category) {
         //    case 'races':
@@ -131,14 +132,11 @@ export default class App extends Component {
         //            console.log("Yup");
         //        }
         //        break;
-        //    case 'classes':
-               
+        //    case 'classes':               
         //        break;
-        //    case 'ability-scores':
-                
+        //    case 'ability-scores':                
         //        break;
-        //    case 'spells':
-               
+        //    case 'spells':               
         //        break;
         //    case 'features':
                

@@ -1,232 +1,234 @@
 
-    .creation {
-        --main-bg-color: slategrey;
-        --main-max-width: 1000px;
-        background-color: var(--main-bg-color);
-        height: 100vh;
-        max-width: var(--main-max-width);
-        margin: 0 auto;
-        border-radius: 3px;
-        box-shadow:0px 0px 20px 30px;
-    }
+.creation {
+    --main-bg-color: slategrey;
+    --main-max-width: 1000px;
+    background-color: var(--main-bg-color);
+    height: 100vh;
+    max-width: var(--main-max-width);
+    margin: 0 auto;
+    border-radius: 3px;
+    box-shadow:0px 0px 20px 30px;
+}
 
-    .infoDisplay { /** Info.js **/
-        width: 100%;
-        border-bottom: 10px black solid;
-    }
+.infoDisplay { /** Info.js **/
+    width: 100%;
+    border-bottom: 10px black solid;
+}
 
-    .infoDisplay th, td{
-        width: 50%;
-    }
+.infoDisplay th, td{
+    width: 50%;
+}
 
-    .infoDisplay th {
-        border-top: 1px black solid;
-        border-right: 1px black solid;
-        border-left: 1px black solid;
-    }
+.infoDisplay th {
+    border-top: 1px black solid;
+    border-right: 1px black solid;
+    border-left: 1px black solid;
+}
 
-    .infoDisplay td {
-        border-left: 1px solid black;
-        border-right: 1px solid black;
-        text-align: center;
-    }
+.infoDisplay td {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+}
 
-    .info {
-        background-color: var(--main-bg-color);
-        height: 55vh;
-        overflow-y: auto;
-        overflow-x: auto;
-    }
+.info {
+    background-color: var(--main-bg-color);
+    height: 55vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}
 
-    .info p {
-        color:azure;
-        text-align:justify;
-        text-justify:trim;
-        font-size:13px;
-        padding: 0px;
-        margin: 0px 0px 10px 0px;
-    }
+.info p {
+    color:azure;
+    text-align:justify;
+    text-justify:trim;
+    font-size:13px;
+    padding: 0px;
+    margin: 0px 0px 10px 0px;
+}
 
-    .info h1, h2, h3, h4, h5, h6 {
-        text-align: center;
-    }
+.info h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}
 
-    .info ul {
-        padding: 0px;
-        margin: 0px;
-        text-indent: 10px;
-        list-style:none;
-    }
-    .characterTitle { /*Info.js*/
-        min-height:40px;
-    }
+.info ul {
+    padding: 0px;
+    margin: 0px;
+    text-indent: 10px;
+    list-style:none;
+}
+.characterTitle { /*Info.js*/
+    min-height:40px;
+}
 
-    .characterImage { /*need better handling for aspect ratios*/
-        background-color: black;
-        border-radius: 13px;
-        box-shadow: 0px 0px 10px 1px;
-        float: right;
-        height: 30vh;
-        margin: 0px 0px 0px 10px;
-        max-width: 100%;
-    }
+.characterImage { /*need better handling for aspect ratios*/
+    background-color: black;
+    border-radius: 13px;
+    box-shadow: 0px 0px 10px 1px;
+    float: right;
+    height: 30vh;
+    margin: 0px 0px 0px 10px;
+    max-width: 100%;
+}
 
-    .spell-btn {
-        border-radius: 5px;
-        font: bolder 15px arial;
-    }
+.spell-btn {
+    border-radius: 5px;
+    font: bolder 15px arial;
+}
 
-    .fire {
-        color: orangered;
-    }
-    .holy {
-        color: gold;
-    }
-    .necrotic {
-        color: rebeccapurple;
-    }
-    .cold {
-        color: cadetblue;
-    }
-    .acid {
-        color: green;
-    }
-    .poison {
-        color: lawngreen;
-    }
-    .lightning {
-        color: lightgoldenrodyellow;        
-    }
-    .thunder {
-        color: darkslategray;
-    }
-    .radiant {
-        color: yellow;        
-    }
+.fire {
+    color: orangered;
+}
+.holy {
+    color: gold;
+}
+.necrotic {
+    color: rebeccapurple;
+}
+.cold {
+    color: cadetblue;
+}
+.acid {
+    color: green;
+}
+.poison {
+    color: lawngreen;
+}
+.lightning {
+    color: lightgoldenrodyellow;        
+}
+.thunder {
+    color: darkslategray;
+}
+.radiant {
+    color: yellow;        
+}
 
-    .selection {
-        background-color: white;
-        width: 100%;
-        height: 30vh;
-        overflow: auto;
-    }
+.selection {
+    background-color: white;
+    width: 100%;
+    height: 30vh;
+    overflow: auto;
+}
     
-    .selectionButtons {
-        background-color: black;
-        color: white;
-        border: none;
-        font-size: 20px;
-        padding: 0px;
-        margin: 0px;
+.selectionButtons {
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 20px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.selectionButtons:focus {
+    outline: none;
+}
+
+.navigation {
+    position: sticky;
+    bottom: 10px;
+    background-color: black;
+    height: 15vh;
+    border: 2px dotted white;
+}
+
+.navigation p {
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid white;
+}
+
+.navigationButtons {
+    background-color:black;
+    color: white;
+    border: none;
+    font-size: 20px;
+    border-radius: 5px 5px;
+    margin: 5px 10px 5px 0px;
+    padding: 0px;
+}
+
+.buttonSelected {
+    background-color:mediumseagreen;
+    color:black;
+}
+
+.shiny {     
+    box-shadow: 0px 0px 5px 1px yellow;
+}
+
+.whiteBorder {
+    border: 3px solid white;
+}
+
+.shinyBlue {
+    box-shadow: 0px 0px 5px 1px #7032ed;
+}
+
+.abilityScores {
+    background-color: cornflowerblue;
     }
 
-    .selectionButtons:focus {
-        outline: none;
-    }
+.abilityScores p { /*this conflicts with .info p {} need to find a better formatting solution*/
+    background-color:deeppink;
+    color: azure;
+    text-align: center;
+    text-justify: trim;
+    font-size: 15px;
+    padding: 0px;
+    margin: 0px auto;
+}
 
-    .navigation {
-        background-color: black;
-        height: 15vh;
-        border: 2px dotted white;
-    }
+.abilityScoresSelection {
+    background-color: black;
+    border:none;
+    color:white;
+}
 
-    .navigation p {
-        margin: 0px;
-        padding: 0px;
-        border: 1px solid white;
-    }
+.abilityScoresSelection:focus {
+    outline:none;
+}
 
-    .navigationButtons {
-        background-color:black;
-        color: white;
-        border: none;
-        font-size: 20px;
-        border-radius: 5px 5px;
-        margin: 5px 10px 5px 0px;
-        padding: 0px;
-    }
+.bonus {
+    color: mediumseagreen;
+}
 
-    .buttonSelected {
-        background-color:mediumseagreen;
-        color:black;
-    }
+#alert {
+    position: absolute;
+    width: inherit;
+    max-width: var(--main-max-width);
+    top: 40vh;
+    z-index: 10;
+    background-color: black;
+    color: white;
+}
 
-    .shiny {     
-        box-shadow: 0px 0px 5px 1px yellow;
-    }
+.chooseProficiency {
+    margin: 10px 0px;
+}
 
-    .whiteBorder {
-        border: 3px solid white;
-    }
+.proficiencyInfo {
+    background-color: green;
+    margin: 0px;
+    padding: 10px;
+    height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
-    .shinyBlue {
-        box-shadow: 0px 0px 5px 1px #7032ed;
-    }
+.proficiencies {
+    margin: 0px 5px 0px 0px;
+    padding: 0px;
+}
 
-    .abilityScores {
-        background-color: cornflowerblue;
-     }
+input[type=number] {
+    width:100%;
+    padding: 5px 5px;
+    margin: 0px auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-    .abilityScores p { /*this conflicts with .info p {} need to find a better formatting solution*/
-        background-color:deeppink;
-        color: azure;
-        text-align: center;
-        text-justify: trim;
-        font-size: 15px;
-        padding: 0px;
-        margin: 0px auto;
-    }
-
-    .abilityScoresSelection {
-        background-color: black;
-        border:none;
-        color:white;
-    }
-
-    .abilityScoresSelection:focus {
-        outline:none;
-    }
-
-    .bonus {
-        color: mediumseagreen;
-    }
-
-    #alert {
-        position: absolute;
-        width: inherit;
-        max-width: var(--main-max-width);
-        top: 40vh;
-        z-index: 10;
-        background-color: black;
-        color: white;
-    }
-
-    .chooseProficiency {
-        margin: 10px 0px;
-    }
-
-    .proficiencyInfo {
-        background-color: green;
-        margin: 0px;
-        padding: 10px;
-        height: 85vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    .proficiencies {
-        margin: 0px 5px 0px 0px;
-        padding: 0px;
-    }
-
-    input[type=number] {
-        width:100%;
-        padding: 5px 5px;
-        margin: 0px auto;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .half-orc {
-        background-image: linear-gradient(to bottom right, #9e0909, #099e1a);
-    }       
+.half-orc {
+    background-image: linear-gradient(to bottom right, #9e0909, #099e1a);
+}       
