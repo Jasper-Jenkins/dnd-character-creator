@@ -3,7 +3,7 @@
     --main-bg-color: slategrey;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 200vh;
+    height: 100vh;
     max-width: var(--main-max-width);
     margin: 0 auto;
     border-radius: 3px;
@@ -27,19 +27,24 @@
     padding: 0px;
 }
 
-
-.scores p {
+.scores {
   font-size: 10px;
-  font-weight: bolder;
-  margin: 0px;
-  padding: 0px;
 }
+
+    .scores p {
+        margin: 0px;
+        padding: 0px;
+    }
 
 .score {
     background-color: cornflowerblue;
     border: 1px solid black;    
     margin: 0px;
     padding: 0px;
+}
+
+.scoreBonus {
+    font-size: 20px;    
 }
 
 .characterTitle { /*Info.js*/

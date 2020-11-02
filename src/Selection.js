@@ -32,7 +32,7 @@ const Selection = (props) => {
             return (<div className='col-12 text-center selection'>{classSelected.name} is not a spell caster.</div>);            
         case 'Ability-Scores':
             let scores = abilityScoresInfo.map((abilityScore, index) => {
-                return (<button onClick={() => getScore(abilityScore.index)} className='col-2 abilityScoresSelection' key={index}>{abilityScore.full_name}</button>)
+                return (<button onClick={() => getScore(abilityScore.index)} className='col-2 abilityScoresSelection' key={index}>{abilityScore.index}</button>)
             });
             return (
                 <div className='col-12 text-center selection'>                   

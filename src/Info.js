@@ -57,7 +57,7 @@ const Info = (props) => {
     let abilityScores = abilityScoresInfo.map((ability) => {
         return (<div className='col-2 text-center score' key={ability.index}>
             <p>{ability.full_name}</p>
-            <p>{props.abilityScoresSelected[ability.index]}</p>
+            <p className='scoreBonus'>{props.abilityScoresSelected[ability.index]}</p>
         </div>);
     });
 
@@ -84,13 +84,13 @@ const Info = (props) => {
                 if (bonuses[i].ability_score.name.toLowerCase() === ability.index) {
                     return (<div className='col-2 text-center score' key={ability.index}>
                         <p>{ability.full_name}</p>
-                        <p>{props.abilityScoresSelected[ability.index]}+{bonuses[i].bonus}</p>
+                        <p className='scoreBonus'>{props.abilityScoresSelected[ability.index]}+{bonuses[i].bonus}</p>
                     </div>);
                 }
             }
             return (<div className='col-2 text-center score' key={ability.index}>
                 <p>{ability.full_name}</p>
-                <p>{props.abilityScoresSelected[ability.index]}</p>
+                <p className='scoreBonus'>{props.abilityScoresSelected[ability.index]}</p>
             </div>);
         });
     }
