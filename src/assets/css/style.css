@@ -3,7 +3,7 @@
     --main-bg-color: slategrey;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 200vh;
+    height: 100vh;
     max-width: var(--main-max-width);
     margin: 0 auto;
     border-radius: 3px;
@@ -115,10 +115,10 @@
 
 .navigation {
     position: fixed;
-    min-width: 100%;
+    max-width: var(--main-max-width);     
     bottom: 0px;
     background-color: black;
-    height: 10vh;    
+    height: 12vh;   
 }
 
 .buttonSelected {

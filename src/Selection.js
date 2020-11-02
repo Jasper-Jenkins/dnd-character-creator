@@ -8,7 +8,7 @@ import isSelected from './helper/helper-functions'
 
 const Selection = (props) => {
     //console.log("Selection() props", props)
-    const abilityScores = props.abilityScores;
+    const abilityScoresInfo = props.abilityScoresInfo;
     const classSelected = props.classSelected;
     const navigation = props.navigation;
     const getScore = props.getScore;
@@ -31,8 +31,8 @@ const Selection = (props) => {
             }
             return (<div className='col-12 text-center selection'>{classSelected.name} is not a spell caster.</div>);            
         case 'Ability-Scores':
-            let scores = abilityScores.results.map((abilityScore, index) => {
-                return (<button onClick={() => getScore(abilityScore.index)} className='col-2 abilityScoresSelection' key={index}>{abilityScore.name}</button>)
+            let scores = abilityScoresInfo.map((abilityScore, index) => {
+                return (<button onClick={() => getScore(abilityScore.index)} className='col-2 abilityScoresSelection' key={index}>{abilityScore.index}</button>)
             });
             return (
                 <div className='col-12 text-center selection'>
