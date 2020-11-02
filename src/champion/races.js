@@ -47,8 +47,9 @@ export default class CharacterRace extends Component {
     }
 
     render() {
-        return (<div className="col-12">
+        return (<div className='row'>
+                <div className="col-12">
                          {this.buttons()}
-                </div>);
+                </div></div>);
     }
 }

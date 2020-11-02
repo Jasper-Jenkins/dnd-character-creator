@@ -95,9 +95,7 @@ class CreateCharacter extends Component {
     }
 
     setSpells = (spells) => {
-        this.setState({
-            spellsChosen: spells,
-        });
+        this.setState({ spellsChosen: spells, });
     }
 
     updateSpellSlots = (slots) => {
@@ -165,23 +163,7 @@ class CreateCharacter extends Component {
             proficienciesChoices: choices,
         });
     }    
-
-    //isRaceSelected = (raceSelected) => {
-    //    return (this.isSelected(raceSelected));
-    //}
-
-    //isClassSelected = (classSelected) => {
-    //    return (this.isSelected(classSelected));
-    //}
-
-    //isSelected = (obj) => {
-    //    for (var key in obj) {
-    //        obj.hasOwnProperty(key)
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
+        
     handleSubmit = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
         const { abilityScoresSelected } = this.state
         let scores = abilityScoresSelected
@@ -219,7 +201,7 @@ class CreateCharacter extends Component {
             <div className='row'>
                 <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             </div>
-            <div className='row'>
+            <div className='row navigation justify-content-center'>
                 <Navigation {...this.state} {...this.props} navigate={this.navigate} />
             </div>           
         </div>);

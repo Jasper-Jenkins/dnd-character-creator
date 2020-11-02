@@ -11,28 +11,28 @@ const Navigation = (props) => {
     let navButtons = navigationCategories.map((category, index) => {
         if (isSelected(classSelected)) {
             if (navigation === category) {
-                return (<button className='navigationButtons buttonSelected disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                return (<button type='button' className='btn btn-sm btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
             } else {
-                return (<button onClick={() => navigate(category)} className='navigationButtons' key={index}>{category}</button>);
+                return (<button onClick={() => navigate(category)} type='button' className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
             }
         } else {
             if (navigation === category) {
-                return (<button className='navigationButtons buttonSelected disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                return (<button type='button' className='btn btn-sm btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
             } else {
                 if (category === 'Classes' && (navigation === 'Proficiencies' || navigation === 'Spells')) {
                     switch (navigation) {
                         case 'Proficiencies':
-                            return (<button onClick={() => navigate(category)} className='navigationButtons shiny' key={index}>{category}</button>);
+                            return (<button onClick={() => navigate(category)} type='button' className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
                         default:
-                            return (<button onClick={() => navigate(category)} className='navigationButtons shinyBlue' key={index}>{category}</button>);
+                            return (<button onClick={() => navigate(category)} type='button'className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
                     }     
                 } else {
-                    return (<button onClick={() => navigate(category)} className='navigationButtons' key={index}>{category}</button>);
+                    return (<button onClick={() => navigate(category)} type='button' className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
                 }
             }
         }                
     });
-    return (<div className="col-12 text-center navigation">
+    return (<div className='col-12 text-center'>
                 {navButtons}
             </div>);
 }

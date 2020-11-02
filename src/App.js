@@ -1,8 +1,5 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component } from 'react'
 import CreateCharacter from './CreateCharacter'
-import isSelected from './helper/helper-functions'
-import isArrayEmpty from './helper/helper-array'
-
 
 export default class App extends Component { 
     constructor(props) {
@@ -20,12 +17,14 @@ export default class App extends Component {
             featuresInfo: [],
             levelData: [],
             ready: false,
+            enter: false,
         }
       //  this.state = this.initialState;
       //  this.readyToCreate = this.readyToCreate.bind(this);
         this.getInfo = this.getInfo.bind(this);
         this.getLevelData = this.getLevelData.bind(this);
-     //   this.getStuff = this.getStuff.bind(this);
+        //   this.getStuff = this.getStuff.bind(this);
+        this.chooseYourChampion = this.chooseYourChampion.bind(this);
     }
 
     componentDidMount() {
@@ -55,7 +54,7 @@ export default class App extends Component {
             this.getInfo(abilityScores, 'ability-scores'),
             this.getInfo(spells, 'spells'),
             this.getInfo(features, 'features'),
-        ]).then(() => { this.setState({ ready: true, }) })
+        ]).then(() => { this.setState({ enter: true, }) })
        
     }
 
@@ -63,62 +62,59 @@ export default class App extends Component {
        return fetch(url + "races")
             .then(result => result.json())
             .then(result => { this.setState({ races: result, }, ); return result })          
-            .catch(e => { console.log(e + " -- " + url); });        
+            .catch(e => { console.log(e + " -- getRaces() -- " + url); });        
     }
 
     getClasses(url) {
        return fetch(url + 'classes')
             .then(result => result.json())
             .then(result => { this.setState({ classes: result, }, ); return result })            
-            .catch(e => { console.log("API Request Error: ", e); });
+           .catch(e => { console.log(e + " -- getClasses() -- " + url); });
     }
 
     getAbilityScores(url) {
       return fetch(url + 'ability-scores')
             .then(result => result.json())
             .then(result => { this.setState({ abilityScores: result, }, ); return result })
-            .catch(e => { console.log("API Request Error: ", e); });
+          .catch(e => { console.log(e + " -- getAbilityScores() -- " + url); });
     }
 
     getSpells(url) {
       return fetch(url + 'spells')
             .then(result => result.json())
             .then(result => { this.setState({ spells: result, }, ); return result })
-            .catch(e => { console.log("API Request Error: ", e); });
+          .catch(e => { console.log(e + " -- getSpells() -- " + url); });
     }
 
     getFeatures(url) {      
        return fetch(url + 'features')
             .then(result => result.json())
             .then(result => { this.setState({ features: result }, ); return result  })
-            .catch(e => { console.log("API Request Error: ", e); });
+           .catch(e => { console.log(e + " -- getFeatures() -- " + url); });
     }
 
     getLevelData(data, currentLevel) {       
         let levels = []
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
-           Promise.resolve(fetch(url + "/api/classes/" + data.results[i].index + "/levels/" + currentLevel))
+            Promise.resolve(fetch(url + "/api/classes/" + data.results[i].index + "/levels/" + currentLevel))
                 .then(result => result.json())
-                .then(result => { levels.push(result) })            
-        }
-        console.log("Level data", levels)
+                .then(result => { levels.push(result) });            
+        }        
         this.setState({
             levelData: levels,
         });
     }
 
     getInfo(data, category) {
-        let info = []
-    // console.log("getInfo() data coming in: ", data, category);
+        let info = []    
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             Promise.resolve(fetch(url + data.results[i].url))
                 .then(result => result.json())
-                .then(result => { info.push(result) })
+                .then(result => { info.push(result) });
         }
-        console.log(info);
-    // console.log("getInfo() info being set: ", info, category);
+        console.log(info);   
         switch(category) {
             case 'races':
                 this.setState({ racesInfo: info, });
@@ -132,50 +128,26 @@ export default class App extends Component {
             case 'spells':
                 this.setState({ spellsInfo: info, });
                 break;
-            case 'features':
-                console.log("reatures", info)
-                this.setState({ featuresInfo: info, })
+            case 'features':                
+                this.setState({ featuresInfo: info, });
                 break;
             default:
         }
-    // let cat = category;
-    // console.log("Cat..", category, this.state)
-    // this.readyToCreate();
+    }
+
+    //handleClick() {
+    //    this.setState(state => ({
+    //        isToggleOn: !state.isToggleOn
+    //    }));
+    //}
+
+
+    chooseYourChampion = () => {
+        this.setState(state => ({
+            ready: !state.ready,
+        }));
     }
     
-    readyToCreate(data) {
-        //const characterInfo = data;
-        let check = true;
-        console.log(data);
-        const characterInfo = this.state;
-        console.log("CharacterInfo ", characterInfo);
-        
-
-        for (var key in data) {
-            switch (Object.getPrototypeOf(data[key]).constructor) {
-                case Array:
-                    isArrayEmpty(data[key])
-                    if (data[key].length === 0) {
-                  // console.log("Array setting ready to false ", key);
-                  // check = false;
-                    }
-                    break;
-                case Object:
-                    if (!isSelected(data[key])) {
-                  // console.log("Object setting ready to false ", key);
-                        check = false;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            if (!check) {
-                break;
-            }
-        }
-        return check;
-    }
-          
     render() {
         const { ready } = this.state;
               
@@ -183,7 +155,8 @@ export default class App extends Component {
             return (<div className="container-fluid">
                 <div className="row">
                     <div className="col-12 text-center">
-                        <p>...Loading API</p>
+                        <h1>Welcome</h1>
+                        {this.state.enter ? <button onClick={this.chooseYourChampion} className='btn'>Begin your journey!</button> : <p>...Loading API</p> }                       
                     </div>
                 </div>
             </div>);  

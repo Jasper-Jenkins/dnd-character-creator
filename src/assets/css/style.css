@@ -3,48 +3,19 @@
     --main-bg-color: slategrey;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 100vh;
+    height: 200vh;
     max-width: var(--main-max-width);
     margin: 0 auto;
     border-radius: 3px;
     box-shadow:0px 0px 20px 30px;
 }
 
-.infoDisplay { /** Info.js **/
-    width: 100%;
-    border-bottom: 10px black solid;
-}
-
-.infoDisplay th, td{
-    width: 50%;
-}
-
-.infoDisplay th {
-    border-top: 1px black solid;
-    border-right: 1px black solid;
-    border-left: 1px black solid;
-}
-
-.infoDisplay td {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    text-align: center;
-}
-
 .info {
     background-color: var(--main-bg-color);
-    height: 55vh;
+    min-height: 60vh;
+    max-height: 60vh;
     overflow-y: auto;
     overflow-x: auto;
-}
-
-.info p {
-    color:azure;
-    text-align:justify;
-    text-justify:trim;
-    font-size:13px;
-    padding: 0px;
-    margin: 0px 0px 10px 0px;
 }
 
 .info h1, h2, h3, h4, h5, h6 {
@@ -52,11 +23,24 @@
 }
 
 .info ul {
+    list-style: none;
     padding: 0px;
-    margin: 0px;
-    text-indent: 10px;
-    list-style:none;
 }
+
+
+.scores p {
+  font-size: 10px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.score {
+    background-color: cornflowerblue;
+    border: 1px solid black;
+    margin: 0px;
+    padding: 0px;
+}
+
 .characterTitle { /*Info.js*/
     min-height:40px;
 }
@@ -107,7 +91,8 @@
 .selection {
     background-color: white;
     width: 100%;
-    height: 30vh;
+    min-height: 30vh;
+    max-height: 30vh;
     overflow: auto;
 }
     
@@ -124,28 +109,16 @@
     outline: none;
 }
 
+.btn-nav {
+  margin: 2px; 
+}
+
 .navigation {
-    position: sticky;
-    bottom: 10px;
+    position: fixed;
+    min-width: 100%;
+    bottom: 0px;
     background-color: black;
-    height: 15vh;
-    border: 2px dotted white;
-}
-
-.navigation p {
-    margin: 0px;
-    padding: 0px;
-    border: 1px solid white;
-}
-
-.navigationButtons {
-    background-color:black;
-    color: white;
-    border: none;
-    font-size: 20px;
-    border-radius: 5px 5px;
-    margin: 5px 10px 5px 0px;
-    padding: 0px;
+    height: 10vh;    
 }
 
 .buttonSelected {
@@ -157,26 +130,8 @@
     box-shadow: 0px 0px 5px 1px yellow;
 }
 
-.whiteBorder {
-    border: 3px solid white;
-}
-
 .shinyBlue {
     box-shadow: 0px 0px 5px 1px #7032ed;
-}
-
-.abilityScores {
-    background-color: cornflowerblue;
-    }
-
-.abilityScores p { /*this conflicts with .info p {} need to find a better formatting solution*/
-    background-color:deeppink;
-    color: azure;
-    text-align: center;
-    text-justify: trim;
-    font-size: 15px;
-    padding: 0px;
-    margin: 0px auto;
 }
 
 .abilityScoresSelection {
@@ -229,6 +184,6 @@ input[type=number] {
     border-radius: 4px;
 }
 
-.half-orc {
-    background-image: linear-gradient(to bottom right, #9e0909, #099e1a);
-}       
+.race-class {
+    min-height: 30px;
+}    
