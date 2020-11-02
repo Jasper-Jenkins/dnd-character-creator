@@ -3,7 +3,7 @@
     --main-bg-color: slategrey;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 100vh;
+    height: 200vh;
     max-width: var(--main-max-width);
     margin: 0 auto;
     border-radius: 3px;
@@ -30,13 +30,14 @@
 
 .scores p {
   font-size: 10px;
+  font-weight: bolder;
   margin: 0px;
   padding: 0px;
 }
 
 .score {
     background-color: cornflowerblue;
-    border: 1px solid black;
+    border: 1px solid black;    
     margin: 0px;
     padding: 0px;
 }
@@ -91,8 +92,8 @@
 .selection {
     background-color: white;
     width: 100%;
-    min-height: 30vh;
-    max-height: 30vh;
+    min-height: 28vh;
+    max-height: 28vh;
     overflow: auto;
 }
     
@@ -117,6 +118,8 @@
     position: fixed;
     max-width: var(--main-max-width);     
     bottom: 0px;
+    margin: 0px;
+    padding: 0px;
     background-color: black;
     height: 12vh;   
 }

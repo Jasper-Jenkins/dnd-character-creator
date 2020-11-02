@@ -32,7 +32,7 @@ const Navigation = (props) => {
             }
         }                
     });
-    return (<div className='col-12 text-center'>
+    return (<div className='col-12 text-center navigation'>
                 {navButtons}
             </div>);
 }
