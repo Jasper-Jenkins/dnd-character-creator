@@ -5,3 +5,4 @@ export default function isSelected(obj) {
     }
     return false;
 }
+

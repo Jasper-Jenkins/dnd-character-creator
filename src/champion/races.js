@@ -7,18 +7,20 @@ export default class CharacterRace extends Component {
         this.state = {
             raceSelected: {},            
         }
-        this.buttons = this.buttons.bind(this);
-        this.selectRace = this.selectRace.bind(this);
-      //  console.log("Race Constructor", props);
+       // this.buttons = this.buttons.bind(this);
+       // this.selectRace = this.selectRace.bind(this);
+        console.log("Race Constructor", props);
     }
 
     componentDidMount() {
         if (isSelected(this.props.raceSelected)) {
+            console.log('race is selcted');
             this.setState({ raceSelected: this.props.raceSelected, });
         }
+        console.log("Races buttons mounted");
     }
 
-    selectRace(index) {
+    selectRace = (index) => {
         const { racesInfo } = this.props;
         const { setRace } = this.props;
         for (let i = 0; i < racesInfo.length; i++) {
@@ -31,12 +33,13 @@ export default class CharacterRace extends Component {
         }
     }   
 
-    buttons() {
-        const { races } = this.props
-        const { raceSelected } = this.state;              
+    buttons = () => {
+        const { races } = this.props;
+        const { raceSelected } = this.state;
+        //console.log("race selected ", raceSelected);
         let raceButtons = races.results.map((race) => {
             if (isSelected(raceSelected) && raceSelected.index === race.index) {
-                return (<button className='selectionButtons buttonSelected col-4 {race.index}' aria-disabled='true' key={race.index}>{race.name}</button>);
+                return (<button className='selectionButtons buttonSelected col-4 {race.index}' aria-disabled='true' key={race.index}>{race.name} uh</button>);
             }
             return (<button onClick={() => this.selectRace(race.index)} className='selectionButtons col-4' key={race.index}>{race.name}</button>);
         });

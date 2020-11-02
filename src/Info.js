@@ -30,19 +30,6 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
     </div>);
 }
 
-//export class Info extends Component {
-//    constructor(props) {
-//        super(props);
-//        this.state = {
-//            spellsChosen = [],
-//            proficienciesChosen = 
-
-//        }
-//    }
-//}
-
-
-
 //Work on refactoring this mess
 const Info = (props) => {
   //  console.log("Info props", props)
@@ -53,7 +40,7 @@ const Info = (props) => {
     const { spellsChosen } = props
     const { selectedSpell } = props
     const { setSelectedSpell } = props 
-    const { proficienciesChosen } = props
+  //  const { proficienciesChosen } = props
 
     let raceName = "";
     let className = ""; 
@@ -80,18 +67,21 @@ const Info = (props) => {
         raceName = raceSelected.name
         ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
             for (var i = 0; i < abilityScoresInfo.length; i++) {
-                if (abilityScoresInfo[i].name === bonus.name) {
+                if (abilityScoresInfo[i].name === bonus.ability_score.name) {
                     return (<li key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
                 }
             }
             return (<li key={index}>Ability: +BONUS</li>);
         });        
         bonuses = raceSelected.ability_bonuses.map((bonus) => {
+           // console.log(bonus)
             return bonus
         });
+
+        console.log(bonuses);
         abilityScores = abilities.map((ability) => {
             for (var i = 0; i < bonuses.length; i++) {
-                if (bonuses[i].name.toLowerCase() === ability) {
+                if (bonuses[i].ability_score.name.toLowerCase() === ability) {
                     return (<div className='col text-center abilityScores' key={ability}>
                         <h6>{ability}</h6>
                         <p>{props.abilityScoresSelected[ability]}+{bonuses[i].bonus}</p>
