@@ -11,7 +11,7 @@ const Selection = (props) => {
     const abilityScoresInfo = props.abilityScoresInfo;
     const classSelected = props.classSelected;
     const navigation = props.navigation;
-    const getScore = props.getScore;
+    const getScore = props.getScore; 
 
     switch (navigation) {
         case 'Races':
@@ -32,10 +32,10 @@ const Selection = (props) => {
             return (<div className='col-12 text-center selection'>{classSelected.name} is not a spell caster.</div>);            
         case 'Ability-Scores':
             let scores = abilityScoresInfo.map((abilityScore, index) => {
-                return (<button onClick={() => getScore(abilityScore.index)} className='col-2 selectionButtons' key={index}>{abilityScore.index}</button>)
+                return (<button onClick={() => getScore(abilityScore.index)} className='col-4 selectionButtons' key={index}>{abilityScore.full_name}</button>)
             });
             return (
-                <div className='col-12 text-center selection'>                   
+                <div className='col-12 text-center selection'>                    
                         {scores}                        
                         <AbilityScoresForm handleSubmit={props.handleSubmit} />
                 </div>

@@ -48,6 +48,7 @@ export default class CharacterRace extends Component {
 
     render() {
         return (<div className='text-center selection col-12'>
+            <p className="selectionTitle">Choose your Champions Race</p>
                     {this.buttons()}
                 </div>);
     }

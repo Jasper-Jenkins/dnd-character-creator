@@ -47,6 +47,7 @@ export default class CharacterClass extends Component {
 
     render() {
         return (<div className="col-12 text-center selection">
+                 <p className="selectionTitle">Choose your Champions Class</p>
                         {this.buttons()}
                     </div>);
     }
