@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0cc0a1576f47e5d955fe27f3f015208d",
+    "revision": "5751cfc955a15c3a710563d25a6f0f55",
     "url": "/dnd-character-creator/index.html"
   },
   {
-    "revision": "cd3e008ca7cd6abe7569",
-    "url": "/dnd-character-creator/static/css/main.2a59b4d4.chunk.css"
+    "revision": "27bd7d95219b5e953648",
+    "url": "/dnd-character-creator/static/css/main.e4de635b.chunk.css"
   },
   {
     "revision": "eee9cdbf790d91aa46d9",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dnd-character-creator/static/js/2.da744831.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cd3e008ca7cd6abe7569",
-    "url": "/dnd-character-creator/static/js/main.837c5e7c.chunk.js"
+    "revision": "27bd7d95219b5e953648",
+    "url": "/dnd-character-creator/static/js/main.a8b08053.chunk.js"
   },
   {
     "revision": "a5f755cae4520b229306",
