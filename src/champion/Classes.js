@@ -46,11 +46,9 @@ export default class CharacterClass extends Component {
     }
 
     render() {
-        return (<div className="row">
-                    <div className="col-12 text-center selection">
+        return (<div className="col-12 text-center selection">
                         {this.buttons()}
-                    </div>
-                </div>);
+                    </div>);
     }
 }
 

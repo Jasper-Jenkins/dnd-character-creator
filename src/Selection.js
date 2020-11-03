@@ -15,9 +15,9 @@ const Selection = (props) => {
 
     switch (navigation) {
         case 'Races':
-            return (<div className='col-12 text-center selection'><Races {...props} /></div>);           
+            return (<Races {...props} />);           
         case 'Classes':
-            return (<div className='col-12 text-center selection'><Classes {...props} /></div>); 
+            return (<Classes {...props} />); 
         case 'Proficiencies':
             if (isSelected(classSelected)) {
                 return (<div className='col-12 text-center selection'><ClassProficiencies {...props} /></div>);
@@ -32,7 +32,7 @@ const Selection = (props) => {
             return (<div className='col-12 text-center selection'>{classSelected.name} is not a spell caster.</div>);            
         case 'Ability-Scores':
             let scores = abilityScoresInfo.map((abilityScore, index) => {
-                return (<button onClick={() => getScore(abilityScore.index)} className='col-2 abilityScoresSelection' key={index}>{abilityScore.index}</button>)
+                return (<button onClick={() => getScore(abilityScore.index)} className='col-2 selectionButtons' key={index}>{abilityScore.index}</button>)
             });
             return (
                 <div className='col-12 text-center selection'>                   

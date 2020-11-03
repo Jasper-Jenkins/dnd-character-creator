@@ -32,7 +32,7 @@ export default class App extends Component {
         const promise = this.getCharacterInformation(url);
         promise.then((data) => {
             this.getCharacterData(data.races, data.classes, data.abilityScores, data.spells, data.features)
-        console.log(data)})
+        });
     }
      
 
@@ -114,7 +114,7 @@ export default class App extends Component {
                 .then(result => result.json())
                 .then(result => { info.push(result) });
         }
-        console.log(info);   
+       // console.log(info);   
         switch(category) {
             case 'races':
                 this.setState({ racesInfo: info, });

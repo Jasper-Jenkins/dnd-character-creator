@@ -32,20 +32,21 @@
     color: azure;
     border: solid 1px black;
     font-size: 10px;
+    font-weight: bolder;
     margin: 0px;
     padding: 0px;
 }
 
-.ability p {
-    margin: 0px;
-    padding: 0px;
-}
+    .ability p {
+        margin: 0px;
+        padding: 0px;        
+    }
 
 .abilityScore {
     background-color: cornflowerblue;
     color: azure;
-    border: solid 1px black;
     font-size: 40px;
+  
     margin: 0px;
     padding: 0px;
 }
@@ -53,12 +54,15 @@
 .abilityScoreBonus {
     background-color: cornflowerblue;
     color: forestgreen;
-    border: solid 1px black;
+    font-weight: bolder;
     font-size: 40px;
     margin: 0px;
     padding: 0px;
 }
 
+.savingThrow {
+    border: 2px solid goldenrod;
+}
 
 .characterTitle { /*Info.js*/
     min-height:40px;
@@ -113,20 +117,31 @@
     min-height: 28vh;
     max-height: 28vh;
     overflow: auto;
+    margin: 0px;
+    padding: 0px;
 }
     
 .selectionButtons {
     background-color: black;
     color: white;
     border: none;
-    font-size: 20px;
-    padding: 0px;
-    margin: 0px;
-}
+    font-size: 15px;
+   }
 
 .selectionButtons:focus {
     outline: none;
 }
+
+.chooseRaceTitle {
+    position: absolute;
+    z-index:1;
+    top: -20px;
+    height: 30px;
+    font-size: 20px;
+    background-color: mediumaquamarine;
+}
+
+
 
 .btn-nav {
   margin: 2px; 
@@ -157,13 +172,13 @@
 
 .abilityScoresSelection {
     background-color: black;
-    border:none;
-    color:white;
+    border: none;
+    color: white;
     font-size: 15px;
 }
 
 .abilityScoresSelection:focus {
-    outline:none;
+    outline: none;
 }
 
 .bonus {

@@ -9,7 +9,7 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
         <div className='row'>
             <div className='col-12 characterTitle'>
                 <h3>{raceName ? raceName : "Race" } {className ? className : "Class"}</h3>
-                <div className='row abilityScores'>{abilityScores}</div>  
+                <div className='row'>{abilityScores}</div>  
             </div>
             <div className='col-6'>            
                 <strong>Ability bonuses</strong><br />
@@ -52,16 +52,24 @@ const Info = (props) => {
     let bonuses = []
 
     //let abilities = Object.keys(props.abilityScoresSelected);
-    console.log("HERE", props.abilityScoresInfo);
+    //console.log("HERE", props.classSelected);
 
     let abilityScores = abilityScoresInfo.map((ability) => {
+        let abilityScore = "abilityScore";
+        if (isSelected(classSelected)) {
+            for (var a = 0; a < classSelected.saving_throws.length; a++) {
+                if (ability.index === classSelected.saving_throws[a].index) {
+                    abilityScore += " savingThrow"
+                }
+            }
+        }        
         return (<div className='col-2 text-center ability' key={ability.index}>
-                    <p>{ability.full_name}</p>
-                    <p className='abilityScore'>{props.abilityScoresSelected[ability.index]}</p>
+            <p>{ability.full_name}</p>
+            <p className={abilityScore}>{props.abilityScoresSelected[ability.index]}</p>
                 </div>);
     });
 
-    console.log(abilityScores)
+   // console.log(abilityScores)
     
     if (isSelected(raceSelected)) { //setting up info for when a race has been selected
         raceName = raceSelected.name
@@ -80,18 +88,27 @@ const Info = (props) => {
 
        // console.log(bonuses);
         abilityScores = abilityScoresInfo.map((ability) => {
+            let abilityScore = "abilityScore";
+            if (isSelected(classSelected)) {
+                for (var a = 0; a < classSelected.saving_throws.length; a++) {
+                    if (ability.index === classSelected.saving_throws[a].index) {
+                        abilityScore = "savingThrow abilityScore"
+                    }
+                }
+            }         
             for (var i = 0; i < bonuses.length; i++) {
-                if (bonuses[i].ability_score.name.toLowerCase() === ability.index) {
+                if (bonuses[i].ability_score.name.toLowerCase() === ability.index) { 
+                    abilityScore += "Bonus"                               
                     let bonus = props.abilityScoresSelected[ability.index] + bonuses[i].bonus;
                     return (<div className='col-2 text-center ability' key={ability.index}>
                         <p>{ability.full_name}</p>
-                        <p className='abilityScoreBonus'>{bonus}</p>
+                        <p className={abilityScore}>{bonus}</p>
                     </div>);
                 }
-            }
+            }               
             return (<div className='col-2 text-center ability' key={ability.index}>
                 <p>{ability.full_name}</p>
-                <p className='abilityScore'>{props.abilityScoresSelected[ability.index]}</p>
+                <p className={abilityScore}>{props.abilityScoresSelected[ability.index]}</p>
             </div>);
         });
     }

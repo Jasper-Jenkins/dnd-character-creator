@@ -8,16 +8,16 @@ export default class CharacterRace extends Component {
             raceSelected: {},            
         }
        // this.buttons = this.buttons.bind(this);
-       // this.selectRace = this.selectRace.bind(this);
-        console.log("Race Constructor", props);
+        this.selectRace = this.selectRace.bind(this);
+    //    console.log("Race Constructor", props);
     }
 
     componentDidMount() {
         if (isSelected(this.props.raceSelected)) {
-            console.log('race is selcted');
+       //     console.log('race is selcted');
             this.setState({ raceSelected: this.props.raceSelected, });
         }
-        console.log("Races buttons mounted");
+    //    console.log("Races buttons mounted");
     }
 
     selectRace = (index) => {
@@ -47,9 +47,8 @@ export default class CharacterRace extends Component {
     }
 
     render() {
-        return (<div className='row'>
-                <div className="col-12">
-                         {this.buttons()}
-                </div></div>);
+        return (<div className='text-center selection col-12'>
+                    {this.buttons()}
+                </div>);
     }
 }

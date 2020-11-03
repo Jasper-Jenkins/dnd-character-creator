@@ -4,7 +4,7 @@ import isSelected from './helper/helper-functions'
 class ClassProficiencies extends Component {
     constructor(props) {
         super(props);
-        console.log("constructor() ", props);
+     //   console.log("constructor() ", props);
         this.state = {
             proficiencies: [],
             proficienciesChosen: [],            

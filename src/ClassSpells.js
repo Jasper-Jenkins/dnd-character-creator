@@ -11,13 +11,13 @@ class ClassSpells extends Component {
     }
 
     componentDidMount() {
-        console.log("ClassSpells mounted:", this.props);
+     //   console.log("ClassSpells mounted:", this.props);
         
         this.spellSlots();
         this.setClassSpells(1); // character level: 1
     }
     componentDidUpdate() {
-        console.log("ClassSpells updated: ", this.props);
+   //     console.log("ClassSpells updated: ", this.props);
     }
     spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
         const { classSelected } = this.props;
@@ -47,7 +47,7 @@ class ClassSpells extends Component {
                 }
             }            
         } 
-        console.log("slots available ", slotsAvailable);
+      //  console.log("slots available ", slotsAvailable);
         this.setState({
             spellSlots: slotsAvailable,
         }, this.props.updateSpellSlots(slotsAvailable));
@@ -230,7 +230,7 @@ class ClassSpells extends Component {
         const { classSelected } = this.props;
         const { spellsInfo } = this.props;   
         let spells = []
-        console.log("setClassSpells() fired")
+       // console.log("setClassSpells() fired")
         switch (level) {
             case 1:
                 for (var i = 0; i < spellsInfo.length; i++) {
@@ -251,7 +251,7 @@ class ClassSpells extends Component {
     }
     
     addSpell = (spell) => {
-        console.log("Add Spell: ", spell.name);
+      //  console.log("Add Spell: ", spell.name);
         const { setSelectedSpell } = this.props;
         this.spellSource(spell, 1);
         setSelectedSpell(spell)
@@ -268,7 +268,7 @@ class ClassSpells extends Component {
                 spells.push(spellsChosen[i])
             }
         }
-        console.log("Spells that wont be removed, ", spells)
+      //  console.log("Spells that wont be removed, ", spells)
         this.setState({
             spellsChosen: spells,
         });

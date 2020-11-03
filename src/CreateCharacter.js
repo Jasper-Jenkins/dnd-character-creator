@@ -44,12 +44,12 @@ class CreateCharacter extends Component {
     componentDidMount() {
         const { abilityScores } = this.props;
         this.abilityScoresSetup(abilityScores);
-        console.log("CreateCharacter mounted");
+    //    console.log("CreateCharacter mounted");
                
     }
 
     componentDidUpdate() {
-        console.log("CreateCharacter updated")
+     //   console.log("CreateCharacter updated")
     }
 
 
