@@ -9,7 +9,7 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
         <div className='row'>
             <div className='col-12 characterTitle'>
                 <h3>{raceName ? raceName : "Race" } {className ? className : "Class"}</h3>
-                <div className='row scores'>{abilityScores}</div>  
+                <div className='row abilityScores'>{abilityScores}</div>  
             </div>
             <div className='col-6'>            
                 <strong>Ability bonuses</strong><br />
@@ -55,10 +55,10 @@ const Info = (props) => {
     console.log("HERE", props.abilityScoresInfo);
 
     let abilityScores = abilityScoresInfo.map((ability) => {
-        return (<div className='col-2 text-center score' key={ability.index}>
-            <p>{ability.full_name}</p>
-            <p className='scoreBonus'>{props.abilityScoresSelected[ability.index]}</p>
-        </div>);
+        return (<div className='col-2 text-center ability' key={ability.index}>
+                    <p>{ability.full_name}</p>
+                    <p className='abilityScore'>{props.abilityScoresSelected[ability.index]}</p>
+                </div>);
     });
 
     console.log(abilityScores)
@@ -82,15 +82,16 @@ const Info = (props) => {
         abilityScores = abilityScoresInfo.map((ability) => {
             for (var i = 0; i < bonuses.length; i++) {
                 if (bonuses[i].ability_score.name.toLowerCase() === ability.index) {
-                    return (<div className='col-2 text-center score' key={ability.index}>
+                    let bonus = props.abilityScoresSelected[ability.index] + bonuses[i].bonus;
+                    return (<div className='col-2 text-center ability' key={ability.index}>
                         <p>{ability.full_name}</p>
-                        <p className='scoreBonus'>{props.abilityScoresSelected[ability.index]}+{bonuses[i].bonus}</p>
+                        <p className='abilityScoreBonus'>{bonus}</p>
                     </div>);
                 }
             }
-            return (<div className='col-2 text-center score' key={ability.index}>
+            return (<div className='col-2 text-center ability' key={ability.index}>
                 <p>{ability.full_name}</p>
-                <p className='scoreBonus'>{props.abilityScoresSelected[ability.index]}</p>
+                <p className='abilityScore'>{props.abilityScoresSelected[ability.index]}</p>
             </div>);
         });
     }
