@@ -3,7 +3,7 @@
     --main-bg-color: slategrey;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 112vh;
+    height: 100vh;
     max-width: var(--main-max-width);
     margin: 0 auto;
     border-radius: 3px;

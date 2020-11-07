@@ -10,13 +10,9 @@ class ClassSpells extends Component {
         };
     }
 
-    componentDidMount() {
-     //   console.log("ClassSpells mounted:", this.props);        
+    componentDidMount() {        
         this.spellSlots();
         this.setClassSpells(1); // character level: 1
-    }
-    componentDidUpdate() {
-   //     console.log("ClassSpells updated: ", this.props);
     }
     spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
         const { classSelected } = this.props;
@@ -46,7 +42,6 @@ class ClassSpells extends Component {
                 }
             }            
         } 
-      //  console.log("slots available ", slotsAvailable);
         this.setState({
             spellSlots: slotsAvailable,
         }, this.props.updateSpellSlots(slotsAvailable));
@@ -241,7 +236,6 @@ class ClassSpells extends Component {
         const { classSelected } = this.props;
         const { spellsInfo } = this.props;   
         let spells = []
-       // console.log("setClassSpells() fired")
         switch (level) {
             case 1:
                 for (var i = 0; i < spellsInfo.length; i++) {
@@ -262,7 +256,6 @@ class ClassSpells extends Component {
     }
     
     addSpell = (spell) => {
-      //  console.log("Add Spell: ", spell.name);
         const { setSelectedSpell } = this.props;
         this.spellSource(spell, 1);
         setSelectedSpell(spell)
@@ -271,15 +264,12 @@ class ClassSpells extends Component {
     removeSpell = (spell) => {
         const { spellsChosen } = this.props
         const { setSelectedSpell } = this.props
-
         let spells = []
-
         for (var i = 0; i < spellsChosen.length; i++) {
             if (spellsChosen[i].name !== spell.name) {
                 spells.push(spellsChosen[i])
             }
         }
-      //  console.log("Spells that wont be removed, ", spells)
         this.setState({
             spellsChosen: spells,
         });
@@ -291,21 +281,16 @@ class ClassSpells extends Component {
         const { classSelected } = this.props;
         const { classSpells } = this.state;
         const { spellSlots } = this.state;
-
         const { spellsChosen } = this.props;
-        let spellChoices = [];
-       
+        let spellChoices = [];       
         for (var a = 0; a < spellSlots.length; a++) {         
             const slotLevel = a;
             let slotSpells = classSpells.filter((spell) => {
                 return (spell.level === slotLevel ? spell : null);
             });
-            //console.log("Slots Spells", slotSpells);
-
             spellChoices[slotLevel] = slotSpells.map((spell) => {
                 let classNames = "btn btn-sm btn-block spell-btn ";
-              //  console.log("Spell ", spell);
-                    if (spell.damage !== undefined) { // Is there a better check for this?
+                if (spell.damage !== undefined) { // Is there a better check for this?
                         if (spell.damage.damage_type !== undefined) {
                             classNames += spell.damage.damage_type.index + " ";
                         }
