@@ -3,7 +3,7 @@
     --main-bg-color: slategrey;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 100vh;
+    height: 112vh;
     max-width: var(--main-max-width);
     margin: 0 auto;
     border-radius: 3px;
@@ -15,8 +15,7 @@
     min-height: 60vh;
     max-height: 60vh;
     overflow-y: auto;
-    overflow-x: auto;
-  
+    overflow-x: auto;  
 }
 
 .info h1, h2, h3, h4, h5, h6 {
@@ -81,8 +80,14 @@
 }
 
 .spell-btn {
-    border-radius: 5px;
-    font: bolder 15px arial;
+   
+  
+}
+
+.spells {
+    background-color: white;
+    border: 1px solid white;
+    float: left;
 }
 
 .fire {
@@ -200,6 +205,7 @@
 
 .chooseProficiency {
     margin: 10px 0px;
+    float:left;
 }
 
 .proficiencyInfo {

@@ -156,7 +156,7 @@ export default class App extends Component {
                 <div className="row">
                     <div className="col-12 text-center">
                         <h1>Welcome</h1>
-                        {this.state.enter ? <button onClick={this.chooseYourChampion} className='btn'>Begin your journey!</button> : <p>...Loading API</p> }                       
+                        {this.state.enter ? <button onClick={this.chooseYourChampion} className='btn btn-lg btn-primary'>Begin your journey!</button> : <p>...Loading API</p> }                       
                     </div>
                 </div>
             </div>);  
