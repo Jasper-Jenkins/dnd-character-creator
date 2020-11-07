@@ -11,8 +11,7 @@ class ClassSpells extends Component {
     }
 
     componentDidMount() {
-     //   console.log("ClassSpells mounted:", this.props);
-        
+     //   console.log("ClassSpells mounted:", this.props);        
         this.spellSlots();
         this.setClassSpells(1); // character level: 1
     }
@@ -86,6 +85,8 @@ class ClassSpells extends Component {
         let cantrips = 0;
         let levelOneSpells = 0;
         let level0, level1;
+        let message = "You cannot add " + spell.name + " to your spell book.";
+        
         switch(classSelected.name) {
             case "Barbarian":
                 break;
@@ -104,6 +105,8 @@ class ClassSpells extends Component {
                     this.updateSpells(spell);
                     break;
                 }
+               
+                this.props.updateAlertMessage(message);
                 break;
             case "Cleric":
                 if (spellsChosen.length === 0) {
@@ -120,6 +123,8 @@ class ClassSpells extends Component {
                 if (levelOneSpells < level1 && spell.level === 1) {
                     this.updateSpells(spell);
                 }
+                
+                this.props.updateAlertMessage(message);
                 break;
             case "Druid":
                 if (spellsChosen.length === 0) {
@@ -135,6 +140,8 @@ class ClassSpells extends Component {
                 if (levelOneSpells < level1 && spell.level === 1) {
                     this.updateSpells(spell);
                 }
+               
+                this.props.updateAlertMessage(message);
                 break;
             case "Fighter":
                 break;
@@ -187,6 +194,8 @@ class ClassSpells extends Component {
                 if (levelOneSpells < 2 && spell.level === 1) {
                     this.updateSpells(spell);
                 }
+               
+                this.props.updateAlertMessage(message);
                 break;
             case "Warlock":
                 if (spellsChosen.length === 0) {
@@ -202,6 +211,8 @@ class ClassSpells extends Component {
                 if (levelOneSpells < 2 && spell.level === 1) {
                     this.updateSpells(spell);
                 }
+               
+                this.props.updateAlertMessage(message);
                 break;
             case "Wizard":
                 console.log("Wizard Spell source. ")
@@ -218,8 +229,8 @@ class ClassSpells extends Component {
                     this.updateSpells(spell);
                     break;
                 } 
-                let message = "You cannot add " + spell.name + " to your spell book.";
-                this.props.updateAlertMessage(message)
+              
+                this.props.updateAlertMessage(message);
                 break;
             default:
                 break;
@@ -302,18 +313,17 @@ class ClassSpells extends Component {
                 if (spellsChosen.length === 0) {
                     classNames += "btn-secondary ";
                         return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                    }
-                    for (var b = 0; b < spellsChosen.length; b++) {
-                        let chosen = b;
-                        if (spellsChosen[chosen].name === spell.name) {  
-                            classNames += "btn-primary ";
-                            return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
-                        } 
+                }
+                for (var b = 0; b < spellsChosen.length; b++) {
+                    let chosen = b;
+                    if (spellsChosen[chosen].name === spell.name) {  
+                        classNames += "btn-primary ";
+                        return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                    } 
                 }
                 classNames += 'btn-secondary ';
                 return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
             });
-
         }
         let spellChoiceDisplay = [];
         for (var b = 0; b < spellChoices.length; b++) {
@@ -322,8 +332,7 @@ class ClassSpells extends Component {
                     spellChoiceDisplay[b] = <div className='col-12' key='cantrips'><h6>You have no spells to choose from at level 1</h6></div>
                 } else {
                     spellChoiceDisplay[b] = <div className='col-6' key='cantrips'><h6>Cantrips</h6>{spellChoices[b]}</div>
-                }
-                
+                }                
             } else {
                 let keyForThee = "spellLevel";
                 spellChoiceDisplay[b] = <div className='col-6' key={keyForThee + b}><h6>Spell Level {b}</h6>{spellChoices[b]}</div> 
@@ -333,7 +342,7 @@ class ClassSpells extends Component {
     }  
     
     render() {
-        return (<div className='row'>{this.displaySpells()}</div>);
+        return (<div className='col-12 text-center selection'>{this.displaySpells()}</div>);
     }
 }
 

@@ -20,14 +20,12 @@ const Selection = (props) => {
             return (<Classes {...props} />); 
         case 'Proficiencies':
             if (isSelected(classSelected)) {
-                return (<div className='col-12 text-center selection'><ClassProficiencies {...props} /></div>);
+                return (<ClassProficiencies {...props} />);
             }
             return (<div className='col-12 text-center selection'>You must choose a class to select your proficiencies.</div>);            
         case 'Spells':
-            if (isSelected(classSelected) && classSelected.spellcasting !== undefined) {
-                return (<div className='col-12 text-center selection'>
-                            <ClassSpells {...props} />
-                        </div>);
+            if (isSelected(classSelected) && classSelected.spellcasting !== undefined) { // Needs better validation? 
+                return (<ClassSpells {...props} />);
             }
             return (<div className='col-12 text-center selection'>{classSelected.name} is not a spell caster.</div>);            
         case 'Ability-Scores':

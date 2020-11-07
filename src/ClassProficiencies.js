@@ -110,7 +110,7 @@ class ClassProficiencies extends Component {
     }
 
     render() {
-          return (<div className='row'>
+        return (<div className='col-12 text-center selection'>
                     {this.classProficienciesToChooseFrom()}
                 </div>);
     }

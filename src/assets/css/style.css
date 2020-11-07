@@ -45,18 +45,19 @@
 
 .abilityScore {
     background-color: cornflowerblue;
+    border: 2px solid cornflowerblue;
     color: azure;
     font-size: 40px;
-  
     margin: 0px;
     padding: 0px;
 }
 
 .abilityScoreBonus {
     background-color: cornflowerblue;
+    border: 2px solid cornflowerblue;
     color: forestgreen;
-    font-weight: bolder;
     font-size: 40px;
+    font-weight: bolder;
     margin: 0px;
     padding: 0px;
 }
