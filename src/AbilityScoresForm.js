@@ -64,7 +64,7 @@ class AbilityScoresForm extends Component {
         const { scores } = this.state;
         
         return (<form>
-            <label className={scores[0].value > 18 || scores[0].value < 3 ? 'col-4 toHigh ' : 'col-4 validScore ' } htmlFor="cha">Charisma</label>
+            <label className={scores[0].value > 18 || scores[0].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore ' } htmlFor="cha">Charisma</label>
                     <input className='col-2'
                         type='number'
                         name='cha'
@@ -72,7 +72,7 @@ class AbilityScoresForm extends Component {
                         value={scores[0].value}
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
-            <label className={scores[1].value > 18 || scores[1].value < 3 ? 'col-4 toHigh ' : 'col-4 validScore '} htmlFor="con">Constitution</label>
+            <label className={scores[1].value > 18 || scores[1].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '} htmlFor="con">Constitution</label>
                     <input className='col-2'
                         type='number'
                         name='con'
@@ -80,7 +80,7 @@ class AbilityScoresForm extends Component {
                         value={scores[1].value}
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
-            <label className={scores[2].value > 18 || scores[2].value < 3 ? 'col-4 toHigh ' : 'col-4 validScore '}htmlFor="dex">Dexterity</label>
+            <label className={scores[2].value > 18 || scores[2].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '}htmlFor="dex">Dexterity</label>
                     <input className='col-2'
                         type='number'
                         name='dex'
@@ -88,7 +88,7 @@ class AbilityScoresForm extends Component {
                         value={scores[2].value}
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
-            <label className={scores[3].value > 18 || scores[3].value < 3 ? 'col-4 toHigh ' : 'col-4 validScore '} htmlFor="int">Intelligence</label>
+            <label className={scores[3].value > 18 || scores[3].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '} htmlFor="int">Intelligence</label>
                     <input className='col-2'
                         type='number'
                         name='int'
@@ -96,7 +96,7 @@ class AbilityScoresForm extends Component {
                         value={scores[3].value}
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
-            <label className={scores[4].value > 18 || scores[4].value < 3 ? 'col-4 toHigh ' : 'col-4 validScore '} htmlFor='str'>Strength</label>
+            <label className={scores[4].value > 18 || scores[4].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '} htmlFor='str'>Strength</label>
                     <input className='col-2'
                         type='number'
                         name='str'
@@ -104,7 +104,7 @@ class AbilityScoresForm extends Component {
                         value={scores[4].value}
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
-            <label className={scores[5].value > 18 || scores[5].value < 3 ? 'col-4 toHigh ' : 'col-4 validScore '} htmlFor="wis">Wisdom</label>
+            <label className={scores[5].value > 18 || scores[5].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '} htmlFor="wis">Wisdom</label>
                     <input className='col-2'
                         type='number'
                         name='wis'

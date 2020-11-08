@@ -25,7 +25,34 @@
 .info ul {
     list-style: none;
     padding: 0px;
+    color: azure;
 }
+
+.info ul li {
+    background-color: darkslategrey;
+    color: azure;
+    float: left;
+    border-radius: 1px;
+    font-size: 12px;
+    margin: 0px;
+    padding: 3px 0px;
+}
+
+.info-col-left {
+    background-color: black;
+    color: azure;
+    height: 40vh;
+    margin: 0px;
+    padding: 0px;
+}
+.info-col-right {
+    background-color: black;
+    color: azure;
+    height: 40vh;
+    margin: 0px;
+    padding: 0px;
+}
+
 
 .ability {
     background-color: cornflowerblue;
@@ -188,7 +215,7 @@
     outline: none;
 }
 
-.toHigh {
+.invalidScore {
     color: red;
 }
 

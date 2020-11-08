@@ -8,18 +8,18 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
     return (<div className="col-12 info">
         <div className='row'>
             <div className='col-12 characterTitle'>
-                <h3>{raceName ? raceName : "Race" } {className ? className : "Class"}</h3>
+                <h3>{raceName ? raceName : "-" }<span> </span>{className ? className : "-"}</h3>
                 <div className='row'>{abilityScores}</div>  
             </div>
-            <div className='col-6'>            
-                <strong>Ability bonuses</strong><br />
+            <div className='col-6 info-col-left'>            
+                <h6>Ability bonuses</h6>
                 <ul>{ability_bonuses}</ul>
             </div>
-            <div className='col-6'>
-                <strong>Hit die: </strong>{hit_die}<br />
-                <strong>Saving throws</strong><br />
+            <div className='col-6 info-col-right'>
+                <h6>Hit die: {hit_die}</h6>
+                <h6>Saving throws</h6>
                 <ul>{saving_throws}</ul>
-                <strong>Proficiencies</strong>
+                <h6>Proficiencies</h6>
                 <ul>
                     {characterProficiencies}
                 </ul>
@@ -30,7 +30,7 @@ function InfoDisplay(raceName, className, hit_die, ability_bonuses, abilityScore
 
 //Work on refactoring this mess
 const Info = (props) => {
-  //  console.log("Info props", props)
+    console.log("Info props", props)
     const { raceSelected } = props
     const { classSelected } = props
     const { abilityScoresInfo } = props
@@ -76,7 +76,7 @@ const Info = (props) => {
         ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
             for (var i = 0; i < abilityScoresInfo.length; i++) {
                 if (abilityScoresInfo[i].name === bonus.ability_score.name) {
-                    return (<li key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
+                    return (<li className='col-6 align-self-center text-center' key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
                 }
             }
             return (<li key={index}>Ability: +BONUS</li>);
@@ -119,7 +119,7 @@ const Info = (props) => {
         saving_throws = props.classSelected.saving_throws.map((saving_throw, index) => {
             for (var j = 0; j < abilityScoresInfo.length; j++) {
                 if (abilityScoresInfo[j].name === saving_throw.name) {
-                    return (<li key={saving_throw.name.toLowerCase()}>{abilityScoresInfo[j].full_name}</li>);
+                    return (<li className='col-6 align-self-center text-center' key={saving_throw.name.toLowerCase()}> {abilityScoresInfo[j].full_name}</li>);
                 }
             }
             return (<li key={index}>Ability: +BONUS</li>);
@@ -128,7 +128,7 @@ const Info = (props) => {
        // console.log("Chosen profs ", proficienciesChosen);
       
         characterProficiencies = proficiencies.map((proficiency) => {
-            return (<li key={proficiency.name}>{proficiency.name}</li>);
+            return (<li className='col-6 align-self-center text-center' key={proficiency.name}>{proficiency.name}</li>);
         });
 
 
