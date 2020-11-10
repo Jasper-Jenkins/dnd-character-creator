@@ -81,18 +81,15 @@ const Info = (props) => {
             }
             return (<li key={index}>Ability: +BONUS</li>);
         });        
-        bonuses = raceSelected.ability_bonuses.map((bonus) => {
-           // console.log(bonus)
+        bonuses = raceSelected.ability_bonuses.map((bonus) => {          
             return bonus
         });
-
-       // console.log(bonuses);
         abilityScores = abilityScoresInfo.map((ability) => {
             let abilityScore = "abilityScore";
             if (isSelected(classSelected)) {
                 for (var a = 0; a < classSelected.saving_throws.length; a++) {
                     if (ability.index === classSelected.saving_throws[a].index) {
-                        abilityScore = "savingThrow abilityScore"
+                        abilityScore = "abilityScore savingThrow "
                     }
                 }
             }         
@@ -115,25 +112,18 @@ const Info = (props) => {
 
     if (isSelected(classSelected)) { //setting up info for when a class has been selected
         className = classSelected.name
-        hit_die = props.classSelected.hit_die
-        saving_throws = props.classSelected.saving_throws.map((saving_throw, index) => {
+        hit_die = classSelected.hit_die
+        saving_throws = classSelected.saving_throws.map((saving_throw, index) => {
             for (var j = 0; j < abilityScoresInfo.length; j++) {
                 if (abilityScoresInfo[j].name === saving_throw.name) {
                     return (<li className='col-6 align-self-center text-center' key={saving_throw.name.toLowerCase()}> {abilityScoresInfo[j].full_name}</li>);
                 }
             }
             return (<li key={index}>Ability: +BONUS</li>);
-        });
-
-       // console.log("Chosen profs ", proficienciesChosen);
-      
+        });      
         characterProficiencies = proficiencies.map((proficiency) => {
             return (<li className='col-6 align-self-center text-center' key={proficiency.name}>{proficiency.name}</li>);
         });
-
-
-
-
         if (spellsChosen.length > 0) {
             classSpells = spellsChosen.map((spell) => {
                 if (spell === selectedSpell) {
@@ -170,9 +160,7 @@ const Info = (props) => {
         case 'Spells':
             if (isSelected(classSelected)) {
                 let spellDescription;
-                if (selectedSpell.name === undefined) {
-               //     console.log("check check check")
-                } else {
+                if (selectedSpell.name !== undefined) {
                     spellDescription = <p>{selectedSpell.desc}</p>
                 }
                 return (<div className='col-12 info'>
