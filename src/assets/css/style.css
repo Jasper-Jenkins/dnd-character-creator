@@ -78,7 +78,7 @@
     padding: 0px;
 }
 
-.abilityScoreBonus {
+.bonus {
     background-color: cornflowerblue;
     border: 2px solid cornflowerblue;
     color: forestgreen;
@@ -95,8 +95,12 @@
 }
 
 .savingThrow {
-    border: 2px solid goldenrod;
-}
+    background-color: cornflowerblue;
+    border: 2px solid goldenrod;    
+    font-size: 40px;
+    margin: 0px;
+    padding: 0px;
+ }
 
 .characterTitle { /*Info.js*/
     min-height:40px;
@@ -184,6 +188,13 @@
     background-color: mediumaquamarine;
 }
 
+
+.toggleNavigation {
+  position:absolute;
+  bottom: 100px;
+}
+
+
 .btn-nav {
   margin: 2px; 
 }
@@ -230,10 +241,6 @@
     color: forestgreen;
 }
 
-
-.bonus {
-    color: mediumseagreen;
-}
 
 #alert {
     position: absolute;

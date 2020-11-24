@@ -47,10 +47,8 @@ class Selection extends Component {
                 let scores = abilityScoresInfo.map((abilityScore, index) => {
                     return (<button onClick={() => getScore(abilityScore.index)} className='col-4 selectionButtons' key={index}>{abilityScore.full_name}</button>)
                 });
-                return (<div className='col-12 text-center selection'>
-                   
-                                {abilityScoresSwitch ? <AbilityScoresForm handleSubmit={this.props.handleSubmit} abilityScoresSelected={this.props.abilityScoresSelected} /> : scores}
-                            
+                return (<div className='col-12 text-center selection'>                   
+                                {abilityScoresSwitch ? <AbilityScoresForm handleSubmit={this.props.handleSubmit} abilityScoresSelected={this.props.abilityScoresSelected} /> : scores}                           
                                 <button onClick={() => this.abilityScoreSwitchy()} className='btn btn-primary col-6 align-text-bottom'>{abilityScoresSwitch ? "Auto fill " : "Manual fill "}</button><br />
                             
                 </div>);

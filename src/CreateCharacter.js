@@ -70,7 +70,6 @@ class CreateCharacter extends Component {
 
     fadeMessage = () => { // FIX THIS!!! AAAAAAAAAAAA!!!!!!
         const alertNode = document.getElementById('alert');
-
         //const alertNode = document.createElement("div");
         //alertNode.setAttribute("className", "alert");
         //document.body.appendChild("alertNode");
@@ -195,6 +194,10 @@ class CreateCharacter extends Component {
         
         return (<div id='creator' className='container-fluid creation'>
             <UserAlert alertMessage={this.state.alertMessage} />
+            <div className='row toggleNavigation'>
+                <div className='col-12 '>
+                <button className=''>NavToggle</button>
+                </div></div>
             <div className='row'>
                 <Info {...this.state} {...this.props} />
             </div>
