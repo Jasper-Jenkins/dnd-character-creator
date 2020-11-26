@@ -106,9 +106,8 @@ class ClassProficiencies extends Component {
                 }                
                 return (<button className='btn-sm col-6 btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
-            console.log(proficienciesChosen);
-            
-            let check = proficienciesChosen[choicesIndex];
+         
+            let check = proficienciesChosen[choicesIndex]; //I have to check because this comes through undefined the very first time this function runs, need to figure out a better solution.
             let num;
             if (check === undefined) {
                 num = 0;
@@ -137,9 +136,9 @@ class ClassProficiencies extends Component {
             let newCategory = a;
             if (category === a) {
                 
-                buttons.push(<button className='btn-sm btn ' onClick={() => void (0)} disabled key={classSelected.name + a}>Category {category}</button>)
+                buttons.push(<button className='btn-sm btn profNavSelected' onClick={() => void (0)} key={classSelected.name + a}>Category {category}</button>)
             } else {
-                buttons.push(<button className='btn-sm btn ' onClick={() => this.setNavigatioCategory(newCategory)} key={classSelected.name + a}>Category {newCategory}</button>)
+                buttons.push(<button className='btn-sm btn profNav' onClick={() => this.setNavigatioCategory(newCategory)} key={classSelected.name + a}>Category {newCategory}</button>)
             }           
         }
         

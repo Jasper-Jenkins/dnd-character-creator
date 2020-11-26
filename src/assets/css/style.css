@@ -3,17 +3,17 @@
     --main-bg-color: black;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 90vh;
+    height: 85vh;
     max-width: var(--main-max-width);
-    margin: 5vh auto;
+    margin: 7vh auto;
     border-radius: 3px;
     box-shadow:0px 0px 20px 30px;
 }
 
 .info {
     background-color: var(--main-bg-color);
-    min-height: 50vh;
-    max-height: 50vh;
+    min-height: 46vh;
+    max-height: 46vh;
     overflow-y: auto;
     overflow-x: auto;  
 }
@@ -29,8 +29,7 @@
     color: azure;
 }
 
-.info ul li {
-    
+.info ul li {    
     color: azure;
     float: left;
     border-radius: 1px;
@@ -157,7 +156,7 @@
 }
 
 .selection {
-    background-color: azure;
+    background-color: var(--main-bg-color);
     width: 100%;
     min-height: 28vh;
     max-height: 28vh;
@@ -181,8 +180,8 @@
 }
 
 .selectionTitle {
-   margin: 0 auto;
-   padding: 0px;
+    margin: 0 auto;
+    padding: 0px;
     top: 0px;
     height: 30px;
     font-size: 20px;
@@ -202,13 +201,12 @@
 }
 
 .navigation {
-   
-    max-width: var(--main-max-width);     
+    background-color: var(--main-bg-color);
     bottom: 0px;
+    height: 12vh;
     margin: 0px;
+    max-width: var(--main-max-width);
     padding: 0px;
-    background-color: black;
-    height: 12vh;   
 }
 
 .buttonSelected {
@@ -273,7 +271,20 @@
     padding: 0px;
 }
 
+.profNavSelected {
+    color: azure;
+    border-top: 2px solid azure;
+    border-left: 2px solid azure;
+    border-right: 2px solid azure;
+}
 
+.profNavSelected:focus {
+    color: azure;   
+}
+
+.profNav {
+    color: azure;
+}
 
 input[type=number] {
     width:100%;
