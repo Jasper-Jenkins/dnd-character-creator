@@ -7,7 +7,8 @@ class ClassProficiencies extends Component {
      //   console.log("constructor() ", props);
         this.state = {
             proficiencies: [],
-            proficienciesChosen: [],            
+            proficienciesChosen: [], 
+            category: 0,
         };
         this.setProficiencies = this.setProficiencies.bind(this);
     }
@@ -91,27 +92,67 @@ class ClassProficiencies extends Component {
         const { classSelected } = this.props;
         const { proficiencies } = this.state;
         const { proficienciesChosen } = this.state;
-        let chooseFrom = []
+        const { category } = this.state;
+      //  const { proficienciesSwitchy } = this.state;
+        let chooseFrom = [];
         for (var i = 0; i < classSelected.proficiency_choices.length; i++) {
             let choicesIndex = i;
             const chooseProficiencies = classSelected.proficiency_choices[i].from.map((proficiency) => {               
-                    for (var j = 0; j < proficiencies.length; j++) {
-                        for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
-                            if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
-                                return (<button className='btn-sm btn-block btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
-                            }
+                for (var j = 0; j < proficiencies.length; j++) {
+                    for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
+                        if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
+                            return (<button className='btn-sm btn-block btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
                         }
-                    }                
-                    return (<button className='btn-sm btn-block btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
-                });
-            chooseFrom.push(<div className='col-6 chooseProficiency' key={'catetory' + choicesIndex}><h6>Choose: {classSelected.proficiency_choices[choicesIndex].choose}</h6>{chooseProficiencies}</div>)
+                    }
+                }                
+                return (<button className='btn-sm btn-block btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+            });
+            chooseFrom.push(<div className='col-12 chooseProficiency' key={'catetory' + choicesIndex}><h6>Choose: {classSelected.proficiency_choices[choicesIndex].choose}</h6>{chooseProficiencies}</div>);
+        }
+
+        //for (var j = 0; j < classSelected.proficiency_choices.length; j++) {
+        //    let choicesIndex = j; 
+        //    const 
+        //}
+
+        if (classSelected.proficiency_choices.length > 1) {
+            return (chooseFrom[category]);
         }
         return (chooseFrom);
     }
 
+    setNavigatioCategory(newCategory) {
+        this.setState({ category: newCategory, });
+    }
+
+
+
+
+    proficienciesNavigation() {
+        const { classSelected } = this.props;
+        const { category } = this.state;
+        let buttons = [];
+        for (var a = 0; a < classSelected.proficiency_choices.length; a++) {
+            let newCategory = a;
+            if (category === a) {
+                console.log("We are making into here")
+                buttons.push(<button className='btn-sm btn ' onClick={() => void (0)} disabled key={classSelected.name + a}>Category {category}</button>)
+            } else {
+                buttons.push(<button className='btn-sm btn ' onClick={() => this.setNavigatioCategory(newCategory)} key={classSelected.name + a}>Category {newCategory}</button>)
+            }           
+        }
+        console.log('What')
+        return (<div className='col-12'>{buttons}</div>);
+    }
+
+
     render() {
-        return (<div className='col-12 text-center selection'>
-                    {this.classProficienciesToChooseFrom()}
+        const choices = this.classProficienciesToChooseFrom();
+        const nav = this.proficienciesNavigation();
+        console.log("whmmmm")
+        return (<div className='col-12 text-center selection'>  
+                    {nav}
+                    {choices}
                 </div>);
     }
 }

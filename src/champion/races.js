@@ -17,7 +17,7 @@ export default class CharacterRace extends Component {
        //     console.log('race is selcted');
             this.setState({ raceSelected: this.props.raceSelected, });
         }
-    //    console.log("Races buttons mounted");
+        console.log(this.props);
     }
 
     selectRace = (index) => {
