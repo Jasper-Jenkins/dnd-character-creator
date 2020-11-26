@@ -15,123 +15,7 @@ class Info extends Component {
             classSpells: [],
         }
         
-    }
-
-    componentDidMount() {
-        this.setInfo();
-    }
-
-    setInfo() {
-        console.log("Info props", this.props)
-        //const { raceSelected } = this.props
-        //const { classSelected } = this.props
-        //const { abilityScoresInfo } = this.props
-        //const { proficiencies } = this.props
-        //const { spellsChosen } = this.props
-        //const { selectedSpell } = this.props
-        //const { setSelectedSpell } = this.props 
-
-        //let raceName = null;
-        //let className = null;
-        //let hit_die = "";
-        //let ability_bonuses = [];
-        //let saving_throws = [];
-        //let characterProficiencies = [];
-        //let classSpells = [];
-        ////  let classFeatures = [];
-
-        //let bonuses = []
-
-        //let abilityScores = abilityScoresInfo.map((ability) => {
-        //    let abilityScore = "abilityScore";
-        //    if (isSelected(classSelected)) {
-        //        for (var a = 0; a < classSelected.saving_throws.length; a++) {
-        //            if (ability.index === classSelected.saving_throws[a].index) {
-        //                abilityScore += "abilityScore savingThrow "
-        //            }
-        //        }
-        //    }
-        //    return (<div className='col-2 text-center ability' key={ability.index}>
-        //        <p>{ability.full_name}</p>
-        //        <p className={abilityScore}>{this.props.abilityScoresSelected[ability.index]}</p>
-        //    </div>);
-        //});     
-
-        //if (isSelected(raceSelected)) { //setting up info for when a race has been selected
-        //    raceName = raceSelected.name
-        //    ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
-        //        for (var i = 0; i < abilityScoresInfo.length; i++) {
-        //            if (abilityScoresInfo[i].name === bonus.ability_score.name) {
-        //                return (<li className='col-6 align-self-center text-center' key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
-        //            }
-        //        }
-        //        return (<li key={index}>Ability: +BONUS</li>);
-        //    });
-        //    bonuses = raceSelected.ability_bonuses.map((bonus) => {
-        //        return bonus
-        //    });
-        //    abilityScores = abilityScoresInfo.map((ability) => {
-        //        let abilityScore = "abilityScore ";
-        //        if (isSelected(classSelected)) {
-        //            for (var a = 0; a < classSelected.saving_throws.length; a++) {
-        //                if (ability.index === classSelected.saving_throws[a].index) {
-        //                    abilityScore = "abilityScore savingThrow "
-        //                }
-        //            }
-        //        }
-        //        for (var i = 0; i < bonuses.length; i++) {
-        //            if (bonuses[i].ability_score.name.toLowerCase() === ability.index) {
-        //                abilityScore += "bonus "
-        //                let bonus = this.props.abilityScoresSelected[ability.index] + bonuses[i].bonus;
-        //                return (<div className='col-2 text-center ability' key={ability.index}>
-        //                    <p>{ability.full_name}</p>
-        //                    <p className={abilityScore}>{bonus}</p>
-        //                </div>);
-        //            }
-        //        }
-        //        return (<div className='col-2 text-center ability' key={ability.index}>
-        //            <p>{ability.full_name}</p>
-        //            <p className={abilityScore}>{this.props.abilityScoresSelected[ability.index]}</p>
-        //        </div>);
-        //    });
-        //}
-
-        //if (isSelected(classSelected)) { //setting up info for when a class has been selected
-        //    className = classSelected.name
-        //    hit_die = classSelected.hit_die
-        //    saving_throws = classSelected.saving_throws.map((saving_throw, index) => {
-        //        for (var j = 0; j < abilityScoresInfo.length; j++) {
-        //            if (abilityScoresInfo[j].name === saving_throw.name) {
-        //                return (<li className='col-6 align-self-center text-center' key={saving_throw.name.toLowerCase()}> {abilityScoresInfo[j].full_name}</li>);
-        //            }
-        //        }
-        //        return (<li key={index}>Ability: +BONUS</li>);
-        //    });
-        //    characterProficiencies = proficiencies.map((proficiency) => {
-        //        return (<li className='col-6 align-self-center text-center' key={proficiency.name}>{proficiency.name}</li>);
-        //    });
-        //    if (spellsChosen.length > 0) {
-        //        classSpells = spellsChosen.map((spell) => {
-        //            if (spell === selectedSpell) {
-        //                return (<li key={spell.name}>{spell.name}</li>);
-        //            } else {
-        //                return (<li onClick={() => setSelectedSpell(spell)} key={spell.name}>{spell.name}</li>);
-        //            }
-        //        });
-        //    }
-        //}
-        //console.log("racename ", raceName)
-        //this.setState({
-        //    raceName: raceName,
-        //    className: className,
-        //    hit_die: hit_die,
-        //    ability_bonuses: ability_bonuses,
-        //    abilityScores: abilityScores,
-        //    saving_throws: saving_throws,
-        //    characterProficiencies: characterProficiencies,
-        //    classSpells: classSpells,
-        //});
-    }
+    }   
 
     characterRaceInfo() {
         const { raceSelected, classSelected, abilityScoresInfo } = this.props;
@@ -287,7 +171,7 @@ class Info extends Component {
                             <h6>Saving throws</h6>
                             <ul>{saving_throws}</ul>
                             <h6>Proficiencies</h6>
-                            <ul>
+                            <ul className='proficienciesSelected'>
                                 {characterProficiencies}
                             </ul>
                         </div>

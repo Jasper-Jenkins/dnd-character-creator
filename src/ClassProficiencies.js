@@ -93,6 +93,7 @@ class ClassProficiencies extends Component {
         const { proficiencies } = this.state;
         const { proficienciesChosen } = this.state;
         let chooseFrom = [];
+        
         for (var i = 0; i < classSelected.proficiency_choices.length; i++) {
             let choicesIndex = i;
             const chooseProficiencies = classSelected.proficiency_choices[i].from.map((proficiency) => {               
@@ -105,7 +106,17 @@ class ClassProficiencies extends Component {
                 }                
                 return (<button className='btn-sm col-6 btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
-            chooseFrom.push(<div className='col-12 chooseProficiency' key={'catetory' + choicesIndex}><h6>Choose: {classSelected.proficiency_choices[choicesIndex].choose}</h6>{chooseProficiencies}</div>);
+            console.log(proficienciesChosen);
+            
+            let check = proficienciesChosen[choicesIndex];
+            let num;
+            if (check === undefined) {
+                num = 0;
+            } else {
+                num = proficienciesChosen[choicesIndex].length;
+            }
+            console.log(num);
+            chooseFrom.push(<div className='col-12 chooseProficiency' key={'catetory' + choicesIndex}><h6>Choose: {classSelected.proficiency_choices[choicesIndex].choose - num}</h6>{chooseProficiencies}</div>);
         }       
         return (chooseFrom);
     }
@@ -125,13 +136,13 @@ class ClassProficiencies extends Component {
         for (var a = 0; a < classSelected.proficiency_choices.length; a++) {            
             let newCategory = a;
             if (category === a) {
-                console.log("We are making into here", this.props)
+                
                 buttons.push(<button className='btn-sm btn ' onClick={() => void (0)} disabled key={classSelected.name + a}>Category {category}</button>)
             } else {
                 buttons.push(<button className='btn-sm btn ' onClick={() => this.setNavigatioCategory(newCategory)} key={classSelected.name + a}>Category {newCategory}</button>)
             }           
         }
-        console.log('What')
+        
         return (<div className='col-12'>{buttons}</div>);
     }
 

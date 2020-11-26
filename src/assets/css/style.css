@@ -1,25 +1,26 @@
 
 .creation {
-    --main-bg-color: slategrey;
+    --main-bg-color: black;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 100vh;
+    height: 90vh;
     max-width: var(--main-max-width);
-    margin: 0 auto;
+    margin: 5vh auto;
     border-radius: 3px;
     box-shadow:0px 0px 20px 30px;
 }
 
 .info {
     background-color: var(--main-bg-color);
-    min-height: 60vh;
-    max-height: 60vh;
+    min-height: 50vh;
+    max-height: 50vh;
     overflow-y: auto;
     overflow-x: auto;  
 }
 
 .info h1, h2, h3, h4, h5, h6 {
     text-align: center;
+    color: azure;
 }
 
 .info ul {
@@ -29,7 +30,7 @@
 }
 
 .info ul li {
-    background-color: darkslategrey;
+    
     color: azure;
     float: left;
     border-radius: 1px;
@@ -41,14 +42,14 @@
 .info-col-left {
     background-color: black;
     color: azure;
-    height: 40vh;
+   
     margin: 0px;
     padding: 0px;
 }
 .info-col-right {
     background-color: black;
     color: azure;
-    height: 40vh;
+    
     margin: 0px;
     padding: 0px;
 }
@@ -192,6 +193,7 @@
 .toggleNavigation {
   position:absolute;
   bottom: 100px;
+  z-index: 10;
 }
 
 
@@ -200,7 +202,7 @@
 }
 
 .navigation {
-    position: fixed;
+   
     max-width: var(--main-max-width);     
     bottom: 0px;
     margin: 0px;
