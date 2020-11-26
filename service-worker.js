@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dnd-character-creator/precache-manifest.d2c54cac4d658413d9968f47050533e7.js"
+  "/dnd-character-creator/precache-manifest.4d7be5a4b7f089cf5226eed80adf8648.js"
 );
 
 self.addEventListener('message', (event) => {
