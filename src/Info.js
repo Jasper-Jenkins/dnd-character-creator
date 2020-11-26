@@ -43,7 +43,7 @@ class Info extends Component {
             ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
                 for (var i = 0; i < abilityScoresInfo.length; i++) {
                     if (abilityScoresInfo[i].name === bonus.ability_score.name) {
-                        return (<li className='col-6 align-self-center text-center' key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
+                        return (<li className='col-6 text-center' key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
                     }
                 }
                 return (<li key={index}>Ability: +BONUS</li>);
@@ -95,13 +95,13 @@ class Info extends Component {
             saving_throws = classSelected.saving_throws.map((saving_throw, index) => {
                 for (var j = 0; j < abilityScoresInfo.length; j++) {
                     if (abilityScoresInfo[j].name === saving_throw.name) {
-                        return (<li className='col-6 align-self-center text-center' key={saving_throw.name.toLowerCase()}> {abilityScoresInfo[j].full_name}</li>);
+                        return (<li className='col-6 text-center' key={saving_throw.name.toLowerCase()}> {abilityScoresInfo[j].full_name}</li>);
                     }
                 }
                 return (<li key={index}>Ability: +BONUS</li>);
             });
             characterProficiencies = proficiencies.map((proficiency) => {
-                return (<li className='col-6 align-self-center text-center' key={proficiency.name}>{proficiency.name}</li>);
+                return (<li className='col-6 text-center' key={proficiency.name}>{proficiency.name}</li>);
             });
             if (spellsChosen.length > 0) {
                 classSpells = spellsChosen.map((spell) => {
@@ -142,7 +142,7 @@ class Info extends Component {
                             </div>
                             <div className='col-3'>
                                 <p>Spells</p>
-                                <ul>{classSpells}</ul>
+                                <ul className='info-spells-selected'>{classSpells}</ul>
                             </div>
                             <div className='col-9'>
                                 <h4>{selectedSpellName} {selectedSpellLevel}</h4>
@@ -164,14 +164,14 @@ class Info extends Component {
                         </div>
                         <div className='col-6 info-col-left'>
                             <h6>Ability bonuses</h6>
-                            <ul>{ability_bonuses}</ul>
+                            <ul className='info-abilityBonuses'>{ability_bonuses}</ul>
                         </div>
                         <div className='col-6 info-col-right'>
                             <h6>Hit die: {hit_die}</h6>
                             <h6>Saving throws</h6>
-                            <ul>{saving_throws}</ul>
-                            <h6>Proficiencies</h6>
-                            <ul className='proficienciesSelected'>
+                            <ul className='info-savingThrows'>{saving_throws}</ul>
+                            <h6 className='info-proficiencies-title'>Proficiencies</h6>
+                            <ul className='info-proficiencies-selected'>
                                 {characterProficiencies}
                             </ul>
                         </div>

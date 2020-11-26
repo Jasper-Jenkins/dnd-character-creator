@@ -1,6 +1,7 @@
 
 .creation {
     --main-bg-color: black;
+    --main-color: azure;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
     height: 85vh;
@@ -11,6 +12,7 @@
 }
 
 .info {
+    color: var(--main-color);
     background-color: var(--main-bg-color);
     min-height: 46vh;
     max-height: 46vh;
@@ -26,31 +28,91 @@
 .info ul {
     list-style: none;
     padding: 0px;
-    color: azure;
+    color: var(--main-color);
 }
 
-.info ul li {    
+.info-spells-selected {
+    color: var(--main-color);
+    background-color: var(--main-bg-color);
+    border: 1px solid azure;
+    list-style: none;
+    padding: 0px;
+}
+
+.info-spells-selected li {
+    color: var(--main-color);
+    background-color: var(--main-bg-color);
+    border: 1px solid azure;
+}
+
+
+.info-proficiencies-title {
+    color: var(--main-color);
+    background-color: var(--main-bg-color);
+    border-top: 1px solid azure;
+    border-left: 1px solid azure;
+    border-right: 1px solid azure;
+    margin: 0px;
+    width: 100%;
+    padding: 0px;
+    float:left;
+}
+
+.info-proficiencies-selected {
+    color: var(--main-color);
+    background-color: var(--main-bg-color);
+    border-bottom: 1px solid azure;
+    border-left: 1px solid azure;
+    border-right: 1px solid azure;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    font-size: 12px;
+    float: left;
+}
+
+.info-proficiencies-selected li{
+    float:left;
+    margin: 0px;
+    padding: 0px;
+}
+
+.info-abilityBonuses {
+    font-size: 10px;
+    margin: 0px;
+    padding: 0px;  
+}
+
+.info-abilityBonuses li {
+    float:left;
+    margin: 0px;
+    padding: 0px;   
+}
+
+/*.info ul li {    
     color: azure;
     float: left;
     border-radius: 1px;
     font-size: 12px;
     margin: 0px;
     padding: 3px 0px;
-}
-
+}*/
 .info-col-left {
+    color: var(--main-color);
     background-color: black;
     color: azure;
-   
     margin: 0px;
     padding: 0px;
+    border: 1px solid azure;
 }
 .info-col-right {
+    color: var(--main-color);
     background-color: black;
     color: azure;
-    
     margin: 0px;
     padding: 0px;
+    border: 1px solid azure;
 }
 
 
@@ -64,16 +126,17 @@
     padding: 0px;
 }
 
-    .ability p {
-        margin: 0px;
-        padding: 0px;        
-    }
+.ability p {
+    margin: 0px;
+    padding: 0px;        
+}
+
 
 .abilityScore {
     background-color: cornflowerblue;
     border: 2px solid cornflowerblue;
     color: azure;
-    font-size: 40px;
+    font-size: 30px;
     margin: 0px;
     padding: 0px;
 }
@@ -82,11 +145,30 @@
     background-color: cornflowerblue;
     border: 2px solid cornflowerblue;
     color: forestgreen;
-    font-size: 40px;
-    font-weight: bolder;
+    font-size: 30px;   
     margin: 0px;
     padding: 0px;
 }
+
+
+.savingThrow {
+    background-color: cornflowerblue;
+    border: 2px solid goldenrod;
+    font-size: 30px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.info-savingThrows {
+    font-size:12px;
+    height:auto;
+   
+}
+.info-savingThrows li {
+  float:left;  
+  height:18px;
+}
+
 
 .abilityScoreSwitch-btn {
     position: sticky;
@@ -94,13 +176,7 @@
     z-index: 10;
 }
 
-.savingThrow {
-    background-color: cornflowerblue;
-    border: 2px solid goldenrod;    
-    font-size: 40px;
-    margin: 0px;
-    padding: 0px;
- }
+
 
 .characterTitle { /*Info.js*/
     min-height:40px;
@@ -122,7 +198,7 @@
 }
 
 .spells {
-    background-color: white;
+    background-color: var(--main-bg-color);
     border: 1px solid white;
     float: left;
 }
@@ -252,9 +328,10 @@
     color: white;
 }
 
-.chooseProficiency {
-    margin: 10px 0px;
-    float:left;
+.selection-choose-proficiencies {
+    border: 2px solid azure;
+    margin: 0px 0px;
+    float: left;
 }
 
 .proficiencyInfo {
@@ -272,18 +349,20 @@
 }
 
 .profNavSelected {
-    color: azure;
-    border-top: 2px solid azure;
-    border-left: 2px solid azure;
-    border-right: 2px solid azure;
+    color: black;
+    background-color: azure;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
 }
 
 .profNavSelected:focus {
-    color: azure;   
+    color: black;   
 }
 
 .profNav {
     color: azure;
+    background-color: black;
 }
 
 input[type=number] {

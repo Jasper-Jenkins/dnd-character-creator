@@ -100,11 +100,11 @@ class ClassProficiencies extends Component {
                 for (var j = 0; j < proficiencies.length; j++) {
                     for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
                         if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
-                            return (<button className='btn-sm col-6 btn-secondary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                            return (<button className='btn-sm col-6 btn-success' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
                         }
                     }
                 }                
-                return (<button className='btn-sm col-6 btn-primary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                return (<button className='btn-sm col-6 btn-secondary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
          
             let check = proficienciesChosen[choicesIndex]; //I have to check because this comes through undefined the very first time this function runs, need to figure out a better solution.
@@ -114,8 +114,8 @@ class ClassProficiencies extends Component {
             } else {
                 num = proficienciesChosen[choicesIndex].length;
             }
-            console.log(num);
-            chooseFrom.push(<div className='col-12 chooseProficiency' key={'catetory' + choicesIndex}><h6>Choose: {classSelected.proficiency_choices[choicesIndex].choose - num}</h6>{chooseProficiencies}</div>);
+           
+            chooseFrom.push(<div className='col-12 selection-choose-proficiencies' key={'catetory' + choicesIndex}><h6>Choose: {classSelected.proficiency_choices[choicesIndex].choose - num}</h6>{chooseProficiencies}</div>);
         }       
         return (chooseFrom);
     }
@@ -130,12 +130,10 @@ class ClassProficiencies extends Component {
     proficienciesNavigation() {
         const { classSelected } = this.props;
         const { category } = this.state;
-        let buttons = [];
-        console.log(classSelected.proficiency_choices.length);
+        let buttons = [];       
         for (var a = 0; a < classSelected.proficiency_choices.length; a++) {            
             let newCategory = a;
-            if (category === a) {
-                
+            if (category === a) {                
                 buttons.push(<button className='btn-sm btn profNavSelected' onClick={() => void (0)} key={classSelected.name + a}>Category {category}</button>)
             } else {
                 buttons.push(<button className='btn-sm btn profNav' onClick={() => this.setNavigatioCategory(newCategory)} key={classSelected.name + a}>Category {newCategory}</button>)
@@ -149,8 +147,7 @@ class ClassProficiencies extends Component {
     render() {
         const choices = this.classProficienciesToChooseFrom();
         const nav = this.proficienciesNavigation();
-        const { category } = this.state;
-       
+        const { category } = this.state;       
         return (<div className='col-12 text-center selection'>  
                     {nav}
                     {choices[category]}
