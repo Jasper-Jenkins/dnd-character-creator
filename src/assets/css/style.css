@@ -4,7 +4,7 @@
     --main-color: azure;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 93vh;
+    height: 90vh;
     max-width: var(--main-max-width);
     margin: 0vh auto 7vh auto;
     border-radius: 3px;
@@ -14,8 +14,8 @@
 .info {
     color: var(--main-color);
     background-color: var(--main-bg-color);
-    min-height: 53vh;
-    max-height: 53vh;
+    min-height: 50vh;
+    max-height: 50vh;
     overflow-y: auto;
     overflow-x: auto;  
 }
