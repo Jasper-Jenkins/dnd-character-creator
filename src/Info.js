@@ -13,8 +13,7 @@ class Info extends Component {
             saving_throws: [],
             characterProficiencies: [],
             classSpells: [],
-        }
-        
+        }        
     }   
 
     characterRaceInfo() {
@@ -85,12 +84,7 @@ class Info extends Component {
         let classSpells = [];
         let hit_die = "";       
         let saving_throws = [];
-       
-        //let classFeatures = [];
-        
-
         if (isSelected(classSelected)) { //setting up info for when a class has been selected
-            
             hit_die = classSelected.hit_die
             saving_throws = classSelected.saving_throws.map((saving_throw, index) => {
                 for (var j = 0; j < abilityScoresInfo.length; j++) {
@@ -117,14 +111,12 @@ class Info extends Component {
     }
 
     render() {
-        
-      //  const { raceName, className, abilityScores, ability_bonuses, classSpells, saving_throws, hit_die, characterProficiencies } = this.state;
         const { raceSelected, classSelected, navigation } = this.props;
         const [ability_bonuses, abilityScores] = this.characterRaceInfo();
         const [characterProficiencies, classSpells, hit_die, saving_throws] = this.characterClassInfo();
         switch (navigation) {
             case 'Spells':
-                if (isSelected(this.props.classSelected)) {
+                if (isSelected(classSelected)) {
                     let spellDescription;
                     let selectedSpellName;
                     let selectedSpellLevel;
@@ -177,13 +169,10 @@ class Info extends Component {
                         </div>
                     </div>
                 </div>);
-        }
-
-        
+        }        
     }
 }
 
-    
 export default Info
 
 
