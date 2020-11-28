@@ -1,0 +1,28 @@
+#navigation {
+    position:absolute;   
+    margin: 0px;
+    padding: 0px;
+    width: inherit;
+    bottom: 0px;
+    right: 0px;
+}
+
+#navigation-container{
+    position: relative;
+    background-color: aqua;
+    height: 5vh;
+}
+
+#navigation-buttons { /*ul*/
+    
+    background-color: blue;
+    list-style: none;
+}
+
+.navigation-buttons li {
+    background-color: green;
+}
+
+.btn-nav {
+    margin: 0px;
+}
