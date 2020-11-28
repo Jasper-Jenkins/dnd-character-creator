@@ -15,7 +15,6 @@ class Navigation extends Component {
         this.setState({
             toggle: !this.state.toggle,
         });
-
     }
 
     navigationButtons() {
