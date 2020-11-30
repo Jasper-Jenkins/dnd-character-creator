@@ -1,26 +1,16 @@
-#navigation {
-    position:absolute;   
-    margin: 0px;
-    padding: 0px;
-    width: inherit;
-    bottom: 0px;
-    right: 0px;
-}
 
-#navigation-container{
+#navigation {
     position: relative;
-    background-color: aqua;
+    background-color: yellow;
     height: 5vh;
 }
 
-#navigation-buttons { /*ul*/
-    
-    background-color: blue;
-    list-style: none;
-}
-
-.navigation-buttons li {
-    background-color: green;
+#navigation-buttons { 
+    position: absolute;   
+    bottom: 0px;
+    background-color: black;
+    margin: 0 auto;
+    left: 25%;
 }
 
 .btn-nav {

@@ -201,7 +201,7 @@ class CreateCharacter extends Component {
             <div className='row'>
                 <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             </div>
-            <div className='row' id='navigation-container'>
+            <div className='row'>
                 <Navigation {...this.state} {...this.props} navigate={this.navigate} />
             </div>           
         </div>);
@@ -212,7 +212,5 @@ class CreateCharacter extends Component {
 //    <CharacterSave {...this.state} />
 //</div>
 //<GOOFING />
-
-
 
 export default CreateCharacter
