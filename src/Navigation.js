@@ -78,16 +78,11 @@ class Navigation extends Component {
             <div className='col-6' id='navigation-container' onBlur={(e) => {               
                 if (!e.currentTarget.contains(e.relatedTarget)) {
                     // Not triggered when swapping focus between children
-                    this.toggleNavigation();
-                    console.log('focus left self');
+                    this.hideButtons();                  
                 }
             }}>
-                <div id='navigation-buttons' onFocus={(e) => {                  
-                    if (!e.currentTarget.contains(e.relatedTarget)) {
-                        // Not triggered when swapping focus between children
-                        console.log('focus entered self');
-                    }
-                }}>{this.state.toggle ? this.navigationButtons() : null}</div>
+                <div id='navigation-buttons' 
+               >{this.state.toggle ? this.navigationButtons() : null}</div>
                         <button className='btn btn-sm btn-primary' id='navigation-toggle' onClick={() => this.toggleNavigation() }>{champion}</button>
                     </div>                    
                 </div>);
