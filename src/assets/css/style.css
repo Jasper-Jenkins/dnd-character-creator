@@ -4,7 +4,7 @@
     --main-color: azure;
     --main-max-width: 1000px;
     background-color: var(--main-bg-color);
-    height: 100vh;
+    height: 90vh;
     max-width: var(--main-max-width);
     margin: auto;
     border-radius: 3px;

@@ -1,8 +1,7 @@
 
-.selection {
-    
+.selection {    
     width: 100%;
-    height: 25vh;
+    height: 30vh;
     overflow: auto;
     margin: 0px;
     padding: 0px;

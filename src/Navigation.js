@@ -46,20 +46,20 @@ class Navigation extends Component {
         let navButtons = navigationCategories.map((category, index) => {
             if (isSelected(classSelected)) {
                 if (navigation === category) {
-                    return (<button type='button' className='btn btn-sm btn-block btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                    return (<button onClick={() => this.hideButtons() } type='button' className='btn btn-sm btn-block btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
                 } else {
                     return (<button onClick={() => { navigate(category); this.hideButtons(); }} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
                 }
             } else {
                 if (navigation === category) {
-                    return (<button type='button' className='btn btn-sm btn-block btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                    return (<button onClick={() => this.hideButtons()} type='button' className='btn btn-sm btn-block btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
                 } else {
                     if (category === 'Classes' && (navigation === 'Proficiencies' || navigation === 'Spells')) {
                         switch (navigation) {
                             case 'Proficiencies':
-                                return (<button onClick={() => navigate(category)} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
+                                return (<button onClick={() => { navigate(category); this.hideButtons() }} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
                             default:
-                                return (<button onClick={() => navigate(category)} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
+                                return (<button onClick={() => { navigate(category); this.hideButtons() }} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
                         }
                     } else {
                         return (<button onClick={() => { navigate(category); this.hideButtons()}} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
@@ -71,11 +71,23 @@ class Navigation extends Component {
         return (navButtons);
     }
 
+    
     render() {
         const { champion } = this.props; 
         return (<div className='col-12 text-center' id='navigation' > 
-                    <div className='col-6' id='navigation-container'>
-                        <div id='navigation-buttons'>{this.state.toggle ? this.navigationButtons() : null}</div>
+            <div className='col-6' id='navigation-container' onBlur={(e) => {               
+                if (!e.currentTarget.contains(e.relatedTarget)) {
+                    // Not triggered when swapping focus between children
+                    this.toggleNavigation();
+                    console.log('focus left self');
+                }
+            }}>
+                <div id='navigation-buttons' onFocus={(e) => {                  
+                    if (!e.currentTarget.contains(e.relatedTarget)) {
+                        // Not triggered when swapping focus between children
+                        console.log('focus entered self');
+                    }
+                }}>{this.state.toggle ? this.navigationButtons() : null}</div>
                         <button className='btn btn-sm btn-primary' id='navigation-toggle' onClick={() => this.toggleNavigation() }>{champion}</button>
                     </div>                    
                 </div>);

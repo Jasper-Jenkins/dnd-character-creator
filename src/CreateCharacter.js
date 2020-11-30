@@ -194,8 +194,7 @@ class CreateCharacter extends Component {
        // const { navigationCategories, navigation, } = this.state
         
         return (<div id='creation' className='container-fluid'>
-            <UserAlert alertMessage={this.state.alertMessage} />
-           
+            <UserAlert alertMessage={this.state.alertMessage} />           
             <div className='row'>
                 <Info {...this.state} {...this.props} />
             </div>
