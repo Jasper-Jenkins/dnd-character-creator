@@ -39,9 +39,9 @@ export default class CharacterRace extends Component {
         //console.log("race selected ", raceSelected);
         let raceButtons = races.results.map((race) => {
             if (isSelected(raceSelected) && raceSelected.index === race.index) {
-                return (<button className='selectionButtons buttonSelected col-4 {race.index}' aria-disabled='true' key={race.index}>{race.name}</button>);
+                return (<button className='btn btn-sm buttonSelected col-4 {race.index}' aria-disabled='true' key={race.index}>{race.name}</button>);
             }
-            return (<button onClick={() => this.selectRace(race.index)} className='selectionButtons col-4' key={race.index}>{race.name}</button>);
+            return (<button onClick={() => this.selectRace(race.index)} className='btn btn-sm selectionButtons col-4' key={race.index}>{race.name}</button>);
         });
         return raceButtons;
     }

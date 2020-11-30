@@ -9,12 +9,32 @@ class Navigation extends Component {
             toggle: false,
         }
         this.toggleNavigation = this.toggleNavigation.bind(this);
+        this.hideButtons = this.hideButtons.bind(this);
     }
 
     toggleNavigation() {       
         this.setState({
             toggle: !this.state.toggle,
         });
+    }
+
+    hideButtons() { 
+        const alertNode = document.getElementById('navigation-buttons');
+        setTimeout(() => {
+            console.log("is it happening?")
+            let fade = setInterval(() => {
+                if (!alertNode.style.opacity) {
+                    alertNode.style.opacity = 1;
+                }
+                if (alertNode.style.opacity > 0) {
+                    alertNode.style.opacity -= 0.01;
+                } else {
+                    clearInterval(fade);
+                    this.toggleNavigation();
+                    alertNode.style.opacity = 1;
+                }
+            }, 1);
+        }, 0);  
     }
 
     navigationButtons() {
@@ -28,7 +48,7 @@ class Navigation extends Component {
                 if (navigation === category) {
                     return (<button type='button' className='btn btn-sm btn-block btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
                 } else {
-                    return (<button onClick={() => navigate(category)} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
+                    return (<button onClick={() => { navigate(category); this.hideButtons(); }} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
                 }
             } else {
                 if (navigation === category) {
@@ -42,21 +62,22 @@ class Navigation extends Component {
                                 return (<button onClick={() => navigate(category)} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
                         }
                     } else {
-                        return (<button onClick={() => navigate(category)} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
+                        return (<button onClick={() => { navigate(category); this.hideButtons()}} type='button' className='btn btn-sm btn-block btn-dark btn-nav' key={index}>{category}</button>);
                     }
                 }
             }
         });
+        
         return (navButtons);
     }
 
     render() {
         const { champion } = this.props; 
         return (<div className='col-12 text-center' id='navigation' > 
-                        <div className='col-6' id='navigation-buttons'>
-                             {this.state.toggle ? this.navigationButtons() : null}
-                             <button className='btn btn-sm btn-primary' id='navigation-toggle' onClick={() => this.toggleNavigation()}>{champion}</button>
-                        </div>                    
+                    <div className='col-6' id='navigation-container'>
+                        <div id='navigation-buttons'>{this.state.toggle ? this.navigationButtons() : null}</div>
+                        <button className='btn btn-sm btn-primary' id='navigation-toggle' onClick={() => this.toggleNavigation() }>{champion}</button>
+                    </div>                    
                 </div>);
     }
 }

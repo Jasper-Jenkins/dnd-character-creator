@@ -5,6 +5,7 @@ import App from './App'
 import './assets/css/style.css'
 import './assets/css/navigation-style.css'
 import './assets/css/selection-style.css'
+import './assets/css/info-style.css'
 
 ReactDOM.render(<App />, document.getElementById('root')) 
 //ReactDOM.render(<GOOFING />, document.getElementById('root'))

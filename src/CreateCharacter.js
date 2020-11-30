@@ -193,7 +193,7 @@ class CreateCharacter extends Component {
     render() {
        // const { navigationCategories, navigation, } = this.state
         
-        return (<div id='creator' className='container-fluid creation'>
+        return (<div id='creation' className='container-fluid'>
             <UserAlert alertMessage={this.state.alertMessage} />
            
             <div className='row'>
