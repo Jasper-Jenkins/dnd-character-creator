@@ -6,7 +6,7 @@
 }
 
 #navigation-buttons { 
-    position: absolute;   
+    position: fixed;   
     bottom: 0px;
     background-color: black;
     margin: 0 auto;

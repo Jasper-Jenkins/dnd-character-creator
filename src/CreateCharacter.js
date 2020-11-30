@@ -12,6 +12,7 @@ class CreateCharacter extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            champion: 'Champion', //add support: user being able to name their Champion. 
             abilityScoresSelected: {},
             navigationCategories: ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'],
             navigation: 'Races',

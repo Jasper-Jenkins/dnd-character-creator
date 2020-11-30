@@ -51,10 +51,11 @@ class Navigation extends Component {
     }
 
     render() {
+        const { champion } = this.props; 
         return (<div className='col-12 text-center' id='navigation' > 
                         <div className='col-6' id='navigation-buttons'>
                              {this.state.toggle ? this.navigationButtons() : null}
-                             <button className='btn btn-sm btn-primary' id='navigation-toggle' onClick={() => this.toggleNavigation()}>{this.state.toggle ? 'Hide' : 'Show'}</button>
+                             <button className='btn btn-sm btn-primary' id='navigation-toggle' onClick={() => this.toggleNavigation()}>{champion}</button>
                         </div>                    
                 </div>);
     }
