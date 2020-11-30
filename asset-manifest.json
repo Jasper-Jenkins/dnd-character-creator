@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/dnd-character-creator/static/css/main.4f589c95.chunk.css",
-    "main.js": "/dnd-character-creator/static/js/main.4e46829b.chunk.js",
-    "main.js.map": "/dnd-character-creator/static/js/main.4e46829b.chunk.js.map",
+    "main.css": "/dnd-character-creator/static/css/main.7f377099.chunk.css",
+    "main.js": "/dnd-character-creator/static/js/main.a377dc67.chunk.js",
+    "main.js.map": "/dnd-character-creator/static/js/main.a377dc67.chunk.js.map",
     "runtime-main.js": "/dnd-character-creator/static/js/runtime-main.6938952c.js",
     "runtime-main.js.map": "/dnd-character-creator/static/js/runtime-main.6938952c.js.map",
-    "static/js/2.f654289c.chunk.js": "/dnd-character-creator/static/js/2.f654289c.chunk.js",
-    "static/js/2.f654289c.chunk.js.map": "/dnd-character-creator/static/js/2.f654289c.chunk.js.map",
+    "static/js/2.fc4bf88f.chunk.js": "/dnd-character-creator/static/js/2.fc4bf88f.chunk.js",
+    "static/js/2.fc4bf88f.chunk.js.map": "/dnd-character-creator/static/js/2.fc4bf88f.chunk.js.map",
     "index.html": "/dnd-character-creator/index.html",
-    "precache-manifest.cf2f521f1a0f9f572a0b3ba90bb35dcc.js": "/dnd-character-creator/precache-manifest.cf2f521f1a0f9f572a0b3ba90bb35dcc.js",
+    "precache-manifest.a6c464ff0c3ca5782d78c39507184f7b.js": "/dnd-character-creator/precache-manifest.a6c464ff0c3ca5782d78c39507184f7b.js",
     "service-worker.js": "/dnd-character-creator/service-worker.js",
-    "static/css/main.4f589c95.chunk.css.map": "/dnd-character-creator/static/css/main.4f589c95.chunk.css.map",
-    "static/js/2.f654289c.chunk.js.LICENSE.txt": "/dnd-character-creator/static/js/2.f654289c.chunk.js.LICENSE.txt"
+    "static/css/main.7f377099.chunk.css.map": "/dnd-character-creator/static/css/main.7f377099.chunk.css.map",
+    "static/js/2.fc4bf88f.chunk.js.LICENSE.txt": "/dnd-character-creator/static/js/2.fc4bf88f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.6938952c.js",
-    "static/js/2.f654289c.chunk.js",
-    "static/css/main.4f589c95.chunk.css",
-    "static/js/main.4e46829b.chunk.js"
+    "static/js/2.fc4bf88f.chunk.js",
+    "static/css/main.7f377099.chunk.css",
+    "static/js/main.a377dc67.chunk.js"
   ]
 }
