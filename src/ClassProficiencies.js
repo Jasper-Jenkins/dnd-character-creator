@@ -107,15 +107,15 @@ class ClassProficiencies extends Component {
                 return (<button className='btn-sm col-6 btn-secondary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
          
-            let check = proficienciesChosen[choicesIndex]; //I have to check because this comes through undefined the very first time this function runs, need to figure out a better solution.
-            let num;
-            if (check === undefined) {
-                num = 0;
-            } else {
-                num = proficienciesChosen[choicesIndex].length;
-            }
+            //let check = proficienciesChosen[choicesIndex]; //I have to check because this comes through undefined the very first time this function runs, need to figure out a better solution.
+            //let num;
+            //if (check === undefined) {
+            //    num = 0;
+            //} else {
+            //    num = proficienciesChosen[choicesIndex].length;
+            //}
            
-            chooseFrom.push(<div className='col-12 selection-choose-proficiencies' key={'catetory' + choicesIndex}><h6>Choose: {classSelected.proficiency_choices[choicesIndex].choose - num}</h6>{chooseProficiencies}</div>);
+            chooseFrom.push(<div className='col-12 selection-choose-proficiencies' key={'catetory' + choicesIndex}>{chooseProficiencies}</div>);
         }       
         return (chooseFrom);
     }
@@ -130,13 +130,26 @@ class ClassProficiencies extends Component {
     proficienciesNavigation() {
         const { classSelected } = this.props;
         const { category } = this.state;
-        let buttons = [];       
+        const { proficienciesChosen } = this.state; 
+        let buttons = [];   
+
         for (var a = 0; a < classSelected.proficiency_choices.length; a++) {            
             let newCategory = a;
-            if (category === a) {                
-                buttons.push(<button className='btn-sm btn profNavSelected' onClick={() => void (0)} key={classSelected.name + a}>Category {category}</button>)
+
+            let check = proficienciesChosen[newCategory]; //I have to check because this comes through undefined the very first time this function runs, need to figure out a better solution.
+            let num;
+            if (check === undefined) {
+                num = 0;
             } else {
-                buttons.push(<button className='btn-sm btn profNav' onClick={() => this.setNavigatioCategory(newCategory)} key={classSelected.name + a}>Category {newCategory}</button>)
+                num = proficienciesChosen[newCategory].length;
+            }
+
+
+
+            if (category === a) {                
+                buttons.push(<button className='btn-sm btn profNavSelected' onClick={() => void (0)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
+            } else {
+                buttons.push(<button className='btn-sm btn profNav' onClick={() => this.setNavigatioCategory(newCategory)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
             }           
         }
         
@@ -148,7 +161,7 @@ class ClassProficiencies extends Component {
         const choices = this.classProficienciesToChooseFrom();
         const nav = this.proficienciesNavigation();
         const { category } = this.state;       
-        return (<div className='col-12 text-center selection'>  
+        return (<div className='col-12 text-center selection'> <p className="selectionTitle">Choose your Champions Proficiencies</p> 
                     {nav}
                     {choices[category]}
                 </div>);

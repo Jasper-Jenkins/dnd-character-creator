@@ -66,11 +66,9 @@ class Navigation extends Component {
                     }
                 }
             }
-        });
-        
+        });        
         return (navButtons);
     }
-
     
     render() {
         const { champion } = this.props; 
