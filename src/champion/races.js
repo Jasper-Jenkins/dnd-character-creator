@@ -81,10 +81,10 @@ export default class CharacterRace extends Component {
 
 
     render() {
-        let cards = this.raceCards();
+       // let cards = this.raceCards();
         return (<div className='selection col-12'>
                     <p className="selectionTitle">Choose your Champions Race</p>
-                    {cards}
+                    {this.raceCards()}
                 </div>);
     }
 }

@@ -9,6 +9,7 @@ export default class CharacterClass extends Component {
         }
         this.buttons = this.buttons.bind(this);
         this.selectClass = this.selectClass.bind(this);
+        this.classCards = this.classCards.bind(this);
     };   
 
     componentDidMount() {
@@ -33,7 +34,6 @@ export default class CharacterClass extends Component {
     buttons() {
         const { classes } = this.props
         const { classSelected } = this.state;
-
         let classButtons = classes.results.map((characterClass) => {
             if (isSelected(classSelected) && classSelected.index === characterClass.index) {
                 //console.log("selection disabled for class");
@@ -45,10 +45,45 @@ export default class CharacterClass extends Component {
         return classButtons;
     }
 
+    classProficiences(championClass) {
+        let proficiencies = "";
+        let count = 0;
+        proficiencies = championClass.proficiencies.map((prof) => {
+            if (count === championClass.proficiencies.length - 1) {
+                return (prof.name + ". ");
+            } 
+            count++;
+            return (prof.name + ", ");
+        });
+        return (proficiencies);
+    }
+
+    classCards() {
+        const { classesInfo } = this.props;
+        let classCards = classesInfo.map((classInfo) => {
+            //let bonuses = this.abilityBonuses(race);
+            return (<div className="card border-dark mb-3 " key={classInfo.index}>
+                <div className="card-header text-white bg-dark text-center">
+                    <h4>{classInfo.name}</h4>
+                </div>
+                <div className="card-body">
+                    <p className="card-text">Hit die: {classInfo.hit_die}</p>
+                    <p className="card-text">Starting proficiencies: {this.classProficiences(classInfo)}</p>
+                    <p className="card-text">{}</p>
+                    <p className="card-text">{}</p>
+                    <p className="card-text">{}</p>
+                    <p className="card-text">{}</p>
+                    <button className="btn btn-primary" onClick={() => this.selectClass(classInfo.index)}>Choose {classInfo.name}</button>
+                </div>
+            </div>);
+        });
+        return (classCards);
+    }
+
     render() {
-        return (<div className="col-12 text-center selection">
+        return (<div className="col-12 selection">
                  <p className="selectionTitle">Choose your Champions Class</p>
-                        {this.buttons()}
+                        {this.classCards()}
                     </div>);
     }
 }

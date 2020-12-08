@@ -191,10 +191,10 @@ class CreateCharacter extends Component {
     }
        
     render() {
-       // const { navigationCategories, navigation, } = this.state
+      //hacky way of displaying alert, need to create and delete
         
         return (<div id='creation' className='container-fluid'>
-            <UserAlert alertMessage={this.state.alertMessage} />           
+            <UserAlert alertMessage={this.state.alertMessage} />          
             <div className='row'>
                 <Info {...this.state} {...this.props} />
             </div>
