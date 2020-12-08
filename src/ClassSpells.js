@@ -6,7 +6,9 @@ class ClassSpells extends Component {
         this.state = {
             classSpells: [], 
             spellSlots: [], 
-            spellsChosen: [],    
+            spellsChosen: [],
+            navigationCategory: 0,
+            spellBook: {},
         };
     }
 
@@ -14,6 +16,7 @@ class ClassSpells extends Component {
         this.spellSlots();
         this.setClassSpells(1); // character level: 1
     }
+
     spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
         const { classSelected } = this.props;
         const { levelData } = this.props;    
@@ -56,7 +59,7 @@ class ClassSpells extends Component {
         this.props.setSpells(spells); //parent spells update so Info can display chosen spells
     }
 
-    spellsChosenByLevel = () => {
+    spellsChosenByLevel = () => { //this will only work for level one character creation. Works for this app as its for level one only. 
         const { spellsChosen } = this.props;
         let cantrips = 0;
         let levelOneSpells = 0;
@@ -277,6 +280,30 @@ class ClassSpells extends Component {
         setSelectedSpell({})
     }
 
+    setNavigationCategory(newCategory) {
+        this.setState({ navigationCategory: newCategory, });
+    }
+
+    spellsNavigation() {
+        const { spellsChosen } = this.props;
+        const { navigationCategory } = this.state;
+        const { spellSlots } = this.state;
+        let buttons = [];
+        let spellsSlots = this.spellsChosenByLevel();
+        for (var a = 0; a < spellSlots.length; a++) {
+            let newCategory = a;
+            let num;
+            num = spellsSlots[a];            
+            if (navigationCategory === a) {
+                buttons.push(<button className='btn-sm btn spellsNavigationSelected' onClick={() => void (0)} key={a}> Choose: {spellSlots[a] - num}</button>)
+            } else {
+                buttons.push(<button className='btn-sm btn spellsNavigation' onClick={() => this.setNavigationCategory(newCategory)} key={a}>Choose: {spellSlots[a] - num}</button>)
+            }
+        }
+        return (<div className='col-12'>{buttons}</div>);
+    }
+
+
     displaySpells = () => {
         const { classSelected } = this.props;
         const { classSpells } = this.state;
@@ -326,8 +353,14 @@ class ClassSpells extends Component {
         return (spellChoiceDisplay);
     }  
     
-    render() {
-        return (<div className='col-12 text-center selection'>{this.displaySpells()}</div>);
+    render() {        
+        const { navigationCategory } = this.state; 
+        const spells = this.displaySpells();
+        const navigation = this.spellsNavigation();
+        return (<div className='col-12 text-center selection'>
+            { navigation }
+            { spells[navigationCategory] }
+                </div>);
     }
 }
 

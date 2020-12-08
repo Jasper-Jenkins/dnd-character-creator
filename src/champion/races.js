@@ -7,8 +7,10 @@ export default class CharacterRace extends Component {
         this.state = {
             raceSelected: {},            
         }
-       // this.buttons = this.buttons.bind(this);
+        this.buttons = this.buttons.bind(this);
         this.selectRace = this.selectRace.bind(this);
+        this.abilityBonuses = this.abilityBonuses.bind(this);
+        this.raceCards = this.raceCards.bind(this);
     //    console.log("Race Constructor", props);
     }
 
@@ -20,7 +22,7 @@ export default class CharacterRace extends Component {
         console.log(this.props);
     }
 
-    selectRace = (index) => {
+    selectRace(index) {
         const { racesInfo } = this.props;
         const { setRace } = this.props;
         for (let i = 0; i < racesInfo.length; i++) {
@@ -33,7 +35,7 @@ export default class CharacterRace extends Component {
         }
     }   
 
-    buttons = () => {
+    buttons() {
         const { races } = this.props;
         const { raceSelected } = this.state;
         //console.log("race selected ", raceSelected);
@@ -46,10 +48,43 @@ export default class CharacterRace extends Component {
         return raceButtons;
     }
 
+
+    abilityBonuses(characterRace) {        
+        let bonuses = ""; 
+        for (var a = 0; a < characterRace.ability_bonuses.length; a++) {
+            bonuses += characterRace.ability_bonuses[a].ability_score.name + ": " + characterRace.ability_bonuses[a].bonus + " ";
+        }
+        return (bonuses);
+    }
+
+    raceCards() {       
+        const { racesInfo } = this.props;
+        let raceCards = racesInfo.map((race) => {            
+            let bonuses = this.abilityBonuses(race);           
+            return (<div className="card border-dark mb-3 " key={race.index}>
+                <div className="card-header text-white bg-dark text-center">
+                         <h4>{race.name}</h4>
+                        </div>
+                <div className="card-body">                           
+                            <p className="card-text">{race.size_description}</p>
+                            <p className="card-text">{race.age}</p>
+                            <p className="card-text">{race.alignment}</p>
+                            <p className="card-text">{race.language_desc}</p>                            
+                            <p className="card-text"><strong>Ability Bonuses:</strong> {bonuses}</p>
+                            <p className="card-text"><strong>Speed:</strong> {race.speed}</p>
+                            <button className="btn btn-primary" onClick={() => this.selectRace(race.index)}>Choose {race.name}</button>
+                        </div>
+                    </div>);
+        });
+        return (raceCards);
+    }
+
+
     render() {
-        return (<div className='text-center selection col-12'>
+        let cards = this.raceCards();
+        return (<div className='selection col-12'>
                     <p className="selectionTitle">Choose your Champions Race</p>
-                    {this.buttons()}
+                    {cards}
                 </div>);
     }
 }

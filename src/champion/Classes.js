@@ -27,7 +27,7 @@ export default class CharacterClass extends Component {
                 setClass(classSelected[0]);
                 break;
             }
-        }
+        }        
     }
 
     buttons() {

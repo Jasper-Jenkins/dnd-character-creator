@@ -2,17 +2,17 @@
 .info {
     color: var(--main-color);
     background-color: var(--main-bg-color);
-    min-height: 55vh;
-    max-height: 55vh;
+    min-height: 15vh;
+    max-height: 15vh;
     overflow-y: auto;
     overflow-x: auto;
 }
 
-    .info h1, h2, h3, h4, h5, h6 {
+   /* .info h1, h2, h3, h4, h5, h6 {
         text-align: center;
         color: azure;
     }
-
+*/
     .info ul {
         list-style: none;
         padding: 0px;

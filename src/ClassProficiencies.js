@@ -120,7 +120,7 @@ class ClassProficiencies extends Component {
         return (chooseFrom);
     }
 
-    setNavigatioCategory(newCategory) {
+    setNavigationCategory(newCategory) {
         this.setState({ category: newCategory, });
     }
 
@@ -135,7 +135,6 @@ class ClassProficiencies extends Component {
 
         for (var a = 0; a < classSelected.proficiency_choices.length; a++) {            
             let newCategory = a;
-
             let check = proficienciesChosen[newCategory]; //I have to check because this comes through undefined the very first time this function runs, need to figure out a better solution.
             let num;
             if (check === undefined) {
@@ -144,12 +143,10 @@ class ClassProficiencies extends Component {
                 num = proficienciesChosen[newCategory].length;
             }
 
-
-
             if (category === a) {                
                 buttons.push(<button className='btn-sm btn profNavSelected' onClick={() => void (0)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
             } else {
-                buttons.push(<button className='btn-sm btn profNav' onClick={() => this.setNavigatioCategory(newCategory)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
+                buttons.push(<button className='btn-sm btn profNav' onClick={() => this.setNavigationCategory(newCategory)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
             }           
         }
         
