@@ -58,22 +58,30 @@ export default class CharacterClass extends Component {
         return (proficiencies);
     }
 
+    classSavingThrows(championClass) {
+        let savingThrows = '';
+        savingThrows = championClass.saving_throws.map((savingThrow) => {
+            return (savingThrow.name + " ")
+        });
+        return savingThrows;
+    }
+
     classCards() {
         const { classesInfo } = this.props;
-        let classCards = classesInfo.map((classInfo) => {
+        let classCards = classesInfo.map((championClass) => {
             //let bonuses = this.abilityBonuses(race);
-            return (<div className="card border-dark mb-3 " key={classInfo.index}>
+            return (<div className="card border-dark mb-3 " key={championClass.index}>
                 <div className="card-header text-white bg-dark text-center">
-                    <h4>{classInfo.name}</h4>
+                    <h4>{championClass.name}</h4>
                 </div>
                 <div className="card-body">
-                    <p className="card-text">Hit die: {classInfo.hit_die}</p>
-                    <p className="card-text">Starting proficiencies: {this.classProficiences(classInfo)}</p>
+                    <p className="card-text"><strong>Hit die:</strong> {championClass.hit_die}</p>
+                    <p className="card-text"><strong>Starting proficiencies:</strong> {this.classProficiences(championClass)}</p>
+                    <p className="card-text"><strong>Saving Throws:</strong> {this.classSavingThrows(championClass)}</p>
                     <p className="card-text">{}</p>
                     <p className="card-text">{}</p>
                     <p className="card-text">{}</p>
-                    <p className="card-text">{}</p>
-                    <button className="btn btn-primary" onClick={() => this.selectClass(classInfo.index)}>Choose {classInfo.name}</button>
+                    <button className="btn btn-primary" onClick={() => this.selectClass(championClass.index)}>Choose {championClass.name}</button>
                 </div>
             </div>);
         });
