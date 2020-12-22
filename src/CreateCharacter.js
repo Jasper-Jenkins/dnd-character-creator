@@ -195,9 +195,7 @@ class CreateCharacter extends Component {
         
         return (<div id='creation' className='container-fluid'>
             <UserAlert alertMessage={this.state.alertMessage} />          
-            <div className='row'>
-                <Info {...this.state} {...this.props} />
-            </div>
+         
             <div className='row'>
                 <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
             </div>
@@ -207,6 +205,12 @@ class CreateCharacter extends Component {
         </div>);
     }
 }
+
+//<div className='row'>
+//    <Info {...this.state} {...this.props} />
+//</div>
+
+
 
 //<div className='row'>
 //    <CharacterSave {...this.state} />

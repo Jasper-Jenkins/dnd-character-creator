@@ -42,6 +42,7 @@ class Navigation extends Component {
         const navigationCategories = this.props.navigationCategories
         const navigate = this.props.navigate
         const classSelected = this.props.classSelected
+        
 
         let navButtons = navigationCategories.map((category, index) => {
             if (isSelected(classSelected)) {
@@ -79,8 +80,8 @@ class Navigation extends Component {
                     this.hideButtons();                  
                 }
             }}>
-                <div id='navigation-buttons' 
-               >{this.state.toggle ? this.navigationButtons() : null}</div>
+                <div id='navigation-buttons'>
+                    {this.state.toggle ? this.navigationButtons() : null}</div>
                         <button className='btn btn-sm btn-primary' id='navigation-toggle' onClick={() => this.toggleNavigation() }>{champion}</button>
                     </div>                    
                 </div>);
