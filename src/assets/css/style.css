@@ -197,3 +197,9 @@ input[type=number] {
 .race-class {
     min-height: 30px;
 }    
+
+
+.info-modal {
+   margin:0px;
+   padding:0px;
+}

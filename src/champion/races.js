@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import InfoModal from '../helper/modal'
 import isSelected from '../helper/helper-functions'
 
 export default class CharacterRace extends Component {
@@ -17,23 +18,23 @@ export default class CharacterRace extends Component {
     //    console.log("Race Constructor", props);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        const url = 'https://www.dnd5eapi.co/api/'
-        if (!nextState.preLoadCheck) {
-            let newData = fetch(url + 'classes')
-                .then(result => result.json())
-                .then(result => { console.log(result); return result })
-                .catch(e => { console.log(e + " -- getClasses() -- " + url); });
-            //this.setState({
-            //    preLoadInfo:
-            //});
-            console.log("False", newData);
-            this.setState({ preLoadCheck: true,})
-           return false;
-        }
-        console.log("True");
-        return true;
-    }
+    //shouldComponentUpdate(nextProps, nextState) {
+    //    const url = 'https://www.dnd5eapi.co/api/'
+    //    if (!nextState.preLoadCheck) {
+    //        let newData = fetch(url + 'classes')
+    //            .then(result => result.json())
+    //            .then(result => { console.log(result); return result })
+    //            .catch(e => { console.log(e + " -- getClasses() -- " + url); });
+    //        //this.setState({
+    //        //    preLoadInfo:
+    //        //});
+    //        console.log("False", newData);
+    //        this.setState({ preLoadCheck: true,})
+    //       return false;
+    //    }
+    //    console.log("True");
+    //    return true;
+    //}
 
     componentDidMount() {
         if (isSelected(this.props.raceSelected)) {
@@ -91,12 +92,16 @@ export default class CharacterRace extends Component {
         return (bonuses);
     }
 
-    traits(characterRace) {
-        let traits = "";
-        for (var a = 0; a < characterRace.traits.length; a++) {
-           traits += characterRace.traits[a].name + ", ";
-        }
+    traitsInfo(url) {
 
+    }
+
+    traits(characterRace) {
+        let traits = [];
+        for (var a = 0; a < characterRace.traits.length; a++) {
+            traits.push(<span data-toggle="modal" data-target="#exampleModalLong" key={characterRace.traits[a].name}>{characterRace.traits[a].name} </span>);
+            }
+        // this.traitsInfo(characterRace.traits[a].url)
         //let traits = characterRace.traits.map((trait) => {
         //    let string = trait.name; 
         //    return (string);
@@ -110,7 +115,8 @@ export default class CharacterRace extends Component {
         let raceCards = racesInfo.map((race, index) => {            
             let bonuses = this.abilityBonuses(race);
             let traits = this.traits(race);
-            //let active = "carousel-item active ";  //trying to set up carousel. PROBLEM: once this sets a card to active, it doesnt swap the 'active' className. 
+            console.log(traits)
+            //let active = "carousel-item active ";  //trying to set up carousel. PROBLEM: once this sets a card to active, it doesnt swap the 'active' className.
             //let item = "carousel-item ";
             //let styles = "card border-dark mb-3 ";
             //if (index === 1) {
@@ -128,15 +134,16 @@ export default class CharacterRace extends Component {
                     <p className="card-text"><strong>Alignment:</strong> {race.alignment}</p>
                     <p className="card-text"><strong>Language:</strong> {race.language_desc}</p>
                     <p className="card-text"><strong>Traits:</strong> {traits}</p>
-                            <p className="card-text"><strong>Ability Bonuses:</strong> {bonuses}</p>
-                            <p className="card-text"><strong>Speed:</strong> {race.speed}</p>
-                            <button className="btn btn-primary" onClick={() => this.selectRace(race.index)}>Choose {race.name}</button>
-                        </div>
-                    </div>);
+                    <p className="card-text"><strong>Ability Bonuses:</strong> {bonuses}</p>
+                    <p className="card-text"><strong>Speed:</strong> {race.speed}</p>
+                    <button className="btn btn-primary" onClick={() => this.selectRace(race.index)}>Choose {race.name}</button>
+                    <InfoModal info={race} />
+                 </div>
+               </div>);
         });
         return (raceCards);
     }
-
+   // <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">i</button>
     raceCarousel() {       
 
         return (<div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">

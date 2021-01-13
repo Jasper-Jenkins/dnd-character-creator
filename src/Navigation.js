@@ -41,8 +41,7 @@ class Navigation extends Component {
         const navigation = this.props.navigation
         const navigationCategories = this.props.navigationCategories
         const navigate = this.props.navigate
-        const classSelected = this.props.classSelected
-        
+        const classSelected = this.props.classSelected       
 
         let navButtons = navigationCategories.map((category, index) => {
             if (isSelected(classSelected)) {
