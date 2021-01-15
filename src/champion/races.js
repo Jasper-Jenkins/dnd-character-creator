@@ -63,7 +63,7 @@ export default class CharacterRace extends Component {
             if (racesInfo[i].index === index) {
                 const raceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
                 this.setState({ raceSelected: raceSelected[0] });
-                setRace(raceSelected[0]); 
+                setRace(raceSelected[0]); //setting race to CreateCharacter class 
                 console.log(raceSelected[0]);
                 break;
             }
@@ -98,8 +98,10 @@ export default class CharacterRace extends Component {
 
     traits(characterRace) {
         let traits = [];
+        
+        let target = '#race-' + characterRace.index;
         for (var a = 0; a < characterRace.traits.length; a++) {
-            traits.push(<span data-toggle="modal" data-target="#exampleModalLong" key={characterRace.traits[a].name}>{characterRace.traits[a].name} </span>);
+            traits.push(<span data-toggle="modal" data-target={target} key={characterRace.traits[a].name}>{characterRace.traits[a].name} </span>);
             }
         // this.traitsInfo(characterRace.traits[a].url)
         //let traits = characterRace.traits.map((trait) => {
@@ -110,20 +112,11 @@ export default class CharacterRace extends Component {
     }
 
     raceCards() {       
-        const { racesInfo } = this.props;
-       
+        const { racesInfo } = this.props;  
+        console.log(racesInfo);
         let raceCards = racesInfo.map((race, index) => {            
             let bonuses = this.abilityBonuses(race);
             let traits = this.traits(race);
-            console.log(traits)
-            //let active = "carousel-item active ";  //trying to set up carousel. PROBLEM: once this sets a card to active, it doesnt swap the 'active' className.
-            //let item = "carousel-item ";
-            //let styles = "card border-dark mb-3 ";
-            //if (index === 1) {
-            //    styles += active;
-            //} else {
-            //    styles += item;
-            //}
             return (<div className="card border-dark mb-3 " key={race.index}>
                 <div className="card-header text-white bg-dark text-center">
                          <h4>{race.name}</h4>
@@ -140,7 +133,7 @@ export default class CharacterRace extends Component {
                     <InfoModal info={race} />
                  </div>
                </div>);
-        });
+        }); 
         return (raceCards);
     }
    // <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">i</button>
@@ -169,7 +162,7 @@ export default class CharacterRace extends Component {
        // let cards = this.raceCards();
         return (<div className='selection col-12'>
             <h2 className="selectionTitle text-center">Choose your Champions Race</h2>
-            {this.raceCards()}
-                </div>);
+            {this.raceCards()}           
+            </div>);
     }
 }

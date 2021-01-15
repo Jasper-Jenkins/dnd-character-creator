@@ -28,9 +28,13 @@ class InfoModal extends Component {
         this.state = {
             traits: [],
         }
-        this.getTraits(props.info);
+       // this.getTraits(props.info);
     }
-        
+
+    componentDidMount() {
+        this.getTraits(this.props.info);
+    }
+
     getTraits(raceSelected) {
         const url = 'https://www.dnd5eapi.co'
         let traitsInfo = [];
@@ -40,24 +44,32 @@ class InfoModal extends Component {
             for (var a = 0; a < raceSelected.traits.length; a++) {
                 fetch(url + raceSelected.traits[a].url)
                     .then(result => result.json())
-                    .then(result => { console.log(result); traitsInfo.push(result) })
+                    .then(result => { traitsInfo.push(result) })
                     .catch(e => { console.log(e + " -- getTraits() -- " + url); });
 
             }
         }
         console.log(traitsInfo);
-        this.setState({ traits: traitsInfo })
+        this.setState({ traits: traitsInfo });
     }
 
-    setTraits() {
-        const traits = this.state;
+
+    showTraits() {
+        const { traits } = this.state;
+        let info = traits.map((trait) => {
+            return (<div key={'trait-'+trait.name}>
+                <h5>{trait.name}</h5>
+                <p>{trait.desc[0]}</p>
+            </div>)
+        });
+        return info;
     }
 
     render() {
-        const traits = this.state;
-        console.log(traits);
+        const { traits } = this.state;
+        
         return (<div className='col-1 info-modal'>
-            <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div className="modal fade" id={'race-'+this.props.info.index} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -67,7 +79,7 @@ class InfoModal extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            {traits[0]}
+                            {traits.length !== 0 ? this.showTraits() : "not loaded"}
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
