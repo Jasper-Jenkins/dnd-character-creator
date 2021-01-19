@@ -66,8 +66,7 @@ class InfoModal extends Component {
     }
 
     render() {
-        const { traits } = this.state;
-        
+        const { traits } = this.state;        
         return (<div className='col-1 info-modal'>
             <div className="modal fade" id={'race-'+this.props.info.index} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div className="modal-dialog" role="document">

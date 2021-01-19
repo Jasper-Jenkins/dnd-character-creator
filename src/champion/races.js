@@ -1,60 +1,32 @@
 import React, { Component } from 'react'
 import InfoModal from '../helper/modal'
 import isSelected from '../helper/helper-functions'
+import SearchBar from '../helper/search-bar'
+import SearchResults from '../helper/search-modal'
 
 export default class CharacterRace extends Component {
     constructor(props) {
         super(props);
         this.state = {
             raceSelected: {},
-            preLoadInfo: [],
-            preLoadCheck: false,
+            searchWord: "",
+          
         }
-        this.buttons = this.buttons.bind(this);
-        this.selectRace = this.selectRace.bind(this);
-        this.abilityBonuses = this.abilityBonuses.bind(this);
-        this.raceCards = this.raceCards.bind(this);
-        this.raceCarousel = this.raceCarousel.bind(this);
-    //    console.log("Race Constructor", props);
+        //this.buttons = this.buttons.bind(this);
+        //this.selectRace = this.selectRace.bind(this);
+        //this.abilityBonuses = this.abilityBonuses.bind(this);
+        //this.raceCards = this.raceCards.bind(this);
+        //this.raceCarousel = this.raceCarousel.bind(this);
     }
 
-    //shouldComponentUpdate(nextProps, nextState) {
-    //    const url = 'https://www.dnd5eapi.co/api/'
-    //    if (!nextState.preLoadCheck) {
-    //        let newData = fetch(url + 'classes')
-    //            .then(result => result.json())
-    //            .then(result => { console.log(result); return result })
-    //            .catch(e => { console.log(e + " -- getClasses() -- " + url); });
-    //        //this.setState({
-    //        //    preLoadInfo:
-    //        //});
-    //        console.log("False", newData);
-    //        this.setState({ preLoadCheck: true,})
-    //       return false;
-    //    }
-    //    console.log("True");
-    //    return true;
-    //}
 
     componentDidMount() {
         if (isSelected(this.props.raceSelected)) {
-       //     console.log('race is selcted');
             this.setState({ raceSelected: this.props.raceSelected, });
         }
-
         console.log(this.props);
     }
 
-    preloadNext() {
-        const url = 'https://www.dnd5eapi.co/api/'
-        console.log("Preload firing in <CharacterRace>");
-       // getClasses(url) {
-            return fetch(url + 'classes')
-                .then(result => result.json())
-                .then(result => { return result })
-                .catch(e => { console.log(e + " -- getClasses() -- " + url); });
-       // }
-    }
 
     selectRace(index) {
         const { racesInfo } = this.props;
@@ -72,8 +44,7 @@ export default class CharacterRace extends Component {
 
     buttons() {
         const { races } = this.props;
-        const { raceSelected } = this.state;
-        //console.log("race selected ", raceSelected);
+        const { raceSelected } = this.state;        
         let raceButtons = races.results.map((race) => {
             if (isSelected(raceSelected) && raceSelected.index === race.index) {
                 return (<button className='btn btn-sm buttonSelected col-4 {race.index}' aria-disabled='true' key={race.index}>{race.name}</button>);
@@ -83,7 +54,6 @@ export default class CharacterRace extends Component {
         return raceButtons;
     }
 
-
     abilityBonuses(characterRace) {        
         let bonuses = ""; 
         for (var a = 0; a < characterRace.ability_bonuses.length; a++) {
@@ -92,22 +62,12 @@ export default class CharacterRace extends Component {
         return (bonuses);
     }
 
-    traitsInfo(url) {
-
-    }
-
     traits(characterRace) {
-        let traits = [];
-        
+        let traits = [];        
         let target = '#race-' + characterRace.index;
         for (var a = 0; a < characterRace.traits.length; a++) {
             traits.push(<span data-toggle="modal" data-target={target} key={characterRace.traits[a].name}>{characterRace.traits[a].name} </span>);
-            }
-        // this.traitsInfo(characterRace.traits[a].url)
-        //let traits = characterRace.traits.map((trait) => {
-        //    let string = trait.name; 
-        //    return (string);
-        //});
+        }
         return (traits);
     }
 
@@ -137,31 +97,31 @@ export default class CharacterRace extends Component {
         return (raceCards);
     }
    // <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">i</button>
-    raceCarousel() {       
-
-        return (<div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
-            <div className="carousel-inner">
-                {this.raceCards()}
-            </div>
-            <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span className="visually-hidden">Previous</span>
-            </a>
-            <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                <span className="visually-hidden">Next</span>
-            </a>
-        </div>);
-
+   
+    searchRaces = (word) => {
+        const { racesInfo } = this.props;
+        this.setState({
+            searchWord: word,
+        });
+        let oldList = racesInfo.map((race) => {
+            return race;
+        });
+        let newList = [];
+        if (word !== "") {
+            newList = oldList.filter(race => race.name.includes(word.toLowerCase()));            
+            return (newList);
+        } else {
+            return (oldList);
+        }
     }
-
-
 
 
     render() {
        // let cards = this.raceCards();
         return (<div className='selection col-12'>
             <h2 className="selectionTitle text-center">Choose your Champions Race</h2>
+            <SearchBar value={this.state.searchWord} handleChange={e => this.searchRaces(e.target.value)} />
+            <SearchResults champions={this.state.racesInfo} />
             {this.raceCards()}           
             </div>);
     }

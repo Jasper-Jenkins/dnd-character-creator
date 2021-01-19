@@ -1,10 +1,6 @@
 import React from 'react'
 
 const CharacterRace = (props) => {
-
-    console.log("Character Race", props)
-
-
     const raceSelected = props.character.raceSelected
     switch (props.character.navigation) {
         case "Races":
