@@ -9,7 +9,8 @@ export default class CharacterRace extends Component {
         super(props);
         this.state = {
             raceSelected: {},
-            searchWord: "",
+            searchResults: [],
+            word: "",
           
         }
         //this.buttons = this.buttons.bind(this);
@@ -73,7 +74,7 @@ export default class CharacterRace extends Component {
 
     raceCards() {       
         const { racesInfo } = this.props;  
-        console.log(racesInfo);
+        //console.log(racesInfo);
         let raceCards = racesInfo.map((race, index) => {            
             let bonuses = this.abilityBonuses(race);
             let traits = this.traits(race);
@@ -101,28 +102,32 @@ export default class CharacterRace extends Component {
     searchRaces = (word) => {
         const { racesInfo } = this.props;
         this.setState({
-            searchWord: word,
+            word: word,
         });
         let oldList = racesInfo.map((race) => {
             return race;
         });
         let newList = [];
         if (word !== "") {
-            newList = oldList.filter(race => race.name.includes(word.toLowerCase()));            
-            return (newList);
+            newList = oldList.filter(race => race.index.includes(word.toLowerCase())); 
+        //    console.log(oldList);
+            this.setState({ searchResults: newList, });
         } else {
-            return (oldList);
+            console.log(newList);
+            this.setState({ searchResults: oldList, });           
         }
     }
 
 
     render() {
-       // let cards = this.raceCards();
+        // let cards = this.raceCards();
+        const { word } = this.state;
+        const { searchResults } = this.state;
         return (<div className='selection col-12'>
             <h2 className="selectionTitle text-center">Choose your Champions Race</h2>
-            <SearchBar value={this.state.searchWord} handleChange={e => this.searchRaces(e.target.value)} />
-            <SearchResults champions={this.state.racesInfo} />
-            {this.raceCards()}           
+            <SearchBar value={word} handleChange={e => this.searchRaces(e.target.value)} />
+            {word !== "" ? <SearchResults champions={searchResults} /> : this.raceCards()}           
             </div>);
     }
 }
+

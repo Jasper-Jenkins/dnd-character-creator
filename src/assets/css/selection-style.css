@@ -22,11 +22,21 @@
     background-color: black;
     position: sticky;
     top: 0px;
-    z-index:10;
-    
+    z-index:10;    
 }
 
 .buttonSelected {
     background-color: mediumseagreen;
     color: black;
+}
+
+.searchBar {
+    background-color:black;
+    position:sticky;
+    top:39px;
+    z-index:10;
+}
+
+.search-label {
+    color:white;
 }

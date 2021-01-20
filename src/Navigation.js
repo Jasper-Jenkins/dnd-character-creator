@@ -21,7 +21,7 @@ class Navigation extends Component {
     hideButtons() { 
         const alertNode = document.getElementById('navigation-buttons');
         setTimeout(() => {
-            console.log("is it happening?")
+          //  console.log("is it happening?")
             let fade = setInterval(() => {
                 if (!alertNode.style.opacity) {
                     alertNode.style.opacity = 1;

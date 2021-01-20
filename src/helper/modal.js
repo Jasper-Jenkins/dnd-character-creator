@@ -49,7 +49,7 @@ class InfoModal extends Component {
 
             }
         }
-        console.log(traitsInfo);
+       // console.log(traitsInfo);
         this.setState({ traits: traitsInfo });
     }
 
