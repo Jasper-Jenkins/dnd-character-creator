@@ -7,11 +7,6 @@ export default function SearchResults({ champions, select, category }) {
     switch (category) {
         case 'races':
             cards = champions.map((race) => {
-                console.log(race);
-                //HOW TO INCORPORATE THESE?!
-                //let bonuses = this.abilityBonuses(race);
-                //let traits = this.traits(race);
-
                 let bonuses = "";
                 for (var a = 0; a < race.ability_bonuses.length; a++) {
                     bonuses += race.ability_bonuses[a].ability_score.name + ": " + race.ability_bonuses[a].bonus + " ";
@@ -41,6 +36,20 @@ export default function SearchResults({ champions, select, category }) {
             break;
         case 'classes':
             cards = champions.map((championClass) => {
+                let proficiencies = "";
+                let count = 0;
+                proficiencies = championClass.proficiencies.map((prof) => {
+                    if (count === championClass.proficiencies.length - 1) {
+                        return (prof.name + ". ");
+                    }
+                    count++;
+                    return (prof.name + ", ");
+                });
+                let savingThrows = '';
+                savingThrows = championClass.saving_throws.map((savingThrow) => {
+                    return (savingThrow.name + " ")
+                });
+
                 //let bonuses = this.abilityBonuses(race);
                 return (<div className="card border-dark mb-3 " key={championClass.index}>
                     <div className="card-header text-white bg-dark text-center">
@@ -48,8 +57,8 @@ export default function SearchResults({ champions, select, category }) {
                     </div>
                     <div className="card-body">
                         <p className="card-text"><strong>Hit die:</strong> {championClass.hit_die}</p>
-                        <p className="card-text"><strong>Starting proficiencies:</strong> </p>
-                        <p className="card-text"><strong>Saving Throws:</strong></p>
+                        <p className="card-text"><strong>Starting proficiencies:</strong>{proficiencies} </p>
+                        <p className="card-text"><strong>Saving Throws:</strong>{savingThrows}</p>
                         <p className="card-text">{ }</p>
                         <p className="card-text">{ }</p>
                         <p className="card-text">{ }</p>

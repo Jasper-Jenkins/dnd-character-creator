@@ -32,10 +32,7 @@
 
 .searchBar {
     background-color:black;
-    position:sticky;
-    top:39px;
-    z-index:10;
-}
+  }
 
 .search-label {
     color:white;

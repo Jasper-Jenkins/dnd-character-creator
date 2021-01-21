@@ -15,7 +15,7 @@ export default class CharacterClass extends Component {
         }
        
         this.selectClass = this.selectClass.bind(this);
-        this.classCards = this.classCards.bind(this);
+      //  this.classCards = this.classCards.bind(this);
     };   
 
     componentDidMount() {
@@ -30,8 +30,14 @@ export default class CharacterClass extends Component {
     }
 
     componentWillUnmount() {
-        this.props.setClasses(this.state.classes);
-        this.props.setClassesInfo(this.state.classesInfo);
+        if (!isSelected(this.props.classes)) { //need a better check for all the information
+            console.log("first time");
+            this.props.setClasses(this.state.classes);
+            this.props.setClassesInfo(this.state.classesInfo);
+        } else {
+            console.log("every other time");
+        }
+        
     }
 
 
@@ -70,48 +76,48 @@ export default class CharacterClass extends Component {
         }        
     } 
 
-    classProficiences(championClass) {
-        let proficiencies = "";
-        let count = 0;
-        proficiencies = championClass.proficiencies.map((prof) => {
-            if (count === championClass.proficiencies.length - 1) {
-                return (prof.name + ". ");
-            } 
-            count++;
-            return (prof.name + ", ");
-        });
-        return (proficiencies);
-    }
+    //classProficiences(championClass) {
+    //    let proficiencies = "";
+    //    let count = 0;
+    //    proficiencies = championClass.proficiencies.map((prof) => {
+    //        if (count === championClass.proficiencies.length - 1) {
+    //            return (prof.name + ". ");
+    //        } 
+    //        count++;
+    //        return (prof.name + ", ");
+    //    });
+    //    return (proficiencies);
+    //}
 
-    classSavingThrows(championClass) {
-        let savingThrows = '';
-        savingThrows = championClass.saving_throws.map((savingThrow) => {
-            return (savingThrow.name + " ")
-        });
-        return savingThrows;
-    }
+    //classSavingThrows(championClass) {
+    //    let savingThrows = '';
+    //    savingThrows = championClass.saving_throws.map((savingThrow) => {
+    //        return (savingThrow.name + " ")
+    //    });
+    //    return savingThrows;
+    //}
 
-    classCards() {
-        const { classesInfo } = this.state;
-        let classCards = classesInfo.map((championClass) => {
-            //let bonuses = this.abilityBonuses(race);
-            return (<div className="card border-dark mb-3 " key={championClass.index}>
-                <div className="card-header text-white bg-dark text-center">
-                    <h4>{championClass.name}</h4>
-                </div>
-                <div className="card-body">
-                    <p className="card-text"><strong>Hit die:</strong> {championClass.hit_die}</p>
-                    <p className="card-text"><strong>Starting proficiencies:</strong> {this.classProficiences(championClass)}</p>
-                    <p className="card-text"><strong>Saving Throws:</strong> {this.classSavingThrows(championClass)}</p>
-                    <p className="card-text">{}</p>
-                    <p className="card-text">{}</p>
-                    <p className="card-text">{}</p>
-                    <button className="btn btn-primary" onClick={() => this.selectClass(championClass.index)}>Choose {championClass.name}</button>
-                </div>
-            </div>);
-        });
-        return (classCards);
-    }
+    //classCards() {
+    //    const { classesInfo } = this.state;
+    //    let classCards = classesInfo.map((championClass) => {
+    //        //let bonuses = this.abilityBonuses(race);
+    //        return (<div className="card border-dark mb-3 " key={championClass.index}>
+    //            <div className="card-header text-white bg-dark text-center">
+    //                <h4>{championClass.name}</h4>
+    //            </div>
+    //            <div className="card-body">
+    //                <p className="card-text"><strong>Hit die:</strong> {championClass.hit_die}</p>
+    //                <p className="card-text"><strong>Starting proficiencies:</strong> {this.classProficiences(championClass)}</p>
+    //                <p className="card-text"><strong>Saving Throws:</strong> {this.classSavingThrows(championClass)}</p>
+    //                <p className="card-text">{}</p>
+    //                <p className="card-text">{}</p>
+    //                <p className="card-text">{}</p>
+    //                <button className="btn btn-primary" onClick={() => this.selectClass(championClass.index)}>Choose {championClass.name}</button>
+    //            </div>
+    //        </div>);
+    //    });
+    //    return (classCards);
+    //}
 
 
     searchClasses = (word) => {
@@ -135,11 +141,14 @@ export default class CharacterClass extends Component {
     render() {
         const { word } = this.state;
         const { searchResults } = this.state;
+        const { classesInfo } = this.state;
         return (<div className="col-12 selection">
-            <h2 className="selectionTitle text-center">Choose your Class</h2>
-            <SearchBar value={word} handleChange={e => this.searchClasses(e.target.value)} />
-            {word !== '' ? <SearchResults champions={searchResults} category='classes' select={() => this.selectClass()} /> : this.classCards()}
-                    </div>);
+                <div className="col-12 selectionTitle">
+                    <h2 className="text-center">Choose your Class</h2>
+                    <SearchBar value={word} handleChange={e => this.searchClasses(e.target.value)} />
+                    </div>
+                    <SearchResults champions={word !== '' ? searchResults: classesInfo} category='classes' select={this.selectClass} />
+                </div>);
     }
 }
 

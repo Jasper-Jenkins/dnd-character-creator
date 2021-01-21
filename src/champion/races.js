@@ -151,9 +151,9 @@ export default class CharacterRace extends Component {
 
         }
         this.selectRace = this.selectRace.bind(this);
-        this.abilityBonuses = this.abilityBonuses.bind(this);
+        //this.abilityBonuses = this.abilityBonuses.bind(this);
         //this.raceCards = this.raceCards.bind(this);
-        this.traits = this.traits.bind(this);
+        //this.traits = this.traits.bind(this);
         this.getRaces = this.getRaces.bind(this);
         this.getInfo = this.getInfo.bind(this);
     }
@@ -198,13 +198,14 @@ export default class CharacterRace extends Component {
     }
 
     selectRace(index) {
-        const { racesInfo } = this.props;
+        const { racesInfo } = this.state;
         const { setRace } = this.props;
-        console.log("are we getting here");
+       
         for (let i = 0; i < racesInfo.length; i++) {
             if (racesInfo[i].index === index) {
                 const raceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
                 this.setState({ raceSelected: raceSelected[0] });
+                
                 setRace(raceSelected[0]); //setting race to CreateCharacter class 
                 console.log(raceSelected[0]);
                 break;
@@ -212,49 +213,49 @@ export default class CharacterRace extends Component {
         }
     }
 
-    abilityBonuses(characterRace) {
-        let bonuses = "";
-        for (var a = 0; a < characterRace.ability_bonuses.length; a++) {
-            bonuses += characterRace.ability_bonuses[a].ability_score.name + ": " + characterRace.ability_bonuses[a].bonus + " ";
-        }
-        return (bonuses);
-    }
+    //abilityBonuses(characterRace) {
+    //    let bonuses = "";
+    //    for (var a = 0; a < characterRace.ability_bonuses.length; a++) {
+    //        bonuses += characterRace.ability_bonuses[a].ability_score.name + ": " + characterRace.ability_bonuses[a].bonus + " ";
+    //    }
+    //    return (bonuses);
+    //}
 
-    traits(characterRace) {
-        let traits = [];
-        let target = '#race-' + characterRace.index;
-        for (var a = 0; a < characterRace.traits.length; a++) {
-            traits.push(<span data-toggle="modal" data-target={target} key={characterRace.traits[a].name}>{characterRace.traits[a].name} </span>);
-        }
-        return (traits);
-    }
+    //traits(characterRace) {
+    //    let traits = [];
+    //    let target = '#race-' + characterRace.index;
+    //    for (var a = 0; a < characterRace.traits.length; a++) {
+    //        traits.push(<span data-toggle="modal" data-target={target} key={characterRace.traits[a].name}>{characterRace.traits[a].name} </span>);
+    //    }
+    //    return (traits);
+    //}
 
-    raceCards() {
-        const { racesInfo } = this.state;
-      //  console.log(racesInfo);
-        let raceCards = racesInfo.map((race) => {
-         //   console.log(race);
-            let bonuses = this.abilityBonuses(race);
-            let traits = this.traits(race);
-            return (<div className="card border-dark mb-3 " key={race.index}>
-                <div className="card-header text-white bg-dark text-center">
-                    <h4>{race.name}</h4>
-                </div>
-                <div className="card-body">
-                    <p className="card-text"><strong>Description:</strong> {race.size_description}</p>
-                    <p className="card-text"><strong>Age:</strong> {race.age}</p>
-                    <p className="card-text"><strong>Alignment:</strong> {race.alignment}</p>
-                    <p className="card-text"><strong>Language:</strong> {race.language_desc}</p>
-                    <p className="card-text"><strong>Traits:</strong> {traits}</p>
-                    <p className="card-text"><strong>Ability Bonuses:</strong> {bonuses}</p>
-                    <p className="card-text"><strong>Speed:</strong> {race.speed}</p>
-                    <button className="btn btn-primary" onClick={() => this.selectRace(race.index)}>Choose {race.name}</button>
-                    <InfoModal info={race} />
-                </div>
-            </div>);
-        });
-        return (raceCards);
-    }
+    //raceCards() {
+    //    const { racesInfo } = this.state;
+    //  //  console.log(racesInfo);
+    //    let raceCards = racesInfo.map((race) => {
+    //     //   console.log(race);
+    //        let bonuses = this.abilityBonuses(race);
+    //        let traits = this.traits(race);
+    //        return (<div className="card border-dark mb-3 " key={race.index}>
+    //            <div className="card-header text-white bg-dark text-center">
+    //                <h4>{race.name}</h4>
+    //            </div>
+    //            <div className="card-body">
+    //                <p className="card-text"><strong>Description:</strong> {race.size_description}</p>
+    //                <p className="card-text"><strong>Age:</strong> {race.age}</p>
+    //                <p className="card-text"><strong>Alignment:</strong> {race.alignment}</p>
+    //                <p className="card-text"><strong>Language:</strong> {race.language_desc}</p>
+    //                <p className="card-text"><strong>Traits:</strong> {traits}</p>
+    //                <p className="card-text"><strong>Ability Bonuses:</strong> {bonuses}</p>
+    //                <p className="card-text"><strong>Speed:</strong> {race.speed}</p>
+    //                <button className="btn btn-primary" onClick={() => this.selectRace(race.index)}>Choose {race.name}</button>
+    //                <InfoModal info={race} />
+    //            </div>
+    //        </div>);
+    //    });
+    //    return (raceCards);
+    //}
     // <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">i</button>
 
     searchRaces = (word) => {
@@ -283,9 +284,11 @@ export default class CharacterRace extends Component {
         const { searchResults } = this.state;
         const { racesInfo } = this.state;
         return (<div className='selection col-12'>
+            <div className="col-12 selectionTitle">
             <h2 className="selectionTitle text-center">Choose your Race</h2>
-            <SearchBar value={word} handleChange={e => this.searchRaces(e.target.value)} />
-            {<SearchResults champions={word !== '' ? searchResults : racesInfo} category='races' select={() => this.selectRace()} />}
+                <SearchBar value={word} handleChange={e => this.searchRaces(e.target.value)} />
+                </div>
+            <SearchResults champions={word !== '' ? searchResults : racesInfo} category='races' select={this.selectRace} />
         </div>);
     }
 }

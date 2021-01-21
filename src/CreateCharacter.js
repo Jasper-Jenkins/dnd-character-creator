@@ -139,6 +139,7 @@ class CreateCharacter extends Component {
     }    
 
     setRace(chosenRace) {
+        console.log("and here????")
         this.setState({ raceSelected: chosenRace, });
     }
 
