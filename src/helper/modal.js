@@ -28,31 +28,30 @@ class InfoModal extends Component {
         this.state = {
             traits: [],
         }
-       // this.getTraits(props.info);
+        // this.getTraits(props.info);
+        this.getTraits = this.getTraits.bind(this);
     }
 
     componentDidMount() {
+        console.log("did it mount?")
         this.getTraits(this.props.info);
+
     }
 
     getTraits(raceSelected) {
         const url = 'https://www.dnd5eapi.co'
-        let traitsInfo = [];
+        //let traitsInfo = [];
         if (raceSelected.index === "human") {
-         //  console.log("Got to the humans")
+           console.log("Got to the humans")
         } else {
             for (var a = 0; a < raceSelected.traits.length; a++) {
                 fetch(url + raceSelected.traits[a].url)
                     .then(result => result.json())
-                    .then(result => { traitsInfo.push(result) })
+                    .then(result => { this.setState((state) => ({ traits: [...state.traits, result],}))})
                     .catch(e => { console.log(e + " -- getTraits() -- " + url); });
-
             }
-        }
-       // console.log(traitsInfo);
-        this.setState({ traits: traitsInfo });
+        }     
     }
-
 
     showTraits() {
         const { traits } = this.state;
@@ -66,13 +65,14 @@ class InfoModal extends Component {
     }
 
     render() {
-        const { traits } = this.state;        
+        const { traits } = this.state;
+        const { name } = this.props.info;
         return (<div className='col-1 info-modal'>
             <div className="modal fade" id={'race-'+this.props.info.index} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <h5 className="modal-title" id="exampleModalLongTitle">{name} Traits</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -81,8 +81,7 @@ class InfoModal extends Component {
                             {traits.length !== 0 ? this.showTraits() : "not loaded"}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>                            
                         </div>
                     </div>
                 </div>

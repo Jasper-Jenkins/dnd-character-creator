@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import isSelected from '../helper/helper-functions'
+import SearchBar from '../helper/search-bar'
+import SearchResults from '../helper/search-modal'
 
 export default class CharacterClass extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            classSelected: {},
+            classes: {},
+            classesInfo: [],
+            classSelected: {},           
+            searchResults:[],
+            word: '',
         }
-        this.buttons = this.buttons.bind(this);
+       
         this.selectClass = this.selectClass.bind(this);
         this.classCards = this.classCards.bind(this);
     };   
@@ -15,8 +21,41 @@ export default class CharacterClass extends Component {
     componentDidMount() {
         if (isSelected(this.props.classSelected)) {
             this.setState({ classSelected: this.props.classSelected, });
-        } 
+        }
+        if (isSelected(this.props.classes)) {
+            this.setState({ classes: this.props.classes, classesInfo: this.props.classesInfo, })
+        } else {
+            this.getClasses();
+        }
     }
+
+    componentWillUnmount() {
+        this.props.setClasses(this.state.classes);
+        this.props.setClassesInfo(this.state.classesInfo);
+    }
+
+
+    getClasses() {
+        console.log("Getting Classes")
+        const url = 'https://www.dnd5eapi.co/api/'
+        fetch(url + 'classes')
+            .then(result => result.json())
+            .then(result => { this.setState({ classes: result, }, this.getInfo(result)); })
+            .catch(e => { console.log(e + " -- getClasses() -- " + url); });
+
+    }
+
+    getInfo(data) {
+        console.log(data);
+        let info = []
+        const url = 'https://www.dnd5eapi.co'
+        for (var i = 0; i < data.results.length; i++) {
+            fetch(url + data.results[i].url)
+                .then(result => result.json())
+                .then(result => { this.setState((state) => ({ classesInfo: [...state.classesInfo, result] })) });
+        }        
+    }
+
 
     selectClass(index) {
         const { classesInfo } = this.props;
@@ -29,21 +68,7 @@ export default class CharacterClass extends Component {
                 break;
             }
         }        
-    }
-
-    buttons() {
-        const { classes } = this.props
-        const { classSelected } = this.state;
-        let classButtons = classes.results.map((characterClass) => {
-            if (isSelected(classSelected) && classSelected.index === characterClass.index) {
-                //console.log("selection disabled for class");
-                return (<button className='selectionButtons buttonSelected col-4' key={characterClass.index}>{characterClass.name}</button>);
-            }
-            return (<button onClick={() => this.selectClass(characterClass.index)} className='selectionButtons col-4' key={characterClass.index}>{characterClass.name}</button>);
-
-        });       
-        return classButtons;
-    }
+    } 
 
     classProficiences(championClass) {
         let proficiencies = "";
@@ -67,7 +92,7 @@ export default class CharacterClass extends Component {
     }
 
     classCards() {
-        const { classesInfo } = this.props;
+        const { classesInfo } = this.state;
         let classCards = classesInfo.map((championClass) => {
             //let bonuses = this.abilityBonuses(race);
             return (<div className="card border-dark mb-3 " key={championClass.index}>
@@ -88,10 +113,32 @@ export default class CharacterClass extends Component {
         return (classCards);
     }
 
+
+    searchClasses = (word) => {
+        const { classesInfo } = this.state;
+        this.setState({
+            word: word,
+        });
+        let oldList = classesInfo.map((characterClass) => {
+            return characterClass;
+        });
+        let newList = [];
+        if (word !== "") {
+            newList = oldList.filter(characterClass => characterClass.index.includes(word.toLowerCase()));            
+            this.setState({ searchResults: newList, });
+        } else {
+            console.log(newList);
+            this.setState({ searchResults: oldList, });
+        }
+    }
+
     render() {
+        const { word } = this.state;
+        const { searchResults } = this.state;
         return (<div className="col-12 selection">
-                 <p className="selectionTitle">Choose your Champions Class</p>
-                        {this.classCards()}
+            <h2 className="selectionTitle text-center">Choose your Class</h2>
+            <SearchBar value={word} handleChange={e => this.searchClasses(e.target.value)} />
+            {word !== '' ? <SearchResults champions={searchResults} category='classes' select={() => this.selectClass()} /> : this.classCards()}
                     </div>);
     }
 }

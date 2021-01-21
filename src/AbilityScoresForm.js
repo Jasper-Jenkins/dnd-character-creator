@@ -80,7 +80,7 @@ class AbilityScoresForm extends Component {
                         value={scores[1].value}
                         onChange={this.handleChange}
                         onFocus={this.handleFocus} />
-            <label className={scores[2].value > 18 || scores[2].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '}htmlFor="dex">Dexterity</label>
+            <label className={scores[2].value > 18 || scores[2].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '} htmlFor="dex">Dexterity</label>
                     <input className='col-2'
                         type='number'
                         name='dex'
