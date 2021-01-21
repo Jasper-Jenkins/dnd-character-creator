@@ -281,11 +281,11 @@ export default class CharacterRace extends Component {
         // let cards = this.raceCards();
         const { word } = this.state;
         const { searchResults } = this.state;
-        
+        const { racesInfo } = this.state;
         return (<div className='selection col-12'>
             <h2 className="selectionTitle text-center">Choose your Race</h2>
             <SearchBar value={word} handleChange={e => this.searchRaces(e.target.value)} />
-            {word !== '' ? <SearchResults champions={searchResults} category='races' select={() => this.selectRace()} /> : this.raceCards()}
+            {<SearchResults champions={word !== '' ? searchResults : racesInfo} category='races' select={() => this.selectRace()} />}
         </div>);
     }
 }

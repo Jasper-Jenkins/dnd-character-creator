@@ -213,15 +213,14 @@ export default class App extends Component {
         this.getClasses(url),
         this.getAbilityScores(url),
         this.getSpells(url),
-        this.getFeatures(url),]).then(([classes, abilityScores, spells, features]) => {
-            return { classes, abilityScores, spells, features }
+        this.getFeatures(url),]).then(([abilityScores, spells, features]) => {
+            return { abilityScores, spells, features }
         });
     }
 
 
     getCharacterData(classes, abilityScores, spells, features) {
-        Promise.all([
-        this.getInfo(classes, 'classes'),
+        Promise.all([       
         this.getLevelData(classes, 1),
         this.getInfo(abilityScores, 'ability-scores'),
         this.getInfo(spells, 'spells'),
@@ -230,12 +229,7 @@ export default class App extends Component {
 
     }
 
-    getClasses(url) {
-        return fetch(url + 'classes')
-            .then(result => result.json())
-            .then(result => { this.setState({ classes: result, },); return result })
-            .catch(e => { console.log(e + " -- getClasses() -- " + url); });
-    }
+   
 
     getAbilityScores(url) {
         return fetch(url + 'ability-scores')
