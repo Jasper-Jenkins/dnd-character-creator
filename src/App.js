@@ -204,7 +204,7 @@ export default class App extends Component {
         //promise.then((data) => {
         //    this.getCharacterData(data.classes, data.abilityScores, data.spells, data.features)
         //});
-        this.setState({ ready: true,})
+        this.setState({ enter: true,})
     }
 
 
