@@ -1,31 +1,8 @@
-
-#navigation {
-    position: relative;
-    background-color: black;
-    height: 5vh;
-}
-
-#navigation-container {
-    position: fixed;
-    bottom: 0px;   
-    margin: 0 auto;
-    left: 25%;
-}
-
-#navigation-buttons { 
-    background-color:black;
-    opacity: 1;
-}
-
 .btn-nav {
-    margin: 0px;
-    
+    margin: 0px;    
 }
 
-#bottom-navigation {
-    float:left;
-}
-
-#bottom-navigation-toggle {
-    float:left;
+#navigation-bottom-container {
+  position: fixed;
+  bottom: 0px;
 }

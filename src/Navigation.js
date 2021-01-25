@@ -21,13 +21,13 @@ class Navigation extends Component {
         let navButtons = navigationCategories.map((category, index) => {
             if (isSelected(classSelected)) {
                 if (navigation === category) {
-                    return (<button type='button' className='btn btn-sm btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                    return (<button type='button' className='btn btn-sm btn-success btn-nav' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
                 } else {
                     return (<button onClick={() => { navigate(category); }} type='button' className='btn btn-sm  btn-dark btn-nav' key={index}>{category}</button>);
                 }
             } else {
                 if (navigation === category) {
-                    return (<button type='button' className='btn btn-sm btn-success btn-nav disabled' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                    return (<button type='button' className='btn btn-sm btn-success btn-nav' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
                 } else {
                     if (category === 'Classes' && (navigation === 'Proficiencies' || navigation === 'Spells')) {
                         switch (navigation) {
@@ -46,16 +46,18 @@ class Navigation extends Component {
     }
 
     render() {
-        return (<nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <button className="btn btn-sm navbar-toggler col-2" id="navigation-bottom-toggle" type="button" data-toggle="collapse" data-target="#navigation-bottom" aria-controls="navigation-bottom" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse col-10" id="navigation-bottom">
-                {this.navigationButtons()}
-            </div>
-        </nav>);
+        return (<nav className="navbar navbar-expand-lg navbar-light col-12" id="navigation-bottom-container">            
+                    <button className="btn btn-sm navbar-toggler bg-light col-2" type="button" data-toggle="collapse" data-target="#navigation-bottom" aria-controls="navigation-bottom" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse col-10" id="navigation-bottom">
+                       {this.navigationButtons()}            
+                    </div>            
+                </nav>);
     }
 
+
+   
 
 
     //render() {
