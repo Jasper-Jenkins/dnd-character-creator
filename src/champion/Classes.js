@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import isSelected from '../helper/helper-functions'
 import SearchBar from '../helper/search-bar'
-import SearchResults from '../helper/search-modal'
+import SearchResults from '../helper/search-results'
 
 export default class CharacterClass extends Component {
     constructor(props) {
@@ -36,10 +36,8 @@ export default class CharacterClass extends Component {
             this.props.setClassesInfo(this.state.classesInfo);
         } else {
             console.log("every other time");
-        }
-        
+        }        
     }
-
 
     getClasses() {
         console.log("Getting Classes")
@@ -62,7 +60,6 @@ export default class CharacterClass extends Component {
         }        
     }
 
-
     selectClass(index) {
         const { classesInfo } = this.props;
         const { setClass } = this.props;
@@ -76,48 +73,6 @@ export default class CharacterClass extends Component {
         }        
     } 
 
-    //classProficiences(championClass) {
-    //    let proficiencies = "";
-    //    let count = 0;
-    //    proficiencies = championClass.proficiencies.map((prof) => {
-    //        if (count === championClass.proficiencies.length - 1) {
-    //            return (prof.name + ". ");
-    //        } 
-    //        count++;
-    //        return (prof.name + ", ");
-    //    });
-    //    return (proficiencies);
-    //}
-
-    //classSavingThrows(championClass) {
-    //    let savingThrows = '';
-    //    savingThrows = championClass.saving_throws.map((savingThrow) => {
-    //        return (savingThrow.name + " ")
-    //    });
-    //    return savingThrows;
-    //}
-
-    //classCards() {
-    //    const { classesInfo } = this.state;
-    //    let classCards = classesInfo.map((championClass) => {
-    //        //let bonuses = this.abilityBonuses(race);
-    //        return (<div className="card border-dark mb-3 " key={championClass.index}>
-    //            <div className="card-header text-white bg-dark text-center">
-    //                <h4>{championClass.name}</h4>
-    //            </div>
-    //            <div className="card-body">
-    //                <p className="card-text"><strong>Hit die:</strong> {championClass.hit_die}</p>
-    //                <p className="card-text"><strong>Starting proficiencies:</strong> {this.classProficiences(championClass)}</p>
-    //                <p className="card-text"><strong>Saving Throws:</strong> {this.classSavingThrows(championClass)}</p>
-    //                <p className="card-text">{}</p>
-    //                <p className="card-text">{}</p>
-    //                <p className="card-text">{}</p>
-    //                <button className="btn btn-primary" onClick={() => this.selectClass(championClass.index)}>Choose {championClass.name}</button>
-    //            </div>
-    //        </div>);
-    //    });
-    //    return (classCards);
-    //}
 
 
     searchClasses = (word) => {
@@ -143,11 +98,11 @@ export default class CharacterClass extends Component {
         const { searchResults } = this.state;
         const { classesInfo } = this.state;
         return (<div className="col-12 selection">
-                <div className="col-12 selectionTitle">
-                    <h2 className="text-center">Choose your Class</h2>
-                    <SearchBar value={word} handleChange={e => this.searchClasses(e.target.value)} />
+                    <div className="col-12 selectionTitle">
+                        <h2 className="text-center">Choose your Class</h2>
+                        <SearchBar value={word} handleChange={e => this.searchClasses(e.target.value)} />
                     </div>
-                    <SearchResults champions={word !== '' ? searchResults: classesInfo} category='classes' select={this.selectClass} />
+                    <SearchResults champions={word !== '' ? searchResults : classesInfo} category='classes' select={this.selectClass} />
                 </div>);
     }
 }

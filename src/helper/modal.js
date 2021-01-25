@@ -21,6 +21,30 @@ import isSelected from './helper-functions.js'
 //}
 
 
+//export const RaceTraits = (props) => {
+//    return (<div className='col-1 info-modal'>
+//        <div className="modal fade" id={'race-' + this.props.info.index} tabIndex="-1" role="dialog" aria-labelledby="raceTraits" aria-hidden="true">
+//            <div className="modal-dialog" role="document">
+//                <div className="modal-content">
+//                    <div className="modal-header">
+//                        <h5 className="modal-title" id="raceTraits">{name} Traits</h5>
+//                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+//                            <span aria-hidden="true">&times;</span>
+//                        </button>
+//                    </div>
+//                    <div className="modal-body">
+//                        {traits.length !== 0 ? this.showTraits() : "not loaded"}
+//                    </div>
+//                    <div className="modal-footer">
+//                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+//                    </div>
+//                </div>
+//            </div>
+//        </div>
+//    </div> )
+//}
+
+
 
 class InfoModal extends Component {
     constructor(props) {
@@ -35,7 +59,6 @@ class InfoModal extends Component {
     componentDidMount() {
         console.log("did it mount?")
         this.getTraits(this.props.info);
-
     }
 
     getTraits(raceSelected) {
@@ -68,11 +91,11 @@ class InfoModal extends Component {
         const { traits } = this.state;
         const { name } = this.props.info;
         return (<div className='col-1 info-modal'>
-            <div className="modal fade" id={'race-'+this.props.info.index} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div className="modal fade" id={'race-'+this.props.info.index} tabIndex="-1" role="dialog" aria-labelledby="raceTraits" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLongTitle">{name} Traits</h5>
+                            <h5 className="modal-title" id="raceTraits">{name} Traits</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
