@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import Info from './Info'
 import Selection from './Selection'
 import Navigation from './Navigation'

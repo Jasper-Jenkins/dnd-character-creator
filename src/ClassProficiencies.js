@@ -6,7 +6,7 @@ class ClassProficiencies extends Component {
         super(props);
      //   console.log("constructor() ", props);
         this.state = {
-            classSelected: false,
+            isClassSelected: false,
             proficiencies: [],
             proficienciesChosen: [], 
             category: 0,
@@ -18,7 +18,7 @@ class ClassProficiencies extends Component {
         const { classSelected } = this.props;
         if (isSelected(classSelected)) {
             this.setProficiencies();
-            this.setState({ classSelected: true, });
+            this.setState({ isClassSelected: true, });
            
         }           
     }   
@@ -102,7 +102,7 @@ class ClassProficiencies extends Component {
                 for (var j = 0; j < proficiencies.length; j++) {
                     for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
                         if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
-                            return (<button className='btn-sm col-6 btn-success' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                            return (<button className='btn-sm col-6 btn-primary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
                         }
                     }
                 }                
@@ -135,9 +135,9 @@ class ClassProficiencies extends Component {
                 num = proficienciesChosen[newCategory].length;
             }
             if (category === a) {                
-                buttons.push(<button className='btn-sm btn profNavSelected' onClick={() => void (0)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
+                buttons.push(<button className='btn-sm btn btn-primary' onClick={() => void (0)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
             } else {
-                buttons.push(<button className='btn-sm btn profNav' onClick={() => this.setNavigationCategory(newCategory)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
+                buttons.push(<button className='btn-sm btn btn-secondary' onClick={() => this.setNavigationCategory(newCategory)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
             }           
         }
         return (<div className='col-12'>{buttons}</div>);
@@ -152,8 +152,8 @@ class ClassProficiencies extends Component {
         //    nav = this.proficienciesNavigation();
         //}             
         const { category } = this.state;
-        const { classSelected } = this.state; //this may need to be changed to not confuse with the object 'classSelected'
-        return (classSelected ? <div className='col-12 text-center selection'>
+        const { isClassSelected } = this.state; //this may need to be changed to not confuse with the object 'classSelected'
+        return (isClassSelected ? <div className='col-12 text-center selection'>
                 <div className="col-12 selectionTitle">
                     <h3>Choose your proficiencies</h3>
                 </div>
@@ -165,7 +165,7 @@ class ClassProficiencies extends Component {
                         {this.proficienciesToChooseFrom(category)}
                     </div>
                 </div>
-                </div> : <div className='col-12 text-center selection'>You must choose a class to select your proficiencies.</div> );
+        </div> : <div className='col-12 text-center selection'><h3 className='selectionTitle'>You must choose a class to select your proficiencies.</h3></div>);
     }
 }
 

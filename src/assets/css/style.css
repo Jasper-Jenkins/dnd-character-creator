@@ -163,7 +163,7 @@
     padding: 0px;
 }
 
-.profNavSelected {
+/*.profNavSelected {
     color: black;
     background-color: azure;
     border-top: 2px solid black;
@@ -178,7 +178,7 @@
 .profNav {
     color: azure;
     background-color: black;
-}
+}*/
 
 input[type=number] {
     width:100%;
