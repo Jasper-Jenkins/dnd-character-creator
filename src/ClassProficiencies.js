@@ -45,7 +45,7 @@ class ClassProficiencies extends Component {
         }        
     }
    
-    addProficiency = (proficiencyName, choicesIndex) => { // Clean 
+    addProficiency = (proficiencyName, choicesIndex) => { // Clean up
         const { classSelected } = this.props;
        // const { proficiencies } = this.state; // testing another way to use state in setState below. 
         const { proficienciesChosen } = this.state;
@@ -79,8 +79,7 @@ class ClassProficiencies extends Component {
                 if (proficienciesChosen[a][b].name === proficiencyName) {                    
                     let newProficiencies = proficiencies.filter(function (proficiency) { return proficiency.name !== proficiencyName });
                     let newChoices = proficienciesChosen;
-                    newChoices[choicesIndex] = proficienciesChosen[choicesIndex].filter(function (proficiency) { return proficiency.name !== proficiencyName });              
-                    
+                    newChoices[choicesIndex] = proficienciesChosen[choicesIndex].filter(function (proficiency) { return proficiency.name !== proficiencyName });   
                     this.setState({
                         proficiencies: [...newProficiencies],
                         proficienciesChosen: newChoices,
@@ -109,14 +108,11 @@ class ClassProficiencies extends Component {
                 }                
                 return (<button className='btn-sm col-6 btn-secondary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
-         
-           
-            chooseFrom.push(<div className='col-12 selection-choose-proficiencies' key={'catetory' + choicesIndex}>{chooseProficiencies}</div>);
+            chooseFrom.push(chooseProficiencies);
         } 
-
         return (chooseFrom[category]);
     }
-
+   // <div className='col-12 selection-choose-proficiencies' key={'catetory' + choicesIndex}>
     setNavigationCategory(newCategory) {
         this.setState({ category: newCategory, });
     }
@@ -156,11 +152,19 @@ class ClassProficiencies extends Component {
         //    nav = this.proficienciesNavigation();
         //}             
         const { category } = this.state;
-        const { classSelected } = this.state;
+        const { classSelected } = this.state; //this may need to be changed to not confuse with the object 'classSelected'
         return (classSelected ? <div className='col-12 text-center selection'>
-                <p className="selectionTitle">Choose your Champions Proficiencies</p> 
-            {this.proficienciesNavigation()}
-            {this.proficienciesToChooseFrom(category)}
+                <div className="col-12 selectionTitle">
+                    <h3>Choose your proficiencies</h3>
+                </div>
+                <div className="card border-dark mb-3 ">
+                    <div className="card-header text-white bg-dark text-center">
+                        {this.proficienciesNavigation()}
+                    </div>
+                    <div className="card-body">
+                        {this.proficienciesToChooseFrom(category)}
+                    </div>
+                </div>
                 </div> : <div className='col-12 text-center selection'>You must choose a class to select your proficiencies.</div> );
     }
 }

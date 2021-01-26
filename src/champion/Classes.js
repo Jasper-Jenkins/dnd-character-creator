@@ -98,7 +98,7 @@ export default class CharacterClass extends Component {
         const { classesInfo } = this.state;
         return (<div className="col-12 selection">
                     <div className="col-12 selectionTitle">
-                        <h2 className="text-center">Choose your Class</h2>
+                        <h3 className="text-center">Choose your Class</h3>
                         <SearchBar value={word} handleChange={e => this.searchClasses(e.target.value)} />
                     </div>
                     <SearchResults champions={word !== '' ? searchResults : classesInfo} category='classes' select={this.selectClass} />

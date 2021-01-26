@@ -234,7 +234,7 @@ export default class CharacterRace extends Component {
         const { racesInfo } = this.state;
         return (<div className='selection col-12'>
                     <div className="col-12 selectionTitle">
-                        <h2 className="selectionTitle text-center">Choose your Race</h2>
+                        <h3 className="selectionTitle text-center">Choose your Race</h3>
                         <SearchBar value={word} handleChange={e => this.searchRaces(e.target.value)} />
                     </div>
                     <SearchResults champions={word !== '' ? searchResults : racesInfo} category='races' select={this.selectRace} />

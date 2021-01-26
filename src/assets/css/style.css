@@ -158,12 +158,6 @@
     color: white;
 }
 
-.selection-choose-proficiencies {
-    border: 2px solid azure;
-    margin: 0px 0px;
-    float: left;
-}
-
 .proficiencies {
     margin: 0px 5px 0px 0px;
     padding: 0px;
