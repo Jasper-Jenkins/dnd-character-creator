@@ -13,8 +13,8 @@ export default function SearchResults({ champions, select, category }) {
                 }
                 let traits = [];
                 let target = '#race-' + race.index;
-                for (var a = 0; a < race.traits.length; a++) {
-                    traits.push(<span data-toggle="modal" data-target={target} key={race.traits[a].name}>{race.traits[a].name} </span>);
+                for (var b = 0; b < race.traits.length; b++) {
+                    traits.push(<span data-toggle="modal" data-target={target} key={race.traits[b].name}>{race.traits[a].name} </span>);
                 }
                 return (<div className="card border-dark mb-3 " key={race.index}>
                     <div className="card-header text-white bg-dark text-center">

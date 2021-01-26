@@ -194,13 +194,11 @@ export default class CharacterRace extends Component {
 
     selectRace(index) {
         const { racesInfo } = this.state;
-        const { setRace } = this.props;
-       
+        const { setRace } = this.props;       
         for (let i = 0; i < racesInfo.length; i++) {
             if (racesInfo[i].index === index) {
                 const raceSelected = racesInfo.filter(function (race) { return race.name === racesInfo[i].name });
-                this.setState({ raceSelected: raceSelected[0] });
-                
+                this.setState({ raceSelected: raceSelected[0] });                
                 setRace(raceSelected[0]); //setting race to CreateCharacter class 
                 console.log(raceSelected[0]);
                 break;

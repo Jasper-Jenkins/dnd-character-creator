@@ -189,6 +189,8 @@ export default class App extends Component {
             setRacesInfo: this.setRacesInfo,
             setClasses: this.setClasses, 
             setClassesInfo: this.setClassesInfo,
+            setAbilityScores: this.setAbilityScores, 
+            setAbilityScoresInfo: this.setAbilityScoresInfo,
         }
         //  this.state = this.initialState;
         //  this.readyToCreate = this.readyToCreate.bind(this);
@@ -322,6 +324,17 @@ export default class App extends Component {
     setClassesInfo = (classesInfo) => {
         this.setState({classesInfo: classesInfo,})
     }
+
+    setAbilityScores = (abilityScores) => {
+        this.setState({ abilityScores: abilityScores })
+    }
+
+    setAbilityScoresInfo = (abilityScoresInfo) => {
+        this.setState({ abilityScoresInfo: abilityScoresInfo })
+    }
+
+
+
 
     render() {
         const { ready } = this.state;

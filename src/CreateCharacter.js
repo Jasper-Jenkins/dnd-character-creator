@@ -42,27 +42,13 @@ class CreateCharacter extends Component {
     }
     
     componentDidMount() {
-        const { abilityScores } = this.props;
-        this.abilityScoresSetup(abilityScores);
-    //    console.log("CreateCharacter mounted");
+     
                
     }
 
     componentDidUpdate() {
-     //   console.log("CreateCharacter updated")
     }
 
-
-    abilityScoresSetup = (abilityScoresData) => {
-        const { count } = abilityScoresData;
-        const { results } = abilityScoresData;
-        let abilityScores = {};
-        for (var j = 0; j < count; j++) {
-            let ability = results[j].index;
-            abilityScores[ability] = 0;
-        }
-        this.setState({ abilityScoresSelected: abilityScores, });
-    }
 
     updateAlertMessage = (message) => {
         this.setState({ alertMessage: message }, this.fadeMessage()); 
@@ -105,19 +91,19 @@ class CreateCharacter extends Component {
         this.setState({ navigation: category, });
     }
 
-    getScore = (ability) => {
-        const { abilityScores } = this.props;
-        const { abilityScoresSelected } = this.state;
-        let scores = abilityScoresSelected
-        for (var i = 0; i < abilityScores.count; i++) {
-            if (abilityScores.results[i].index === ability) {
-                scores[ability] = this.randomDiceRoll(6)
-                this.setState({abilityScoresSelected: scores})
-                break;
-            }
-        }
-   //     console.log("Ability Scores Selected", abilityScoresSelected[ability])
-    }
+   // getScore = (ability) => {
+   //     const { abilityScores } = this.props;
+   //     const { abilityScoresSelected } = this.state;
+   //     let scores = abilityScoresSelected
+   //     for (var i = 0; i < abilityScores.count; i++) {
+   //         if (abilityScores.results[i].index === ability) {
+   //             scores[ability] = this.randomDiceRoll(6)
+   //             this.setState({abilityScoresSelected: scores})
+   //             break;
+   //         }
+   //     }
+   ////     console.log("Ability Scores Selected", abilityScoresSelected[ability])
+   // }
 
     randomDiceRoll = (maxNum) => { // may need to extend this to accept two additional arguments: total rolls to roll, and total rolls to keep 
         let totalDiceRolls = 5;
@@ -189,6 +175,12 @@ class CreateCharacter extends Component {
             this.updateAlertMessage(zeroesAlert);
         }
     }
+
+    setAbilityScores(abilityScoresSelected) {
+        this.setState({ abilityScoresSelected: abilityScoresSelected })
+    }
+
+
        
     render() {
       //hacky way of displaying alert        
