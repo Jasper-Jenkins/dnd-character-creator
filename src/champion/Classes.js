@@ -61,8 +61,9 @@ export default class CharacterClass extends Component {
     }
 
     selectClass(index) {
-        const { classesInfo } = this.props;
+        const { classesInfo } = this.state;
         const { setClass } = this.props;
+        console.log("hello", classesInfo)
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
@@ -72,8 +73,6 @@ export default class CharacterClass extends Component {
             }
         }        
     } 
-
-
 
     searchClasses = (word) => {
         const { classesInfo } = this.state;

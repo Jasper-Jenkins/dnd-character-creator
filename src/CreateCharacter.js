@@ -192,10 +192,9 @@ class CreateCharacter extends Component {
     }
        
     render() {
-      //hacky way of displaying alert, need to create and delete
-        
+      //hacky way of displaying alert        
         return (<div id='creation' className='container-fluid'>
-            <UserAlert alertMessage={this.state.alertMessage} />          
+            <UserAlert alertMessage={this.state.alertMessage} />       
          
             <div className='row'>
                 <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />

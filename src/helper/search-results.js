@@ -57,8 +57,8 @@ export default function SearchResults({ champions, select, category }) {
                     </div>
                     <div className="card-body">
                         <p className="card-text"><strong>Hit die:</strong> {championClass.hit_die}</p>
-                        <p className="card-text"><strong>Starting proficiencies:</strong>{proficiencies} </p>
-                        <p className="card-text"><strong>Saving Throws:</strong>{savingThrows}</p>
+                        <p className="card-text"><strong>Starting proficiencies:</strong> {proficiencies} </p>
+                        <p className="card-text"><strong>Saving Throws:</strong> {savingThrows}</p>
                         <p className="card-text">{ }</p>
                         <p className="card-text">{ }</p>
                         <p className="card-text">{ }</p>

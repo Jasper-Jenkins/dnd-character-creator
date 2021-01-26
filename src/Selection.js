@@ -23,21 +23,18 @@ class Selection extends Component {
     }
 
     render() {
-        const abilityScoresInfo = this.props.abilityScoresInfo;
-        const classSelected = this.props.classSelected;
-        const navigation = this.props.navigation;
-        const getScore = this.props.getScore;
-        const abilityScoresSwitch = this.state.abilityScoresSwitch
+        const { abilityScoresInfo } = this.props;
+        const { classSelected } = this.props;
+        const { navigation } = this.props;
+        const { getScore } = this.props;
+        const { abilityScoresSwitch } = this.state;
         switch (navigation) {
             case 'Races':
                 return (<Races {...this.props} />);           
             case 'Classes':
                 return (<Classes {...this.props} />); 
             case 'Proficiencies':
-                if (isSelected(classSelected)) {
-                    return (<ClassProficiencies {...this.props} />);
-                }
-                return (<div className='col-12 text-center selection'>You must choose a class to select your proficiencies.</div>);            
+                return (<ClassProficiencies {...this.props} />);      
             case 'Spells':
                 if (isSelected(classSelected) && classSelected.spellcasting !== undefined) { // Needs better validation? 
                     return (<ClassSpells {...this.props} />);

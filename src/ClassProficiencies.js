@@ -6,6 +6,7 @@ class ClassProficiencies extends Component {
         super(props);
      //   console.log("constructor() ", props);
         this.state = {
+            classSelected: false,
             proficiencies: [],
             proficienciesChosen: [], 
             category: 0,
@@ -14,9 +15,11 @@ class ClassProficiencies extends Component {
     }
 
     componentDidMount() {
-        const { classSelected }  = this.props;
+        const { classSelected } = this.props;
         if (isSelected(classSelected)) {
             this.setProficiencies();
+            this.setState({ classSelected: true, });
+           
         }           
     }   
     
@@ -88,12 +91,12 @@ class ClassProficiencies extends Component {
         }       
     }
 
-    classProficienciesToChooseFrom() {
+    proficienciesToChooseFrom(category) {
         const { classSelected } = this.props;
         const { proficiencies } = this.state;
         const { proficienciesChosen } = this.state;
         let chooseFrom = [];
-        
+        console.log(classSelected);
         for (var i = 0; i < classSelected.proficiency_choices.length; i++) {
             let choicesIndex = i;
             const chooseProficiencies = classSelected.proficiency_choices[i].from.map((proficiency) => {               
@@ -107,17 +110,11 @@ class ClassProficiencies extends Component {
                 return (<button className='btn-sm col-6 btn-secondary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
             });
          
-            //let check = proficienciesChosen[choicesIndex]; //I have to check because this comes through undefined the very first time this function runs, need to figure out a better solution.
-            //let num;
-            //if (check === undefined) {
-            //    num = 0;
-            //} else {
-            //    num = proficienciesChosen[choicesIndex].length;
-            //}
            
             chooseFrom.push(<div className='col-12 selection-choose-proficiencies' key={'catetory' + choicesIndex}>{chooseProficiencies}</div>);
-        }       
-        return (chooseFrom);
+        } 
+
+        return (chooseFrom[category]);
     }
 
     setNavigationCategory(newCategory) {
@@ -132,7 +129,6 @@ class ClassProficiencies extends Component {
         const { category } = this.state;
         const { proficienciesChosen } = this.state; 
         let buttons = [];   
-
         for (var a = 0; a < classSelected.proficiency_choices.length; a++) {            
             let newCategory = a;
             let check = proficienciesChosen[newCategory]; //I have to check because this comes through undefined the very first time this function runs, need to figure out a better solution.
@@ -142,26 +138,30 @@ class ClassProficiencies extends Component {
             } else {
                 num = proficienciesChosen[newCategory].length;
             }
-
             if (category === a) {                
                 buttons.push(<button className='btn-sm btn profNavSelected' onClick={() => void (0)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
             } else {
                 buttons.push(<button className='btn-sm btn profNav' onClick={() => this.setNavigationCategory(newCategory)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
             }           
         }
-        
         return (<div className='col-12'>{buttons}</div>);
     }
 
 
     render() {
-        const choices = this.classProficienciesToChooseFrom();
-        const nav = this.proficienciesNavigation();
-        const { category } = this.state;       
-        return (<div className='col-12 text-center selection'> <p className="selectionTitle">Choose your Champions Proficiencies</p> 
-                    {nav}
-                    {choices[category]}
-                </div>);
+        //let choices = [];
+        //let nav = [];
+        //if (this.state.classSelected) {
+        //    choices = this.classProficienciesToChooseFrom();
+        //    nav = this.proficienciesNavigation();
+        //}             
+        const { category } = this.state;
+        const { classSelected } = this.state;
+        return (classSelected ? <div className='col-12 text-center selection'>
+                <p className="selectionTitle">Choose your Champions Proficiencies</p> 
+            {this.proficienciesNavigation()}
+            {this.proficienciesToChooseFrom(category)}
+                </div> : <div className='col-12 text-center selection'>You must choose a class to select your proficiencies.</div> );
     }
 }
 

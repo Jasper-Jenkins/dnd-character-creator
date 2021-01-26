@@ -23,7 +23,7 @@ class Navigation extends Component {
                 if (navigation === category) {
                     return (<button type='button' className='btn btn-sm btn-success btn-nav' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
                 } else {
-                    return (<button onClick={() => { navigate(category); }} type='button' className='btn btn-sm  btn-dark btn-nav' key={index}>{category}</button>);
+                    return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm  btn-dark btn-nav' key={index}>{category}</button>);
                 }
             } else {
                 if (navigation === category) {
@@ -32,12 +32,12 @@ class Navigation extends Component {
                     if (category === 'Classes' && (navigation === 'Proficiencies' || navigation === 'Spells')) {
                         switch (navigation) {
                             case 'Proficiencies':
-                                return (<button onClick={() => { navigate(category);  }} type='button' className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+                                return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
                             default:
-                                return (<button onClick={() => { navigate(category);  }} type='button' className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+                                return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
                         }
                     } else {
-                        return (<button onClick={() => { navigate(category); }} type='button' className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+                        return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
                     }
                 }
             }
