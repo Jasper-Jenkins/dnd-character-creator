@@ -18,8 +18,8 @@ export default class AbilityScores extends Component {
     componentDidMount() {
         if (isSelected(this.props.abilityScores)) {
             console.log("this should happen any time after the first")
-            this.setState({ abilityScores: this.props.abilityScores, abilityScoresInfo: this.props.abilityScoresInfo, })
-            this.abilityScoresSetup();
+            this.setState({ abilityScores: this.props.abilityScores, abilityScoresInfo: this.props.abilityScoresInfo, abilityScoresSelected: this.props.abilityScoresSelected, }, this.abilityScoresSetup())
+            
         } else {
             console.log("this should happen second")
             this.getAbilityScores();
@@ -189,7 +189,7 @@ export default class AbilityScores extends Component {
                     <div className='row'>{abilityScores}</div>
                     <ul className='info-abilityBonuses'>{ability_bonuses}</ul>
                     <div className='col-12 text-center'>
-                {abilityScoresSwitch ? <AbilityScoresForm handleSubmitAbilityScores={this.handleSubmitAbilityScores} abilityScoresSelected={this.state.abilityScoresSelected} /> : scores}
+                        {abilityScoresSwitch ? <AbilityScoresForm handleSubmitAbilityScores={this.handleSubmitAbilityScores} abilityScoresSelected={this.state.abilityScoresSelected} /> : scores}
                         <button onClick={() => this.abilityScoreSwitchy()} className='btn btn-primary col-6 align-text-bottom'>{abilityScoresSwitch ? "Auto fill " : "Manual fill "}</button><br />
                     </div>
                 </div>)

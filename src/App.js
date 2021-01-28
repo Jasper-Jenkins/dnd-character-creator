@@ -176,8 +176,6 @@ export default class App extends Component {
             racesInfo: new Array(0),
             classes: {},
             classesInfo: new Array(0),
-            abilityScores: {},
-            abilityScoresInfo: [],
             spells: {},
             spellsInfo: [],
             features: {},
@@ -189,8 +187,7 @@ export default class App extends Component {
             setRacesInfo: this.setRacesInfo,
             setClasses: this.setClasses, 
             setClassesInfo: this.setClassesInfo,
-            setAbilityScores: this.setAbilityScores, 
-            setAbilityScoresInfo: this.setAbilityScoresInfo,
+          
         }
         //  this.state = this.initialState;
         //  this.readyToCreate = this.readyToCreate.bind(this);
@@ -325,13 +322,13 @@ export default class App extends Component {
         this.setState({classesInfo: classesInfo,})
     }
 
-    setAbilityScores = (abilityScores) => {
-        this.setState({ abilityScores: abilityScores })
-    }
+    //setAbilityScores = (abilityScores) => {
+    //    this.setState({ abilityScores: abilityScores })
+    //}
 
-    setAbilityScoresInfo = (abilityScoresInfo) => {
-        this.setState({ abilityScoresInfo: abilityScoresInfo })
-    }
+    //setAbilityScoresInfo = (abilityScoresInfo) => {
+    //    this.setState({ abilityScoresInfo: abilityScoresInfo })
+    //}
 
 
 

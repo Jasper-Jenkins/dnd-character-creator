@@ -13,6 +13,8 @@ class CreateCharacter extends Component {
         this.state = {
             champion: 'Champion', //add support: user being able to name their Champion. 
             abilityScoresSelected: {},
+            abilityScores: {},
+            abilityScoresInfo:[],
             navigationCategories: ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'],
             navigation: 'Races',
             classSelected: {},
@@ -32,6 +34,8 @@ class CreateCharacter extends Component {
             startingProficiencies: this.startingProficiencies,
             updateProficiencies: this.updateProficiencies,
             setSpells: this.setSpells,
+            setAbilityScores: this.setAbilityScores,
+            setAbilityScoresInfo: this.setAbilityScoresInfo,
         }
         //this.updateSpellsSlots = this.updateSpellSlots.bind(this);
         //this.updateAlertMessage = this.updateAlertMessage.bind(this);
@@ -181,6 +185,14 @@ class CreateCharacter extends Component {
         this.setState({ abilityScoresSelected: abilityScoresSelected, })
     }
 
+
+    setAbilityScores = (abilityScores) => {
+        this.setState({ abilityScores: abilityScores })
+    }
+
+    setAbilityScoresInfo = (abilityScoresInfo) => {
+        this.setState({ abilityScoresInfo: abilityScoresInfo })
+    }
 
        
     render() {
