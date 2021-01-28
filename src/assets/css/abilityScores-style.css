@@ -1,0 +1,50 @@
+
+.ability {
+    background-color: cornflowerblue;
+    color: azure;
+    border: solid 1px black;
+    font-size: 10px;
+    font-weight: bolder;
+    margin: 0px;
+    padding: 0px;
+}
+
+    .ability p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+.abilityScore {
+    background-color: cornflowerblue;
+    border: 2px solid cornflowerblue;
+    color: azure;
+    font-size: 30px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.bonus {
+    background-color: cornflowerblue;
+    border: 2px solid cornflowerblue;
+    color: forestgreen;
+    font-size: 30px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.abilityScoreSwitch-btn {
+    position: sticky;
+    bottom: 0px;
+    z-index: 10;
+}
+
+.abilityScoresSelection {
+    background-color: black;
+    border: none;
+    color: white;
+    font-size: 15px;
+}
+
+.abilityScoresSelection:focus {
+    outline: none;
+}

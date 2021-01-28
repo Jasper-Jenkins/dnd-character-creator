@@ -72,7 +72,7 @@ export default class AbilityScores extends Component {
         const { raceSelected, classSelected } = this.props;
         let bonuses, ability_bonuses = [];
         let abilityScores = abilityScoresInfo.map((ability) => {
-            console.log("whats happening", ability)
+           // console.log("whats happening", ability)
             let abilityScore = "abilityScore";
             if (isSelected(classSelected)) {
                 for (var a = 0; a < classSelected.saving_throws.length; a++) {
@@ -87,17 +87,17 @@ export default class AbilityScores extends Component {
                 <p className={abilityScore}>{this.state.abilityScoresSelected[ability.index]}</p>
             </div>);
         });
-         console.log("Are we doing it?", this.state.abilityScoresSelected)
+        // console.log("Are we doing it?", this.state.abilityScoresSelected)
 
         if (isSelected(raceSelected)) { //setting up info for when a race has been selected
-            ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
-                for (var i = 0; i < abilityScoresInfo.length; i++) {
-                    if (abilityScoresInfo[i].name === bonus.ability_score.name) {
-                        return (<li className='col-6 text-center' key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
-                    }
-                }
-                return (<li key={index}>Ability: +BONUS</li>);
-            });
+            //ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
+            //    for (var i = 0; i < abilityScoresInfo.length; i++) {
+            //        if (abilityScoresInfo[i].name === bonus.ability_score.name) {
+            //            return (<li className='col-6 text-center' key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
+            //        }
+            //    }
+            //    return (<li key={index}>Ability: +BONUS</li>);
+            //});
             bonuses = raceSelected.ability_bonuses.map((bonus) => {
                 return bonus
             });
@@ -126,7 +126,7 @@ export default class AbilityScores extends Component {
                 </div>);
             });
         }
-    return ([ability_bonuses, abilityScores]);
+    return (abilityScores);
     }
 
     getScore(ability) {
@@ -181,13 +181,15 @@ export default class AbilityScores extends Component {
         let scores = abilityScoresInfo.map((abilityScore, index) => {
             return (<button onClick={() => this.getScore(abilityScore.index)} className='col-4 selectionButtons' key={index}>{abilityScore.full_name}</button>)
         });
-        const [ability_bonuses, abilityScores] = this.scoreDisplay();
+        const abilityScores = this.scoreDisplay();
+
+      //  console.log(ability_bonuses);
         return (<div className='selection col-12'>
                     <div className="col-12 selectionTitle">
                         <h3 className="selectionTitle text-center">Choose your Ability Scores</h3>                      
                     </div>  
-                    <div className='row'>{abilityScores}</div>
-                    <ul className='info-abilityBonuses'>{ability_bonuses}</ul>
+            <div className='row'>{abilityScores}</div>
+                   
                     <div className='col-12 text-center'>
                         {abilityScoresSwitch ? <AbilityScoresForm handleSubmitAbilityScores={this.handleSubmitAbilityScores} abilityScoresSelected={this.state.abilityScoresSelected} /> : scores}
                         <button onClick={() => this.abilityScoreSwitchy()} className='btn btn-primary col-6 align-text-bottom'>{abilityScoresSwitch ? "Auto fill " : "Manual fill "}</button><br />
