@@ -28,6 +28,7 @@ class CreateCharacter extends Component {
             updateAlertMessage: this.updateAlertMessage,
             setSelectedSpell: this.setSelectedSpell,
             setProficiencies: this.setProficiencies,
+            setAbilityScoresSelected: this.setAbilityScoresSelected,
             startingProficiencies: this.startingProficiencies,
             updateProficiencies: this.updateProficiencies,
             setSpells: this.setSpells,
@@ -150,34 +151,34 @@ class CreateCharacter extends Component {
         });
     }    
         
-    handleSubmit = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
-        const { abilityScoresSelected } = this.state
-        let scores = abilityScoresSelected
-        let noZeroes = []
-        for (var i = 0; i < abilities.length; i++) {
-            if (abilities[i].value < 3 || abilities[i].value > 18) { //needs better validation
-                noZeroes.push(abilities[i].name);
-            } else {
-                scores[abilities[i].name] = parseInt(abilities[i].value, 10)
-                this.setState({ abilityScoresSelected: scores })
-            }
-        }
-        if (noZeroes.length > 0) {
-            let zeroesAlert = "Ability Scores must not be 0, you currently have 0 in: ";
-            for (var k = 0; k < noZeroes.length; k++) {
-                if (k < noZeroes.length - 1) {
-                    zeroesAlert += noZeroes[k] + ", ";
-                } else {
-                    zeroesAlert += noZeroes[k];
-                }
-            }
-            zeroesAlert += ".";
-            this.updateAlertMessage(zeroesAlert);
-        }
-    }
+    //handleSubmitAbilityScores = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
+    //    const { abilityScoresSelected } = this.state
+    //    let scores = abilityScoresSelected
+    //    let noZeroes = []
+    //    for (var i = 0; i < abilities.length; i++) {
+    //        if (abilities[i].value < 3 || abilities[i].value > 18) { //needs better validation
+    //            noZeroes.push(abilities[i].name);
+    //        } else {
+    //            scores[abilities[i].name] = parseInt(abilities[i].value, 10)
+    //            this.setState({ abilityScoresSelected: scores })
+    //        }
+    //    }
+    //    if (noZeroes.length > 0) {
+    //        let zeroesAlert = "Ability Scores must not be 0, you currently have 0 in: ";
+    //        for (var k = 0; k < noZeroes.length; k++) {
+    //            if (k < noZeroes.length - 1) {
+    //                zeroesAlert += noZeroes[k] + ", ";
+    //            } else {
+    //                zeroesAlert += noZeroes[k];
+    //            }
+    //        }
+    //        zeroesAlert += ".";
+    //        this.updateAlertMessage(zeroesAlert);
+    //    }
+    //}
 
-    setAbilityScores(abilityScoresSelected) {
-        this.setState({ abilityScoresSelected: abilityScoresSelected })
+    setAbilityScoresSelected = (abilityScoresSelected) => {
+        this.setState({ abilityScoresSelected: abilityScoresSelected, })
     }
 
 
@@ -187,7 +188,7 @@ class CreateCharacter extends Component {
         return (<div id='creation' className='container-fluid'>
             <UserAlert alertMessage={this.state.alertMessage} />
             <div className='row'>
-                <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmit={this.handleSubmit} getScore={this.getScore} />
+                <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmitAbilityScores={this.handleSubmitAbilityScores} getScore={this.getScore} />
             </div>
             <div className='row'>
                 <Navigation {...this.state} {...this.props} navigate={this.navigate} />

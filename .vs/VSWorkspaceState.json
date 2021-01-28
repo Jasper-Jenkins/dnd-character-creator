@@ -3,12 +3,11 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\assets",
     "\\src\\assets\\css",
     "\\src\\champion",
     "\\src\\helper",
     "\\src\\UI"
   ],
-  "SelectedNode": "\\src\\Navigation.js",
+  "SelectedNode": "\\src\\champion\\AbilityScores.js",
   "PreviewInSolutionExplorer": false
 }

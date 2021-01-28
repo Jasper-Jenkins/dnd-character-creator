@@ -56,7 +56,7 @@ class AbilityScoresForm extends Component {
     } 
 
     submitForm = () => {
-        this.props.handleSubmit(this.state.scores)
+        this.props.handleSubmitAbilityScores(this.state.scores)
      //   this.setState(this.initialState)
     }
 

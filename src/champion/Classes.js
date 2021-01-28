@@ -19,7 +19,7 @@ export default class CharacterClass extends Component {
     };   
 
     componentDidMount() {
-        if (isSelected(this.props.classSelected)) {
+        if (isSelected(this.props.classSelected) || this.state.classesInfo.length === 12) {
             this.setState({ classSelected: this.props.classSelected, });
         }
         if (isSelected(this.props.classes)) {

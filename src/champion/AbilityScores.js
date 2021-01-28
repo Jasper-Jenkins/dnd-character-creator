@@ -31,6 +31,7 @@ export default class AbilityScores extends Component {
     componentWillUnmount() {
         this.props.setAbilityScores(this.state.abilityScores);
         this.props.setAbilityScoresInfo(this.state.abilityScoresInfo);
+        this.props.setAbilityScoresSelected(this.state.abilityScoresSelected);
     }
 
     abilityScoresSetup = () => {
@@ -112,7 +113,7 @@ export default class AbilityScores extends Component {
                 for (var i = 0; i < bonuses.length; i++) {
                     if (bonuses[i].ability_score.name.toLowerCase() === ability.index) {
                         abilityScore += "bonus "
-                        let bonus = this.props.abilityScoresSelected[ability.index] + bonuses[i].bonus;
+                        let bonus = this.state.abilityScoresSelected[ability.index] + bonuses[i].bonus;
                         return (<div className='col-2 text-center ability' key={ability.index}>
                             <p>{ability.full_name}</p>
                             <p className={abilityScore}>{bonus}</p>
@@ -121,7 +122,7 @@ export default class AbilityScores extends Component {
                 }
                 return (<div className='col-2 text-center ability' key={ability.index}>
                     <p>{ability.full_name}</p>
-                    <p className={abilityScore}>{this.props.abilityScoresSelected[ability.index]}</p>
+                    <p className={abilityScore}>{this.state.abilityScoresSelected[ability.index]}</p>
                 </div>);
             });
         }
@@ -140,6 +141,33 @@ export default class AbilityScores extends Component {
                 break;
             }
         }      
+    }
+
+
+    handleSubmitAbilityScores = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
+        const { abilityScoresSelected } = this.state
+        let scores = abilityScoresSelected
+        let noZeroes = []
+        for (var i = 0; i < abilities.length; i++) {
+            if (abilities[i].value < 3 || abilities[i].value > 18) { //needs better validation
+                noZeroes.push(abilities[i].name);
+            } else {
+                scores[abilities[i].name] = parseInt(abilities[i].value, 10)
+                this.setState({ abilityScoresSelected: scores })
+            }
+        }
+        if (noZeroes.length > 0) {
+            let zeroesAlert = "Ability Scores must not be 0, you currently have 0 in: ";
+            for (var k = 0; k < noZeroes.length; k++) {
+                if (k < noZeroes.length - 1) {
+                    zeroesAlert += noZeroes[k] + ", ";
+                } else {
+                    zeroesAlert += noZeroes[k];
+                }
+            }
+            zeroesAlert += ".";
+            this.props.updateAlertMessage(zeroesAlert);
+        }
     }
 
     abilityScoreSwitchy() {
@@ -161,7 +189,7 @@ export default class AbilityScores extends Component {
                     <div className='row'>{abilityScores}</div>
                     <ul className='info-abilityBonuses'>{ability_bonuses}</ul>
                     <div className='col-12 text-center'>
-                        {abilityScoresSwitch ? <AbilityScoresForm handleSubmit={this.props.handleSubmit} abilityScoresSelected={this.state.abilityScoresSelected} /> : scores}
+                {abilityScoresSwitch ? <AbilityScoresForm handleSubmitAbilityScores={this.handleSubmitAbilityScores} abilityScoresSelected={this.state.abilityScoresSelected} /> : scores}
                         <button onClick={() => this.abilityScoreSwitchy()} className='btn btn-primary col-6 align-text-bottom'>{abilityScoresSwitch ? "Auto fill " : "Manual fill "}</button><br />
                     </div>
                 </div>)
