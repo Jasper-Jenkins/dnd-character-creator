@@ -18,7 +18,7 @@ export default function SearchResults({ champions, select, category }) {
                 }
                 traits.push(<button className='btn btn-sm btn-primary'data-toggle="modal" data-target={target} key='raceTraitsInfoButton'>?</button>)
 
-                return (<div className="card border-dark mb-3 " key={race.index}>
+                return (<div className="card border-dark mb-3 col-12 character-card" key={race.index}>
                     <div className="card-header text-white bg-dark text-center">
                         <h4>{race.name}</h4>
                     </div>
@@ -53,7 +53,7 @@ export default function SearchResults({ champions, select, category }) {
                 });
 
                 //let bonuses = this.abilityBonuses(race);
-                return (<div className="card border-dark mb-3 " key={championClass.index}>
+                return (<div className="card border-dark mb-3 col-12 character-card" key={championClass.index}>
                     <div className="card-header text-white bg-dark text-center">
                         <h4>{championClass.name}</h4>
                     </div>

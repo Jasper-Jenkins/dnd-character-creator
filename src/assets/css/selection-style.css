@@ -1,10 +1,7 @@
 
-.selection {    
-    width: 100%;
+.selection {   
     height: 95vh;
-    overflow: auto;
-    margin: 0px;
-    padding: 0px;
+    overflow: auto;  
     background-color:black;    
 }
 
@@ -31,9 +28,17 @@
 }
 
 .searchBar {
-    background-color:black;
+    background-color: black;
+    padding: 0px 5px 0px 0px;
  }
 
 .search-label {
     color:white;
+}
+.character-card {    
+    padding: 0px;
+}
+
+.choose {
+    padding: 0px;
 }
