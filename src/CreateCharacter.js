@@ -3,7 +3,7 @@ import Info from './Info'
 import Selection from './Selection'
 import Navigation from './Navigation'
 //import CharacterSave from './CharacterSave'
-//import isSelected from './helper/helper-functions'
+import isSelected from './helper/helper-functions'
 import UserAlert from './helper/Alert'
 //import GOOFING from './GOOFING'
 
@@ -96,20 +96,6 @@ class CreateCharacter extends Component {
         this.setState({ navigation: category, });
     }
 
-   // getScore = (ability) => {
-   //     const { abilityScores } = this.props;
-   //     const { abilityScoresSelected } = this.state;
-   //     let scores = abilityScoresSelected
-   //     for (var i = 0; i < abilityScores.count; i++) {
-   //         if (abilityScores.results[i].index === ability) {
-   //             scores[ability] = this.randomDiceRoll(6)
-   //             this.setState({abilityScoresSelected: scores})
-   //             break;
-   //         }
-   //     }
-   ////     console.log("Ability Scores Selected", abilityScoresSelected[ability])
-   // }
-
     randomDiceRoll = (maxNum) => { // may need to extend this to accept two additional arguments: total rolls to roll, and total rolls to keep 
         let totalDiceRolls = 5;
         let totalRollsToKeep = 3;
@@ -154,33 +140,7 @@ class CreateCharacter extends Component {
             proficienciesChoices: choices,
         });
     }    
-        
-    //handleSubmitAbilityScores = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
-    //    const { abilityScoresSelected } = this.state
-    //    let scores = abilityScoresSelected
-    //    let noZeroes = []
-    //    for (var i = 0; i < abilities.length; i++) {
-    //        if (abilities[i].value < 3 || abilities[i].value > 18) { //needs better validation
-    //            noZeroes.push(abilities[i].name);
-    //        } else {
-    //            scores[abilities[i].name] = parseInt(abilities[i].value, 10)
-    //            this.setState({ abilityScoresSelected: scores })
-    //        }
-    //    }
-    //    if (noZeroes.length > 0) {
-    //        let zeroesAlert = "Ability Scores must not be 0, you currently have 0 in: ";
-    //        for (var k = 0; k < noZeroes.length; k++) {
-    //            if (k < noZeroes.length - 1) {
-    //                zeroesAlert += noZeroes[k] + ", ";
-    //            } else {
-    //                zeroesAlert += noZeroes[k];
-    //            }
-    //        }
-    //        zeroesAlert += ".";
-    //        this.updateAlertMessage(zeroesAlert);
-    //    }
-    //}
-
+    
     setAbilityScoresSelected = (abilityScoresSelected) => {
         this.setState({ abilityScoresSelected: abilityScoresSelected, })
     }
@@ -196,9 +156,21 @@ class CreateCharacter extends Component {
 
        
     render() {
-      //hacky way of displaying alert        
+      //hacky way of displaying alert
+        //hacky way to put a space between race and class name, fix this.
+        const { raceSelected, classSelected } = this.state;
+
         return (<div id='creation' className='container-fluid'>
             <UserAlert alertMessage={this.state.alertMessage} />
+            <div className='row'>
+                <div className='col-12 text-center' id='characterType'>
+                    <h5 className='col'>
+                        {isSelected(raceSelected) ? raceSelected.name : null}
+                        <span> </span> 
+                        {isSelected(classSelected) ? classSelected.name : null}
+                    </h5>
+                </div>
+            </div>
             <div className='row'>
                 <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmitAbilityScores={this.handleSubmitAbilityScores} getScore={this.getScore} />
             </div>
