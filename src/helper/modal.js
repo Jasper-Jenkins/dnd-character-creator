@@ -56,8 +56,8 @@ class InfoModal extends Component {
         this.getTraits = this.getTraits.bind(this);
     }
 
-    componentDidMount() {
-        console.log("did it mount?")
+    componentDidMount() { // this is causing problems. need to be worked so it loads when user clicks. 
+        console.log("did it mount?");
         this.getTraits(this.props.info);
     }
 

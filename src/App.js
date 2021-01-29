@@ -334,7 +334,7 @@ export default class App extends Component {
 
 
     render() {
-        const { ready } = this.state;
+        const { ready } = this.state; //this has been set up top and not by the user. will need to change once characters can be saved and retrieved. 
 
         if (!ready) {
             return (<div className="container-fluid">

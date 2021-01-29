@@ -157,7 +157,7 @@ class CreateCharacter extends Component {
        
     render() {
       //hacky way of displaying alert
-        //hacky way to put a space between race and class name, fix this.
+        //hacky way to put a space between race and class name, fix this. this messes with the total view height need to fix. 
         const { raceSelected, classSelected } = this.state;
 
         return (<div id='creation' className='container-fluid'>

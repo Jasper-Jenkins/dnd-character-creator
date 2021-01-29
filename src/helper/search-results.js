@@ -28,7 +28,7 @@ export default function SearchResults({ champions, select, category }) {
                         <p className="card-text"><strong>Traits:</strong> {traits}</p>
                         <p className="card-text"><strong>Ability Bonuses:</strong> {bonuses}</p>
                         <p className="card-text"><strong>Speed:</strong> {race.speed}</p>
-                        <button className="btn btn-primary" onClick={() => select(race.index)}>Choose {race.name}</button>
+                        <button className="btn btn-primary btn-block" onClick={() => select(race.index)}>Choose {race.name}</button>
                         <InfoModal info={race} />
                     </div>
                 </div>);
@@ -62,7 +62,7 @@ export default function SearchResults({ champions, select, category }) {
                         <p className="card-text">{ }</p>
                         <p className="card-text">{ }</p>
                         <p className="card-text">{ }</p>
-                        <button className="btn btn-primary" onClick={() => select(championClass.index)}>Choose {championClass.name}</button>
+                        <button className="btn btn-primary btn-block" onClick={() => select(championClass.index)}>Choose {championClass.name}</button>
                     </div>
                 </div>);
             });
