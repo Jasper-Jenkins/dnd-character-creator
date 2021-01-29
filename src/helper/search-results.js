@@ -16,6 +16,8 @@ export default function SearchResults({ champions, select, category }) {
                 for (var b = 0; b < race.traits.length; b++) {
                     traits.push(<span data-toggle="modal" data-target={target} key={race.traits[b].name}>{race.traits[a].name} </span>);
                 }
+                traits.push(<button className='btn btn-sm btn-primary'data-toggle="modal" data-target={target} key='raceTraitsInfoButton'>?</button>)
+
                 return (<div className="card border-dark mb-3 " key={race.index}>
                     <div className="card-header text-white bg-dark text-center">
                         <h4>{race.name}</h4>

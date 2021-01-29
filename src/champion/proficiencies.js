@@ -141,11 +141,12 @@ class ClassProficiencies extends Component {
 
 
     render() {
+        const { classSelected } = this.props;
         const { category } = this.state;
         const { isClassSelected } = this.state; //this may need to be changed to not confuse with the object 'classSelected'
         return (isClassSelected ? <div className='col-12 text-center selection'>
             <div className="col-12 selectionTitle">
-                <h3>Choose your proficiencies</h3>
+                <h3>{classSelected.name} proficiencies</h3>
             </div>
             <div className="card border-dark mb-3 ">
                 <div className="card-header text-white bg-dark text-center">
