@@ -186,7 +186,7 @@ export default class AbilityScores extends Component {
       //  console.log(ability_bonuses);
         return (<div className='selection col-12'>
                     <div className="col-12 selectionTitle">
-                        <h3 className="selectionTitle text-center">Choose your Ability Scores</h3>                      
+                        <h3 className="selectionTitle text-center">Set ability scores.</h3>                      
                     </div>  
             <div className='row'>{abilityScores}</div>
                    
