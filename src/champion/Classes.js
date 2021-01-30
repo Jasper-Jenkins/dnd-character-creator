@@ -30,9 +30,10 @@ export default class CharacterClass extends Component {
     }
 
     componentWillUnmount() {
-            console.log("Unmounting <Classes />, classes: ", this.state.classes, " classesInfo: ", this.state.classesInfo)
+        if (this.state.classesInfo.length === 12) {
             this.props.setClasses(this.state.classes);
             this.props.setClassesInfo(this.state.classesInfo);
+        }
     }
 
     getClasses() {
@@ -59,12 +60,14 @@ export default class CharacterClass extends Component {
     selectClass(index) {
         const { classesInfo } = this.state;
         const { setClass } = this.props;
+        const { navigate } = this.props;
         console.log("hello", classesInfo)
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
                 this.setState({ classSelected: classSelected[0], });
                 setClass(classSelected[0]);
+                navigate('Ability-Scores');
                 break;
             }
         }        

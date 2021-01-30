@@ -184,7 +184,7 @@ class CreateCharacter extends Component {
                 </div>
             </div>
             <div className='row'>
-                <Selection {...this.state} {...this.props} setRace={this.setRace} setClass={this.setClass} handleSubmitAbilityScores={this.handleSubmitAbilityScores} getScore={this.getScore} />
+                <Selection {...this.state} {...this.props} setRace={this.setRace} navigate={this.navigate} setClass={this.setClass} handleSubmitAbilityScores={this.handleSubmitAbilityScores} getScore={this.getScore} />
             </div>
             <div className='row'>
                 <Navigation {...this.state} {...this.props} navigate={this.navigate} />
