@@ -13,7 +13,7 @@ export default function SearchResults({ champions, select, category }) {
                 }
                 let traits = [];
                 let target = '#race-' + race.index;
-                for (var b = 0; b < race.traits.length; b++) {
+                for (var b = 0; b < race.traits.length; b++) { //UI formatting commas and period. 
                     if (b !== race.traits.length-1) {
                         traits.push(<span data-toggle="modal" data-target={target} key={race.traits[b].name}>{race.traits[b].name}, </span>);
                     } else {

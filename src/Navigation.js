@@ -17,31 +17,54 @@ class Navigation extends Component {
         const navigationCategories = this.props.navigationCategories
         const navigate = this.props.navigate
         const classSelected = this.props.classSelected       
-
         let navButtons = navigationCategories.map((category, index) => {
-            if (isSelected(classSelected)) {
+            
                 if (navigation === category) {
                     return (<button type='button' className='btn btn-sm btn-success btn-nav' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
                 } else {
                     return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm  btn-dark btn-nav' key={index}>{category}</button>);
                 }
-            } else {
-                if (navigation === category) {
-                    return (<button type='button' className='btn btn-sm btn-success btn-nav' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
-                } else {
-                    if (category === 'Classes' && (navigation === 'Proficiencies' || navigation === 'Spells')) {
-                        switch (navigation) {
-                            case 'Proficiencies':
-                                return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
-                            default:
-                                return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
-                        }
-                    } else {
-                        return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
-                    }
-                }
-            }
+           
+                //if (navigation === category) {
+                //    return (<button type='button' className='btn btn-sm btn-success btn-nav' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+                //} else {
+                //    if (category === 'Classes' && (navigation === 'Proficiencies' || navigation === 'Spells')) {
+                //        switch (navigation) {
+                //            case 'Proficiencies':
+                //                return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+                //            default:
+                //                return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+                //        }
+                //    } else {
+                //        return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+                //    }
+                //}
+           
         });        
+        //let navButtons = navigationCategories.map((category, index) => {
+        //    if (isSelected(classSelected)) {
+        //        if (navigation === category) {
+        //            return (<button type='button' className='btn btn-sm btn-success btn-nav' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+        //        } else {
+        //            return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm  btn-dark btn-nav' key={index}>{category}</button>);
+        //        }
+        //    } else {
+        //        if (navigation === category) {
+        //            return (<button type='button' className='btn btn-sm btn-success btn-nav' tabIndex='-1' aria-disabled='true' key={index}>{category}</button>);
+        //        } else {
+        //            if (category === 'Classes' && (navigation === 'Proficiencies' || navigation === 'Spells')) {
+        //                switch (navigation) {
+        //                    case 'Proficiencies':
+        //                        return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+        //                    default:
+        //                        return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+        //                }
+        //            } else {
+        //                return (<button type='button' onClick={() => { navigate(category); }} className='btn btn-sm btn-dark btn-nav' key={index}>{category}</button>);
+        //            }
+        //        }
+        //    }
+        //});        
         return (navButtons);
     }
 

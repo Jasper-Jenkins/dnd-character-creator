@@ -8,7 +8,7 @@ import AbilityScores from './champion/AbilityScores'
 import isSelected from './helper/helper-functions'
 
 
-class Selection extends Component {
+class Selection extends Component { //convert this to a function
     constructor(props) {
         super(props)
         this.state = {

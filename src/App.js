@@ -173,9 +173,9 @@ export default class App extends Component {
         super(props);
         this.state = {
             races: {},
-            racesInfo: new Array(0),
+            racesInfo: [],
             classes: {},
-            classesInfo: new Array(0),
+            classesInfo: [],
             spells: {},
             spellsInfo: [],
             features: {},

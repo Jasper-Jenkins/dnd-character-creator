@@ -11,7 +11,7 @@ export default class CharacterClass extends Component {
             classesInfo: [],
             classSelected: {},           
             searchResults:[],
-            word: '',
+            word: "",
         }
        
         this.selectClass = this.selectClass.bind(this);
@@ -19,10 +19,10 @@ export default class CharacterClass extends Component {
     };   
 
     componentDidMount() {
-        if (isSelected(this.props.classSelected) || this.state.classesInfo.length === 12) {
+        if (isSelected(this.props.classSelected)) {
             this.setState({ classSelected: this.props.classSelected, });
         }
-        if (isSelected(this.props.classes)) {
+        if (isSelected(this.props.classes) && this.props.classesInfo.length === 12) {//needs better validation
             this.setState({ classes: this.props.classes, classesInfo: this.props.classesInfo, })
         } else {
             this.getClasses();
@@ -30,13 +30,9 @@ export default class CharacterClass extends Component {
     }
 
     componentWillUnmount() {
-        if (!isSelected(this.props.classes)) { //need a better check for all the information
-            console.log("first time");
+            console.log("Unmounting <Classes />, classes: ", this.state.classes, " classesInfo: ", this.state.classesInfo)
             this.props.setClasses(this.state.classes);
             this.props.setClassesInfo(this.state.classesInfo);
-        } else {
-            console.log("every other time");
-        }        
     }
 
     getClasses() {

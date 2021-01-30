@@ -57,14 +57,13 @@ export default class AbilityScores extends Component {
 
     getInfo(data) {
         console.log(data);
-        let info = []
+        //let info = []
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
                 .then(result => { this.setState((state) => ({ abilityScoresInfo: [...state.abilityScoresInfo, result] }), this.abilityScoresSetup()) });
-        }   
-   //     this.abilityScoresSetup();
+        }     
     }
 
     scoreDisplay() {

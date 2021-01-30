@@ -17,7 +17,7 @@ class CreateCharacter extends Component {
             abilityScoresInfo:[],
             navigationCategories: ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'],
             navigation: 'Races',
-            classSelected: {},
+            classSelected: {},           
             raceSelected: {},
             proficiencies: [],
             proficienciesChoices: [],
@@ -153,6 +153,18 @@ class CreateCharacter extends Component {
     setAbilityScoresInfo = (abilityScoresInfo) => {
         this.setState({ abilityScoresInfo: abilityScoresInfo })
     }
+
+    //setClasses = (classes) => {
+    //    this.setState({ classes: classes, })
+    //}
+
+    //setClassesInfo = (classesInfo) => {
+    //    this.setState({ classesInfo: classesInfo, })
+    //}
+
+
+
+
 
        
     render() {

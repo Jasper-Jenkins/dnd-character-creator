@@ -15,14 +15,6 @@
     color: var(--main-color);
 }
 
-.savingThrow {
-    background-color: cornflowerblue;
-    border: 2px solid goldenrod;
-    font-size: 30px;
-    margin: 0px;
-    padding: 0px;
-}
-
 .info-savingThrows {
     font-size:12px;
     height:auto;

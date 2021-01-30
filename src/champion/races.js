@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import InfoModal from '../helper/modal'
+//import InfoModal from '../helper/modal'
 import isSelected from '../helper/helper-functions'
 import SearchBar from '../helper/search-bar'
 import SearchResults from '../helper/search-results'
@@ -159,7 +159,7 @@ export default class CharacterRace extends Component {
         if (isSelected(this.props.raceSelected)) {
             this.setState({ raceSelected: this.props.raceSelected, });            
         }
-        if (isSelected(this.props.races)) {
+        if (isSelected(this.props.races) && this.props.racesInfo.length === 9) {
             this.setState({races: this.props.races, racesInfo: this.props.racesInfo,})
         } else {
             this.getRaces();
@@ -168,6 +168,7 @@ export default class CharacterRace extends Component {
     }
 
     componentWillUnmount() {
+        console.log("Unmounting <Races />, races: ", this.state.races, " racesInfo: ", this.state.racesInfo)
         this.props.setRaces(this.state.races);
         this.props.setRacesInfo(this.state.racesInfo);
     }
