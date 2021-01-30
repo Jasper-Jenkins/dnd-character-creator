@@ -67,64 +67,45 @@ export default class AbilityScores extends Component {
     }
 
     scoreDisplay() {
-        const { abilityScoresInfo } = this.state;
+        const { abilityScoresInfo, abilityScoresSelected } = this.state;
         const { raceSelected, classSelected } = this.props;
         let bonuses, ability_bonuses = [];
+        let bonus = 0;
+
+        let abilityScore = ''
         let abilityScores = abilityScoresInfo.map((ability) => {
+            abilityScore += 'card-text abilityScore '
            // console.log("whats happening", ability)
-            let abilityScore = "abilityScore";
+            //let abilityScore = "card-text";
             if (isSelected(classSelected)) {
                 for (var a = 0; a < classSelected.saving_throws.length; a++) {
                     if (ability.index === classSelected.saving_throws[a].index) {
-                        abilityScore += "abilityScore savingThrow "
+                        abilityScore += 'savingThrow '
                         console.log("saving throw set: ", classSelected.saving_throws[a].index);
                     }
                 }
             }
-            return (<div className='col-2 text-center ability' key={ability.index}>
-                <p>{ability.full_name}</p>
-                <p className={abilityScore}>{this.state.abilityScoresSelected[ability.index]}</p>
+
+            if (isSelected(raceSelected)) { //setting up info for when a race has been selected
+                for (var b = 0; b < raceSelected.ability_bonuses.length; b++) {
+                    if (raceSelected.ability_bonuses[b].ability_score.index === ability.index) {
+                        console.log('SHEESH', raceSelected.ability_bonuses[b].ability_score.index)
+                        abilityScore += 'bonus '
+                        bonus = abilityScoresSelected[ability.index] + raceSelected.ability_bonuses[b].bonus;
+                    } else {                       
+                        bonus = abilityScoresSelected[ability.index]
+                    }
+                }
+            }  
+            return (<div className="card border-dark mb-3 col-4 card-ability-score text-center" key={ability.index}>
+                <div className="card-header text-white bg-dark ability-score-header">
+                    <h6>{ability.full_name}</h6>
+                </div>
+                <div className="card-body">
+                    <p className={abilityScore} key={ability.index}>{bonus}</p>
+                </div>
             </div>);
         });
-        // console.log("Are we doing it?", this.state.abilityScoresSelected)
-
-        if (isSelected(raceSelected)) { //setting up info for when a race has been selected
-            //ability_bonuses = raceSelected.ability_bonuses.map((bonus, index) => {
-            //    for (var i = 0; i < abilityScoresInfo.length; i++) {
-            //        if (abilityScoresInfo[i].name === bonus.ability_score.name) {
-            //            return (<li className='col-6 text-center' key={index}>{abilityScoresInfo[i].full_name}: +{bonus.bonus}</li>);
-            //        }
-            //    }
-            //    return (<li key={index}>Ability: +BONUS</li>);
-            //});
-            bonuses = raceSelected.ability_bonuses.map((bonus) => {
-                return bonus
-            });
-            abilityScores = abilityScoresInfo.map((ability) => {
-                let abilityScore = "abilityScore ";
-                if (isSelected(classSelected)) {
-                    for (var a = 0; a < classSelected.saving_throws.length; a++) {
-                        if (ability.index === classSelected.saving_throws[a].index) {
-                            abilityScore = "abilityScore savingThrow "
-                        }
-                    }
-                }
-                for (var i = 0; i < bonuses.length; i++) {
-                    if (bonuses[i].ability_score.name.toLowerCase() === ability.index) {
-                        abilityScore += "bonus "
-                        let bonus = this.state.abilityScoresSelected[ability.index] + bonuses[i].bonus;
-                        return (<div className='col-2 text-center ability' key={ability.index}>
-                            <p>{ability.full_name}</p>
-                            <p className={abilityScore}>{bonus}</p>
-                        </div>);
-                    }
-                }
-                return (<div className='col-2 text-center ability' key={ability.index}>
-                    <p>{ability.full_name}</p>
-                    <p className={abilityScore}>{this.state.abilityScoresSelected[ability.index]}</p>
-                </div>);
-            });
-        }
     return (abilityScores);
     }
 
@@ -175,6 +156,16 @@ export default class AbilityScores extends Component {
         }));
     }
 
+    buttons() {
+        const { abilityScoresInfo } = this.state;
+        let buttons = abilityScoresInfo.map((abilityScore, index) => {
+            return (<button onClick={() => this.getScore(abilityScore.index)} className='col-4 selectionButtons' key={index}>{abilityScore.full_name}</button>)
+        });
+
+        return (buttons);
+
+    }
+
     render() {
         const { abilityScoresInfo, abilityScoresSwitch } = this.state;
         let scores = abilityScoresInfo.map((abilityScore, index) => {
@@ -185,12 +176,11 @@ export default class AbilityScores extends Component {
       //  console.log(ability_bonuses);
         return (<div className='selection col-12'>
                     <div className="col-12 selectionTitle">
-                        <h3 className="selectionTitle text-center">Set ability scores.</h3>                      
+                        <h3 className="text-center">Set ability scores.</h3>                      
                     </div>  
-            <div className='row'>{abilityScores}</div>
-                   
+                    <div className='row'>{abilityScores}</div>                   
                     <div className='col-12 text-center'>
-                        {abilityScoresSwitch ? <AbilityScoresForm handleSubmitAbilityScores={this.handleSubmitAbilityScores} abilityScoresSelected={this.state.abilityScoresSelected} /> : scores}
+                        {abilityScoresSwitch ? <AbilityScoresForm handleSubmitAbilityScores={this.handleSubmitAbilityScores} abilityScoresSelected={this.state.abilityScoresSelected} /> : this.buttons()}
                         <button onClick={() => this.abilityScoreSwitchy()} className='btn btn-primary col-6 align-text-bottom'>{abilityScoresSwitch ? "Auto fill " : "Manual fill "}</button><br />
                     </div>
                 </div>)

@@ -146,7 +146,7 @@ export default class CharacterRace extends Component {
             races: {},
             racesInfo: [],
             raceSelected: {},
-            searchResults: [],
+            searchResults: [], 
             word: "",
 
         }

@@ -15,21 +15,15 @@
     }
 
 .abilityScore {
-    background-color: cornflowerblue;
-    border: 2px solid cornflowerblue;
-    color: azure;
-    font-size: 30px;
-    margin: 0px;
-    padding: 0px;
+    border: 2px solid azure;   
+    font-size: 30px;    
 }
 
-.bonus {
-    background-color: cornflowerblue;
-    border: 2px solid cornflowerblue;
+.bonus {   
+    border: 2px solid azure;
     color: forestgreen;
     font-size: 30px;
-    margin: 0px;
-    padding: 0px;
+ 
 }
 
 .abilityScoreSwitch-btn {
@@ -50,9 +44,14 @@
 }
 
 .savingThrow {
-    background-color: cornflowerblue;
     border: 2px solid goldenrod;
     font-size: 30px;
-    margin: 0px;
-    padding: 0px;
+}
+
+.card-ability-score {
+    padding: 0px
+}
+
+.ability-score-header {
+    padding:5px 0px 0px 0px;
 }
