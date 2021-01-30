@@ -70,7 +70,7 @@ class InfoModal extends Component {
             for (var a = 0; a < raceSelected.traits.length; a++) {
                 fetch(url + raceSelected.traits[a].url)
                     .then(result => result.json())
-                    .then(result => { this.setState((state) => ({ traits: [...state.traits, result],}))})
+                    .then(result => { this.setState((state) => ({ traits: [...state.traits, result]}))})
                     .catch(e => { console.log(e + " -- getTraits() -- " + url); });
             }
         }     
@@ -78,6 +78,7 @@ class InfoModal extends Component {
 
     showTraits() {
         const { traits } = this.state;
+        console.log("traits: ", traits);
         let info = traits.map((trait) => {
             return (<div key={'trait-'+trait.name}>
                 <h5>{trait.name}</h5>
@@ -101,7 +102,7 @@ class InfoModal extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            {traits.length !== 0 ? this.showTraits() : "Humans have no special traits"}
+                            {traits.length !== 0 ? this.showTraits() : "Humans do not have racial traits"}
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>                            
