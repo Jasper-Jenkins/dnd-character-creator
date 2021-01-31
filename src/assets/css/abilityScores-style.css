@@ -53,5 +53,17 @@
 }
 
 .ability-score-header {
-    padding:5px 0px 0px 0px;
+    padding: 5px 0px 0px 0px;
+}
+
+.scoreSelection {
+    background-color: black;
+}
+
+.ability-score-button {
+    margin: 5px 5px 0px 5px;
+}
+
+.ability-score-switchy-btn {
+    margin: 20px 5px 20px 5px;
 }

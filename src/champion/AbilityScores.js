@@ -35,7 +35,7 @@ export default class AbilityScores extends Component {
     }
 
     abilityScoresSetup = () => {
-        console.log("scores set up", this.state.abilityScores)
+       // console.log("scores set up", this.state.abilityScores)
         //abilityScoresData 
         const { count } = this.state.abilityScores;
         const { results } = this.state.abilityScores;
@@ -69,48 +69,41 @@ export default class AbilityScores extends Component {
     scoreDisplay() {
         const { abilityScoresInfo, abilityScoresSelected } = this.state;
         const { raceSelected, classSelected } = this.props;
-        let bonuses, ability_bonuses = [];
+       // let bonuses, ability_bonuses = [];
         let bonus = 0;
 
         let abilityScore = ''
         let abilityScores = abilityScoresInfo.map((ability) => {
-            abilityScore += 'card-text abilityScore '
-           // console.log("whats happening", ability)
-            //let abilityScore = "card-text";
+            abilityScore = 'card-text abilityScore '
+            bonus = abilityScoresSelected[ability.index]          
             if (isSelected(classSelected)) {
                 for (var a = 0; a < classSelected.saving_throws.length; a++) {
                     if (ability.index === classSelected.saving_throws[a].index) {
-                        abilityScore += 'savingThrow '
-                        console.log("saving throw set: ", classSelected.saving_throws[a].index);
+                        abilityScore += 'savingThrow '                      
                     }
                 }
             }
-
-            if (isSelected(raceSelected)) { //setting up info for when a race has been selected
+            if (isSelected(raceSelected)) { 
                 for (var b = 0; b < raceSelected.ability_bonuses.length; b++) {
-                    if (raceSelected.ability_bonuses[b].ability_score.index === ability.index) {
-                        console.log('SHEESH', raceSelected.ability_bonuses[b].ability_score.index)
+                    if (raceSelected.ability_bonuses[b].ability_score.index === ability.index) {                     
                         abilityScore += 'bonus '
                         bonus = abilityScoresSelected[ability.index] + raceSelected.ability_bonuses[b].bonus;
-                    } else {                       
-                        bonus = abilityScoresSelected[ability.index]
-                    }
+                    } 
                 }
             }  
             return (<div className="card border-dark mb-3 col-4 card-ability-score text-center" key={ability.index}>
-                <div className="card-header text-white bg-dark ability-score-header">
-                    <h6>{ability.full_name}</h6>
-                </div>
-                <div className="card-body">
-                    <p className={abilityScore} key={ability.index}>{bonus}</p>
-                </div>
-            </div>);
+                    <div className="card-header text-white bg-dark ability-score-header">
+                        <h6>{ability.full_name}</h6>
+                    </div>
+                    <div className="card-body">
+                        <p className={abilityScore} key={ability.index}>{bonus}</p>
+                    </div>
+                </div>);
         });
-    return (abilityScores);
+        return (abilityScores);
     }
 
-    getScore(ability) {
-        console.log("progress? ", ability)
+    getScore(ability) {        
         const { abilityScores } = this.state;
         const { abilityScoresSelected } = this.state;
         let scores = abilityScoresSelected
@@ -159,30 +152,27 @@ export default class AbilityScores extends Component {
     buttons() {
         const { abilityScoresInfo } = this.state;
         let buttons = abilityScoresInfo.map((abilityScore, index) => {
-            return (<button onClick={() => this.getScore(abilityScore.index)} className='col-4 selectionButtons' key={index}>{abilityScore.full_name}</button>)
+            return (<button onClick={() => this.getScore(abilityScore.index)} className='btn btn-primary ability-score-button col-5' type='button' key={index}>{abilityScore.full_name}</button>)
         });
 
-        return (buttons);
+        return (<div className='d-grid gap-2 d-md-block'>{buttons}</div>);
 
     }
 
     render() {
-        const { abilityScoresInfo, abilityScoresSwitch } = this.state;
-        let scores = abilityScoresInfo.map((abilityScore, index) => {
-            return (<button onClick={() => this.getScore(abilityScore.index)} className='col-4 selectionButtons' key={index}>{abilityScore.full_name}</button>)
-        });
-        const abilityScores = this.scoreDisplay();
-
-      //  console.log(ability_bonuses);
+        const {abilityScoresSwitch } = this.state;
+       
         return (<div className='selection col-12'>
                     <div className="col-12 selectionTitle">
-                        <h3 className="text-center">Set ability scores.</h3>                      
+                        <h3 className="text-center">Set ability scores</h3>                      
                     </div>  
-                    <div className='row'>{abilityScores}</div>                   
-                    <div className='col-12 text-center'>
+                <div className='row'>{this.scoreDisplay()}</div>
+                <div className='row'>
+                    <div className='col-12 scoreSelection text-center'>
                         {abilityScoresSwitch ? <AbilityScoresForm handleSubmitAbilityScores={this.handleSubmitAbilityScores} abilityScoresSelected={this.state.abilityScoresSelected} /> : this.buttons()}
-                        <button onClick={() => this.abilityScoreSwitchy()} className='btn btn-primary col-6 align-text-bottom'>{abilityScoresSwitch ? "Auto fill " : "Manual fill "}</button><br />
+                        <button onClick={() => this.abilityScoreSwitchy()} className='btn btn-primary ability-score-switchy-btn'>{abilityScoresSwitch ? "Auto fill " : "Manual fill "}</button><br />
                     </div>
+                </div>
                 </div>)
     }
 }
