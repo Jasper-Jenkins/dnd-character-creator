@@ -16,7 +16,7 @@ class CreateCharacter extends Component {
             abilityScores: {},
             abilityScoresInfo:[],
             navigationCategories: ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'],
-            navigation: 'Ability-Scores',
+            navigation: 'Races',
             classSelected: {},           
             raceSelected: {},
             proficiencies: [],
