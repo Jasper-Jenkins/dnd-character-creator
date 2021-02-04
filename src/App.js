@@ -180,7 +180,7 @@ export default class App extends Component {
             spellsInfo: [],
             features: {},
             featuresInfo: [],
-            levelData: [],
+           
             ready: false,
             enter: false,
             setRaces: this.setRaces,

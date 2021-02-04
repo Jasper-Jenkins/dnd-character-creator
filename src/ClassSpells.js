@@ -1,21 +1,74 @@
 import React, { Component } from 'react';
+import isSelected from './helper/helper-functions';
 
 class ClassSpells extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            classSelected: {},
             classSpells: [], 
             spellSlots: [], 
             spellsChosen: [],
             navigationCategory: 0,
             spellBook: {},
+            spells: {},
+            spellsInfo: [],
+            selected: false, 
         };
     }
 
-    componentDidMount() {        
-        this.spellSlots();
-        this.setClassSpells(1); // character level: 1
+    componentDidMount() {   
+
+        if (!isSelected(this.props.classSelected)) {           
+            
+             // character level: 1
+        } else {
+            if (!isSelected(this.props.levelData)) {
+                this.getLevelData(1);
+            }
+            this.setState({ classSlected: this.props.classSelected, selected: true,});
+            this.spellSlots();
+            this.setClassSpells(1);
+        }
+        console.log("We are here!")
+       
     }
+
+
+    getSpells(url) {
+        return fetch(url + 'spells')
+            .then(result => result.json())
+            .then(result => { this.setState({ spells: result, },); return result })
+            .catch(e => { console.log(e + " -- getSpells() -- " + url); });
+    }
+
+
+    getInfo(data) {
+        //  console.log(data);
+        // let info = []
+        const url = 'https://www.dnd5eapi.co'
+        for (var i = 0; i < data.results.length; i++) {
+            fetch(url + data.results[i].url)
+                .then(result => result.json())
+                .then(result => { this.setState((state) => ({ classesInfo: [...state.classesInfo, result] })) });
+        }
+    }
+
+
+    getLevelData(currentLevel) { //
+        const { classSelected } = this.props; 
+        //let level = {}; 
+        const url = 'https://www.dnd5eapi.co'
+        Promise.resolve(fetch(url + "/api/classes/" + classSelected.index + "/levels/" + currentLevel))
+            .then(result => result.json())
+            .then(result => {
+                this.setState({
+                    levelData: result,
+                }, this.props.setLevelData(result));});
+        
+    }
+
+
 
     spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
         const { classSelected } = this.props;
@@ -285,7 +338,7 @@ class ClassSpells extends Component {
     }
 
     spellsNavigation() {
-        const { spellsChosen } = this.props;
+      //  const { spellsChosen } = this.props;
         const { navigationCategory } = this.state;
         const { spellSlots } = this.state;
         let buttons = [];
@@ -354,12 +407,16 @@ class ClassSpells extends Component {
     }  
     
     render() {        
-        const { navigationCategory } = this.state; 
+        const { navigationCategory, selected } = this.state; 
         const spells = this.displaySpells();
         const navigation = this.spellsNavigation();
-        return (<div className='col-12 text-center selection'>
-            { navigation }
-            { spells[navigationCategory] }
+        return ( selected ?
+            <div className='col-12 text-center selection'>
+                {navigation}
+                {spells[navigationCategory]}
+            </div> :
+            <div className='col-12 text-center selection'>
+           <h3>Choose a class to select your spells.</h3>
                 </div>);
     }
 }

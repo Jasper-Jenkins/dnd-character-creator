@@ -37,7 +37,7 @@ export default class CharacterClass extends Component {
     }
 
     getClasses() {
-        console.log("Getting Classes")
+       // console.log("Getting Classes")
         const url = 'https://www.dnd5eapi.co/api/'
         fetch(url + 'classes')
             .then(result => result.json())
@@ -47,8 +47,8 @@ export default class CharacterClass extends Component {
     }
 
     getInfo(data) {
-        console.log(data);
-        let info = []
+      //  console.log(data);
+       // let info = []
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)

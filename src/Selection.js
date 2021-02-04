@@ -5,7 +5,7 @@ import ClassSpells from './ClassSpells'
 import Races from './champion/Races'
 import Classes from './champion/Classes'
 import AbilityScores from './champion/AbilityScores'
-import isSelected from './helper/helper-functions'
+//import isSelected from './helper/helper-functions'
 
 
 class Selection extends Component { //convert this to a function
@@ -24,7 +24,7 @@ class Selection extends Component { //convert this to a function
     //}
 
     render() {       
-        const { classSelected } = this.props;
+       // const { classSelected } = this.props;
         const { navigation } = this.props;      
         switch (navigation) {
             case 'Races':
@@ -34,10 +34,7 @@ class Selection extends Component { //convert this to a function
             case 'Proficiencies':
                 return (<ClassProficiencies {...this.props} />);      
             case 'Spells':
-                if (isSelected(classSelected) && classSelected.spellcasting !== undefined) { // Needs better validation? 
-                    return (<ClassSpells {...this.props} />);
-                }
-                return (<div className='col-12 text-center selection'>{classSelected.name} is not a spell caster.</div>);            
+                return (<ClassSpells {...this.props} />);
             case 'Ability-Scores':
                 return (<AbilityScores {...this.props} />);               
             default:

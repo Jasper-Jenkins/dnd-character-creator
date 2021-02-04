@@ -5,6 +5,10 @@
     background-color:black;    
 }
 
+.selection h3 {
+    color: white;
+}
+
 .selectionButtons {
     background-color: black;
     color: white;

@@ -164,17 +164,17 @@ export default class CharacterRace extends Component {
         } else {
             this.getRaces();
         }
-        console.log(this.props);
+      //  console.log(this.props);
     }
 
     componentWillUnmount() {
-        console.log("Unmounting <Races />, races: ", this.state.races, " racesInfo: ", this.state.racesInfo)
+   //     console.log("Unmounting <Races />, races: ", this.state.races, " racesInfo: ", this.state.racesInfo)
         this.props.setRaces(this.state.races);
         this.props.setRacesInfo(this.state.racesInfo);
     }
 
     getRaces() {
-        console.log("Getting Races")
+     //   console.log("Getting Races")
         const url = 'https://www.dnd5eapi.co/api/'
         fetch(url + "races")
             .then(result => result.json())
@@ -183,8 +183,8 @@ export default class CharacterRace extends Component {
     }
 
     getInfo(data) {
-        console.log(data);
-        let info = []
+       // console.log(data);
+       // let info = []
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
            fetch(url + data.results[i].url)

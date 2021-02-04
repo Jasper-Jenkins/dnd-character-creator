@@ -2,7 +2,7 @@ import React from 'react'
 import InfoModal from './modal'
 
 export default function SearchResults({ champions, select, category }) {
-    console.log(champions)
+   // console.log(champions)
     let cards = [];
     switch (category) {
         case 'races':

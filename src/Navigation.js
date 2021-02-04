@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import isSelected from './helper/helper-functions'
+//import isSelected from './helper/helper-functions'
 
 
 class Navigation extends Component {

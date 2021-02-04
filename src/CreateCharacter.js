@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Info from './Info'
+//import Info from './Info'
 import Selection from './Selection'
 import Navigation from './Navigation'
 //import CharacterSave from './CharacterSave'
@@ -14,7 +14,8 @@ class CreateCharacter extends Component {
             champion: 'Champion', //add support: user being able to name their Champion. 
             abilityScoresSelected: {},
             abilityScores: {},
-            abilityScoresInfo:[],
+            abilityScoresInfo: [],
+            levelData: {},
             navigationCategories: ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'],
             navigation: 'Races',
             classSelected: {},           
@@ -36,6 +37,7 @@ class CreateCharacter extends Component {
             setSpells: this.setSpells,
             setAbilityScores: this.setAbilityScores,
             setAbilityScoresInfo: this.setAbilityScoresInfo,
+            setLevelData: this.setLevelData,
         }
         //this.updateSpellsSlots = this.updateSpellSlots.bind(this);
         //this.updateAlertMessage = this.updateAlertMessage.bind(this);
@@ -120,8 +122,12 @@ class CreateCharacter extends Component {
     }
 
     setClass(chosenClass) {
-        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, proficienciesChosen: [] });
+        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, proficienciesChosen: [], levelData: {}, });
     }
+
+    setLevelData(dataObj) {
+        this.setState({ levelData: dataObj, })
+    } 
     
     startingProficiencies = (proficiencies) => {
         this.setState({ proficiencies: proficiencies });

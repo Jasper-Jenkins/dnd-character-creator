@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import isSelected from './helper-functions.js'
+//import isSelected from './helper-functions.js'
 
 class InfoModal extends Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class InfoModal extends Component {
     }
 
     componentDidMount() { // this is causing problems. need to be worked so it loads when user clicks. 
-        console.log("did it mount?");
+    //    console.log("did it mount?");
         this.getTraits(this.props.info);
     }
 
@@ -19,7 +19,7 @@ class InfoModal extends Component {
         const url = 'https://www.dnd5eapi.co'
         //let traitsInfo = [];
         if (raceSelected.index === "human") {
-           console.log("Got to the humans")
+         //  console.log("Got to the humans")
         } else {
             for (var a = 0; a < raceSelected.traits.length; a++) {
                 fetch(url + raceSelected.traits[a].url)
