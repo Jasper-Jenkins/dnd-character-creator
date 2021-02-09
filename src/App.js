@@ -176,8 +176,7 @@ export default class App extends Component {
             racesInfo: [],
             classes: {},
             classesInfo: [],
-            spells: {},
-            spellsInfo: [],
+           
             features: {},
             featuresInfo: [],
            

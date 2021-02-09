@@ -17,24 +17,31 @@ class ClassSpells extends Component {
             selected: false,             
         };
         this.spellSlots = this.spellSlots.bind(this);
+        this.getSpells = this.getSpells.bind(this);
     }
 
     componentDidMount() {   
-        if (isSelected(this.props.classSelected)) { 
-            
+        if (isSelected(this.props.classSelected) && this.props.classSelected.spellcasting !== undefined) {
             this.setState({ selected: true, });
             this.spellSlots();
             this.setClassSpells(1);
-             // character level: 1
+            // character level: 1
+            if (this.props.spellsInfo.length === this.props.spells.count) {
+                console.log("setting spells from props")
+                this.setState({ spells: this.props.spells, spellsInfo: this.props.spellsInfo, })
+            } else {
+                console.log("setting spells from api")
+                this.getSpells();
+            }
+        } else {
+            console.log("not a caster")
         }
-
-      
-        this.getSpells();
-
     }
 
     componentWillUnmount() {
         if (this.state.spellsInfo.length === this.state.spells.count) {
+            this.props.setSpells(this.state.spells)
+            this.props.setSpellsInfo(this.state.spellsInfo)
             console.log("checked it");
         }
     }
@@ -45,7 +52,7 @@ getSpells() {
     const url = 'https://www.dnd5eapi.co'
     fetch(url + classSelected.spells)
             .then(result => result.json())
-            .then(result => { this.setState({ spells: result, },); this.getInfo(result) })
+            .then(result => { this.setState({ spells: result, }, this.getInfo(result)) })
             .catch(e => { console.log(e + " -- getSpells() -- " + url); });
     }
 
@@ -106,41 +113,7 @@ getSpells() {
             spellSlots: slotsAvailable,
         }, this.props.updateSpellSlots(slotsAvailable));
     }
-
-
-
-    //spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
-    //    const { classSelected } = this.props;
-    //    const { levelData } = this.props;    
-    //    let slotsAvailable = [];
-    //    if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {
-    //        for (var h = 0; h < levelData.length; h++) {
-    //            if (levelData[h].class.name === classSelected.name) {
-    //                slotsAvailable[0] = 0;
-    //                for (var i = 1; i < 6; i++) {
-    //                    if (levelData[h].spellcasting['spell_slots_level_' + i] !== 0) {
-    //                        slotsAvailable[i] = levelData[h].spellcasting['spell_slots_level_' + i];
-    //                        console.log("SLOTS avail", slotsAvailable[i])
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    } else {
-    //        for (var j = 0; j < levelData.length; j++) {
-    //            if (levelData[j].class.name === classSelected.name) {
-    //                slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
-    //                for (var k = 1; k < 10; k++) {
-    //                    if (levelData[j].spellcasting['spell_slots_level_' + k] !== 0) {
-    //                        slotsAvailable[k] = levelData[j].spellcasting['spell_slots_level_' + k];
-    //                    }
-    //                }
-    //            }
-    //        }            
-    //    } 
-    //    this.setState({
-    //        spellSlots: slotsAvailable,
-    //    }, this.props.updateSpellSlots(slotsAvailable));
-    //}
+      
 
     updateSpells = (spell) => {
         const { spellsChosen } = this.props;
@@ -148,7 +121,7 @@ getSpells() {
         this.setState({
             spellsChosen: spells,
         });
-        this.props.setSpells(spells); //parent spells update so Info can display chosen spells
+        this.props.setChosenSpells(spells); //parent spells update so Info can display chosen spells
     }
 
     spellsChosenByLevel = () => { //this will only work for level one character creation. Works for this app as its for level one only. 
@@ -329,7 +302,7 @@ getSpells() {
 
     setClassSpells = (level) => { 
         const { classSelected } = this.props;
-        const { spellsInfo } = this.props;   
+        const { spellsInfo } = this.state;   
         let spells = []
 
         console.log('setClassSpells, ', spellsInfo)
@@ -370,7 +343,7 @@ getSpells() {
         this.setState({
             spellsChosen: spells,
         });
-        this.props.setSpells(spells)
+        this.props.setChosenSpells(spells)
         setSelectedSpell({})
     }
 

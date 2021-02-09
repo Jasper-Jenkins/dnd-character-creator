@@ -27,6 +27,8 @@ class CreateCharacter extends Component {
             spellSlots: [],
             selectedSpell: {},
             alertMessage: "",
+            spells: {},
+            spellsInfo: [],
             updateSpellSlots: this.updateSpellSlots,
             updateAlertMessage: this.updateAlertMessage,
             setSelectedSpell: this.setSelectedSpell,
@@ -34,7 +36,9 @@ class CreateCharacter extends Component {
             setAbilityScoresSelected: this.setAbilityScoresSelected,
             startingProficiencies: this.startingProficiencies,
             updateProficiencies: this.updateProficiencies,
+            setChosenSpells: this.setSpells,
             setSpells: this.setSpells,
+            setSpellsInfo: this.setSpellsInfo,
             setAbilityScores: this.setAbilityScores,
             setAbilityScoresInfo: this.setAbilityScoresInfo,
           
@@ -87,7 +91,7 @@ class CreateCharacter extends Component {
         this.setState({ selectedSpell: spell, });
     }
 
-    setSpells = (spells) => {
+    setChosenSpells = (spells) => {
         this.setState({ spellsChosen: spells, });
     }
 
@@ -171,6 +175,13 @@ class CreateCharacter extends Component {
     //    this.setState({ classesInfo: classesInfo, })
     //}
 
+    setSpells = (spells) => {
+        this.setState({ spells: spells, });
+    }
+
+    setSpellsInfo = (spellsInfo) => {
+        this.setState({ spellsInfo: spellsInfo, });
+    }
 
     getLevelData(index, currentLevel) { //
         //const { classSelected } = this.props;
