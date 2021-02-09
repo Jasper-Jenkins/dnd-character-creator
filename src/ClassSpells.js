@@ -18,20 +18,24 @@ class ClassSpells extends Component {
         };
         this.spellSlots = this.spellSlots.bind(this);
         this.getSpells = this.getSpells.bind(this);
+        
     }
 
     componentDidMount() {   
         if (isSelected(this.props.classSelected) && this.props.classSelected.spellcasting !== undefined) {
             this.setState({ selected: true, });
-            this.spellSlots();
-            this.setClassSpells(1);
+            
             // character level: 1
             if (this.props.spellsInfo.length === this.props.spells.count) {
                 console.log("setting spells from props")
                 this.setState({ spells: this.props.spells, spellsInfo: this.props.spellsInfo, })
+                this.spellSlots();
+              //  this.setClassSpells(1);
             } else {
                 console.log("setting spells from api")
                 this.getSpells();
+                this.spellSlots();
+             //   this.setClassSpells(1);
             }
         } else {
             console.log("not a caster")
@@ -47,13 +51,13 @@ class ClassSpells extends Component {
     }
 
     
-getSpells() {
-    const { classSelected } = this.props;
-    const url = 'https://www.dnd5eapi.co'
-    fetch(url + classSelected.spells)
-            .then(result => result.json())
-            .then(result => { this.setState({ spells: result, }, this.getInfo(result)) })
-            .catch(e => { console.log(e + " -- getSpells() -- " + url); });
+    getSpells() {
+        const { classSelected } = this.props;
+        const url = 'https://www.dnd5eapi.co'
+        fetch(url + classSelected.spells)
+                .then(result => result.json())
+                .then(result => { this.setState({ spells: result, }, this.getInfo(result)) })
+                .catch(e => { console.log(e + " -- getSpells() -- " + url); });
     }
 
 
@@ -65,8 +69,10 @@ getSpells() {
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
-                .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result] })) });
+                .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result] })) })
+                .catch(e => { console.log(e + " -- getInfo() for spells -- " + url); });
         }
+        this.setClassSpells(1);
     }
 
 
@@ -302,7 +308,7 @@ getSpells() {
 
     setClassSpells = (level) => { 
         const { classSelected } = this.props;
-        const { spellsInfo } = this.state;   
+        const { spellsInfo } = this.props;   
         let spells = []
 
         console.log('setClassSpells, ', spellsInfo)
