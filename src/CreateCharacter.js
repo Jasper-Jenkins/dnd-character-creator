@@ -37,7 +37,7 @@ class CreateCharacter extends Component {
             setSpells: this.setSpells,
             setAbilityScores: this.setAbilityScores,
             setAbilityScoresInfo: this.setAbilityScoresInfo,
-            setLevelData: this.setLevelData,
+          
         }
         //this.updateSpellsSlots = this.updateSpellSlots.bind(this);
         //this.updateAlertMessage = this.updateAlertMessage.bind(this);
@@ -46,6 +46,7 @@ class CreateCharacter extends Component {
         //this.isRaceSelected = this.isRaceSelected.bind(this);
         this.setRace = this.setRace.bind(this);
         this.setClass = this.setClass.bind(this);
+        this.getLevelData = this.getLevelData.bind(this);
     }
     
     componentDidMount() {
@@ -122,12 +123,14 @@ class CreateCharacter extends Component {
     }
 
     setClass(chosenClass) {
-        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, proficienciesChosen: [], levelData: {}, });
+        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, proficienciesChosen: [], });
     }
 
-    setLevelData(dataObj) {
-        this.setState({ levelData: dataObj, })
-    } 
+    //setLevelData = (dataObj) => {
+    //    console.log(dataObj)
+    //    //let levelDataObj = dataObj
+    //    this.setState({ levelData: dataObj, })
+    //} 
     
     startingProficiencies = (proficiencies) => {
         this.setState({ proficiencies: proficiencies });
@@ -169,6 +172,19 @@ class CreateCharacter extends Component {
     //}
 
 
+    getLevelData(index, currentLevel) { //
+        //const { classSelected } = this.props;
+         console.log("getLeveData()");
+        //let level = {}; 
+        const url = 'https://www.dnd5eapi.co'
+        fetch(url + "/api/classes/" + index + "/levels/" + currentLevel)
+            .then(result => result.json())
+            .then(result => {
+                this.setState({
+                    levelData: result,
+                });
+            });
+    }
 
 
 
@@ -190,7 +206,7 @@ class CreateCharacter extends Component {
                 </div>
             </div>
             <div className='row'>
-                <Selection {...this.state} {...this.props} setRace={this.setRace} navigate={this.navigate} setClass={this.setClass} handleSubmitAbilityScores={this.handleSubmitAbilityScores} getScore={this.getScore} />
+                <Selection {...this.state} {...this.props} getLevelData={this.getLevelData} setRace={this.setRace} navigate={this.navigate} setClass={this.setClass} handleSubmitAbilityScores={this.handleSubmitAbilityScores} getScore={this.getScore} />
             </div>
             <div className='row'>               
                 <Navigation {...this.state} {...this.props} navigate={this.navigate} />

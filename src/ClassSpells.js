@@ -9,29 +9,23 @@ class ClassSpells extends Component {
             classSpells: [], 
             spellSlots: [], 
             spellsChosen: [],
+            levelData: {},
             navigationCategory: 0,
             spellBook: {},
             spells: {},
             spellsInfo: [],
-            selected: false, 
+            selected: false,             
         };
+        this.spellSlots = this.spellSlots.bind(this);
     }
 
     componentDidMount() {   
-
-        if (!isSelected(this.props.classSelected)) {           
-            
-             // character level: 1
-        } else {
-            if (!isSelected(this.props.levelData)) {
-                this.getLevelData(1);
-            }
-            this.setState({ classSlected: this.props.classSelected, selected: true,});
+        if (isSelected(this.props.classSelected)) {           
+            this.setState({ selected: true, });
             this.spellSlots();
             this.setClassSpells(1);
-        }
-        console.log("We are here!")
-       
+             // character level: 1
+        } 
     }
 
 
@@ -55,53 +49,84 @@ class ClassSpells extends Component {
     }
 
 
-    getLevelData(currentLevel) { //
-        const { classSelected } = this.props; 
-        //let level = {}; 
-        const url = 'https://www.dnd5eapi.co'
-        Promise.resolve(fetch(url + "/api/classes/" + classSelected.index + "/levels/" + currentLevel))
-            .then(result => result.json())
-            .then(result => {
-                this.setState({
-                    levelData: result,
-                }, this.props.setLevelData(result));});
+    //getLevelData(currentLevel) { //
+    //    const { classSelected } = this.props; 
+    //   // console.log("getLeveData()");
+    //    //let level = {}; 
+    //    const url = 'https://www.dnd5eapi.co'
+    //    Promise.resolve(fetch(url + "/api/classes/" + classSelected.index + "/levels/" + currentLevel))
+    //        .then(result => result.json())
+    //        .then(result => {
+    //            this.setState({
+    //                levelData: result,
+    //            }, this.props.setLevelData(result));
+    //        });
         
-    }
+        
+    //}
 
-
-
-    spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
+    spellSlots() { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
         const { classSelected } = this.props;
-        const { levelData } = this.props;    
+        const { levelData } = this.props;
         let slotsAvailable = [];
-        if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {
-            for (var h = 0; h < levelData.length; h++) {
-                if (levelData[h].class.name === classSelected.name) {
-                    slotsAvailable[0] = 0;
-                    for (var i = 1; i < 6; i++) {
-                        if (levelData[h].spellcasting['spell_slots_level_' + i] !== 0) {
-                            slotsAvailable[i] = levelData[h].spellcasting['spell_slots_level_' + i];
-                            console.log("SLOTS avail", slotsAvailable[i])
-                        }
+        console.log("spellSlots(), levelData: ", levelData)
+        if (levelData.spellcasting !== undefined) {
+            if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {        
+                for (var i = 1; i < 6; i++) {
+                    if (levelData.spellcasting['spell_slots_level_' + i] !== 0) {
+                        slotsAvailable[i] = levelData.spellcasting['spell_slots_level_' + i];
+                        console.log(classSelected.name, " spell slots available: ", slotsAvailable[i])
                     }
                 }
+            } else {
+                slotsAvailable[0] = levelData.spellcasting.cantrips_known;
+                for (var k = 1; k < 10; k++) {
+                    if (levelData.spellcasting['spell_slots_level_' + k] !== 0) {
+                        slotsAvailable[k] = levelData.spellcasting['spell_slots_level_' + k];
+                    }
+                }                
             }
-        } else {
-            for (var j = 0; j < levelData.length; j++) {
-                if (levelData[j].class.name === classSelected.name) {
-                    slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
-                    for (var k = 1; k < 10; k++) {
-                        if (levelData[j].spellcasting['spell_slots_level_' + k] !== 0) {
-                            slotsAvailable[k] = levelData[j].spellcasting['spell_slots_level_' + k];
-                        }
-                    }
-                }
-            }            
-        } 
+        }
+        console.log("Slots available ", slotsAvailable);
         this.setState({
             spellSlots: slotsAvailable,
         }, this.props.updateSpellSlots(slotsAvailable));
     }
+
+
+
+    //spellSlots = () => { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
+    //    const { classSelected } = this.props;
+    //    const { levelData } = this.props;    
+    //    let slotsAvailable = [];
+    //    if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {
+    //        for (var h = 0; h < levelData.length; h++) {
+    //            if (levelData[h].class.name === classSelected.name) {
+    //                slotsAvailable[0] = 0;
+    //                for (var i = 1; i < 6; i++) {
+    //                    if (levelData[h].spellcasting['spell_slots_level_' + i] !== 0) {
+    //                        slotsAvailable[i] = levelData[h].spellcasting['spell_slots_level_' + i];
+    //                        console.log("SLOTS avail", slotsAvailable[i])
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    } else {
+    //        for (var j = 0; j < levelData.length; j++) {
+    //            if (levelData[j].class.name === classSelected.name) {
+    //                slotsAvailable[0] = levelData[j].spellcasting.cantrips_known;
+    //                for (var k = 1; k < 10; k++) {
+    //                    if (levelData[j].spellcasting['spell_slots_level_' + k] !== 0) {
+    //                        slotsAvailable[k] = levelData[j].spellcasting['spell_slots_level_' + k];
+    //                    }
+    //                }
+    //            }
+    //        }            
+    //    } 
+    //    this.setState({
+    //        spellSlots: slotsAvailable,
+    //    }, this.props.updateSpellSlots(slotsAvailable));
+    //}
 
     updateSpells = (spell) => {
         const { spellsChosen } = this.props;
@@ -292,6 +317,8 @@ class ClassSpells extends Component {
         const { classSelected } = this.props;
         const { spellsInfo } = this.props;   
         let spells = []
+
+        console.log('setClassSpells, ', spellsInfo)
         switch (level) {
             case 1:
                 for (var i = 0; i < spellsInfo.length; i++) {

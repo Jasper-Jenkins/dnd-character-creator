@@ -192,7 +192,7 @@ export default class App extends Component {
         //  this.state = this.initialState;
         //  this.readyToCreate = this.readyToCreate.bind(this);
         this.getInfo = this.getInfo.bind(this);
-        this.getLevelData = this.getLevelData.bind(this);
+       // this.getLevelData = this.getLevelData.bind(this);
         //   this.getStuff = this.getStuff.bind(this);
         this.chooseYourChampion = this.chooseYourChampion.bind(this);
     }
@@ -251,18 +251,18 @@ export default class App extends Component {
             .catch(e => { console.log(e + " -- getFeatures() -- " + url); });
     }
 
-    getLevelData(data, currentLevel) {
-        let levels = []
-        const url = 'https://www.dnd5eapi.co'
-        for (var i = 0; i < data.results.length; i++) {
-            Promise.resolve(fetch(url + "/api/classes/" + data.results[i].index + "/levels/" + currentLevel))
-                .then(result => result.json())
-                .then(result => { levels.push(result) });
-        }
-        this.setState({
-            levelData: levels,
-        });
-    }
+    //getLevelData(data, currentLevel) {
+    //    let levels = []
+    //    const url = 'https://www.dnd5eapi.co'
+    //    for (var i = 0; i < data.results.length; i++) {
+    //        Promise.resolve(fetch(url + "/api/classes/" + data.results[i].index + "/levels/" + currentLevel))
+    //            .then(result => result.json())
+    //            .then(result => { levels.push(result) });
+    //    }
+    //    this.setState({
+    //        levelData: levels,
+    //    });
+    //}
 
     getInfo(data, category) {
         let info = []

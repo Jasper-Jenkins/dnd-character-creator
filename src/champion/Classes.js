@@ -11,9 +11,9 @@ export default class CharacterClass extends Component {
             classesInfo: [],
             classSelected: {},           
             searchResults:[],
-            word: "",
+            word: "",            
         }
-       
+        
         this.selectClass = this.selectClass.bind(this);
       //  this.classCards = this.classCards.bind(this);
     };   
@@ -65,13 +65,31 @@ export default class CharacterClass extends Component {
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
-                this.setState({ classSelected: classSelected[0], });
+                this.setState({ classSelected: classSelected[0], }, this.props.getLevelData(classSelected[0].index, 1));
                 setClass(classSelected[0]);
                 navigate('Ability-Scores');
                 break;
             }
         }        
     } 
+
+
+    //getLevelData(currentLevel, index) { //
+    //    //const { classSelected } = this.props;
+    //    // console.log("getLeveData()");
+    //    //let level = {}; 
+    //    const url = 'https://www.dnd5eapi.co'
+    //    Promise.resolve(fetch(url + "/api/classes/" + index + "/levels/" + currentLevel))
+    //        .then(result => result.json())
+    //        .then(result => {
+    //            this.setState({
+    //                levelData: result,
+    //            }, this.props.setLevelData(result));
+    //        });
+
+
+    //}
+
 
     searchClasses = (word) => {
         const { classesInfo } = this.state;
