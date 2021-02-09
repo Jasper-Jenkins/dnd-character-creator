@@ -20,31 +20,45 @@ class ClassSpells extends Component {
     }
 
     componentDidMount() {   
-        if (isSelected(this.props.classSelected)) {           
+        if (isSelected(this.props.classSelected)) { 
+            
             this.setState({ selected: true, });
             this.spellSlots();
             this.setClassSpells(1);
              // character level: 1
-        } 
+        }
+
+      
+        this.getSpells();
+
     }
 
+    componentWillUnmount() {
+        if (this.state.spellsInfo.length === this.state.spells.count) {
+            console.log("checked it");
+        }
+    }
 
-    getSpells(url) {
-        return fetch(url + 'spells')
+    
+getSpells() {
+    const { classSelected } = this.props;
+    const url = 'https://www.dnd5eapi.co'
+    fetch(url + classSelected.spells)
             .then(result => result.json())
-            .then(result => { this.setState({ spells: result, },); return result })
+            .then(result => { this.setState({ spells: result, },); this.getInfo(result) })
             .catch(e => { console.log(e + " -- getSpells() -- " + url); });
     }
 
 
     getInfo(data) {
-        //  console.log(data);
+        const { classSelected } = this.props;
+        console.log(classSelected.name, ' spells ', data);
         // let info = []
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
-                .then(result => { this.setState((state) => ({ classesInfo: [...state.classesInfo, result] })) });
+                .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result] })) });
         }
     }
 
