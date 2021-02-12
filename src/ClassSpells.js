@@ -11,14 +11,14 @@ class ClassSpells extends Component {
             spellsChosen: [],
             levelData: {},
             navigationCategory: 0,
+            selected: false, 
             spellBook: {},
             spells: {},
-            spellsInfo: [],
-            selected: false,             
+            spellsInfo: [],            
         };
         this.spellSlots = this.spellSlots.bind(this);
         this.getSpells = this.getSpells.bind(this);
-        this.getInfo = this.getInfo.bind(this);
+        this.getInfo = this.getInfo.bind(this);      
     }
 
     componentDidMount() {   
@@ -30,7 +30,7 @@ class ClassSpells extends Component {
                 console.log("setting spells from props")
                 this.setState({ spells: this.props.spells, spellsInfo: this.props.spellsInfo, })
                 this.spellSlots();
-              //  this.setClassSpells(1);
+                this.setClassSpells(1, this.props.spellsInfo);
             } else {
                 console.log("setting spells from api")
                 this.getSpells();
@@ -51,6 +51,7 @@ class ClassSpells extends Component {
     }
 
     
+    
     getSpells() {
         const { classSelected } = this.props;
         const url = 'https://www.dnd5eapi.co'
@@ -69,19 +70,20 @@ class ClassSpells extends Component {
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
-                .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result], })); if (this.state.spellsInfo.length === this.state.spells.count) { this.setClassSpells(1) } /* console.log('getInfo() for spells request: ', result)*/ })
+                .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result], })); if (this.state.spellsInfo.length === this.state.spells.count) { this.setClassSpells(1, this.state.spellsInfo) } /* console.log('getInfo() for spells request: ', result)*/ })
                 .catch(e => { console.log(e + " -- getInfo() for spells -- " + url); });
         }
        
        // this.setClassSpells(1);
     }
 
-    setClassSpells = (level) => {
+    setClassSpells(level, spellsInfoData) {
         const { classSelected } = this.props;
-        const { spellsInfo } = this.state;
+        const spellsInfo = spellsInfoData;
+     //   const { spellsInfo } = this.state;
         let spells = [];
 
-        console.log('setClassSpells, ', spellsInfo)
+        console.log('setClassSpells ', spellsInfo)
         switch (level) {
             case 1:
                 for (var i = 0; i < spellsInfo.length; i++) {

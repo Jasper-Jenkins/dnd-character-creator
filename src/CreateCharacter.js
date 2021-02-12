@@ -36,7 +36,7 @@ class CreateCharacter extends Component {
             setAbilityScoresSelected: this.setAbilityScoresSelected,
             startingProficiencies: this.startingProficiencies,
             updateProficiencies: this.updateProficiencies,
-            setChosenSpells: this.setSpells,
+            setChosenSpells: this.setChosenSpells,
             setSpells: this.setSpells,
             setSpellsInfo: this.setSpellsInfo,
             setAbilityScores: this.setAbilityScores,
@@ -87,6 +87,15 @@ class CreateCharacter extends Component {
         alertNode.style.opacity = 1;
     }
 
+
+    setSpells = (spells) => {
+        this.setState({ spells: spells, });
+    }
+
+    setSpellsInfo = (spellsInfo) => {
+        this.setState({ spellsInfo: spellsInfo, });
+    }
+
     setSelectedSpell = (spell) => {
         this.setState({ selectedSpell: spell, });
     }
@@ -127,7 +136,7 @@ class CreateCharacter extends Component {
     }
 
     setClass(chosenClass) {
-        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, proficienciesChosen: [], });
+        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, proficienciesChosen: [], spells: {}, spellsInfo: [], });
     }
 
     //setLevelData = (dataObj) => {
@@ -175,14 +184,7 @@ class CreateCharacter extends Component {
     //    this.setState({ classesInfo: classesInfo, })
     //}
 
-    setSpells = (spells) => {
-        this.setState({ spells: spells, });
-    }
-
-    setSpellsInfo = (spellsInfo) => {
-        this.setState({ spellsInfo: spellsInfo, });
-    }
-
+   
     getLevelData(index, currentLevel) { //
         //const { classSelected } = this.props;
          console.log("getLeveData()");
