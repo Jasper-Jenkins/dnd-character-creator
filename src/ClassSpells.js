@@ -377,7 +377,7 @@ class ClassSpells extends Component {
             if (navigationCategory === a) {
                 buttons.push(<button className='btn-sm btn btn-primary' onClick={() => void (0)} key={a}> Choose: {spellSlots[a] - num}</button>)
             } else {
-                buttons.push(<button className='btn-sm btn btn-seconday' onClick={() => this.setNavigationCategory(newCategory)} key={a}>Choose: {spellSlots[a] - num}</button>)
+                buttons.push(<button className='btn-sm btn btn-seconday color-white' onClick={() => this.setNavigationCategory(newCategory)} key={a}>Choose: {spellSlots[a] - num}</button>)
             }
         }
         return (<div className='col-12'>{buttons}</div>);
@@ -421,13 +421,13 @@ class ClassSpells extends Component {
         for (var b = 0; b < spellChoices.length; b++) {
             if (b === 0) {
                 if (classSelected.name === "Paladin" || classSelected.name === "Ranger") {
-                    spellChoiceDisplay[b] = <div className='col-12' key='no-known-spells'><h6>You have no spells to choose from at level 1</h6></div>
+                    spellChoiceDisplay[b] = <div className='card-body' key='no-known-spells'><h3 className='card-text'>You have no spells to choose from at level 1</h3></div>
                 } else {
-                    spellChoiceDisplay[b] = <div className='col-12' key='cantrips'><h6>Cantrips</h6>{spellChoices[b]}</div>
+                    spellChoiceDisplay[b] = <div className='card-body' key='cantrips'><h3 className='card-text'>Cantrips</h3>{spellChoices[b]}</div>
                 }                
             } else {
                 let keyForThee = "spellLevel";
-                spellChoiceDisplay[b] = <div className='col-12' key={keyForThee + b}><h6>Level {b} spells</h6>{spellChoices[b]}</div> 
+                spellChoiceDisplay[b] = <div className='card-body' key={keyForThee + b}><h3 className='card-text'>Level {b} spells</h3>{spellChoices[b]}</div> 
             }            
         }
         return (spellChoiceDisplay);
@@ -438,14 +438,15 @@ class ClassSpells extends Component {
         const spells = this.displaySpells();
         console.log("Render spells, ", spells[0]);
        // const navigation = this.spellsNavigation();
+        
         return ( selected ?
             <div className='col-12 text-center selection'>
-                <div className="card border-dark mb-3 ">
-                    <div className="card-header text-white bg-dark text-center">
-                        {this.spellsNavigation()}
-                    </div>
-                    <div className="card-body">
-                        {spells[navigationCategory]}
+                <div className='row'>
+                    <div className="card col-12 border-dark mb-3 character-card ">
+                        <div className="card-header text-white bg-dark text-center">
+                            {this.spellsNavigation()}
+                        </div>                        
+                        {spells[navigationCategory]} 
                     </div>
                 </div>
             </div> :

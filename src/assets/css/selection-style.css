@@ -5,9 +5,9 @@
     background-color:black;    
 }
 
-.selection h3 {
+/*.selection h3 {
     color: white;
-}
+}*/
 
 .selectionButtons {
     background-color: black;
@@ -45,4 +45,8 @@
 
 .choose {
     padding: 0px;
+}
+
+.color-white {
+    color: white;
 }

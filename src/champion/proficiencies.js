@@ -148,14 +148,16 @@ class ClassProficiencies extends Component {
             <div className="col-12 selectionTitle">
                 <h3>{classSelected.name} proficiencies</h3>
             </div>
-            <div className="card border-dark mb-3 ">
+            <div className='row'>
+            <div className="card border-dark mb-3 character-card ">
                 <div className="card-header text-white bg-dark text-center">
                     {this.proficienciesNavigation()}
                 </div>
                 <div className="card-body">
                     {this.proficienciesToChooseFrom(category)}
                 </div>
-            </div>
+                </div>
+                </div>
         </div> : <div className='col-12 text-center selection'><h3 className='selectionTitle'>You must choose a class to select your proficiencies.</h3></div>);
     }
 }
