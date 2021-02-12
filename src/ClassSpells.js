@@ -174,7 +174,7 @@ class ClassSpells extends Component {
         return spells;
     }
 
-    spellSource = (spell, currentLevel) => {
+    spellSource = (spell, currentLevel) => { // DUDE! this needs some loving. refactor this.
         const { classSelected } = this.props;
         const { spellsChosen } = this.props;
         const { spellSlots } = this.state;
@@ -218,6 +218,7 @@ class ClassSpells extends Component {
 
                 if (levelOneSpells < level1 && spell.level === 1) {
                     this.updateSpells(spell);
+                    break;
                 }
                 
                 this.props.updateAlertMessage(message);
@@ -235,8 +236,8 @@ class ClassSpells extends Component {
                 }
                 if (levelOneSpells < level1 && spell.level === 1) {
                     this.updateSpells(spell);
-                }
-               
+                    break;
+                }               
                 this.props.updateAlertMessage(message);
                 break;
             case "Fighter":
@@ -257,6 +258,7 @@ class ClassSpells extends Component {
 
                 if (levelOneSpells < level1 && spell.level === 1) {
                     this.updateSpells(spell);
+                    break;
                 }
                 break;
             case "Ranger":
@@ -289,6 +291,7 @@ class ClassSpells extends Component {
 
                 if (levelOneSpells < 2 && spell.level === 1) {
                     this.updateSpells(spell);
+                    break;
                 }
                
                 this.props.updateAlertMessage(message);
@@ -306,6 +309,7 @@ class ClassSpells extends Component {
 
                 if (levelOneSpells < 2 && spell.level === 1) {
                     this.updateSpells(spell);
+                    break;
                 }
                
                 this.props.updateAlertMessage(message);
@@ -324,8 +328,7 @@ class ClassSpells extends Component {
                 if (levelOneSpells < 6 && spell.level === 1) {
                     this.updateSpells(spell);
                     break;
-                } 
-              
+                }               
                 this.props.updateAlertMessage(message);
                 break;
             default:
@@ -372,9 +375,9 @@ class ClassSpells extends Component {
             let num;
             num = spellsSlots[a];            
             if (navigationCategory === a) {
-                buttons.push(<button className='btn-sm btn spellsNavigationSelected' onClick={() => void (0)} key={a}> Choose: {spellSlots[a] - num}</button>)
+                buttons.push(<button className='btn-sm btn btn-primary' onClick={() => void (0)} key={a}> Choose: {spellSlots[a] - num}</button>)
             } else {
-                buttons.push(<button className='btn-sm btn spellsNavigation' onClick={() => this.setNavigationCategory(newCategory)} key={a}>Choose: {spellSlots[a] - num}</button>)
+                buttons.push(<button className='btn-sm btn btn-seconday' onClick={() => this.setNavigationCategory(newCategory)} key={a}>Choose: {spellSlots[a] - num}</button>)
             }
         }
         return (<div className='col-12'>{buttons}</div>);
@@ -393,7 +396,7 @@ class ClassSpells extends Component {
                 return (spell.level === slotLevel ? spell : null);
             });
             spellChoices[slotLevel] = slotSpells.map((spell) => {
-                let classNames = "btn btn-sm btn-block spell-btn ";
+                let classNames = "btn btn-sm btn-block ";
                 if (spell.damage !== undefined) { // Is there a better check for this?
                         if (spell.damage.damage_type !== undefined) {
                             classNames += spell.damage.damage_type.index + " ";
@@ -420,29 +423,39 @@ class ClassSpells extends Component {
                 if (classSelected.name === "Paladin" || classSelected.name === "Ranger") {
                     spellChoiceDisplay[b] = <div className='col-12' key='no-known-spells'><h6>You have no spells to choose from at level 1</h6></div>
                 } else {
-                    spellChoiceDisplay[b] = <div className='col-6 spells' key='cantrips'><h6>Cantrips</h6>{spellChoices[b]}</div>
+                    spellChoiceDisplay[b] = <div className='col-12' key='cantrips'><h6>Cantrips</h6>{spellChoices[b]}</div>
                 }                
             } else {
                 let keyForThee = "spellLevel";
-                spellChoiceDisplay[b] = <div className='col-6 spells' key={keyForThee + b}><h6>Spell Level {b}</h6>{spellChoices[b]}</div> 
+                spellChoiceDisplay[b] = <div className='col-12' key={keyForThee + b}><h6>Level {b} spells</h6>{spellChoices[b]}</div> 
             }            
         }
         return (spellChoiceDisplay);
     }  
     
     render() {        
-        const { navigationCategory, selected } = this.state; 
+        const { navigationCategory, selected,  } = this.state; 
         const spells = this.displaySpells();
-        const navigation = this.spellsNavigation();
+        console.log("Render spells, ", spells[0]);
+       // const navigation = this.spellsNavigation();
         return ( selected ?
             <div className='col-12 text-center selection'>
-                {navigation}
-                {spells[navigationCategory]}
+                <div className="card border-dark mb-3 ">
+                    <div className="card-header text-white bg-dark text-center">
+                        {this.spellsNavigation()}
+                    </div>
+                    <div className="card-body">
+                        {spells[navigationCategory]}
+                    </div>
+                </div>
             </div> :
             <div className='col-12 text-center selection'>
            <h3>Choose a class to select your spells.</h3>
                 </div>);
     }
 }
+
+
+
 
 export default ClassSpells;
