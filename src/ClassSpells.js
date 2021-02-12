@@ -18,7 +18,7 @@ class ClassSpells extends Component {
         };
         this.spellSlots = this.spellSlots.bind(this);
         this.getSpells = this.getSpells.bind(this);
-        
+        this.getInfo = this.getInfo.bind(this);
     }
 
     componentDidMount() {   
@@ -69,11 +69,36 @@ class ClassSpells extends Component {
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
-                .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result] })) })
+                .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result], })); if (this.state.spellsInfo.length === this.state.spells.count) { this.setClassSpells(1) } /* console.log('getInfo() for spells request: ', result)*/ })
                 .catch(e => { console.log(e + " -- getInfo() for spells -- " + url); });
         }
-        this.setClassSpells(1);
+       
+       // this.setClassSpells(1);
     }
+
+    setClassSpells = (level) => {
+        const { classSelected } = this.props;
+        const { spellsInfo } = this.state;
+        let spells = [];
+
+        console.log('setClassSpells, ', spellsInfo)
+        switch (level) {
+            case 1:
+                for (var i = 0; i < spellsInfo.length; i++) {
+                       if (spellsInfo[i].level <= level) {
+                           spells.push(spellsInfo[i])
+                       }
+                }
+                this.setState({
+                    classSpells: spells,
+                });
+                console.log("state classSpells updated", spells);
+                break;
+            default:
+                alert("level of character is invalid in spells creation. ")
+        }
+    }
+
 
 
     //getLevelData(currentLevel) { //
@@ -306,30 +331,7 @@ class ClassSpells extends Component {
         }              
     }
 
-    setClassSpells = (level) => { 
-        const { classSelected } = this.props;
-        const { spellsInfo } = this.props;   
-        let spells = []
-
-        console.log('setClassSpells, ', spellsInfo)
-        switch (level) {
-            case 1:
-                for (var i = 0; i < spellsInfo.length; i++) {
-                    for (var j = 0; j < spellsInfo[i].classes.length; j++) {
-                        if (classSelected.name === spellsInfo[i].classes[j].name && (spellsInfo[i].level <= level)) {
-                            spells.push(spellsInfo[i])
-                        }
-                    }
-                }
-                this.setState({
-                    classSpells: spells,
-                });
-                console.log("state classSpells updated", spells);
-                break;
-            default: 
-                alert("level of character is invalid in spells creation. ")
-        }
-    }
+    
     
     addSpell = (spell) => {
         const { setSelectedSpell } = this.props;
