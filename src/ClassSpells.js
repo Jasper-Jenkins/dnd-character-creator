@@ -439,13 +439,13 @@ class ClassSpells extends Component {
         for (var b = 0; b < spellChoices.length; b++) {
             if (b === 0) {
                 if (classSelected.name === "Paladin" || classSelected.name === "Ranger") {
-                    spellChoiceDisplay[b] = <div className='card-body ' key='no-known-spells'><h3 className='card-text'>You have no spells to choose from at level 1</h3></div>
+                    spellChoiceDisplay[b] = <div className='card-body ' key='no-known-spells'><h3 className='card-text text-center'>You have no spells to choose from at level 1</h3></div>
                 } else {
-                    spellChoiceDisplay[b] = <div className='card-body ' key='cantrips'><h3 className='card-text'>Cantrips</h3>{spellChoices[b]}</div>
+                    spellChoiceDisplay[b] = <div className='card-body ' key='cantrips'><h3 className='card-text text-center'>Cantrips</h3>{spellChoices[b]}</div>
                 }                
             } else {
                 let keyForThee = "spellLevel";
-                spellChoiceDisplay[b] = <div className='card-body ' key={keyForThee + b}><h3 className='card-text'>Level {b} spells</h3>{spellChoices[b]}</div> 
+                spellChoiceDisplay[b] = <div className='card-body ' key={keyForThee + b}><h3 className='card-text text-center'>Level {b} spells</h3>{spellChoices[b]}</div> 
             }            
         }
         return (spellChoiceDisplay);
