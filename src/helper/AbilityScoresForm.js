@@ -46,8 +46,7 @@ class AbilityScoresForm extends Component {
                 } else {
                     newScores[i].value = parseInt(value, 10);
                 }
-            }
-            
+            }            
         }
         
         this.setState({
@@ -79,7 +78,7 @@ class AbilityScoresForm extends Component {
                         id='con'
                         value={scores[1].value}
                         onChange={this.handleChange}
-                        onFocus={this.handleFocus} />
+                onFocus={this.handleFocus} />
             <label className={scores[2].value > 18 || scores[2].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '} htmlFor="dex">Dexterity</label>
                     <input className='col-2'
                         type='number'
@@ -87,7 +86,7 @@ class AbilityScoresForm extends Component {
                         id='dex'
                         value={scores[2].value}
                         onChange={this.handleChange}
-                        onFocus={this.handleFocus} />
+                        onFocus={this.handleFocus} />      
             <label className={scores[3].value > 18 || scores[3].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '} htmlFor="int">Intelligence</label>
                     <input className='col-2'
                         type='number'
@@ -95,7 +94,7 @@ class AbilityScoresForm extends Component {
                         id='int'
                         value={scores[3].value}
                         onChange={this.handleChange}
-                        onFocus={this.handleFocus} />
+                        onFocus={this.handleFocus} /> 
             <label className={scores[4].value > 18 || scores[4].value < 3 ? 'col-4 invalidScore ' : 'col-4 validScore '} htmlFor='str'>Strength</label>
                     <input className='col-2'
                         type='number'

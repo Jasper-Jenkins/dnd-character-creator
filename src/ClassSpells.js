@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import isSelected from './helper/helper-functions';
+import SpellModal from './helper/spell-modal';
+
 
 class ClassSpells extends Component {
     constructor(props) {
@@ -389,45 +391,61 @@ class ClassSpells extends Component {
         const { classSpells } = this.state;
         const { spellSlots } = this.state;
         const { spellsChosen } = this.props;
-        let spellChoices = [];       
+        let spellChoices = []; 
+       //let target = ''
         for (var a = 0; a < spellSlots.length; a++) {         
             const slotLevel = a;
             let slotSpells = classSpells.filter((spell) => {
                 return (spell.level === slotLevel ? spell : null);
             });
-            spellChoices[slotLevel] = slotSpells.map((spell) => {
-                let classNames = "btn btn-sm btn-block ";
-                if (spell.damage !== undefined) { // Is there a better check for this?
-                        if (spell.damage.damage_type !== undefined) {
-                            classNames += spell.damage.damage_type.index + " ";
-                        }
-                    }
+            spellChoices[slotLevel] = slotSpells.map((spell, index) => {
+                let classNames = 'btn btn-sm ';
+                let target = '#spell-' + spell.index;
+                
+                //if (spell.damage !== undefined) { // Is there a better way to style by damage type?
+                //    if (spell.damage.damage_type !== undefined) {
+                //        classNames += spell.damage.damage_type.index + " ";
+                //    }
+                //}
                 if (spellsChosen.length === 0) {
-                    classNames += "btn-secondary ";
-                        return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                    classNames += 'btn-secondary col-11';
+                   // console.log("Target, ", target);
+                    return (<div className="btn-group col-12 spell-selection" role="group" aria-label="spell-buttons" key={index}>
+                        <button className={classNames} type='button' onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>
+                        <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target={target} key={'info-btn-spell' + spell.name}>?</button>
+                        <SpellModal spell={spell} />
+                    </div>);
                 }
                 for (var b = 0; b < spellsChosen.length; b++) {
                     let chosen = b;
                     if (spellsChosen[chosen].name === spell.name) {  
-                        classNames += "btn-primary ";
-                        return (<button className={classNames} onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                        classNames += 'btn-success col-11';
+                        return (<div className="btn-group col-12 spell-selection" role="group" aria-label="spell-buttons" key={index}>
+                            <button className={classNames} type='button' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>
+                            <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target={target} key={'info-btn-spell' + spell.name}>?</button>
+                            <SpellModal spell={spell} />
+                        </div>);
                     } 
                 }
-                classNames += 'btn-secondary ';
-                return (<button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>);
+                classNames += 'btn-secondary col-11';
+                return (<div className="btn-group col-12 spell-selection" role="group" aria-label="spell-buttons" key={index}>
+                    <button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>
+                    <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target={target} key={'info-btn-spell' + spell.name}>?</button>
+                    <SpellModal spell={spell} />
+                </div>);
             });
         }
         let spellChoiceDisplay = [];
         for (var b = 0; b < spellChoices.length; b++) {
             if (b === 0) {
                 if (classSelected.name === "Paladin" || classSelected.name === "Ranger") {
-                    spellChoiceDisplay[b] = <div className='card-body' key='no-known-spells'><h3 className='card-text'>You have no spells to choose from at level 1</h3></div>
+                    spellChoiceDisplay[b] = <div className='card-body ' key='no-known-spells'><h3 className='card-text'>You have no spells to choose from at level 1</h3></div>
                 } else {
-                    spellChoiceDisplay[b] = <div className='card-body' key='cantrips'><h3 className='card-text'>Cantrips</h3>{spellChoices[b]}</div>
+                    spellChoiceDisplay[b] = <div className='card-body ' key='cantrips'><h3 className='card-text'>Cantrips</h3>{spellChoices[b]}</div>
                 }                
             } else {
                 let keyForThee = "spellLevel";
-                spellChoiceDisplay[b] = <div className='card-body' key={keyForThee + b}><h3 className='card-text'>Level {b} spells</h3>{spellChoices[b]}</div> 
+                spellChoiceDisplay[b] = <div className='card-body ' key={keyForThee + b}><h3 className='card-text'>Level {b} spells</h3>{spellChoices[b]}</div> 
             }            
         }
         return (spellChoiceDisplay);
@@ -436,14 +454,14 @@ class ClassSpells extends Component {
     render() {        
         const { navigationCategory, selected,  } = this.state; 
         const spells = this.displaySpells();
-        console.log("Render spells, ", spells[0]);
+        console.log("Render spells, ", spells);
        // const navigation = this.spellsNavigation();
         
         return ( selected ?
-            <div className='col-12 text-center selection'>
+            <div className='col-12 selection'>
                 <div className='row'>
                     <div className="card col-12 border-dark mb-3 character-card ">
-                        <div className="card-header text-white bg-dark text-center">
+                        <div className="card-header text-white bg-dark">
                             {this.spellsNavigation()}
                         </div>                        
                         {spells[navigationCategory]} 

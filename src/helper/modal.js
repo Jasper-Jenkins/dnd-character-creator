@@ -44,6 +44,7 @@ class InfoModal extends Component {
     render() {
         const { traits } = this.state;
         const { name } = this.props.info;
+       // console.log(this.props);
         return (<div className='col-1 info-modal'>
             <div className="modal fade" id={'race-'+this.props.info.index} tabIndex="-1" role="dialog" aria-labelledby="raceTraits" aria-hidden="true">
                 <div className="modal-dialog" role="document">
@@ -65,6 +66,9 @@ class InfoModal extends Component {
             </div>
         </div>)
     }
+
+
+
 }
 
 export default InfoModal
