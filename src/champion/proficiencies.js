@@ -112,14 +112,17 @@ class ClassProficiencies extends Component {
 
     setProficiencyInfo(proficiency) {
        
-        const url = 'https://www.dnd5eapi.co/api/skills/'
+        const url = 'https://www.dnd5eapi.co'
       //  let proficiencyInfo = {};
         console.log(proficiency)
         if (isSelected(proficiency)) {
-            fetch(url + proficiency.index.replace('skill-', ''))
-                .then(result => result.json())
-                .then(result => { this.setState({ proficiencySelected: result }); console.log(result) /* console.log('getInfo() for spells request: ', result)*/ })
-                .catch(e => { console.log(e + " -- getProficiency()  -- " + url); });
+            if (proficiency.index.includes('skill-')) {
+                fetch(url + '/api/skills/' + proficiency.index.replace('skill-', ''))
+                    .then(result => result.json())
+                    .then(result => { this.setState({ proficiencySelected: result }); console.log(result) /* console.log('getInfo() for spells request: ', result)*/ })
+                    .catch(e => { console.log(e + " -- getProficiency()  -- " + url); });
+            }
+            
         }
         //this.setState({ proficiencySelected: proficiency, });
     }
