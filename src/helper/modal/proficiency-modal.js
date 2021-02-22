@@ -12,13 +12,15 @@ export default class ProficiencyModal extends Component {
     showProficiency() {
         const { proficiency } = this.props
         console.log("showProficiency()", proficiency)
-        if (isSelected(proficiency)) {
-            let proficiencyDescriptions = proficiency.desc.map((desc, index) => {
+        let proficiencyDescriptions = []
+        for (var a = 0; a < proficiency.length; a++) {
+            proficiencyDescriptions = proficiency[a].desc.map((desc, index) => {
                 return (<p className='' key={index}>{desc}</p>);
             });
-            return proficiencyDescriptions;
-        }
-        return null;
+        }    
+        return proficiencyDescriptions;
+        
+      //  return null;
     }
 
     render() {
@@ -29,7 +31,7 @@ export default class ProficiencyModal extends Component {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="proficiencyInfo">{this.props.proficiency.name}</h5>
+                            <h5 className="modal-title" id="proficiencyInfo">Proficiencies</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
