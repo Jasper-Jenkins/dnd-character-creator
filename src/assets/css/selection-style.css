@@ -52,7 +52,11 @@
 }
 
 .spell-selection {
-    background-color: mediumpurple;
+    padding: 0px;
+    margin: 0px 0px 5px 0px;
+}
+
+.proficiency-selection {
     padding: 0px;
     margin: 0px 0px 5px 0px;
 }

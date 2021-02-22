@@ -113,7 +113,7 @@ class ClassProficiencies extends Component {
     setProficiencyInfo(proficiency) {
        
         const url = 'https://www.dnd5eapi.co/api/skills/'
-        let proficiencyInfo = {};
+      //  let proficiencyInfo = {};
         console.log(proficiency)
         if (isSelected(proficiency)) {
             fetch(url + proficiency.index.replace('skill-', ''))
@@ -183,7 +183,7 @@ class ClassProficiencies extends Component {
                 buttons.push(<button className='btn-sm btn btn-secondary' onClick={() => this.setNavigationCategory(newCategory)} key={classSelected.name + a}>Choose: {classSelected.proficiency_choices[newCategory].choose - num}</button>)
             }
         }
-        return (<div className='col-12'>{buttons}</div>);
+        return (<div className='card-header text-white bg-dark text-center'>{buttons}</div>);
     }
 
 
@@ -196,14 +196,12 @@ class ClassProficiencies extends Component {
                 <h3>{classSelected.name} proficiencies</h3>
             </div>
             <div className='row'>
-                <div className="card border-dark mb-3 character-card ">
-                    <div className="card-header text-white bg-dark text-center">
-                        {this.proficienciesNavigation()}
-                    </div>
+                <div className="card border-dark mb-3 character-card ">                   
+                        {this.proficienciesNavigation()}                   
                     <div className="card-body">
                         {this.startingProficiencies()}
                         {this.proficienciesToChooseFrom(category)}
-                        < ProficiencyModal proficiency={proficiencySelected} /> 
+                        <ProficiencyModal proficiency={proficiencySelected} /> 
                     </div>
                 </div>
             </div>
