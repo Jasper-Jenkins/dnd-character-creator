@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import isSelected from '../helper/helper-functions'
+import ProficiencyModal from '../helper/modal/proficiency-modal'
+
 
 class ClassProficiencies extends Component {
     constructor(props) {
         super(props);
         //   console.log("constructor() ", props);
         this.state = {
-            isClassSelected: false,
+            isClassSelected: false,           
             proficiencies: [],
             proficienciesChosen: [],
+            proficiencySelected: {},
             category: 0,
         };
         this.setProficiencies = this.setProficiencies.bind(this);
@@ -21,6 +24,23 @@ class ClassProficiencies extends Component {
             this.setState({ isClassSelected: true, });
 
         }
+    }
+
+    startingProficiencies() {
+        const { classSelected } = this.props;
+        const count = classSelected.proficiencies.length;
+        let startingProficiences = classSelected.proficiencies.map((proficiency, index) => {
+            let proficiencyFormatting = '';
+            if (index === count - 1) {
+               // console.log(proficiency, ' check');
+                proficiencyFormatting = proficiency.name + '.'
+                return (proficiencyFormatting)
+            }            
+            proficiencyFormatting = proficiency.name + ', '
+            return (proficiencyFormatting)
+
+        });
+    return(<div className = 'card-body' > <h5 className='card-title'>Starting Proficiencies</h5><p className='card-text'>{startingProficiences} <button className='btn btn-sm btn-primary'>?</button></p></div>)
     }
 
     setProficiencies() {
@@ -90,6 +110,21 @@ class ClassProficiencies extends Component {
         }
     }
 
+    setProficiencyInfo(proficiency) {
+       
+        const url = 'https://www.dnd5eapi.co/api/skills/'
+        let proficiencyInfo = {};
+        console.log(proficiency)
+        if (isSelected(proficiency)) {
+            fetch(url + proficiency.index.replace('skill-', ''))
+                .then(result => result.json())
+                .then(result => { this.setState({ proficiencySelected: result }); console.log(result) /* console.log('getInfo() for spells request: ', result)*/ })
+                .catch(e => { console.log(e + " -- getProficiency()  -- " + url); });
+        }
+        //this.setState({ proficiencySelected: proficiency, });
+    }
+
+
     proficienciesToChooseFrom(category) {
         const { classSelected } = this.props;
         const { proficiencies } = this.state;
@@ -98,15 +133,27 @@ class ClassProficiencies extends Component {
         console.log(classSelected);
         for (var i = 0; i < classSelected.proficiency_choices.length; i++) {
             let choicesIndex = i;
-            const chooseProficiencies = classSelected.proficiency_choices[i].from.map((proficiency) => {
+            const chooseProficiencies = classSelected.proficiency_choices[i].from.map((proficiency, index) => {
+                let classNames = 'btn btn-md '
                 for (var j = 0; j < proficiencies.length; j++) {
                     for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
                         if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
-                            return (<button className='btn-sm col-6 btn-primary' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                            classNames += 'btn-success col-11';
+                            //return (<button className='btn-sm col-12 btn-success' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                            return (<div className="btn-group col-12 proficiency-selection" role="group" aria-label="proficiency-buttons" key={index}>
+                                        <button className={classNames} type='button' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>
+                                <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#proficiency-info' onClick={() => { this.setProficiencyInfo(proficiency) }} key={'info-btn-proficiency' + proficiency.name}>?</button>
+                            </div>);
                         }
                     }
                 }
-                return (<button className='btn-sm col-6 btn-secondary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                classNames += 'btn-secondary col-11';
+               // return (<button className='btn-sm col-12 btn-secondary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                return (<div className="btn-group col-12 proficiency-selection" role="group" aria-label="proficiency-buttons" key={index}>
+                            <button className={classNames} type='button' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>
+                            <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#proficiency-info' onClick={() => { this.setProficiencyInfo(proficiency) }} key={'info-btn-proficiency' + proficiency.name}>?</button>
+                        </div>)
+
             });
             chooseFrom.push(chooseProficiencies);
         }
@@ -142,22 +189,24 @@ class ClassProficiencies extends Component {
 
     render() {
         const { classSelected } = this.props;
-        const { category } = this.state;
+        const { category, proficiencySelected } = this.state;
         const { isClassSelected } = this.state; //this may need to be changed to not confuse with the object 'classSelected'
-        return (isClassSelected ? <div className='col-12 text-center selection'>
-            <div className="col-12 selectionTitle">
+        return (isClassSelected ? <div className='col-12 selection'>
+            <div className="col-12 text-center selectionTitle">
                 <h3>{classSelected.name} proficiencies</h3>
             </div>
             <div className='row'>
-            <div className="card border-dark mb-3 character-card ">
-                <div className="card-header text-white bg-dark text-center">
-                    {this.proficienciesNavigation()}
+                <div className="card border-dark mb-3 character-card ">
+                    <div className="card-header text-white bg-dark text-center">
+                        {this.proficienciesNavigation()}
+                    </div>
+                    <div className="card-body">
+                        {this.startingProficiencies()}
+                        {this.proficienciesToChooseFrom(category)}
+                        < ProficiencyModal proficiency={proficiencySelected} /> 
+                    </div>
                 </div>
-                <div className="card-body">
-                    {this.proficienciesToChooseFrom(category)}
-                </div>
-                </div>
-                </div>
+            </div>
         </div> : <div className='col-12 text-center selection'><h3 className='selectionTitle'>You must choose a class to select your proficiencies.</h3></div>);
     }
 }

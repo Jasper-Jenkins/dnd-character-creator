@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import isSelected from './helper/helper-functions';
 import SpellModal from './helper/spell-modal';
 
-
 class ClassSpells extends Component {
     constructor(props) {
         super(props);
@@ -16,16 +15,18 @@ class ClassSpells extends Component {
             selected: false, 
             spellBook: {},
             spells: {},
-            spellsInfo: [],            
+            spellsInfo: [],
+            selectedSpell: {},
         };
         this.spellSlots = this.spellSlots.bind(this);
         this.getSpells = this.getSpells.bind(this);
-        this.getInfo = this.getInfo.bind(this);      
+        this.getInfo = this.getInfo.bind(this);   
+        this.setSpellInfo = this.setSpellInfo.bind(this);
     }
 
     componentDidMount() {   
         if (isSelected(this.props.classSelected) && this.props.classSelected.spellcasting !== undefined) {
-            this.setState({ selected: true, });
+           // this.setState({ selected: true, });
             
             // character level: 1
             if (this.props.spellsInfo.length === this.props.spells.count) {
@@ -48,39 +49,35 @@ class ClassSpells extends Component {
         if (this.state.spellsInfo.length === this.state.spells.count) {
             this.props.setSpells(this.state.spells)
             this.props.setSpellsInfo(this.state.spellsInfo)
-            console.log("checked it");
+       //     console.log("checked it");
         }
-    }
-
-    
+    }   
     
     getSpells() {
         const { classSelected } = this.props;
         const url = 'https://www.dnd5eapi.co'
         fetch(url + classSelected.spells)
                 .then(result => result.json())
-                .then(result => { this.setState({ spells: result, }, this.getInfo(result)) })
+                .then(result => { this.setState({ spells: result, }, this.getInfo(result)); console.log('getSpell() result: ', result) })
                 .catch(e => { console.log(e + " -- getSpells() -- " + url); });
     }
-
 
     getInfo(data) {
         const { classSelected } = this.props;
         console.log(classSelected.name, ' spells ', data);
-        // let info = []
+        let info = []
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
-                .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result], })); if (this.state.spellsInfo.length === this.state.spells.count) { this.setClassSpells(1, this.state.spellsInfo) } /* console.log('getInfo() for spells request: ', result)*/ })
+                .then(result => { info.push(result); if (this.state.spellsInfo.length === this.state.spells.count) { this.setClassSpells(1, info) } /* console.log('getInfo() for spells request: ', result)*/ })
                 .catch(e => { console.log(e + " -- getInfo() for spells -- " + url); });
         }
-       
-       // this.setClassSpells(1);
+        this.setState({ spellsInfo: info });      
     }
 
     setClassSpells(level, spellsInfoData) {
-        const { classSelected } = this.props;
+       // const { classSelected } = this.props;
         const spellsInfo = spellsInfoData;
      //   const { spellsInfo } = this.state;
         let spells = [];
@@ -130,7 +127,7 @@ class ClassSpells extends Component {
             if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {        
                 for (var i = 1; i < 6; i++) {
                     if (levelData.spellcasting['spell_slots_level_' + i] !== 0) {
-                        slotsAvailable[i] = levelData.spellcasting['spell_slots_level_' + i];
+                        slotsAvailable[i] = levelData.spellcasting['spell_slots_level_' + i]; 
                         console.log(classSelected.name, " spell slots available: ", slotsAvailable[i])
                     }
                 }
@@ -385,6 +382,9 @@ class ClassSpells extends Component {
         return (<div className='col-12'>{buttons}</div>);
     }
 
+    setSpellInfo(spell) {
+        this.setState({ selectedSpell: spell });
+    }
 
     displaySpells = () => {
         const { classSelected } = this.props;
@@ -399,8 +399,8 @@ class ClassSpells extends Component {
                 return (spell.level === slotLevel ? spell : null);
             });
             spellChoices[slotLevel] = slotSpells.map((spell, index) => {
-                let classNames = 'btn btn-sm ';
-                let target = '#spell-' + spell.index;
+                let classNames = 'btn btn-md ';
+                //let target = '#spell-' + spell.index;
                 
                 //if (spell.damage !== undefined) { // Is there a better way to style by damage type?
                 //    if (spell.damage.damage_type !== undefined) {
@@ -412,9 +412,8 @@ class ClassSpells extends Component {
                    // console.log("Target, ", target);
                     return (<div className="btn-group col-12 spell-selection" role="group" aria-label="spell-buttons" key={index}>
                         <button className={classNames} type='button' onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>
-                        <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target={target} key={'info-btn-spell' + spell.name}>?</button>
-                        <SpellModal spell={spell} />
-                    </div>);
+                        <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#spell-info' onClick={() => { this.setSpellInfo(spell) }} key={'info-btn-spell' + spell.name}>?</button>
+                                          </div>);
                 }
                 for (var b = 0; b < spellsChosen.length; b++) {
                     let chosen = b;
@@ -422,16 +421,16 @@ class ClassSpells extends Component {
                         classNames += 'btn-success col-11';
                         return (<div className="btn-group col-12 spell-selection" role="group" aria-label="spell-buttons" key={index}>
                             <button className={classNames} type='button' onClick={() => this.removeSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>
-                            <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target={target} key={'info-btn-spell' + spell.name}>?</button>
-                            <SpellModal spell={spell} />
+                            <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#spell-info' onClick={() => { this.setSpellInfo(spell) }} key={'info-btn-spell' + spell.name}>?</button>
+                           
                         </div>);
                     } 
                 }
                 classNames += 'btn-secondary col-11';
                 return (<div className="btn-group col-12 spell-selection" role="group" aria-label="spell-buttons" key={index}>
                     <button className={classNames} onClick={() => this.addSpell(spell)} key={spell.name + spell.level}>{spell.name}</button>
-                    <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target={target} key={'info-btn-spell' + spell.name}>?</button>
-                    <SpellModal spell={spell} />
+                    <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#spell-info' onClick={() => { this.setSpellInfo(spell) }} key={'info-btn-spell' + spell.name}>?</button>
+                   
                 </div>);
             });
         }
@@ -452,19 +451,21 @@ class ClassSpells extends Component {
     }  
     
     render() {        
-        const { navigationCategory, selected,  } = this.state; 
+        const { navigationCategory } = this.state; 
+        const { selectedSpell } = this.state;
         const spells = this.displaySpells();
         console.log("Render spells, ", spells);
        // const navigation = this.spellsNavigation();
         
-        return ( selected ?
+        return ( isSelected(this.props.classSelected) ?
             <div className='col-12 selection'>
                 <div className='row'>
                     <div className="card col-12 border-dark mb-3 character-card ">
-                        <div className="card-header text-white bg-dark">
+                        <div className="card-header text-white text-center bg-dark">
                             {this.spellsNavigation()}
                         </div>                        
-                        {spells[navigationCategory]} 
+                        {spells[navigationCategory]}
+                        <SpellModal spell={selectedSpell} />
                     </div>
                 </div>
             </div> :

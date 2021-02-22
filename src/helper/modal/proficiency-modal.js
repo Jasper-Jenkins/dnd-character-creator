@@ -1,40 +1,41 @@
 import React from 'react'
 import { Component } from 'react';
-import isSelected from './helper-functions'
-export default class SpellModal extends Component {
+import isSelected from '../helper-functions'
+export default class ProficiencyModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            spell: {}
-        }       
-    }  
+            proficiency: {}
+        }
+    }
 
-    showSpell() {
-        console.log("showSpell()", this.props.spell)
-        const { spell } = this.props
-        if (isSelected(this.props.spell)) {
-            let spellDescriptions = spell.desc.map((desc, index) => {
+    showProficiency() {
+        const { proficiency } = this.props
+        console.log("showProficiency()", proficiency)
+        if (isSelected(proficiency)) {
+            let proficiencyDescriptions = proficiency.desc.map((desc, index) => {
                 return (<p className='' key={index}>{desc}</p>);
             });
-            return spellDescriptions;
+            return proficiencyDescriptions;
         }
         return null;
     }
 
     render() {
-        console.log("spell modal: ", this.props.spell);
+        //console.log("proficiency modal: ", this.props.proficiency);
+      //  proficiency 
         return (<div className=' info-modal'>
-            <div className="modal fade" id='spell-info' tabIndex="-1" role="dialog" aria-labelledby="spellInfo" aria-hidden="true">
+            <div className="modal fade" id='proficiency-info' tabIndex="-1" role="dialog" aria-labelledby="proficiencyInfo" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="spellInfo">{this.props.spell.name}</h5>
+                            <h5 className="modal-title" id="proficiencyInfo">{this.props.proficiency.name}</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
-                            { this.showSpell() }
+                            {this.showProficiency()}
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -43,5 +44,5 @@ export default class SpellModal extends Component {
                 </div>
             </div>
         </div>);
-   }    
+    }
 }
