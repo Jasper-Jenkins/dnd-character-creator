@@ -121,7 +121,12 @@ class ClassProficiencies extends Component {
                     .then(result => result.json())
                     .then(result => { this.setState({ proficiencySelected: result }); console.log(result) /* console.log('getInfo() for spells request: ', result)*/ })
                     .catch(e => { console.log(e + " -- getProficiency()  -- " + url); });
-            }
+            } else {
+                fetch(url + '/api/equipment/' + proficiency.index)
+                    .then(result => result.json())
+                    .then(result => { this.setState({ proficiencySelected: result }); console.log(result) /* console.log('getInfo() for spells request: ', result)*/ })
+                    .catch(e => { console.log(e + " -- getProficiency()  -- " + url); });
+            }           
             
         }
         //this.setState({ proficiencySelected: proficiency, });
