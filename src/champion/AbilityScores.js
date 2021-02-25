@@ -17,11 +17,11 @@ export default class AbilityScores extends Component {
 
     componentDidMount() {
         if (isSelected(this.props.abilityScores)) {
-            console.log("this should happen any time after the first")
+          //  console.log("this should happen any time after the first")
             this.setState({ abilityScores: this.props.abilityScores, abilityScoresInfo: this.props.abilityScoresInfo, abilityScoresSelected: this.props.abilityScoresSelected, }, this.abilityScoresSetup())
             
         } else {
-            console.log("this should happen second")
+         //   console.log("this should happen second")
             this.getAbilityScores();
            
         }
@@ -56,7 +56,7 @@ export default class AbilityScores extends Component {
     }
 
     getInfo(data) {
-        console.log(data);
+      //  console.log(data);
         //let info = []
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {

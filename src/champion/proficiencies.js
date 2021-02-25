@@ -11,21 +11,26 @@ class ClassProficiencies extends Component {
             category: 0,
             isClassSelected: false,           
             proficiencies: [],
-            proficienciesChosen: [],
-            proficienciesInfo: [],
-            proficienciesChoices: [],            
-            startingProficiencies: [],
+            proficienciesChosen: [],           
+            proficienciesInfo: [], //objects
+            proficienciesChoices: [],  //objects          
+            startingProficiencies: [], //objects
+            proficiencyNavigationButtons: [], //jsx
+            proficienciesSelected: [],
         };
         this.setProficiencies = this.setProficiencies.bind(this);
+        
     }
 
     componentDidMount() {
         const { classSelected } = this.props;
         if (isSelected(classSelected)) {
+            console.log(this.props)
             this.setProficiencies();
-            this.setState({ isClassSelected: true, });
-            this.getStartingProficiencies();
-            this.getProficienciesChoices();
+           // this.getStartingProficiencies();
+            this.getProficienciesChoices();           
+           
+            this.setState({ isClassSelected: true, });           
         }
     }
 
@@ -33,75 +38,31 @@ class ClassProficiencies extends Component {
         const { classSelected } = this.props;
         const startingProficiencies = classSelected.proficiencies;
         const url = 'https://www.dnd5eapi.co'
+        let proficiencyArray = [];
         for (var a = 0; a < startingProficiencies.length; a++) {
+            const check = a;
             fetch(url + startingProficiencies[a].url)
                 .then(result => result.json())
-                .then(result => { this.setState((state) => ({ startingProficiencies: [...state.startingProficiencies, result] }));  })
+                .then(result => { proficiencyArray.push(result); console.log(result); if (check === startingProficiencies.length - 1) { this.getProficiencyInfo(proficiencyArray); } })
                 .catch(e => { console.log(e + " -- getStartingProficiency()  -- " + url); });
         }
+       
     }
 
     getProficienciesChoices() {
         const { classSelected } = this.props;
         const url = 'https://www.dnd5eapi.co';
+        let choices = [];
         for (var b = 0; b < classSelected.proficiency_choices.length; b++) {
-            //let choicesIndex = b;
+            const index = b;
             for (var c = 0; c < classSelected.proficiency_choices[b].from.length; c++) {
+                const check = c;
                 fetch(url + classSelected.proficiency_choices[b].from[c].url)
                     .then(result => result.json())
-                    .then(result => { this.setState((state) => ({ proficienciesChoices: [...state.proficienciesChoices, result] })); console.log(result) })
+                    .then(result => { choices.push(result); console.log(result); if (check === classSelected.proficiency_choices[index].from.length - 1 && index === classSelected.proficiency_choices.length - 1) { this.getProficiencyInfo(choices) } })
                     .catch(e => { console.log(e + " -- getProficiencyChoices()  -- " + url); });
             }           
         }
-    }
-
-    getProficiencyInfo(proficiencies) {//seems hacky since you have to make two requests to get to the information on a proficiency, im hard coding to the second request. 
-
-        //const url = 'https://www.dnd5eapi.co'
-        console.log(proficiencies)
-        //let info = [];
-        //let infoWithDescription 
-        //for (var a = 0; a < proficiencies.length; a++) {
-        //    fetch(url + proficiencies[a].url)
-        //        .then(result => result.json())
-        //        .then(result => { return(result)})
-
-
-
-
-        //    //if (proficiencies[a].index.includes('skill-')) {
-        //    //    fetch(url + '/api/skills/' + proficiencies[a].index.replace('skill-', ''))
-        //    //        .then(result => result.json())
-        //    //        .then(result => { info.push(result); })
-        //    //        .catch(e => { console.log(e + " -- getProficiency()  -- " + url); });
-        //    //} else {
-        //    //    fetch(url + '/api/equipment/' + proficiencies[a].index)
-        //    //        .then(result => result.json())
-        //    //        .then(result => { info.push(result); })
-        //    //        .catch(e => { console.log(e + " -- getProficiency()  -- " + url); });
-        //    //}
-        //}
-
-       // console.log(infoWithDescription);
-      //  this.setState({ proficienciesInfo: info, });
-    }
-
-
-    startingProficiencies() {
-        const { classSelected } = this.props;
-        const count = classSelected.proficiencies.length;
-        let startingProficiences = classSelected.proficiencies.map((proficiency, index) => {
-            let proficiencyFormatting = '';
-            if (index === count - 1) {
-               // console.log(proficiency, ' check');
-                proficiencyFormatting = proficiency.name + '.'
-                return (proficiencyFormatting)
-            }            
-            proficiencyFormatting = proficiency.name + ', '
-            return (proficiencyFormatting)
-
-        });
-        return (<div className='card-body' > <h5 className='card-title'>Starting Proficiencies</h5><p className='card-text'>{startingProficiences} <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#proficiency-info' onClick={() => { this.getProficiencyInfo(classSelected.proficiencies) }} >?</button></p></div>)
     }
 
     setProficiencies() {
@@ -126,9 +87,35 @@ class ClassProficiencies extends Component {
         }
     }
 
+    getProficiencyInfo(proficiencies) { 
+        const url = 'https://www.dnd5eapi.co'
+        console.log(proficiencies)
+        let info = [];
+        for (var a = 0; a < proficiencies.length; a++) {
+            const check = a;
+            fetch(url + proficiencies[check].references[0].url)
+                .then(result => result.json())
+                .then(result => { info.push(result);  if (check === proficiencies.length - 1) { this.setState((state) => ({ proficienciesInfo: state.proficienciesInfo.concat(info) })) } })
+        }
+    }
+
+    startingProficiencies() {
+       const { classSelected } = this.props;
+        const count = classSelected.proficiencies.length;
+        let startingProficiences = classSelected.proficiencies.map((proficiency, index) => {
+            let proficiencyFormatting = '';
+            if (index === count - 1) {
+                proficiencyFormatting = proficiency.name + '.'
+                return (proficiencyFormatting)
+            }            
+            proficiencyFormatting = proficiency.name + ', '
+            return (proficiencyFormatting)
+        });
+        return (startingProficiences);
+    }
+    
     addProficiency = (proficiencyName, choicesIndex) => { // Clean up
         const { classSelected } = this.props;
-        // const { proficiencies } = this.state; // testing another way to use state in setState below. 
         const { proficienciesChosen } = this.state;
         const choices = classSelected.proficiency_choices;
         for (var i = 0; i < choices[choicesIndex].from.length; i++) {
@@ -150,6 +137,7 @@ class ClassProficiencies extends Component {
                 break;
             }
         }
+        
     }
 
     removeProficiency = (proficiencyName, choicesIndex) => {
@@ -171,51 +159,55 @@ class ClassProficiencies extends Component {
         }
     }
 
-   
 
-    proficienciesToChooseFrom(category) {
+
+    showProficiencyInfo(prof) {
+        const { proficienciesInfo } = this.state;
+        console.log(proficienciesInfo)
+        for (var a = 0; a < proficienciesInfo.length; a++) {
+
+        }
+
+    }
+
+    proficienciesToChooseFrom() {
         const { classSelected } = this.props;
-        const { proficiencies } = this.state;
+      //  const { proficiencies } = this.state;
         const { proficienciesChosen } = this.state;
-        const { proficienciesChoices } = this.state;
+      //  const { proficienciesChoices } = this.state;
         let chooseFrom = [];
-      //  console.log(classSelected);
+        console.log('Chosen ', proficienciesChosen)
         for (var i = 0; i < classSelected.proficiency_choices.length; i++) {
             let choicesIndex = i;
             const chooseProficiencies = classSelected.proficiency_choices[i].from.map((proficiency, index) => {
                 let classNames = 'btn btn-md '
-                for (var j = 0; j < proficiencies.length; j++) {
-                    console.log("Choices ")
-                    
+                if (proficienciesChosen.length !== 0) {
                     for (var k = 0; k < proficienciesChosen[choicesIndex].length; k++) {
                         if (proficiency.name === proficienciesChosen[choicesIndex][k].name) {
                             classNames += 'btn-success col-11';
                             let prof = []
-
-                           
                             prof[0] = proficiency;
-                            //return (<button className='btn-sm col-12 btn-success' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                            console.log("whats happening")
                             return (<div className="btn-group col-12 proficiency-selection" role="group" aria-label="proficiency-buttons" key={index}>
-                                        <button className={classNames} type='button' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.index}>{proficiency.name}</button>
-                                <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#proficiency-info' onClick={() => { this.getProficiencyInfo(prof) }} key={'info-btn-proficiency-' + proficiency.indec}>?</button>
+                                <button className={classNames} type='button' onClick={() => this.removeProficiency(proficiency.name, choicesIndex)} key={proficiency.index}>{proficiency.name}</button>
+                                <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#proficiency-info' onClick={() => { this.showProficiencyInfo(prof) }} key={'info-btn-proficiency-' + proficiency.indec}>?</button>
                             </div>);
                         }
                     }
-                }
+                }                 
                 classNames += 'btn-secondary col-11';
                 let prof = []
-                prof[0] = proficiency;
-               // return (<button className='btn-sm col-12 btn-secondary' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.name}>{proficiency.name}</button>);
+                prof[0] = proficiency; //putting this into array so getProficiencyInfo(prof) can handle multiple incoming object.
                 return (<div className="btn-group col-12 proficiency-selection" role="group" aria-label="proficiency-buttons" key={index}>
-                            <button className={classNames} type='button' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.index}>{proficiency.name}</button>
-                            <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#proficiency-info' onClick={() => { this.getProficiencyInfo(prof) }} key={'info-btn-proficiency-' + proficiency.index}>?</button>
-                        </div>)
-
+                    <button className={classNames} type='button' onClick={() => this.addProficiency(proficiency.name, choicesIndex)} key={proficiency.index}>{proficiency.name}</button>
+                    <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#proficiency-info' onClick={() => { this.showProficiencyInfo(prof) }} key={'info-btn-proficiency-' + proficiency.index}>?</button>
+                </div>)
             });
             chooseFrom.push(chooseProficiencies);
-        }
-        return (chooseFrom[category]);
+        }       
+        return (chooseFrom);
     }
+
     setNavigationCategory(newCategory) {
         this.setState({ category: newCategory, });
     }
@@ -245,10 +237,12 @@ class ClassProficiencies extends Component {
 
 
     render() {
-        console.log("render()")
+        //console.log("render()")
         const { classSelected } = this.props;
-        const { category, proficienciesInfo } = this.state;
+        const { category, proficienciesInfo, startingProficiencies } = this.state;
+        const choices = this.proficienciesToChooseFrom();
         const { isClassSelected } = this.state; //this may need to be changed to not confuse with the object 'classSelected'
+        console.log(proficienciesInfo)
         return (isClassSelected ? <div className='col-12 selection'>
             <div className="col-12 text-center selectionTitle">
                 <h3>{classSelected.name} proficiencies</h3>
@@ -257,8 +251,11 @@ class ClassProficiencies extends Component {
                 <div className="card border-dark mb-3 character-card ">                   
                         {this.proficienciesNavigation()}                   
                     <div className="card-body">
-                        {this.startingProficiencies()}
-                        {this.proficienciesToChooseFrom(category)}
+                        <h5 className='card-title'>Starting Proficiencies</h5>
+                        <p className='card-text'>{this.startingProficiencies() }
+                            <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#proficiency-info' onClick={() => { this.getProficiencyInfo(startingProficiencies) }} >?</button>
+                        </p>                       
+                        {choices[category]}
                         <ProficiencyModal proficiencies={proficienciesInfo} classSelected={classSelected} /> 
                     </div>
                 </div>

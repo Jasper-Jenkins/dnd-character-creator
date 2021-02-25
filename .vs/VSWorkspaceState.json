@@ -9,6 +9,6 @@
     "\\src\\helper",
     "\\src\\helper\\modal"
   ],
-  "SelectedNode": "\\src\\champion\\Proficiencies.js",
+  "SelectedNode": "\\src\\helper\\modal\\proficiency-modal.js",
   "PreviewInSolutionExplorer": false
 }

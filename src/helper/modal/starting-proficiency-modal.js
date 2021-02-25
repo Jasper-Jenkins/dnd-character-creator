@@ -1,7 +1,7 @@
 import React from 'react'
 import { Component } from 'react';
 import isSelected from '../helper-functions'
-export default class ProficiencyModal extends Component {
+export default class StartingProficiencyModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -26,16 +26,16 @@ export default class ProficiencyModal extends Component {
         //    }
         //    return proficiencyDescriptions;
         //}
-        
-        
-     
+
+
+
     }
 
     render() {
         //console.log("proficiency modal: ", this.props.proficiency);
-      //  proficiency \
+        //  proficiency \
         const { proficiencies, classSelected } = this.props;
-        const startingProficienciesTitle = classSelected.name+" starting proficiencies"
+        const startingProficienciesTitle = classSelected.name + " starting proficiencies"
         return (<div className=' info-modal'>
             <div className="modal fade" id='proficiency-info' tabIndex="-1" role="dialog" aria-labelledby="proficiencyInfo" aria-hidden="true">
                 <div className="modal-dialog" role="document">
