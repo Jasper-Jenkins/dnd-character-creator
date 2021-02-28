@@ -18,8 +18,6 @@ class AbilityScoresForm extends Component {
     }
 
     componentDidMount() {
-
-        console.log("AbilityScoresForm ", this.props);
         this.setState({
             scores: [
                 { name: 'cha', value: this.props.abilityScoresSelected['cha'], },

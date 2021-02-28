@@ -10,7 +10,6 @@ export default class SpellModal extends Component {
     }  
 
     showSpell() {
-        console.log("showSpell()", this.props.spell)
         const { spell } = this.props
         if (isSelected(this.props.spell)) {
             let spellDescriptions = spell.desc.map((desc, index) => {
@@ -22,7 +21,6 @@ export default class SpellModal extends Component {
     }
 
     render() {
-        console.log("spell modal: ", this.props.spell);
         return (<div className=' info-modal'>
             <div className="modal fade" id='spell-info' tabIndex="-1" role="dialog" aria-labelledby="spellInfo" aria-hidden="true">
                 <div className="modal-dialog" role="document">

@@ -35,7 +35,6 @@ class CreateCharacter extends Component {
             setProficiencies: this.setProficiencies,
             setAbilityScoresSelected: this.setAbilityScoresSelected,
             startingProficiencies: this.startingProficiencies,
-            updateProficiencies: this.updateProficiencies,
             setChosenSpells: this.setChosenSpells,
             setSpells: this.setSpells,
             setSpellsInfo: this.setSpellsInfo,
@@ -43,11 +42,6 @@ class CreateCharacter extends Component {
             setAbilityScoresInfo: this.setAbilityScoresInfo,
           
         }
-        //this.updateSpellsSlots = this.updateSpellSlots.bind(this);
-        //this.updateAlertMessage = this.updateAlertMessage.bind(this);
-        //this.updateSelectedSpell = this.updateSelectedSpell.bind(this);
-        //this.isClassSelected = this.isClassSelected.bind(this);
-        //this.isRaceSelected = this.isRaceSelected.bind(this);
         this.setRace = this.setRace.bind(this);
         this.setClass = this.setClass.bind(this);
         this.getLevelData = this.getLevelData.bind(this);
@@ -131,39 +125,24 @@ class CreateCharacter extends Component {
     }    
 
     setRace(chosenRace) {
-        console.log("and here????")
         this.setState({ raceSelected: chosenRace, });
     }
 
     setClass(chosenClass) {
-        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: chosenClass.proficiencies, proficienciesChosen: [], spells: {}, spellsInfo: [], });
+        this.setState({ classSelected: chosenClass, spellsChosen: [], selectedSpell: {}, proficiencies: [], proficienciesChosen: [], spells: {}, spellsInfo: [], });
     }
-
-    //setLevelData = (dataObj) => {
-    //    console.log(dataObj)
-    //    //let levelDataObj = dataObj
-    //    this.setState({ levelData: dataObj, })
-    //} 
-    
+   
     startingProficiencies = (proficiencies) => {
         this.setState({ proficiencies: proficiencies });
     }
 
     setProficiencies = (profs, choices) => {
-        console.log(choices)
         this.setState({
             proficiencies: profs,
             proficienciesChosen: choices,
         });
     }
-       
-    updateProficiencies = (proficiencies, choices) => {
-        this.setState({
-            proficiencies: proficiencies,
-            proficienciesChoices: choices,
-        });
-    }    
-    
+      
     setAbilityScoresSelected = (abilityScoresSelected) => {
         this.setState({ abilityScoresSelected: abilityScoresSelected, })
     }
@@ -176,20 +155,8 @@ class CreateCharacter extends Component {
     setAbilityScoresInfo = (abilityScoresInfo) => {
         this.setState({ abilityScoresInfo: abilityScoresInfo })
     }
-
-    //setClasses = (classes) => {
-    //    this.setState({ classes: classes, })
-    //}
-
-    //setClassesInfo = (classesInfo) => {
-    //    this.setState({ classesInfo: classesInfo, })
-    //}
-
-   
+        
     getLevelData(index, currentLevel) { //
-        //const { classSelected } = this.props;
-         console.log("getLeveData()");
-        //let level = {}; 
         const url = 'https://www.dnd5eapi.co'
         fetch(url + "/api/classes/" + index + "/levels/" + currentLevel)
             .then(result => result.json())
@@ -199,10 +166,7 @@ class CreateCharacter extends Component {
                 });
             });
     }
-
-
-
-       
+    
     render() {
       //hacky way of displaying alert
         //hacky way to put a space between race and class name, fix this. this messes with the total view height need to fix. 
@@ -228,16 +192,5 @@ class CreateCharacter extends Component {
         </div>);
     }
 }
-
-//<div className='row'>
-//    <Info {...this.state} {...this.props} />
-//</div>
-
-
-
-//<div className='row'>
-//    <CharacterSave {...this.state} />
-//</div>
-//<GOOFING />
 
 export default CreateCharacter

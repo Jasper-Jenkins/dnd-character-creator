@@ -17,16 +17,11 @@ export default class AbilityScores extends Component {
 
     componentDidMount() {
         if (isSelected(this.props.abilityScores)) {
-          //  console.log("this should happen any time after the first")
-            this.setState({ abilityScores: this.props.abilityScores, abilityScoresInfo: this.props.abilityScoresInfo, abilityScoresSelected: this.props.abilityScoresSelected, }, this.abilityScoresSetup())
-            
-        } else {
-         //   console.log("this should happen second")
+             this.setState({ abilityScores: this.props.abilityScores, abilityScoresInfo: this.props.abilityScoresInfo, abilityScoresSelected: this.props.abilityScoresSelected, }, this.abilityScoresSetup())
+         } else {
             this.getAbilityScores();
-           
         }
-        console.log(this.props)
-    }
+     }
 
     componentWillUnmount() {
         this.props.setAbilityScores(this.state.abilityScores);
@@ -35,9 +30,7 @@ export default class AbilityScores extends Component {
     }
 
     abilityScoresSetup = () => {
-       // console.log("scores set up", this.state.abilityScores)
-        //abilityScoresData 
-        const { count } = this.state.abilityScores;
+       const { count } = this.state.abilityScores;
         const { results } = this.state.abilityScores;
         let abilityScores = {};
         for (var j = 0; j < count; j++) {
@@ -56,8 +49,6 @@ export default class AbilityScores extends Component {
     }
 
     getInfo(data) {
-      //  console.log(data);
-        //let info = []
         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
@@ -69,9 +60,7 @@ export default class AbilityScores extends Component {
     scoreDisplay() {
         const { abilityScoresInfo, abilityScoresSelected } = this.state;
         const { raceSelected, classSelected } = this.props;
-       // let bonuses, ability_bonuses = [];
         let bonus = 0;
-
         let abilityScore = ''
         let abilityScores = abilityScoresInfo.map((ability) => {
             abilityScore = 'card-text abilityScore '
@@ -154,14 +143,11 @@ export default class AbilityScores extends Component {
         let buttons = abilityScoresInfo.map((abilityScore, index) => {
             return (<button onClick={() => this.getScore(abilityScore.index)} className='btn btn-primary ability-score-button col-5' type='button' key={index}>{abilityScore.full_name}</button>)
         });
-
         return (<div className='d-grid gap-2 d-md-block'>{buttons}</div>);
-
     }
 
     render() {
-        const {abilityScoresSwitch } = this.state;
-       
+        const {abilityScoresSwitch } = this.state;       
         return (<div className='selection col-12'>
                     <div className="col-12 selectionTitle">
                         <h3 className="text-center">Set ability scores</h3>                      

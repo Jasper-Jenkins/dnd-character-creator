@@ -37,7 +37,6 @@ export default class CharacterClass extends Component {
     }
 
     getClasses() {
-       // console.log("Getting Classes")
         const url = 'https://www.dnd5eapi.co/api/'
         fetch(url + 'classes')
             .then(result => result.json())
@@ -47,9 +46,7 @@ export default class CharacterClass extends Component {
     }
 
     getInfo(data) {
-      //  console.log(data);
-       // let info = []
-        const url = 'https://www.dnd5eapi.co'
+         const url = 'https://www.dnd5eapi.co'
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
@@ -61,36 +58,16 @@ export default class CharacterClass extends Component {
         const { classesInfo } = this.state;
         const { setClass } = this.props;
         const { navigate } = this.props;
-       // console.log("hello", classesInfo)
         for (let i = 0; i < classesInfo.length; i++) {
             if (classesInfo[i].index === index) {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
                 this.setState({ classSelected: classSelected[0], }, this.props.getLevelData(classSelected[0].index, 1));
                 setClass(classSelected[0]);
-                console.log(classSelected[0]);
                 navigate('Ability-Scores');
                 break;
             }
         }        
     } 
-
-
-    //getLevelData(currentLevel, index) { //
-    //    //const { classSelected } = this.props;
-    //    // console.log("getLeveData()");
-    //    //let level = {}; 
-    //    const url = 'https://www.dnd5eapi.co'
-    //    Promise.resolve(fetch(url + "/api/classes/" + index + "/levels/" + currentLevel))
-    //        .then(result => result.json())
-    //        .then(result => {
-    //            this.setState({
-    //                levelData: result,
-    //            }, this.props.setLevelData(result));
-    //        });
-
-
-    //}
-
 
     searchClasses = (word) => {
         const { classesInfo } = this.state;
@@ -105,8 +82,7 @@ export default class CharacterClass extends Component {
             newList = oldList.filter(characterClass => characterClass.index.includes(word.toLowerCase()));            
             this.setState({ searchResults: newList, });
         } else {
-            console.log(newList);
-            this.setState({ searchResults: oldList, });
+             this.setState({ searchResults: oldList, });
         }
     }
 
