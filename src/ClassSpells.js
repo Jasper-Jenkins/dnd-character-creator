@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import isSelected from './helper/helper-functions';
-import SpellModal from './helper/spell-modal';
+import SpellModal from './helper/modal/spell-modal';
 
 class ClassSpells extends Component {
     constructor(props) {

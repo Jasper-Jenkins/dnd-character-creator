@@ -1,7 +1,6 @@
 import React from 'react'
-import InfoModal from './modal'
 
-export default function SearchResults({ champions, select, category }) {
+export default function SearchResults({ champions, select, category, getTraits, }) {
    // console.log(champions)
     let cards = [];
     switch (category) {
@@ -12,7 +11,7 @@ export default function SearchResults({ champions, select, category }) {
                     bonuses += race.ability_bonuses[a].ability_score.name + ": " + race.ability_bonuses[a].bonus + " ";
                 }
                 let traits = [];
-                let target = '#race-' + race.index;
+                let target = '#race-traits';
                 for (var b = 0; b < race.traits.length; b++) { //UI formatting commas and period. 
                     if (b !== race.traits.length-1) {
                         traits.push(<span data-toggle="modal" data-target={target} key={race.traits[b].name}>{race.traits[b].name}, </span>);
@@ -20,7 +19,7 @@ export default function SearchResults({ champions, select, category }) {
                         traits.push(<span data-toggle="modal" data-target={target} key={race.traits[b].name}>{race.traits[b].name}. </span>);
                     }
                 }
-                traits.push(<button className='btn btn-sm btn-primary'data-toggle="modal" data-target={target} key='raceTraitsInfoButton'>?</button>)
+                traits.push(<button className='btn btn-sm btn-primary' data-toggle="modal" data-target={target} onClick={() => getTraits(race)} key='raceTraitsInfoButton'>?</button>)
 
                 return (<div className="card border-dark mb-3 col-12 character-card" key={race.index}>
                     <div className="card-header text-white bg-dark text-center">
@@ -35,7 +34,7 @@ export default function SearchResults({ champions, select, category }) {
                         <p className="card-text"><strong>Ability Bonuses:</strong> {bonuses}</p>
                         <p className="card-text"><strong>Speed:</strong> {race.speed}</p>
                         <button className="btn btn-primary btn-block" onClick={() => select(race.index)}>Choose {race.name}</button>
-                        <InfoModal info={race} />
+                       
                     </div>
                 </div>);
             });

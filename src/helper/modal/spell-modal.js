@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react';
-import isSelected from './helper-functions'
+import isSelected from '../helper-functions'
 export default class SpellModal extends Component {
     constructor(props) {
         super(props)
