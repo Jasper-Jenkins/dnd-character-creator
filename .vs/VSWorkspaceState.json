@@ -6,8 +6,7 @@
     "\\src\\assets",
     "\\src\\assets\\css",
     "\\src\\champion",
-    "\\src\\helper",
-    "\\src\\helper\\modal"
+    "\\src\\helper"
   ],
   "SelectedNode": "\\src\\champion\\Proficiencies.js",
   "PreviewInSolutionExplorer": false
