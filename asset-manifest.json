@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/dnd-character-creator/static/css/main.383607da.chunk.css",
-    "main.js": "/dnd-character-creator/static/js/main.f1b66f58.chunk.js",
-    "main.js.map": "/dnd-character-creator/static/js/main.f1b66f58.chunk.js.map",
+    "main.js": "/dnd-character-creator/static/js/main.a0a2f48e.chunk.js",
+    "main.js.map": "/dnd-character-creator/static/js/main.a0a2f48e.chunk.js.map",
     "runtime-main.js": "/dnd-character-creator/static/js/runtime-main.6938952c.js",
     "runtime-main.js.map": "/dnd-character-creator/static/js/runtime-main.6938952c.js.map",
     "static/js/2.fc4bf88f.chunk.js": "/dnd-character-creator/static/js/2.fc4bf88f.chunk.js",
     "static/js/2.fc4bf88f.chunk.js.map": "/dnd-character-creator/static/js/2.fc4bf88f.chunk.js.map",
     "index.html": "/dnd-character-creator/index.html",
-    "precache-manifest.491f6debc7f4ecf0d0e5c85124040b52.js": "/dnd-character-creator/precache-manifest.491f6debc7f4ecf0d0e5c85124040b52.js",
+    "precache-manifest.3942040d18e5f3e50dde04ab30cb7778.js": "/dnd-character-creator/precache-manifest.3942040d18e5f3e50dde04ab30cb7778.js",
     "service-worker.js": "/dnd-character-creator/service-worker.js",
     "static/css/main.383607da.chunk.css.map": "/dnd-character-creator/static/css/main.383607da.chunk.css.map",
     "static/js/2.fc4bf88f.chunk.js.LICENSE.txt": "/dnd-character-creator/static/js/2.fc4bf88f.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.6938952c.js",
     "static/js/2.fc4bf88f.chunk.js",
     "static/css/main.383607da.chunk.css",
-    "static/js/main.f1b66f58.chunk.js"
+    "static/js/main.a0a2f48e.chunk.js"
   ]
 }
