@@ -11,8 +11,6 @@ class Navigation extends Component {
 
     }
 
-
-
     navigationButtons() {
         const navigation = this.props.navigation
         const navigationCategories = this.props.navigationCategories

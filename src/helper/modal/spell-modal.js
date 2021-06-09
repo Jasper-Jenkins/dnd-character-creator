@@ -13,6 +13,7 @@ export default class SpellModal extends Component {
         const { spell } = this.props
         if (isSelected(this.props.spell)) {
             let spellDescriptions = spell.desc.map((desc, index) => {
+               console.log(desc)
                 return (<p className='' key={index}>{desc}</p>);
             });
             return spellDescriptions;

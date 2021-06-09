@@ -3,11 +3,8 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\assets",
-    "\\src\\assets\\css",
-    "\\src\\champion",
-    "\\src\\helper"
+    "\\src\\champion"
   ],
-  "SelectedNode": "\\src\\champion\\Proficiencies.js",
+  "SelectedNode": "\\src\\champion\\Spells.js",
   "PreviewInSolutionExplorer": false
 }

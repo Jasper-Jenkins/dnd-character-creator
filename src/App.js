@@ -175,11 +175,9 @@ export default class App extends Component {
             races: {},
             racesInfo: [],
             classes: {},
-            classesInfo: [],
-           
+            classesInfo: [],           
             features: {},
-            featuresInfo: [],
-           
+            featuresInfo: [],           
             ready: false,
             enter: false,
             setRaces: this.setRaces,
@@ -195,39 +193,6 @@ export default class App extends Component {
         //   this.getStuff = this.getStuff.bind(this);
         this.chooseYourChampion = this.chooseYourChampion.bind(this);
     }
-
-    componentDidMount() {
-       // const url = 'https://www.dnd5eapi.co/api/'
-        //const promise = this.getCharacterInformation(url);
-        //promise.then((data) => {
-        //    this.getCharacterData(data.classes, data.abilityScores, data.spells, data.features)
-        //});
-        this.setState({ enter: true,})
-    }
-
-
-    getCharacterInformation(url) {
-        return Promise.all([
-        this.getClasses(url),
-        this.getAbilityScores(url),
-        this.getSpells(url),
-        this.getFeatures(url),]).then(([abilityScores, spells, features]) => {
-            return { abilityScores, spells, features }
-        });
-    }
-
-
-    getCharacterData(classes, abilityScores, spells, features) {
-        Promise.all([       
-        this.getLevelData(classes, 1),
-        this.getInfo(abilityScores, 'ability-scores'),
-        this.getInfo(spells, 'spells'),
-        this.getInfo(features, 'features'),
-        ]).then(() => { this.setState({ enter: true, }) })
-
-    }
-
-   
 
     getAbilityScores(url) {
         return fetch(url + 'ability-scores')
@@ -340,7 +305,7 @@ export default class App extends Component {
                 <div className="row">
                     <div className="col-12 text-center">
                         <h1>Welcome</h1>
-                        {this.state.enter ? <button onClick={this.chooseYourChampion} className='btn btn-lg btn-primary'>Begin your journey!</button> : <p>...Loading API</p>}
+                        <button onClick={this.chooseYourChampion} className='btn btn-lg btn-primary'>Begin your journey!</button>
                     </div>
                 </div>
             </div>);

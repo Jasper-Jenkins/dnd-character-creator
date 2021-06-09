@@ -368,8 +368,8 @@ class ClassSpells extends Component {
 
 
         if (classSpells.length < 1 && classSelected.name !== 'Paladin' && classSelected.name !== 'Ranger') {
-            const element = <h2>Retrieving spells...</h2>
-            const stillLoading = [element,]
+            const element = <h2>Retrieving spells...</h2> //Need to figure out why I cant put this in the return() without doing it this way
+            const stillLoading = [element,] 
             return (stillLoading)
         } else {
             console.log("Well")
@@ -415,7 +415,7 @@ class ClassSpells extends Component {
                 });
             }
             
-            console.log("what", spellChoices)
+           // console.log("what", spellChoices)
 
 
             if (spellChoices.length === 0) {
@@ -424,9 +424,9 @@ class ClassSpells extends Component {
 
             for (var b = 0; b < spellChoices.length; b++) {
                 if (b === 0) {
-                    console.log("HERE")
+                    // console.log("HERE")
                     
-                        spellChoiceDisplay[b] = <div className='card-body ' key='cantrips'><h3 className='card-text text-center'>Cantrips</h3>{spellChoices[b]}</div>
+                    spellChoiceDisplay[b] = <div className='card-body ' key='cantrips'><h3 className='card-text text-center'>Cantrips</h3>{spellChoices[b]}</div>
                    
                 } else {
                     let keyForThee = "spellLevel";
