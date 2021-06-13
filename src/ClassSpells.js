@@ -373,7 +373,7 @@ class ClassSpells extends Component {
             return (stillLoading)
         } else {
             console.log("Well")
-            for (var a = 0; a < spellSlots.length; a++) {
+            for (let a = 0; a < spellSlots.length; a++) {
                 const slotLevel = a;
                 let slotSpells = classSpells.filter((spell) => {
                     return (spell.level === slotLevel ? spell : null);
@@ -447,11 +447,11 @@ class ClassSpells extends Component {
         return ( isSelected(this.props.classSelected) ?
             <div className='col-12 selection'>
                 <div className="col-12 text-center selectionTitle">
-                    <h3>{classSelected.name} Spells</h3>
+                    <h3>{classSelected.name} Spellsssss</h3>
                 </div>
                 <div className='row'>
-                    <div className="card col-12 border-dark mb-3 character-card text-center ">
-                        <div className="card-header text-white bg-dark">
+                    <div className="card col-12 border-dark mb-3 character-card ">
+                        <div className="card-header text-white bg-dark text-center">
                             {this.spellsNavigation()}
                         </div>                        
                         {spells[navigationCategory]}
