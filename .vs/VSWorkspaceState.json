@@ -5,8 +5,10 @@
     "\\src",
     "\\src\\assets",
     "\\src\\assets\\css",
-    "\\src\\champion"
+    "\\src\\champion",
+    "\\src\\helper",
+    "\\src\\helper\\modal"
   ],
-  "SelectedNode": "\\src\\App.js",
+  "SelectedNode": "\\src\\ClassSpells.js",
   "PreviewInSolutionExplorer": false
 }

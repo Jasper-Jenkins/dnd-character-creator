@@ -11,24 +11,24 @@ class CreateCharacter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            champion: 'Champion', //add support: user being able to name their Champion. 
-            abilityScoresSelected: {},
             abilityScores: {},
             abilityScoresInfo: [],
+            abilityScoresSelected: {},
+            alertMessage: "",
+            champion: 'Champion', //add support: user being able to name their Champion. 
+            classSelected: {},           
             levelData: {},
             navigationCategories: ['Races', 'Classes', 'Ability-Scores', 'Proficiencies', 'Spells'],
             navigation: 'Races',
-            classSelected: {},           
-            raceSelected: {},
             proficiencies: [],
             proficienciesChoices: [],
             proficienciesChosen: [],
+            raceSelected: {},
+            spells: {},
             spellsChosen: [],
+            spellsInfo: [],
             spellSlots: [],
             selectedSpell: {},
-            alertMessage: "",
-            spells: {},
-            spellsInfo: [],
             updateSpellSlots: this.updateSpellSlots,
             updateAlertMessage: this.updateAlertMessage,
             setSelectedSpell: this.setSelectedSpell,
@@ -186,8 +186,8 @@ class CreateCharacter extends Component {
             <div className='row'>
                 <Selection {...this.state} {...this.props} getLevelData={this.getLevelData} setRace={this.setRace} navigate={this.navigate} setClass={this.setClass} handleSubmitAbilityScores={this.handleSubmitAbilityScores} getScore={this.getScore} />
             </div>
-            <div className='row'>               
-                <Navigation {...this.state} {...this.props} navigate={this.navigate} />
+            <div className='row'>
+                <Navigation navigate={this.navigate} navigation={this.state.navigation} navigationCategories={this.state.navigationCategories} />
             </div>           
         </div>);
     }

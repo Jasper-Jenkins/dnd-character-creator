@@ -58,7 +58,7 @@ class ClassSpells extends Component {
     getSpellInfo(data) {             
         let info = []
         const url = 'https://www.dnd5eapi.co'
-        for (var i = 0; i < data.results.length; i++) {
+        for (let i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
                 .then(result => { info.push(result); if (this.state.spellsInfo.length === this.state.spells.count) { this.setClassSpells(1, info) }})
@@ -72,7 +72,7 @@ class ClassSpells extends Component {
         let spells = [];
         switch (level) {
             case 1:
-                for (var i = 0; i < spellsInfo.length; i++) {
+                for (let i = 0; i < spellsInfo.length; i++) {
                        if (spellsInfo[i].level <= level) {
                            spells.push(spellsInfo[i])
                        }
@@ -92,14 +92,14 @@ class ClassSpells extends Component {
         let slotsAvailable = [];
         if (levelData.spellcasting !== undefined) {
             if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {        
-                for (var i = 1; i < 6; i++) {
+                for (let i = 1; i < 6; i++) {
                     if (levelData.spellcasting['spell_slots_level_' + i] !== 0) {
                         slotsAvailable[i] = levelData.spellcasting['spell_slots_level_' + i]; 
                     }
                 }
             } else {
                 slotsAvailable[0] = levelData.spellcasting.cantrips_known;
-                for (var k = 1; k < 10; k++) {
+                for (let k = 1; k < 10; k++) {
                     if (levelData.spellcasting['spell_slots_level_' + k] !== 0) {
                         slotsAvailable[k] = levelData.spellcasting['spell_slots_level_' + k];
                     }
@@ -126,7 +126,7 @@ class ClassSpells extends Component {
         let cantrips = 0;
         let levelOneSpells = 0;
         let spells = [];
-        for (var i = 0; i < spellsChosen.length; i++) {
+        for (let i = 0; i < spellsChosen.length; i++) {
             if (spellsChosen[i].level === 0) {
                 cantrips++;
             } else if (spellsChosen[i].level === 1) {
@@ -333,7 +333,7 @@ class ClassSpells extends Component {
         const { spellSlots } = this.state;
         let buttons = [];
         let spellsSlots = this.spellsChosenByLevel();
-        for (var a = 0; a < spellSlots.length; a++) {
+        for (let a = 0; a < spellSlots.length; a++) {
             let newCategory = a;
             let num;
             num = spellsSlots[a];            
@@ -395,7 +395,7 @@ class ClassSpells extends Component {
                             <button className='btn btn-sm btn-primary ' type='button' data-toggle="modal" data-target='#spell-info' onClick={() => { this.setSpellInfo(spell) }} key={'info-btn-spell' + spell.name}>?</button>
                         </div>);
                     }
-                    for (var b = 0; b < spellsChosen.length; b++) {
+                    for (let b = 0; b < spellsChosen.length; b++) {
                         let chosen = b;
                         if (spellsChosen[chosen].name === spell.name) {
                             classNames += 'btn-success col-11';
@@ -422,7 +422,7 @@ class ClassSpells extends Component {
                 spellChoiceDisplay[0] = <div className='card-body ' key='no-known-spells'><h3 className='card-text text-center'>You have no spells to choose from at level 1</h3></div>
             }
 
-            for (var b = 0; b < spellChoices.length; b++) {
+            for (let b = 0; b < spellChoices.length; b++) {
                 if (b === 0) {
                     // console.log("HERE")
                     
