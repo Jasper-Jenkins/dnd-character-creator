@@ -158,6 +158,7 @@ class CreateCharacter extends Component {
     }
 
     setAbilityScoresModifiers = (modifiers) => {
+        console.log("modifiers being set in CreateCharacter App", modifiers);
         this.setState({ abilityScoresModifiers: modifiers, })
     }
         

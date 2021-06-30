@@ -133,7 +133,7 @@ class ClassSpells extends Component {
                     console.log("Something aint right cletus");
                 }
                 spellCountAvailableAtLevelOne[1] = modifier + levelData.level;
-                console.log("Setting up spells known based on ability score modifiers + character level: " + classSelected.name + ". Modifier: " + modifier + ", level " + levelData.level);
+                console.log(abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index], "Setting up spells known based on ability score modifiers + character level: " + classSelected.name + ". Modifier: " + modifier + ", level " + levelData.level);
 
 
                 //switch (classSelected.name) {

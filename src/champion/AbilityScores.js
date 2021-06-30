@@ -22,6 +22,7 @@ export default class AbilityScores extends Component {
                 abilityScores: this.props.abilityScores,
                 abilityScoresInfo: this.props.abilityScoresInfo,
                 abilityScoresSelected: this.props.abilityScoresSelected,
+                abilityScoresModifiers: this.props.abilityScoresModifiers,
             }, this.abilityScoresSetup())
          } else {
             this.getAbilityScores();           
@@ -33,18 +34,20 @@ export default class AbilityScores extends Component {
         this.props.setAbilityScores(this.state.abilityScores);
         this.props.setAbilityScoresInfo(this.state.abilityScoresInfo);
         this.props.setAbilityScoresSelected(this.state.abilityScoresSelected);
+        console.log("AbilityScoresUnmounting and fn() to update modifiers ", this.state.abilityScoresModifiers);
         this.props.setAbilityScoresModifiers(this.state.abilityScoresModifiers);
     }
 
     abilityScoresSetup() {
         const { count } = this.state.abilityScores;
-        console.log("abilityScoresSetup(), count: ", this.state.abilityScores.count)
+        console.log("abilityScoresSetup(), count: ", count)
         const { results } = this.state.abilityScores;
         let abilityScores = {};
         for (var j = 0; j < count; j++) {
             let ability = results[j].index;
             abilityScores[ability] = 0;
         }
+        console.log("abilityScores at the end of abilityScoresSetup() ", abilityScores);
         this.setState({ abilityScoresSelected: abilityScores, });
     }
 
@@ -53,7 +56,7 @@ export default class AbilityScores extends Component {
         fetch(url + 'ability-scores')
             .then(result => result.json())
             .then(result => { this.setState({ abilityScores: result }, this.getInfo(result)); })
-            .then(() => { this.abilityScoresSetup(); }) //seems hacky?
+            .then(() => { this.abilityScoresSetup(); console.log('getAbilityScores()', this.state.abilityScores); }) //seems hacky?
             .catch(e => { console.log(e + " -- getAbilityScores() -- " + url); });
     }
 
@@ -68,7 +71,6 @@ export default class AbilityScores extends Component {
 
     abilityScoreModifier(abilityScoreValue) { //needs values for up to level 30. 
         const { classSelected } = this.props;
-        console.log("abilityScoreModifier() starting with value of " + abilityScoreValue + ". ");
         switch (true) {
             case abilityScoreValue > 0 && abilityScoreValue < 2:
                 console.log("-5 modifier for a ability score of" + abilityScoreValue + ". ");
@@ -144,6 +146,7 @@ export default class AbilityScores extends Component {
 
     getScore(ability) {        
         const { abilityScores } = this.state;
+        console.log('getScore() abilityScores: ', abilityScores);
         const { abilityScoresSelected, abilityScoresModifiers } = this.state;
         let scores = abilityScoresSelected
         let modifiers = abilityScoresModifiers;
@@ -151,7 +154,7 @@ export default class AbilityScores extends Component {
             if (abilityScores.results[i].index === ability) {
                 let num = randomDiceRoll(6);
                 scores[ability] = num;
-                console.log("getScore(), ", ability);
+                console.log("getScore(), ", ability, " num: ", num);
                 modifiers[ability] = this.abilityScoreModifier(num);
                 this.setState({ abilityScoresSelected: scores, abilityScoresModifiers: modifiers, });
                 break;
