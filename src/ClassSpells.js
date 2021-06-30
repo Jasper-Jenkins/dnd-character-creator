@@ -90,51 +90,11 @@ class ClassSpells extends Component {
         }
     }
 
-    abilityScoreModifier(abilityScoreValue) { //needs values for up to level 30. 
-        const { classSelected } = this.props;
-        console.log("abilityScoreModifier() starting with value of " + abilityScoreValue + ". ");
-        switch (true) {
-            case abilityScoreValue > 0 && abilityScoreValue < 2:
-                console.log("-5 modifier for a ability score of" + abilityScoreValue + ". ");
-                return (-5);
-            case abilityScoreValue > 1 && abilityScoreValue < 4:
-                console.log("-4 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (-4);
-            case abilityScoreValue > 3 && abilityScoreValue < 6:
-                console.log("-3 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (-3);
-            case abilityScoreValue > 5 && abilityScoreValue < 8:
-                console.log("-2 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (-2);
-            case abilityScoreValue > 7 && abilityScoreValue < 10:
-                console.log("-1 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (-1);
-            case abilityScoreValue > 9 && abilityScoreValue < 12:
-                console.log("+-0 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (0);
-            case abilityScoreValue > 11 && abilityScoreValue < 14:
-                console.log("+1 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (1);
-            case abilityScoreValue > 13 && abilityScoreValue < 16:
-                console.log("+2 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (2);
-            case abilityScoreValue > 15 && abilityScoreValue < 18:
-                console.log("+3 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (3);
-            case abilityScoreValue > 17 && abilityScoreValue < 20:
-                console.log("+4 modifier for a ability score of " + abilityScoreValue + ". ");
-                return (4);
-            default:
-                console.log("Do not have a modifier value set for " + classSelected.spellcasting.spellcasting_ability.index + " ability with a score of " + abilityScoreValue + " yet. ");
-                return (0);
-        }
-        //const num = (abilityScoreValue - 10) / 2;
-        //console.log(num);        
-    }
-
+   
     spellBook() { // was chooseSpells(), use to search out other places in code to make changes.
         const { classSelected } = this.props;
-        const { levelData, abilityScoresSelected } = this.props;
+        const { levelData, abilityScoresModifiers } = this.props;
+       
         let modifier = 0; 
         
         console.log(" -- spellBook() -- ", this.props);
@@ -166,9 +126,11 @@ class ClassSpells extends Component {
                 //        break;
                 //}
             } else {
-                if (isSelected(abilityScoresSelected)) {
-                    console.log('About to fire off abilityScoreModifier(). ');
-                    modifier = this.abilityScoreModifier(abilityScoresSelected[classSelected.spellcasting.spellcasting_ability.index]);
+                if (abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index] !== undefined) {
+                    console.log(abilityScoresModifiers);
+                    modifier = abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index]
+                } else {
+                    console.log("Something aint right cletus");
                 }
                 spellCountAvailableAtLevelOne[1] = modifier + levelData.level;
                 console.log("Setting up spells known based on ability score modifiers + character level: " + classSelected.name + ". Modifier: " + modifier + ", level " + levelData.level);

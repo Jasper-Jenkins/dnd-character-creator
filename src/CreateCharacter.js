@@ -41,6 +41,7 @@ class CreateCharacter extends Component {
             setSpellsInfo: this.setSpellsInfo,
             setAbilityScores: this.setAbilityScores,
             setAbilityScoresInfo: this.setAbilityScoresInfo,
+            setAbilityScoresModifiers: this.setAbilityScoresModifiers,
           
         }
         this.setRace = this.setRace.bind(this);
@@ -156,7 +157,7 @@ class CreateCharacter extends Component {
         this.setState({ abilityScoresInfo: abilityScoresInfo, })
     }
 
-    setAbilitiesScoresModifiers = (modifiers) => {
+    setAbilityScoresModifiers = (modifiers) => {
         this.setState({ abilityScoresModifiers: modifiers, })
     }
         

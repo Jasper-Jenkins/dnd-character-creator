@@ -33,6 +33,7 @@ export default class AbilityScores extends Component {
         this.props.setAbilityScores(this.state.abilityScores);
         this.props.setAbilityScoresInfo(this.state.abilityScoresInfo);
         this.props.setAbilityScoresSelected(this.state.abilityScoresSelected);
+        this.props.setAbilityScoresModifiers(this.state.abilityScoresModifiers);
     }
 
     abilityScoresSetup() {
@@ -150,6 +151,7 @@ export default class AbilityScores extends Component {
             if (abilityScores.results[i].index === ability) {
                 let num = randomDiceRoll(6);
                 scores[ability] = num;
+                console.log("getScore(), ", ability);
                 modifiers[ability] = this.abilityScoreModifier(num);
                 this.setState({ abilityScoresSelected: scores, abilityScoresModifiers: modifiers, });
                 break;
