@@ -33,9 +33,9 @@ class AbilityScoresForm extends Component {
     handleFocus = (event) => event.target.select();
         
     handleChange = (event) => {
-        const { name, value } = event.target
-        const { scores } = this.state
-        const newScores = JSON.parse(JSON.stringify(scores))
+        const { name, value } = event.target;
+        const { scores } = this.state;
+        const newScores = JSON.parse(JSON.stringify(scores));
         
         for (var i = 0; i < newScores.length; i++) {
             if (newScores[i].name === name) {

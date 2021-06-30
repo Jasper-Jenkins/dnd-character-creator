@@ -13,6 +13,7 @@ class CreateCharacter extends Component {
         this.state = {
             abilityScores: {},
             abilityScoresInfo: [],
+            abilityScoresModifiers: {},
             abilityScoresSelected: {},
             alertMessage: "",
             champion: 'Champion', //add support: user being able to name their Champion. 
@@ -47,8 +48,7 @@ class CreateCharacter extends Component {
         this.getLevelData = this.getLevelData.bind(this);
     }
     
-    componentDidMount() {
-     
+    componentDidMount() {     
                
     }
 
@@ -112,13 +112,13 @@ class CreateCharacter extends Component {
         let abilityPoint = 0;
         let abilityPoints = 0;
         let abilityPointsArray = [];
-        for (var i = 0; i < totalDiceRolls; i++) {
+        for (let i = 0; i < totalDiceRolls; i++) {
             abilityPoint = Math.floor((Math.random() * maxNum) + 1);
             abilityPointsArray.push(abilityPoint);
         }
         abilityPointsArray.sort()
         abilityPointsArray.splice(0, totalDiceRolls - totalRollsToKeep)
-        for (var j = 0; j < abilityPointsArray.length; j++) {
+        for (let j = 0; j < abilityPointsArray.length; j++) {
             abilityPoints += abilityPointsArray[j];
         }
         return abilityPoints;
@@ -133,7 +133,7 @@ class CreateCharacter extends Component {
     }
    
     startingProficiencies = (proficiencies) => {
-        this.setState({ proficiencies: proficiencies });
+        this.setState({ proficiencies: proficiencies, });
     }
 
     setProficiencies = (profs, choices) => {
@@ -149,11 +149,15 @@ class CreateCharacter extends Component {
 
 
     setAbilityScores = (abilityScores) => {
-        this.setState({ abilityScores: abilityScores })
+        this.setState({ abilityScores: abilityScores, })
     }
 
     setAbilityScoresInfo = (abilityScoresInfo) => {
-        this.setState({ abilityScoresInfo: abilityScoresInfo })
+        this.setState({ abilityScoresInfo: abilityScoresInfo, })
+    }
+
+    setAbilitiesScoresModifiers = (modifiers) => {
+        this.setState({ abilityScoresModifiers: modifiers, })
     }
         
     getLevelData(index, currentLevel) { //
@@ -184,7 +188,7 @@ class CreateCharacter extends Component {
                 </div>
             </div>
             <div className='row'>
-                <Selection {...this.state} {...this.props} getLevelData={this.getLevelData} setRace={this.setRace} navigate={this.navigate} setClass={this.setClass} handleSubmitAbilityScores={this.handleSubmitAbilityScores} getScore={this.getScore} />
+                <Selection {...this.state} {...this.props} getLevelData={this.getLevelData} setRace={this.setRace} navigate={this.navigate} setClass={this.setClass} />
             </div>
             <div className='row'>
                 <Navigation navigate={this.navigate} navigation={this.state.navigation} navigationCategories={this.state.navigationCategories} />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Component } from 'react';
 import isSelected from '../helper-functions'
-export default class SpellModal extends Component {
+export default class SpellModal extends Component { // change this to a function instead of class, unless you think of a reason it needs a state.
     constructor(props) {
         super(props)
         this.state = {
@@ -10,7 +10,7 @@ export default class SpellModal extends Component {
     }  
 
     showSpell() {
-        const { spell } = this.props
+        const { spell } = this.props;
         if (isSelected(this.props.spell)) {
             let spellDescriptions = spell.desc.map((desc, index) => {
                console.log(desc)

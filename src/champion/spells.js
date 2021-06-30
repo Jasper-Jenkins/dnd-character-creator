@@ -26,7 +26,6 @@ class Spells extends Component {
             .catch(e => { console.log(e + " -- getSpells() -- " + url); });
     }
 
-
     getInfo(data) {
         const { classSelected } = this.props;
         console.log(classSelected.name, ' spells ', data);
@@ -38,8 +37,6 @@ class Spells extends Component {
                 .then(result => { this.setState((state) => ({ spellsInfo: [...state.spellsInfo, result] })) });
         }
     }
-
-
 
     spellSlots() { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
         const { classSelected } = this.props;
@@ -68,9 +65,6 @@ class Spells extends Component {
             spellSlots: slotsAvailable,
         }, this.props.updateSpellSlots(slotsAvailable));
     }
-
-   
-
 
     render() {
         const { navigationCategory, selected } = this.state;

@@ -63,7 +63,7 @@ export default class CharacterClass extends Component {
                 const classSelected = classesInfo.filter(function (cClass) { return cClass.name === classesInfo[i].name });
                 this.setState({ classSelected: classSelected[0], }, this.props.getLevelData(classSelected[0].index, 1));
                 setClass(classSelected[0]);
-                console.log(classSelected[0])
+                console.log(classSelected[0]);
                 navigate('Ability-Scores');
                 break;
             }

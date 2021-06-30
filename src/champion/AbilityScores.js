@@ -10,17 +10,23 @@ export default class AbilityScores extends Component {
             abilityScores: {},
             abilityScoresInfo: [],
             abilityScoresSelected: {},
+            abilityScoresModifiers: {},
             abilityScoresSwitch: false,
         }
         this.getScore = this.getScore.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount() {        
         if (isSelected(this.props.abilityScores)) {
-             this.setState({ abilityScores: this.props.abilityScores, abilityScoresInfo: this.props.abilityScoresInfo, abilityScoresSelected: this.props.abilityScoresSelected, }, this.abilityScoresSetup())
+            this.setState({
+                abilityScores: this.props.abilityScores,
+                abilityScoresInfo: this.props.abilityScoresInfo,
+                abilityScoresSelected: this.props.abilityScoresSelected,
+            }, this.abilityScoresSetup())
          } else {
-            this.getAbilityScores();
+            this.getAbilityScores();           
         }
+        console.log(this.props);
      }
 
     componentWillUnmount() {
@@ -29,8 +35,9 @@ export default class AbilityScores extends Component {
         this.props.setAbilityScoresSelected(this.state.abilityScoresSelected);
     }
 
-    abilityScoresSetup = () => {
-       const { count } = this.state.abilityScores;
+    abilityScoresSetup() {
+        const { count } = this.state.abilityScores;
+        console.log("abilityScoresSetup(), count: ", this.state.abilityScores.count)
         const { results } = this.state.abilityScores;
         let abilityScores = {};
         for (var j = 0; j < count; j++) {
@@ -41,22 +48,64 @@ export default class AbilityScores extends Component {
     }
 
     getAbilityScores() {
-        const url = "https://www.dnd5eapi.co/api/"
+        const url = 'https://www.dnd5eapi.co/api/';
         fetch(url + 'ability-scores')
             .then(result => result.json())
-            .then(result => { this.setState({ abilityScores: result }, this.getInfo(result)) })
+            .then(result => { this.setState({ abilityScores: result }, this.getInfo(result)); })
+            .then(() => { this.abilityScoresSetup(); }) //seems hacky?
             .catch(e => { console.log(e + " -- getAbilityScores() -- " + url); });
     }
 
     getInfo(data) {
-        const url = 'https://www.dnd5eapi.co'
+        const url = 'https://www.dnd5eapi.co';
         for (var i = 0; i < data.results.length; i++) {
             fetch(url + data.results[i].url)
                 .then(result => result.json())
-                .then(result => { this.setState((state) => ({ abilityScoresInfo: [...state.abilityScoresInfo, result] }), this.abilityScoresSetup()) });
+                .then(result => { this.setState((state) => ({ abilityScoresInfo: [...state.abilityScoresInfo, result] }), ) });
         }     
     }
 
+    abilityScoreModifier(abilityScoreValue) { //needs values for up to level 30. 
+        const { classSelected } = this.props;
+        console.log("abilityScoreModifier() starting with value of " + abilityScoreValue + ". ");
+        switch (true) {
+            case abilityScoreValue > 0 && abilityScoreValue < 2:
+                console.log("-5 modifier for a ability score of" + abilityScoreValue + ". ");
+                return (-5);
+            case abilityScoreValue > 1 && abilityScoreValue < 4:
+                console.log("-4 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (-4);
+            case abilityScoreValue > 3 && abilityScoreValue < 6:
+                console.log("-3 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (-3);
+            case abilityScoreValue > 5 && abilityScoreValue < 8:
+                console.log("-2 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (-2);
+            case abilityScoreValue > 7 && abilityScoreValue < 10:
+                console.log("-1 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (-1);
+            case abilityScoreValue > 9 && abilityScoreValue < 12:
+                console.log("+-0 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (0);
+            case abilityScoreValue > 11 && abilityScoreValue < 14:
+                console.log("+1 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (1);
+            case abilityScoreValue > 13 && abilityScoreValue < 16:
+                console.log("+2 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (2);
+            case abilityScoreValue > 15 && abilityScoreValue < 18:
+                console.log("+3 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (3);
+            case abilityScoreValue > 17 && abilityScoreValue < 20:
+                console.log("+4 modifier for a ability score of " + abilityScoreValue + ". ");
+                return (4);
+            default:
+                console.log("Do not have a modifier value set for " + classSelected.spellcasting.spellcasting_ability.index + " ability with a score of " + abilityScoreValue + " yet. ");
+                return (0);
+        }
+        //const num = (abilityScoreValue - 10) / 2;
+        //console.log(num);        
+    }
     scoreDisplay() {
         const { abilityScoresInfo, abilityScoresSelected } = this.state;
         const { raceSelected, classSelected } = this.props;
@@ -80,11 +129,11 @@ export default class AbilityScores extends Component {
                     } 
                 }
             }  
-            return (<div className="card border-dark mb-3 col-4 card-ability-score text-center" key={ability.index}>
-                    <div className="card-header text-white bg-dark ability-score-header">
+            return (<div className='card border-dark mb-3 col-4 card-ability-score text-center' key={ability.index}>
+                    <div className='card-header text-white bg-dark ability-score-header'>
                         <h6>{ability.full_name}</h6>
                     </div>
-                    <div className="card-body">
+                    <div className='card-body'>
                         <p className={abilityScore} key={ability.index}>{bonus}</p>
                     </div>
                 </div>);
@@ -94,17 +143,19 @@ export default class AbilityScores extends Component {
 
     getScore(ability) {        
         const { abilityScores } = this.state;
-        const { abilityScoresSelected } = this.state;
+        const { abilityScoresSelected, abilityScoresModifiers } = this.state;
         let scores = abilityScoresSelected
+        let modifiers = abilityScoresModifiers;
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
-                scores[ability] = randomDiceRoll(6)
-                this.setState({ abilityScoresSelected: scores })
+                let num = randomDiceRoll(6);
+                scores[ability] = num;
+                modifiers[ability] = this.abilityScoreModifier(num);
+                this.setState({ abilityScoresSelected: scores, abilityScoresModifiers: modifiers, });
                 break;
             }
         }      
     }
-
 
     handleSubmitAbilityScores = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
         const { abilityScoresSelected } = this.state
