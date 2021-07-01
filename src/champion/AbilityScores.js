@@ -13,7 +13,7 @@ export default class AbilityScores extends Component {
             abilityScoresModifiers: {},
             abilityScoresSwitch: false,
         }
-        this.getScore = this.getScore.bind(this);
+        this.getScore = this.getScore.bind(this);       
     }
 
     componentDidMount() {        
@@ -31,16 +31,13 @@ export default class AbilityScores extends Component {
      }
 
     componentWillUnmount() {
-        this.props.setAbilityScores(this.state.abilityScores);
-        this.props.setAbilityScoresInfo(this.state.abilityScoresInfo);
-        this.props.setAbilityScoresSelected(this.state.abilityScoresSelected);
-        console.log("AbilityScoresUnmounting and fn() to update modifiers ", this.state.abilityScoresModifiers);
-        this.props.setAbilityScoresModifiers(this.state.abilityScoresModifiers);
+        this.props.setAbilityScores(this.state.abilityScores, this.state.abilityScoresInfo, this.state.abilityScoresModifiers, this.state.abilityScoresSelected);        
+        console.log("AbilityScores unmounting and setAbilityScoresModifiers() being to update modifiers in CreateCharacter. ", this.state.abilityScoresModifiers);       
     }
 
     abilityScoresSetup() {
         const { count } = this.state.abilityScores;
-        console.log("abilityScoresSetup(), count: ", count)
+        console.log("abilityScoresSetup(), count: ", count);
         const { results } = this.state.abilityScores;
         let abilityScores = {};
         for (var j = 0; j < count; j++) {
@@ -109,25 +106,26 @@ export default class AbilityScores extends Component {
         //const num = (abilityScoreValue - 10) / 2;
         //console.log(num);        
     }
+
     scoreDisplay() {
         const { abilityScoresInfo, abilityScoresSelected } = this.state;
         const { raceSelected, classSelected } = this.props;
         let bonus = 0;
-        let abilityScore = ''
+        let abilityScore = '';
         let abilityScores = abilityScoresInfo.map((ability) => {
-            abilityScore = 'card-text abilityScore '
+            abilityScore = 'card-text abilityScore ';
             bonus = abilityScoresSelected[ability.index]          
             if (isSelected(classSelected)) {
                 for (var a = 0; a < classSelected.saving_throws.length; a++) {
                     if (ability.index === classSelected.saving_throws[a].index) {
-                        abilityScore += 'savingThrow '                      
+                        abilityScore += 'savingThrow ';                      
                     }
                 }
             }
             if (isSelected(raceSelected)) { 
                 for (var b = 0; b < raceSelected.ability_bonuses.length; b++) {
                     if (raceSelected.ability_bonuses[b].ability_score.index === ability.index) {                     
-                        abilityScore += 'bonus '
+                        abilityScore += 'bonus ';
                         bonus = abilityScoresSelected[ability.index] + raceSelected.ability_bonuses[b].bonus;
                     } 
                 }
@@ -218,3 +216,5 @@ export default class AbilityScores extends Component {
                 </div>)
     }
 }
+
+//Does not update modifiers if you use submit button on form. 

@@ -145,21 +145,25 @@ class CreateCharacter extends Component {
     }
       
     setAbilityScoresSelected = (abilityScoresSelected) => {
-        this.setState({ abilityScoresSelected: abilityScoresSelected, })
+        this.setState({ abilityScoresSelected: abilityScoresSelected, });
     }
 
-
-    setAbilityScores = (abilityScores) => {
-        this.setState({ abilityScores: abilityScores, })
+    setAbilityScores = (abilityScores, abilityScoresInfo, modifiers, abilityScoresSelected) => {
+        this.setState({
+            abilityScores: abilityScores,
+            abilityScoresInfo: abilityScoresInfo,
+            abilityScoresModifiers: modifiers,
+            abilityScoresSelected: abilityScoresSelected,
+        });
     }
 
     setAbilityScoresInfo = (abilityScoresInfo) => {
-        this.setState({ abilityScoresInfo: abilityScoresInfo, })
+        this.setState({ abilityScoresInfo: abilityScoresInfo, });
     }
 
     setAbilityScoresModifiers = (modifiers) => {
         console.log("modifiers being set in CreateCharacter App", modifiers);
-        this.setState({ abilityScoresModifiers: modifiers, })
+        this.setState({ abilityScoresModifiers: modifiers, });
     }
         
     getLevelData(index, currentLevel) { //

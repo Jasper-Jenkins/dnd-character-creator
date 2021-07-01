@@ -8,7 +8,7 @@ class ClassSpells extends Component {
         this.state = {
             classSelected: {},
             classSpells: [], 
-            spellSlots: [], 
+            spellSlots: [0,0], 
             spellsAvailableByLevel: [],
             spellsChosen: [],
             levelData: {},
@@ -45,8 +45,8 @@ class ClassSpells extends Component {
 
     componentWillUnmount() {
         if (this.state.spellsInfo.length === this.state.spells.count) {
-            this.props.setSpells(this.state.spells)
-            this.props.setSpellsInfo(this.state.spellsInfo)     
+            this.props.setSpells(this.state.spells);
+            this.props.setSpellsInfo(this.state.spellsInfo);    
         }
     }   
     
@@ -68,7 +68,7 @@ class ClassSpells extends Component {
                 .then(result => { info.push(result); if (this.state.spellsInfo.length === this.state.spells.count) { this.setClassSpells(1, info) }})
                 .catch(e => { console.log(e + " -- getSpellInfo() -- " + url); });
         }
-        this.setState({ spellsInfo: info });      
+        this.setState({ spellsInfo: info, });      
     }
     
     setClassSpells(level, spellsInfoData) {       
@@ -128,13 +128,15 @@ class ClassSpells extends Component {
             } else {
                 if (abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index] !== undefined) {
                     console.log(abilityScoresModifiers);
-                    modifier = abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index]
+                    modifier = abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index];
                 } else {
                     console.log("Something aint right cletus");
                 }
                 spellCountAvailableAtLevelOne[1] = modifier + levelData.level;
                 console.log(abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index], "Setting up spells known based on ability score modifiers + character level: " + classSelected.name + ". Modifier: " + modifier + ", level " + levelData.level);
-
+                if (classSelected.name === 'Wizard' && levelData.level === 1) {
+                    spellCountAvailableAtLevelOne[1] = 6;
+                }
 
                 //switch (classSelected.name) {
                 //    case 'Cleric':
@@ -154,27 +156,7 @@ class ClassSpells extends Component {
 
                 //        break;
                 //}
-            }
-             //switch (classSelected.name) {
-            //    case 'Bard':                   
-            //    case 'Cleric':                    
-            //    case 'Druid':                    
-            //    case 'Paladin':                   
-            //    case 'Ranger':                                        
-            //    case 'Sorcerer':                                  
-            //    case 'Warlock':                   
-            //    case 'Wizard':                    
-            //        console.log("Setting up Spells for " + classSelected.name);
-            //    break;      
-            //    case 'Barbarian':
-            //    case 'Fighter':
-            //    case 'Monk': 
-            //    case 'Rogue':
-            //        alert("Should not have happened at chooseSpells() in ClassSpells Class when " + classSelected.name + " was chosen.");
-            //        break;
-            //    default:
-            //        break;                
-            //}
+            }            
         }
         this.setState({ // need to change key name from 'spellSlots' to something else that matches how many can be added to the spellbook not how many can be casted
             spellSlots: spellCountAvailableAtLevelOne,
@@ -240,7 +222,7 @@ class ClassSpells extends Component {
       
         let cantrips = 0;
         let levelOneSpells = 0;
-        let level0, level1;
+        let level0, level1 = 0;
         [level0, level1] = spellSlots;
         let message = "You cannot add " + spell.name + " to your spell book.";        
         switch(classSelected.name) {
@@ -268,6 +250,7 @@ class ClassSpells extends Component {
                     break;
                 }
                 [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+              
                 if (cantrips < level0 && spell.level === 0) {
                     this.updateSpells(spell);
                     break;
@@ -285,7 +268,7 @@ class ClassSpells extends Component {
                     this.updateSpells(spell);
                     break;
                 }
-                
+                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
                 if (cantrips < level0 && spell.level === 0) {
                     this.updateSpells(spell);
                     break;
@@ -316,11 +299,7 @@ class ClassSpells extends Component {
                     break;
                 }
                 break;
-            case "Ranger":
-                if (spellsChosen.length === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
+            case "Ranger":        
                 [cantrips, levelOneSpells] = this.spellsChosenByLevel();
                 if (cantrips < level0 && spell.level === 0) {
                     this.updateSpells(spell);
@@ -333,10 +312,10 @@ class ClassSpells extends Component {
             case "Rogue":
                 break;
             case "Sorcerer":
-                if (spellsChosen.length === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }               
+                //if (spellsChosen.length === 0) {
+                //    this.updateSpells(spell);
+                //    break;
+                //}               
                 [cantrips, levelOneSpells] = this.spellsChosenByLevel();
                 if (cantrips < 4 && spell.level === 0) {
                     this.updateSpells(spell);
@@ -351,10 +330,7 @@ class ClassSpells extends Component {
                 this.props.updateAlertMessage(message);
                 break;
             case "Warlock":
-                if (spellsChosen.length === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
+               
                 [cantrips, levelOneSpells] = this.spellsChosenByLevel();
                 if (cantrips < 2 && spell.level === 0) {
                     this.updateSpells(spell);
@@ -369,18 +345,13 @@ class ClassSpells extends Component {
                 this.props.updateAlertMessage(message);
                 break;
             case "Wizard":
-                console.log("Wizard Spell source. ")
-                if (spellsChosen.length === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-               
                 [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                if (cantrips < 3 && spell.level === 0) {
+                console.log("Cantrips: ", level0, " level one spells: ", level1);
+                if (cantrips < level0 && spell.level === 0) {
                     this.updateSpells(spell);
                     break;
                 } 
-                if (levelOneSpells < level1 + 1 && spell.level === 1) { //breaks UI, they can choose 6, but can only equip 2, so the UI shows up at -4.
+                if (levelOneSpells < level1 && spell.level === 1) { //breaks UI, they can choose 6, but can only equip 2, so the UI shows up at -4.
                     this.updateSpells(spell);
                     break;
                 }               
@@ -546,6 +517,7 @@ class ClassSpells extends Component {
     }
 }
 
+//Druid can select unlimited spells... fix this.
 
 
 
