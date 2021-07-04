@@ -35,11 +35,8 @@ export default class AbilityScores extends Component {
         console.log("AbilityScores unmounting and setAbilityScoresModifiers() being used to update modifiers in CreateCharacter. ", this.state.abilityScoresModifiers);       
     }
 
-    abilityScoresSetup(arr) {
-        
-       
-        let abilityScores = {};
-     
+    abilityScoresSetup(arr) {       
+        let abilityScores = {};     
         for (var j = 0; j < arr.length; j++) {
             let ability = arr[j].index;
             abilityScores[ability] = 0;
@@ -143,11 +140,14 @@ export default class AbilityScores extends Component {
         return (abilityScores);
     }
 
+
+
+
     getScore(ability) {        
         const { abilityScores } = this.state;
         console.log('getScore() abilityScores: ', abilityScores);
         const { abilityScoresSelected, abilityScoresModifiers } = this.state;
-        let scores = abilityScoresSelected
+        let scores = abilityScoresSelected;
         let modifiers = abilityScoresModifiers;
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
@@ -156,13 +156,14 @@ export default class AbilityScores extends Component {
                 console.log("getScore(), ", ability, " num: ", num);
                 modifiers[ability] = this.abilityScoreModifier(num);
                 this.setState({ abilityScoresSelected: scores, abilityScoresModifiers: modifiers, });
+                this.props.setAbilityScoresModifiers(modifiers);
                 break;
             }
         }      
     }
 
     handleSubmitAbilityScores = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
-        const { abilityScoresSelected, abilityScoresModifiers } = this.state
+        const { abilityScoresSelected, abilityScoresModifiers } = this.state;
         let scores = abilityScoresSelected
         let noZeroes = [];
         let modifiers = abilityScoresModifiers;
@@ -174,7 +175,8 @@ export default class AbilityScores extends Component {
                 value = parseInt(abilities[i].value, 10);
                 scores[abilities[i].name] = value;
                 modifiers[abilities[i].name] = this.abilityScoreModifier(value);
-                this.setState({ abilityScoresSelected: scores, abilityScoresModifiers: modifiers, })
+                this.setState({ abilityScoresSelected: scores, abilityScoresModifiers: modifiers, });
+                this.props.setAbilityScoresModifiers(modifiers);
             }
         }
         if (noZeroes.length > 0) {

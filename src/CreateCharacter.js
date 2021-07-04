@@ -144,22 +144,22 @@ class CreateCharacter extends Component {
         });
     }
       
-    setAbilityScoresSelected = (abilityScoresSelected) => {
-        this.setState({ abilityScoresSelected: abilityScoresSelected, });
-    }
+    //setAbilityScoresSelected = (abilityScoresSelected) => {
+    //    this.setState({ abilityScoresSelected: abilityScoresSelected, });
+    //}
 
     setAbilityScores = (abilityScores, abilityScoresInfo, modifiers, abilityScoresSelected) => {
         this.setState({
             abilityScores: abilityScores,
             abilityScoresInfo: abilityScoresInfo,
-            abilityScoresModifiers: modifiers,
+            //abilityScoresModifiers: modifiers,
             abilityScoresSelected: abilityScoresSelected,
         });
     }
 
-    setAbilityScoresInfo = (abilityScoresInfo) => {
-        this.setState({ abilityScoresInfo: abilityScoresInfo, });
-    }
+    //setAbilityScoresInfo = (abilityScoresInfo) => {
+    //    this.setState({ abilityScoresInfo: abilityScoresInfo, });
+    //}
 
     setAbilityScoresModifiers = (modifiers) => {
         console.log("modifiers being set in CreateCharacter App", modifiers);
