@@ -152,8 +152,7 @@ export default class AbilityScores extends Component {
         for (var i = 0; i < abilityScores.count; i++) {
             if (abilityScores.results[i].index === ability) {
                 let num = randomDiceRoll(6);
-                scores[ability] = num;
-                console.log("getScore(), ", ability, " num: ", num);
+                scores[ability] = num;                
                 modifiers[ability] = this.abilityScoreModifier(num);
                 this.setState({ abilityScoresSelected: scores, abilityScoresModifiers: modifiers, });
                 this.props.setAbilityScoresModifiers(modifiers);

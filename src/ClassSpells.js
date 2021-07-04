@@ -214,150 +214,26 @@ class ClassSpells extends Component {
     }
 
     spellSource = (spell, currentLevel) => { // DUDE! this needs some loving. refactor this.
-        const { classSelected } = this.props;
-        const { spellsChosen } = this.props;
         const { spellSlots } = this.state;
-      
         let cantrips = 0;
         let levelOneSpells = 0;
         let level0, level1 = 0;
         [level0, level1] = spellSlots;
-        let message = "You cannot add " + spell.name + " to your spell book.";        
-        switch(classSelected.name) {
-            case "Barbarian":
-                break;
-            case "Bard":
-                if (spellsChosen.length === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                if (cantrips < level0 && spell.level === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-                if (levelOneSpells < level1 && spell.level === 1) {
-                    this.updateSpells(spell);
-                    break;
-                }               
-                this.props.updateAlertMessage(message);
-                break;
-            case "Cleric":
-                if (spellsChosen.length === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-              
-                if (cantrips < level0 && spell.level === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
+        //let message = "You cannot add " + spell.name + " to your spell book.";   
+        [cantrips, levelOneSpells] = this.spellsChosenByLevel();
+       // console.log("Cantrips: ", level0, " level one spells: ", level1);
+        if (cantrips < level0 && spell.level === 0) {
+            this.updateSpells(spell);
+          
+        }
+        if (levelOneSpells < level1 && spell.level === 1) {
+            this.updateSpells(spell);
+           
+        }
+        //this.props.updateAlertMessage(message);
+        //break;
 
-                if (levelOneSpells < level1 && spell.level === 1) {
-                    this.updateSpells(spell);
-                    break;
-                }
-                
-                this.props.updateAlertMessage(message);
-                break;
-            case "Druid":
-                if (spellsChosen.length === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                if (cantrips < level0 && spell.level === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-                if (levelOneSpells < level1 && spell.level === 1) {
-                    this.updateSpells(spell);
-                    break;
-                }               
-                this.props.updateAlertMessage(message);
-                break;
-            case "Fighter":
-                break;
-            case "Monk":
-                break;
-            case "Paladin":
-                if (spellsChosen.length === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-               [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                if (cantrips < level0 && spell.level === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-
-                if (levelOneSpells < level1 && spell.level === 1) {
-                    this.updateSpells(spell);
-                    break;
-                }
-                break;
-            case "Ranger":        
-                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                if (cantrips < level0 && spell.level === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-                if (levelOneSpells < level1 && spell.level === 1) {
-                    this.updateSpells(spell);
-                }
-                break;
-            case "Rogue":
-                break;
-            case "Sorcerer":
-                //if (spellsChosen.length === 0) {
-                //    this.updateSpells(spell);
-                //    break;
-                //}               
-                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                if (cantrips < 4 && spell.level === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-
-                if (levelOneSpells < 2 && spell.level === 1) {
-                    this.updateSpells(spell);
-                    break;
-                }
-               
-                this.props.updateAlertMessage(message);
-                break;
-            case "Warlock":
-               
-                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                if (cantrips < 2 && spell.level === 0) {
-                    this.updateSpells(spell);
-                    break;
-                }
-
-                if (levelOneSpells < 2 && spell.level === 1) {
-                    this.updateSpells(spell);
-                    break;
-                }
-               
-                this.props.updateAlertMessage(message);
-                break;
-            case "Wizard":
-                [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-                console.log("Cantrips: ", level0, " level one spells: ", level1);
-                if (cantrips < level0 && spell.level === 0) {
-                    this.updateSpells(spell);
-                    break;
-                } 
-                if (levelOneSpells < level1 && spell.level === 1) { //breaks UI, they can choose 6, but can only equip 2, so the UI shows up at -4.
-                    this.updateSpells(spell);
-                    break;
-                }               
-                this.props.updateAlertMessage(message);
-                break;
-            default:
-                break;
-        }              
+                   
     }
 
     
