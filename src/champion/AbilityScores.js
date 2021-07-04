@@ -23,7 +23,7 @@ export default class AbilityScores extends Component {
                 abilityScoresInfo: this.props.abilityScoresInfo,
                 abilityScoresSelected: this.props.abilityScoresSelected,
                 abilityScoresModifiers: this.props.abilityScoresModifiers,
-            }, this.abilityScoresSetup())
+            }, this.abilityScoresSetup(this.props.abilityScoresInfo))
          } else {
             this.getAbilityScores();           
         }
@@ -32,16 +32,16 @@ export default class AbilityScores extends Component {
 
     componentWillUnmount() {
         this.props.setAbilityScores(this.state.abilityScores, this.state.abilityScoresInfo, this.state.abilityScoresModifiers, this.state.abilityScoresSelected);        
-        console.log("AbilityScores unmounting and setAbilityScoresModifiers() being to update modifiers in CreateCharacter. ", this.state.abilityScoresModifiers);       
+        console.log("AbilityScores unmounting and setAbilityScoresModifiers() being used to update modifiers in CreateCharacter. ", this.state.abilityScoresModifiers);       
     }
 
-    abilityScoresSetup() {
-        const { count } = this.state.abilityScores;
-        console.log("abilityScoresSetup(), count: ", count);
-        const { results } = this.state.abilityScores;
+    abilityScoresSetup(arr) {
+        
+       
         let abilityScores = {};
-        for (var j = 0; j < count; j++) {
-            let ability = results[j].index;
+     
+        for (var j = 0; j < arr.length; j++) {
+            let ability = arr[j].index;
             abilityScores[ability] = 0;
         }
         console.log("abilityScores at the end of abilityScoresSetup() ", abilityScores);
@@ -53,16 +53,17 @@ export default class AbilityScores extends Component {
         fetch(url + 'ability-scores')
             .then(result => result.json())
             .then(result => { this.setState({ abilityScores: result }, this.getInfo(result)); })
-            .then(() => { this.abilityScoresSetup(); console.log('getAbilityScores()', this.state.abilityScores); }) //seems hacky?
-            .catch(e => { console.log(e + " -- getAbilityScores() -- " + url); });
+            .then(() => { this.abilityScoresSetup(this.state.abilityScores.results); }) //seems hacky?
+            .catch(e => { console.log(e + " -- getAbilityScores() in AbilityScores-- " + url); });
     }
 
     getInfo(data) {
-        const url = 'https://www.dnd5eapi.co';
-        for (var i = 0; i < data.results.length; i++) {
+        const url = 'https://www.dnd5eapi.co';        
+        for (var i = 0; i < data.results.length; i++) {            
             fetch(url + data.results[i].url)
                 .then(result => result.json())
-                .then(result => { this.setState((state) => ({ abilityScoresInfo: [...state.abilityScoresInfo, result] }), ) });
+                .then(result => { this.setState((state) => ({ abilityScoresInfo: [...state.abilityScoresInfo, result] })); })
+                .catch(e => { console.log(e + " -- getInfo() in AbilityScores -- " + url); });
         }     
     }
 
@@ -161,15 +162,19 @@ export default class AbilityScores extends Component {
     }
 
     handleSubmitAbilityScores = (abilities) => { //needs tending too, add better out of bounds messages...and how its handled 
-        const { abilityScoresSelected } = this.state
+        const { abilityScoresSelected, abilityScoresModifiers } = this.state
         let scores = abilityScoresSelected
-        let noZeroes = []
-        for (var i = 0; i < abilities.length; i++) {
+        let noZeroes = [];
+        let modifiers = abilityScoresModifiers;
+        for (let i = 0; i < abilities.length; i++) {
             if (abilities[i].value < 3 || abilities[i].value > 18) { //needs better validation
                 noZeroes.push(abilities[i].name);
             } else {
-                scores[abilities[i].name] = parseInt(abilities[i].value, 10)
-                this.setState({ abilityScoresSelected: scores })
+                let value = 0;
+                value = parseInt(abilities[i].value, 10);
+                scores[abilities[i].name] = value;
+                modifiers[abilities[i].name] = this.abilityScoreModifier(value);
+                this.setState({ abilityScoresSelected: scores, abilityScoresModifiers: modifiers, })
             }
         }
         if (noZeroes.length > 0) {
@@ -201,7 +206,7 @@ export default class AbilityScores extends Component {
     }
 
     render() {
-        const {abilityScoresSwitch } = this.state;       
+        const { abilityScoresSwitch } = this.state;       
         return (<div className='selection col-12'>
                     <div className="col-12 selectionTitle">
                         <h3 className="text-center">Set ability scores</h3>                      

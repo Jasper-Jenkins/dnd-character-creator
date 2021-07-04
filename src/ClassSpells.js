@@ -137,7 +137,6 @@ class ClassSpells extends Component {
                 if (classSelected.name === 'Wizard' && levelData.level === 1) {
                     spellCountAvailableAtLevelOne[1] = 6;
                 }
-
                 //switch (classSelected.name) {
                 //    case 'Cleric':
                 //        //Cantrips
@@ -153,7 +152,6 @@ class ClassSpells extends Component {
                 //        //Intelligence modifier + level, gets 6 spells in spell book at level 1
                 //      break;
                 //    default:
-
                 //        break;
                 //}
             }            
