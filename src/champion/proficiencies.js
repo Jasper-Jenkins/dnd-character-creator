@@ -68,8 +68,10 @@ class ClassProficiencies extends Component {
 
 
     getProficiencyInfo(proficiency) { 
-        const url = 'https://www.dnd5eapi.co'
-        fetch(url + proficiency.references[0].url)
+        const url = 'https://www.dnd5eapi.co';
+        console.log("getProficiencyInfo() ", proficiency);
+         
+        fetch(url + proficiency.reference.url)
             .then(result => result.json())
             .then(result => { this.setState({ proficiencySelectedInfo: result, proficiencyIndex: proficiency.index, }); })
             .catch(e => { console.log(e + " -- getProficiencyInfo()  -- " + url); });

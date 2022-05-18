@@ -30,12 +30,10 @@ class ClassSpells extends Component {
         if (isSelected(this.props.classSelected) && this.props.classSelected.spellcasting !== undefined) {        
             if (this.props.spellsInfo.length === this.props.spells.count) {
                 this.setState({ spells: this.props.spells, spellsInfo: this.props.spellsInfo, })
-               // this.spellSlots(); 
                 this.setClassSpells(1, this.props.spellsInfo);
                 this.spellBook();
             } else {
                 this.getSpells();
-            //    this.spellSlots();
                 this.spellBook();
             }
         } else {
@@ -52,14 +50,14 @@ class ClassSpells extends Component {
     
     getSpells() {
         const { classSelected } = this.props;
-        const url = 'https://www.dnd5eapi.co'
+        const url = 'https://www.dnd5eapi.co';
         fetch(url + classSelected.spells)
             .then(result => result.json())
             .then(result => { this.setState({ spells: result, }, this.getSpellInfo(result)) })
             .catch(e => { console.log(e + " -- getSpells() -- " + url); });
     }
 
-    getSpellInfo(data) {             
+    getSpellInfo(data) { // the setClassSpells() could be in a better spot?             
         let info = [];
         const url = 'https://www.dnd5eapi.co';
         for (let i = 0; i < data.results.length; i++) {
@@ -91,7 +89,7 @@ class ClassSpells extends Component {
     }
 
    
-    spellBook() { // was chooseSpells(), use to search out other places in code to make changes.
+    spellBook() {
         const { classSelected } = this.props;
         const { levelData, abilityScoresModifiers } = this.props;
        
@@ -126,7 +124,7 @@ class ClassSpells extends Component {
                 //        break;
                 //}
             } else {
-                if (abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index] !== undefined) {
+                if (abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index] !== undefined) {//
                     console.log(abilityScoresModifiers);
                     modifier = abilityScoresModifiers[classSelected.spellcasting.spellcasting_ability.index];
                 } else {
@@ -159,33 +157,7 @@ class ClassSpells extends Component {
         this.setState({ // need to change key name from 'spellSlots' to something else that matches how many can be added to the spellbook not how many can be casted
             spellSlots: spellCountAvailableAtLevelOne,
         }, this.props.updateSpellSlots(spellCountAvailableAtLevelOne));
-    }
-
-    //spellSlots() { // this function assumes the level of the character is already resolved and the data for that level has been retrieved: 'levelData'
-    //    const { classSelected } = this.props;
-    //    const { levelData } = this.props;
-    //    let slotsAvailable = [];
-    //    if (levelData.spellcasting !== undefined) {
-    //        if (classSelected.name === 'Ranger' || classSelected.name === 'Paladin') {        
-    //            for (let i = 1; i < 6; i++) {
-    //                if (levelData.spellcasting['spell_slots_level_' + i] !== 0) {
-    //                    slotsAvailable[i] = levelData.spellcasting['spell_slots_level_' + i]; 
-    //                }
-    //            }
-    //        } else {
-    //            slotsAvailable[0] = levelData.spellcasting.cantrips_known;
-    //            console.log(levelData);
-    //            for (let k = 1; k < 10; k++) {
-    //                if (levelData.spellcasting['spell_slots_level_' + k] !== 0) {
-    //                    slotsAvailable[k] = levelData.spellcasting['spell_slots_level_' + k];
-    //                }
-    //            }                
-    //        }
-    //    }
-    //    this.setState({
-    //        spellSlots: slotsAvailable,
-    //    }, this.props.updateSpellSlots(slotsAvailable));
-    //}      
+    }    
 
     updateSpells = (spell) => {
         const { spellsChosen } = this.props;
@@ -196,7 +168,7 @@ class ClassSpells extends Component {
         this.props.setChosenSpells(spells); //parent spells update so Info can display chosen spells
     }
 
-    spellsChosenByLevel = () => { //this will only work for level one character creation. Works for this app as its for level one only. 
+    spellsChosenByLevel = () => { //make this work for all levels 
         const { spellsChosen } = this.props;
         let cantrips = 0;
         let levelOneSpells = 0;
@@ -212,42 +184,33 @@ class ClassSpells extends Component {
         spells.push(levelOneSpells);
         return spells;
     }
-
-    spellSource = (spell, currentLevel) => { // DUDE! this needs some loving. refactor this.
+    
+    addSpell = (spell) => {
+        const { setSelectedSpell } = this.props;
         const { spellSlots } = this.state;
         let cantrips = 0;
         let levelOneSpells = 0;
         let level0, level1 = 0;
-        [level0, level1] = spellSlots;
-        //let message = "You cannot add " + spell.name + " to your spell book.";   
+        [level0, level1] = spellSlots;        
         [cantrips, levelOneSpells] = this.spellsChosenByLevel();
-       // console.log("Cantrips: ", level0, " level one spells: ", level1);
         if (cantrips < level0 && spell.level === 0) {
             this.updateSpells(spell);
-          
+            setSelectedSpell(spell);
+            return;
         }
         if (levelOneSpells < level1 && spell.level === 1) {
             this.updateSpells(spell);
-           
+            setSelectedSpell(spell);
+            return;
         }
-        //this.props.updateAlertMessage(message);
-        //break;
-
-                   
-    }
-
-    
-    
-    addSpell = (spell) => {
-        const { setSelectedSpell } = this.props;
-        this.spellSource(spell, 1);
-        setSelectedSpell(spell)
+        let message = "You cannot add " + spell.name + " to your spell book.";
+        this.props.updateAlertMessage(message);       
     }
 
     removeSpell = (spell) => {
-        const { spellsChosen } = this.props
-        const { setSelectedSpell } = this.props
-        let spells = []
+        const { spellsChosen } = this.props;
+        const { setSelectedSpell } = this.props;
+        let spells = [];
         for (let i = 0; i < spellsChosen.length; i++) {
             if (spellsChosen[i].name !== spell.name) {
                 spells.push(spellsChosen[i])
@@ -256,8 +219,8 @@ class ClassSpells extends Component {
         this.setState({
             spellsChosen: spells,
         });
-        this.props.setChosenSpells(spells)
-        setSelectedSpell({})
+        this.props.setChosenSpells(spells);
+        setSelectedSpell({});
     }
 
     setNavigationCategory(newCategory) {
@@ -287,10 +250,8 @@ class ClassSpells extends Component {
     }
 
     displaySpells = () => {
-        const { classSelected } = this.props;
-        const { classSpells } = this.state;
-        const { spellSlots } = this.state;
-        const { spellsChosen } = this.props;
+        const { classSelected, spellsChosen } = this.props;
+        const { classSpells, spellSlots } = this.state;        
         let spellChoices = []; 
         let spellChoiceDisplay = [];
        //let target = ''
@@ -390,9 +351,5 @@ class ClassSpells extends Component {
             </div>);
     }
 }
-
-//Druid can select unlimited spells... fix this.
-
-
 
 export default ClassSpells;
