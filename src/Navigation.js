@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 class Navigation extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { //why is this a class? there is no state...
 
         }
 

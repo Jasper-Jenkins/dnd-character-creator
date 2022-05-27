@@ -1,12 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
     "\\src",
     "\\src\\assets",
     "\\src\\champion",
     "\\src\\helper",
     "\\src\\helper\\modal"
   ],
-  "SelectedNode": "\\src\\champion\\Classes.js",
   "PreviewInSolutionExplorer": false
 }

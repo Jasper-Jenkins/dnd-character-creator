@@ -27,6 +27,7 @@ class ClassSpells extends Component {
     }
 
     componentDidMount() {   
+        console.log('using ClassSpells Class{}, and not spells Class{}')
         if (isSelected(this.props.classSelected) && this.props.classSelected.spellcasting !== undefined) {        
             if (this.props.spellsInfo.length === this.props.spells.count) {
                 this.setState({ spells: this.props.spells, spellsInfo: this.props.spellsInfo, })
@@ -92,7 +93,8 @@ class ClassSpells extends Component {
     spellBook() {
         const { classSelected } = this.props;
         const { levelData, abilityScoresModifiers } = this.props;
-       
+        console.log("spellBook() classSelected: ", classSelected);
+        console.log("AbilityScoresModifiers ", abilityScoresModifiers);
         let modifier = 0; 
         
         console.log(" -- spellBook() -- ", this.props);
